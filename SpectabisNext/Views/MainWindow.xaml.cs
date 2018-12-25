@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using SpectabisLib.Services;
 using SpectabisNext.Controls.GameTile;
+using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
 
 namespace SpectabisNext.Views
@@ -13,12 +14,15 @@ namespace SpectabisNext.Views
     public class MainWindow : Window
     {
         private readonly GameProfileRepository _gameRepository;
+        private readonly GameTileFactory _tileFactory;
 
-        public MainWindow(GameProfileRepository gameRepo)
+        public MainWindow(GameProfileRepository gameRepo, GameTileFactory tileFactory)
         {
-            this._gameRepository = gameRepo;
+            _gameRepository = gameRepo;
+            _tileFactory = tileFactory;
 
             InitializeComponent();
+
             Populate();
             FillBackgroundColor();
         }
@@ -57,8 +61,11 @@ namespace SpectabisNext.Views
         private void Populate()
         {
             var gamePanel = this.FindControl<WrapPanel>("GamePanel");
-            var gg = new GameTileView(_gameRepository.GetAll().First());
-            var gg2 = new GameTileView(_gameRepository.GetAll().First());
+            var game = _gameRepository.GetAll().First();
+
+            var gg = _tileFactory.Create(game);
+            var gg2 = _tileFactory.Create(game);
+
             gamePanel.Children.Add(gg);
 
             gg.PointerEnter += GamePointerEnter;

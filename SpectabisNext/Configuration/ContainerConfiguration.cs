@@ -1,5 +1,6 @@
 using Autofac;
 using SpectabisLib.Services;
+using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
 using SpectabisNext.Views;
 
@@ -16,6 +17,8 @@ namespace SpectabisNext.Configuration
             builder.RegisterType<MainWindow>();
 
             builder.RegisterType<GameProfileRepository>();
+
+            builder.RegisterType<GameTileFactory>();
 
             return builder.Build();
         }
