@@ -4,7 +4,7 @@ using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
 using SpectabisNext.Views;
 
-namespace SpectabisNext.Configuration
+namespace SpectabisNext.ComponentConfiguration
 {
     public class ContainerConfiguration
     {

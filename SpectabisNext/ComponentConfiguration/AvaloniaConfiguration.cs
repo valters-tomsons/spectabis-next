@@ -1,7 +1,7 @@
 using Avalonia;
 using SpectabisNext.Interfaces;
 
-namespace SpectabisNext.Configuration
+namespace SpectabisNext.ComponentConfiguration
 {
     public class AvaloniaConfiguration : IWindowConfiguration
     {

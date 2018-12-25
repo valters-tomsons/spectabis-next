@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Avalonia;
-using SpectabisNext.Configuration;
+using SpectabisNext.ComponentConfiguration;
 using SpectabisNext.Interfaces;
 using SpectabisNext.Views;
 
