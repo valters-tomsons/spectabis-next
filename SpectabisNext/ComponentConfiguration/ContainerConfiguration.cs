@@ -2,6 +2,7 @@ using Autofac;
 using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
+using SpectabisNext.Models.Configuration;
 using SpectabisNext.Views;
 
 namespace SpectabisNext.ComponentConfiguration
@@ -17,6 +18,8 @@ namespace SpectabisNext.ComponentConfiguration
             // Contains avalonia application instance
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
             builder.RegisterType<MainWindow>();
+
+            builder.RegisterType<UIConfiguration>();
 
             builder.RegisterType<GameProfileRepository>();
 
