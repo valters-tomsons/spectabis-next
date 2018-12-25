@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui">
+    <Grid Name="TileControlGrid">
+
+        <Image 
+            Name="BoxArtImage" 
+            HorizontalAlignment="Center"
+        />
+
+        <Rectangle 
+            Name="HoverOverlay" 
+            Opacity = "0.6" 
+            Fill="Black"
+            IsVisible = "False"
+        />
+
+        <TextBlock 
+            Name="BoxTitle" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Bottom" 
+            Margin="0,0,0,50"
+            FontSize="18"
+            Foreground = "White"
+            TextWrapping = "Wrap"
+        />
+
+    </Grid>
+</UserControl>
