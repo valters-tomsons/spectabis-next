@@ -18,10 +18,11 @@
             Name="BoxTitle" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Bottom" 
-            Margin="0,0,0,50"
-            FontSize="18"
+            Margin="25,0,25,25"
+            FontSize="14"
             Foreground = "White"
             TextWrapping = "Wrap"
+            TextAlignment = "Center"
             IsVisible = "False"
         />
 
