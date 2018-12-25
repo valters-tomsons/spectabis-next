@@ -36,19 +36,6 @@ namespace SpectabisNext.Controls.GameTile
             }
         }
 
-        public bool ShowTitle
-        {
-            get
-            {
-                return BoxTitle.IsVisible;
-            }
-
-            set
-            {
-                BoxTitle.IsVisible = value;
-            }
-        }
-
         public bool ShowHoverOverlay
         {
             get
@@ -58,6 +45,7 @@ namespace SpectabisNext.Controls.GameTile
             set
             {
                 HoverOverlayRectangle.IsVisible = value;
+                BoxTitle.IsVisible = value;
             }
         }
 
