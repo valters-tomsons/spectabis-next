@@ -13,6 +13,8 @@ namespace SpectabisNext.ComponentConfiguration
             var builder = new ContainerBuilder();
 
             builder.RegisterType<Spectabis>().As<ISpectabis>();
+
+            // Contains avalonia application instance
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
             builder.RegisterType<MainWindow>();
 
