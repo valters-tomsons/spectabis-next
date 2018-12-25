@@ -4,6 +4,7 @@
         <Image 
             Name="BoxArtImage" 
             HorizontalAlignment="Center"
+            Stretch="Fill"
         />
 
         <Rectangle 
