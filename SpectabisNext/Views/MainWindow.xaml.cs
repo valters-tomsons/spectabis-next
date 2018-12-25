@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using SpectabisLib.Services;
+using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTile;
 using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;

@@ -1,5 +1,5 @@
 using Autofac;
-using SpectabisLib.Services;
+using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
 using SpectabisNext.Views;
