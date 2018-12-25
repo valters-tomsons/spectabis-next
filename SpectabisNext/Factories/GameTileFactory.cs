@@ -10,7 +10,6 @@ namespace SpectabisNext.Factories
         public GameTileFactory(UIConfiguration uiConfiguration)
         {
             _uiConfiguration = uiConfiguration;
-
         }
 
         public GameTileView Create(GameProfile game)

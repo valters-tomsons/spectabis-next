@@ -8,6 +8,7 @@ using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTile;
 using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
+using SpectabisNext.Models.Configuration;
 
 namespace SpectabisNext.Views
 {
@@ -15,9 +16,11 @@ namespace SpectabisNext.Views
     {
         private readonly GameProfileRepository _gameRepository;
         private readonly GameTileFactory _tileFactory;
+        private readonly UIConfiguration _uiConfiguration;
 
-        public MainWindow(GameProfileRepository gameRepo, GameTileFactory tileFactory)
+        public MainWindow(GameProfileRepository gameRepo, GameTileFactory tileFactory, UIConfiguration uiConfiguration)
         {
+            _uiConfiguration = uiConfiguration;
             _gameRepository = gameRepo;
             _tileFactory = tileFactory;
 
@@ -29,28 +32,7 @@ namespace SpectabisNext.Views
 
         private void FillBackgroundColor()
         {
-            var bgBrush = new LinearGradientBrush()
-            {
-                StartPoint = new RelativePoint(0, 1, 0),
-                EndPoint = new RelativePoint(0.5, 0, 0)
-            };
-            
-            var stop1 = new GradientStop()
-            {
-                Color = Color.Parse("#BDBDBD"),
-                Offset = 0
-            };
-
-            var stop2 = new GradientStop()
-            {
-                Color = Color.Parse("#F5F5F5"),
-                Offset = 0.56
-            };
-
-            bgBrush.GradientStops.Add(stop1);
-            bgBrush.GradientStops.Add(stop2);
-
-            this.Background = bgBrush;
+            this.Background = _uiConfiguration.UIBackgroundGradient;
         }
 
         private void InitializeComponent()
