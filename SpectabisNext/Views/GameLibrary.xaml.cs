@@ -33,7 +33,7 @@ namespace SpectabisNext.Views
             var gg2 = _tileFactory.Create(game);
 
             gamePanel.Children.Add(gg);
-
+            gamePanel.Children.Add(gg2);
         }
     }
 }

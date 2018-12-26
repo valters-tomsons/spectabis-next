@@ -3,6 +3,7 @@ using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
 using SpectabisNext.Models.Configuration;
+using SpectabisNext.Repositories;
 using SpectabisNext.Views;
 
 namespace SpectabisNext.ComponentConfiguration
@@ -19,6 +20,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
             builder.RegisterType<MainWindow>();
 
+            builder.RegisterType<PageRepository>();
             builder.RegisterType<GameLibrary>();
             builder.RegisterType<Settings>();
 
