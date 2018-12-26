@@ -34,20 +34,6 @@ namespace SpectabisNext.Views
 
             gamePanel.Children.Add(gg);
 
-            gg.PointerEnter += GamePointerEnter;
-            gg.PointerLeave += GamePointerLeave;
-        }
-
-        private void GamePointerLeave(object sender, PointerEventArgs e)
-        {
-            var obj = (IGameTile) sender;
-            obj.ShowHoverOverlay = false;
-        }
-
-        private void GamePointerEnter(object sender, PointerEventArgs e)
-        {
-            var obj = (IGameTile) sender;
-            obj.ShowHoverOverlay = true;
         }
     }
 }

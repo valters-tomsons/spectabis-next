@@ -1,5 +1,7 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -20,10 +22,8 @@ namespace SpectabisNext.Controls.GameTile
         {
             InitializeComponent();
             ReferenceChildren();
-
-            Profile = game;
-            BoxArt.Source = ImageBitmapFromPath(Profile.BoxArtPath);
-            SetVisualTitle(Profile.Title);
+            InitializeState(game);
+            RegisterEvents();
         }
 
         public bool ShowHoverOverlay
@@ -54,6 +54,29 @@ namespace SpectabisNext.Controls.GameTile
             BoxArt = this.FindControl<Image>("BoxArtImage");
             BoxTitle = this.FindControl<TextBlock>("BoxTitle");
             HoverOverlayRectangle = this.FindControl<Rectangle>("HoverOverlay");
+        }
+
+        private void InitializeState(GameProfile game)
+        {
+            Profile = game;
+            BoxArt.Source = ImageBitmapFromPath(game.BoxArtPath);
+            SetVisualTitle(game.Title);
+        }
+
+        private void RegisterEvents()
+        {
+            this.PointerEnter += OnMousePointerEnter;
+            this.PointerLeave += OnMousePointerLeave;
+        }
+
+        private void OnMousePointerLeave(object sender, PointerEventArgs e)
+        {
+            ShowHoverOverlay = false;
+        }
+
+        private void OnMousePointerEnter(object sender, PointerEventArgs e)
+        {
+            ShowHoverOverlay = true;
         }
 
         private Bitmap ImageBitmapFromPath(string path)
