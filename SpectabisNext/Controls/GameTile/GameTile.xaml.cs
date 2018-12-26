@@ -9,7 +9,6 @@ using SpectabisNext.Interfaces;
 
 namespace SpectabisNext.Controls.GameTile
 {
-    [ContentProperty(nameof(Children))]
     public class GameTileView : UserControl, IGameTile
     {
         public GameProfile Profile { get; set; }
@@ -25,15 +24,6 @@ namespace SpectabisNext.Controls.GameTile
             Profile = game;
             BoxArt.Source = ImageBitmapFromPath(Profile.BoxArtPath);
             SetVisualTitle(Profile.Title);
-        }
-
-        public Avalonia.Controls.Controls Children
-        {
-            get
-            {
-                var controlGrid = this.FindControl<Grid>("TileControlGrid");
-                return controlGrid.Children;
-            }
         }
 
         public bool ShowHoverOverlay
