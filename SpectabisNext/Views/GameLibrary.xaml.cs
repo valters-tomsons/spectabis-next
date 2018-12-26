@@ -3,13 +3,15 @@ using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Portable.Xaml.Markup;
 using SpectabisLib.Repositories;
+using SpectabisNext.Controls;
 using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
 
 namespace SpectabisNext.Views
 {
-    public class GameLibrary : UserControl
+    public class GameLibrary : Page
     {
         private readonly GameProfileRepository _gameRepo;
         private readonly GameTileFactory _tileFactory;
@@ -18,7 +20,7 @@ namespace SpectabisNext.Views
             _tileFactory = tileFactory;
             _gameRepo = gameRepo;
 
-            InitializeComponent();
+            this.PageTitle = "Library";
             Populate();
         }
 
@@ -46,11 +48,6 @@ namespace SpectabisNext.Views
         {
             var obj = (IGameTile) sender;
             obj.ShowHoverOverlay = true;
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }
