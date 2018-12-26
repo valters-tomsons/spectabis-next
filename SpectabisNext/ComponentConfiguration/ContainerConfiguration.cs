@@ -19,6 +19,9 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
             builder.RegisterType<MainWindow>();
 
+            builder.RegisterType<GameLibrary>();
+            builder.RegisterType<Settings>();
+
             builder.RegisterType<UIConfiguration>();
 
             builder.RegisterType<GameProfileRepository>();

@@ -6,6 +6,8 @@
     Title="Spectabis Next"
     >
 
-    <WrapPanel Name="GamePanel"/>
+    <Grid>
+        <ContentControl Name="ContentContainer" />
+    </Grid>
 
 </Window>
