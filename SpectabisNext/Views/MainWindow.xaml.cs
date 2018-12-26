@@ -1,5 +1,6 @@
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using SpectabisNext.Interfaces;
@@ -12,6 +13,8 @@ namespace SpectabisNext.Views
     {
         private readonly UIConfiguration _uiConfiguration;
         private readonly PageRepository _pageRepository;
+        private Rectangle Titlebar;
+        private ContentControl ContentContainer;
 
         public MainWindow(UIConfiguration uiConfiguration, PageRepository pageRepository)
         {
@@ -19,15 +22,22 @@ namespace SpectabisNext.Views
             _pageRepository = pageRepository;
 
             InitializeComponent();
-            FillBackgroundColor();
+            RegisterChildern();
+            FillElementColors();
 
-            var container = this.FindControl<ContentControl>("ContentContainer");
-            container.Content = _pageRepository.GetAll().First();
+            ContentContainer.Content = _pageRepository.GetAll().First();
         }
 
-        private void FillBackgroundColor()
+        private void FillElementColors()
         {
-            this.Background = _uiConfiguration.UIBackgroundGradient;
+            Background = _uiConfiguration.UIBackgroundGradient;
+            Titlebar.Fill = _uiConfiguration.TitlebarGradient;
+        }
+
+        private void RegisterChildern()
+        {
+            Titlebar = this.FindControl<Rectangle>("Titlebar");
+            ContentContainer = this.FindControl<ContentControl>("ContentContainer");
         }
 
         private void InitializeComponent()

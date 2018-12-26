@@ -7,7 +7,10 @@
     >
 
     <Grid>
-        <ContentControl Name="ContentContainer" />
+        <StackPanel Orientation="Vertical">
+            <Rectangle Name="Titlebar" Height="50"/>
+            <ContentControl Name="ContentContainer" />
+        </StackPanel>
     </Grid>
 
 </Window>

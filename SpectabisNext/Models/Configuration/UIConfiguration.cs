@@ -11,12 +11,14 @@ namespace SpectabisNext.Models.Configuration
             BoxArtSizeModifier = 1.2;
 
             UIBackgroundGradient = DefaultBackgroundGradient();
+            TitlebarGradient = DefaultTitlebarGradient();
         }
 
         public double BoxArtWidth { get; set; }
         public double BoxArtHeight { get; set; }
         public double BoxArtSizeModifier { get; set; }
         public LinearGradientBrush UIBackgroundGradient { get; set; }
+        public LinearGradientBrush TitlebarGradient { get; set; }
 
         private LinearGradientBrush DefaultBackgroundGradient()
         {
@@ -36,6 +38,28 @@ namespace SpectabisNext.Models.Configuration
             {
                 Color = Color.Parse("#F5F5F5"),
                 Offset = 0.56
+            };
+
+            gradient.GradientStops.Add(stop1);
+            gradient.GradientStops.Add(stop2);
+
+            return gradient;
+        }
+
+        private LinearGradientBrush DefaultTitlebarGradient()
+        {
+            var gradient = new LinearGradientBrush();
+
+            var stop1 = new GradientStop()
+            {
+                Color = Color.Parse("#24C6DC"),
+                Offset = 0
+            };
+
+            var stop2 = new GradientStop()
+            {
+                Color = Color.Parse("#514A9D"),
+                Offset = 0.56789
             };
 
             gradient.GradientStops.Add(stop1);
