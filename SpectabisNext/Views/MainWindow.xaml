@@ -8,8 +8,14 @@
 
     <Grid>
         <StackPanel Orientation="Vertical">
-            <Rectangle Name="Titlebar" Height="50"/>
+
+            <Grid>
+                <Rectangle Name="Titlebar" Height="50"/>
+                <StackPanel Name="TitlebarPanel" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0,15,0"/>
+            </Grid>
+
             <ContentControl Name="ContentContainer" />
+
         </StackPanel>
     </Grid>
 
