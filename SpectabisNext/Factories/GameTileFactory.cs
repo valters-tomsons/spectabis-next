@@ -15,12 +15,15 @@ namespace SpectabisNext.Factories
         public GameTileView Create(GameProfile game)
         {
             var sizeModifier = _uiConfiguration.BoxArtSizeModifier;
+            var tileGapSize = _uiConfiguration.BoxArtGapSize;
 
-            var tileView = new GameTileView(game)
-            {
-                Height = _uiConfiguration.BoxArtHeight * sizeModifier,
-                Width = _uiConfiguration.BoxArtWidth * sizeModifier
-            };
+                var tileView = new GameTileView(game)
+                {
+                    Height = _uiConfiguration.BoxArtHeight * sizeModifier,
+                    Width = _uiConfiguration.BoxArtWidth * sizeModifier,
+                    Margin = new Avalonia.Thickness(0, 0, tileGapSize, tileGapSize)
+                };
+
             return tileView;
         }
     }

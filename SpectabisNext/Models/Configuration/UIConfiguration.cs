@@ -9,6 +9,7 @@ namespace SpectabisNext.Models.Configuration
             BoxArtWidth = 150;
             BoxArtHeight = 200;
             BoxArtSizeModifier = 1.2;
+            BoxArtGapSize = 10;
 
             UIBackgroundGradient = DefaultBackgroundGradient();
             TitlebarGradient = DefaultTitlebarGradient();
@@ -17,6 +18,7 @@ namespace SpectabisNext.Models.Configuration
         public double BoxArtWidth { get; set; }
         public double BoxArtHeight { get; set; }
         public double BoxArtSizeModifier { get; set; }
+        public double BoxArtGapSize { get; set; }
         public LinearGradientBrush UIBackgroundGradient { get; set; }
         public LinearGradientBrush TitlebarGradient { get; set; }
 
