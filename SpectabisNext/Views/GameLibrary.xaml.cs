@@ -27,13 +27,12 @@ namespace SpectabisNext.Views
         private void Populate()
         {
             var gamePanel = this.FindControl<WrapPanel>("GamePanel");
-            var game = _gameRepo.GetAll().First();
-
-            var gg = _tileFactory.Create(game);
-            var gg2 = _tileFactory.Create(game);
-
-            gamePanel.Children.Add(gg);
-            gamePanel.Children.Add(gg2);
+        
+            foreach(var gameProfile in _gameRepo.GetAll())
+            {
+                var gameTile = _tileFactory.Create(gameProfile);
+                gamePanel.Children.Add(gameTile);
+            }
         }
     }
 }

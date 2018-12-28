@@ -12,13 +12,16 @@ namespace SpectabisLib.Repositories
         {
             Games = new List<GameProfile>();
 
-            var game1 = new GameProfile()
+            for (int i = 0; i < 12; i++)
             {
-                Title = "Shadow of the Colossus",
-                BoxArtPath = $"/{SystemDirectories.HomePath}/Downloads/sotc.jpg"
-            };
+                var game = new GameProfile()
+                {
+                    Title = "Shadow of the Colossus",
+                    BoxArtPath = $"/{SystemDirectories.HomePath}/Downloads/sotc.jpg"
+                };
 
-            Games.Add(game1);
+                Games.Add(game);
+            }
         }
 
         public ReadOnlyCollection<GameProfile> GetAll()
