@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
     <Grid Name="LibraryControlGrid">
-        <WrapPanel Name="GamePanel"/>
+        <WrapPanel Margin="10" Name="GamePanel"/>
     </Grid>
 
 </UserControl>
