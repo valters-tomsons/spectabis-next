@@ -1,4 +1,5 @@
 <Window
+    Name="MainWindow"
     xmlns="https://github.com/avaloniaui" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Width = "920"
@@ -6,17 +7,15 @@
     Title="Spectabis Next"
     >
 
-    <Grid>
-        <StackPanel Orientation="Vertical">
+    <Grid RowDefinitions="Auto,*">
 
-            <Grid>
-                <Rectangle Name="Titlebar" Height="50"/>
-                <StackPanel Name="TitlebarPanel" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0,15,0"/>
-            </Grid>
+        <Grid Grid.Row="0">
+            <Rectangle Name="Titlebar" Height="50"/>
+            <StackPanel Name="TitlebarPanel" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0,15,0"/>
+        </Grid>
 
-            <ContentControl Name="ContentContainer" />
+        <ContentControl Grid.Row="1" Name="ContentContainer" />
 
-        </StackPanel>
     </Grid>
 
 </Window>

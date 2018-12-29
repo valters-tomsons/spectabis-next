@@ -12,7 +12,7 @@ namespace SpectabisLib.Repositories
         {
             Games = new List<GameProfile>();
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 30; i++)
             {
                 var game = new GameProfile()
                 {
