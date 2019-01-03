@@ -31,7 +31,7 @@ namespace SpectabisNext.Views
             FillElementColors();
             GeneratePageIcons();
 
-            ContentContainer.Content = _pageRepository.GetAll().First();
+            ContentContainer.Content = _pageRepository.GetPage<GameLibrary>();
             ContentContainer.PropertyChanged += OnContentContainerPropertyChanged;
         }
 
