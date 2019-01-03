@@ -5,6 +5,11 @@ namespace SpectabisLib.Models
 {
     public class GameProfile
     {
+        public GameProfile()
+        {
+            LaunchOptions = new List<CommandLineArguments>();
+        }
+
         public string Id { get; set; }
         public string Title { get; set; }
         public string SerialNumber { get; set; }
