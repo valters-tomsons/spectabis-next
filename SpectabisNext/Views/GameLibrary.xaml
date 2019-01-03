@@ -4,7 +4,7 @@
 
     <Grid Margin="10" Name="LibraryControlGrid">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <WrapPanel Name="GamePanel" />
+            <WrapPanel Name="GamePanel"/>
         </ScrollViewer>
     </Grid>
 
