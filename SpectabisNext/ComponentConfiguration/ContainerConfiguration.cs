@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Reflection;
 using Autofac;
 using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
@@ -8,29 +11,45 @@ using SpectabisNext.Views;
 
 namespace SpectabisNext.ComponentConfiguration
 {
-    public class ContainerConfiguration
+    public static class ContainerConfiguration
     {
         public static IContainer Configure()
         {
             var builder = new ContainerBuilder();
 
             builder.RegisterType<Spectabis>().As<ISpectabis>();
-
-            // Contains avalonia application instance
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
-            builder.RegisterType<MainWindow>();
 
-            builder.RegisterType<PageRepository>();
-            builder.RegisterType<GameLibrary>();
-            builder.RegisterType<Settings>();
-
-            builder.RegisterType<UIConfiguration>();
-
-            builder.RegisterType<GameProfileRepository>();
-
-            builder.RegisterType<GameTileFactory>();
+            RegisterSpectabisLib(builder);
+            RegisterSpectabisUI(builder);
 
             return builder.Build();
+        }
+
+        private static void RegisterSpectabisLib(ContainerBuilder builder)
+        {
+            var spectabisLib = Assembly.Load(nameof(SpectabisLib));
+            builder.RegisterNamespaceTypes(nameof(SpectabisLib.Repositories), spectabisLib);
+        }
+
+        private static void RegisterSpectabisUI(ContainerBuilder builder)
+        {
+            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Repositories));
+            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Models.Configuration));
+            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
+            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
+        }
+
+        private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)
+        {
+            if(assembly == null)
+            {
+                assembly = Assembly.GetExecutingAssembly();
+            }
+
+            var namespaceTypes = assembly.GetTypes().Where(x => x.Namespace.Contains(targetNamespace)).ToArray();
+            builder.RegisterTypes(namespaceTypes);
+            return builder;
         }
     }
 }
