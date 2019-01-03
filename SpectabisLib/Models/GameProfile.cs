@@ -7,7 +7,7 @@ namespace SpectabisLib.Models
     {
         public GameProfile()
         {
-            LaunchOptions = new List<CommandLineArguments>();
+            LaunchOptions = new List<EmulatorLaunchOptions>();
         }
 
         public string Id { get; set; }
@@ -15,6 +15,6 @@ namespace SpectabisLib.Models
         public string SerialNumber { get; set; }
         public string FilePath { get; set; }
         public string BoxArtPath { get; set; }
-        public List<CommandLineArguments> LaunchOptions { get; set; }
+        public List<EmulatorLaunchOptions> LaunchOptions { get; set; }
     }
 }
