@@ -1,9 +1,12 @@
+using System;
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using SpectabisNext.Controls;
 using SpectabisNext.Interfaces;
 using SpectabisNext.Models.Configuration;
 using SpectabisNext.Repositories;
@@ -29,11 +32,12 @@ namespace SpectabisNext.Views
             GeneratePageIcons();
 
             ContentContainer.Content = _pageRepository.GetAll().First();
+            ContentContainer.PropertyChanged += OnContentContainerPropertyChanged;
         }
 
         private void GeneratePageIcons()
         {
-            TitlebarPanel.Children.Add(new TextBlock(){Text = "+", FontSize = 20, Foreground = new SolidColorBrush(Colors.White)});
+            TitlebarPanel.Children.Add(new TextBlock() { Text = "+", FontSize = 20, Foreground = new SolidColorBrush(Colors.White) });
         }
 
         private void FillElementColors()
@@ -52,6 +56,23 @@ namespace SpectabisNext.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void OnContentContainerPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.Property.Name == "Content")
+            {
+                var newContent = (Page) e.NewValue;
+
+                if (newContent.HideTitlebar)
+                {
+                    this.FindControl<Grid>("TitlebarContainer").IsVisible = false;
+                }
+                else
+                {
+                    this.FindControl<Grid>("TitlebarContainer").IsVisible = true;
+                }
+            }
         }
     }
 }

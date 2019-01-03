@@ -9,7 +9,7 @@
 
     <Grid RowDefinitions="Auto,*">
 
-        <Grid Grid.Row="0">
+        <Grid Name="TitlebarContainer" Grid.Row="0">
             <Rectangle Name="Titlebar" Height="50"/>
             <StackPanel Name="TitlebarPanel" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0,15,0"/>
         </Grid>
