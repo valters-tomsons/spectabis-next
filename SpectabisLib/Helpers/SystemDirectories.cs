@@ -8,5 +8,8 @@ namespace SpectabisLib
                 Environment.OSVersion.Platform == PlatformID.MacOSX) ?
             Environment.GetEnvironmentVariable("HOME") :
             Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+
+        public static readonly string ConfigFolderPath = $"{HomePath}/.spectabis";
+        public static readonly string SpectabisConfigPath = $"{ConfigFolderPath}/spectabis.json";
     }
 }
