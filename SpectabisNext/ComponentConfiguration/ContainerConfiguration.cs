@@ -5,7 +5,7 @@ using Autofac;
 using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
 using SpectabisNext.Interfaces;
-using SpectabisNext.Models.Configuration;
+using SpectabisNext.Configuration;
 using SpectabisNext.Repositories;
 using SpectabisNext.Views;
 
@@ -35,7 +35,7 @@ namespace SpectabisNext.ComponentConfiguration
         private static void RegisterSpectabisUI(ContainerBuilder builder)
         {
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Repositories));
-            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Models.Configuration));
+            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Configuration));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
         }

@@ -1,5 +1,5 @@
 using SpectabisNext.Controls;
-using SpectabisNext.Models.Configuration;
+using SpectabisNext.Configuration;
 
 namespace SpectabisNext.Views
 {

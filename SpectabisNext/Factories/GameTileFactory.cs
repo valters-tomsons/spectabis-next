@@ -1,6 +1,6 @@
 using SpectabisLib.Models;
 using SpectabisNext.Controls.GameTile;
-using SpectabisNext.Models.Configuration;
+using SpectabisNext.Configuration;
 
 namespace SpectabisNext.Factories
 {
