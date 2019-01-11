@@ -10,20 +10,21 @@ using SpectabisNext.Controls;
 using SpectabisNext.Interfaces;
 using SpectabisNext.Configuration;
 using SpectabisNext.Repositories;
+using SpectabisNext.Services;
 
 namespace SpectabisNext.Views
 {
     public class MainWindow : Window
     {
-        private readonly UIConfiguration _uiConfiguration;
         private readonly PageRepository _pageRepository;
+        private readonly ConfigurationLoader _configuration;
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
 
-        public MainWindow(UIConfiguration uiConfiguration, PageRepository pageRepository)
+        public MainWindow(PageRepository pageRepository, ConfigurationLoader configurationLoader)
         {
-            _uiConfiguration = uiConfiguration;
+            _configuration = configurationLoader;
             _pageRepository = pageRepository;
 
             InitializeComponent();
@@ -42,8 +43,8 @@ namespace SpectabisNext.Views
 
         private void FillElementColors()
         {
-            Background = _uiConfiguration.UIBackgroundGradient;
-            Titlebar.Fill = _uiConfiguration.TitlebarGradient;
+            Background = _configuration.UserInterface.UIBackgroundGradient;
+            Titlebar.Fill = _configuration.UserInterface.TitlebarGradient;
         }
 
         private void RegisterChildern()

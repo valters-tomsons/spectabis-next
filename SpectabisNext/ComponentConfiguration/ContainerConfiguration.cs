@@ -35,7 +35,7 @@ namespace SpectabisNext.ComponentConfiguration
         private static void RegisterSpectabisUI(ContainerBuilder builder)
         {
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Repositories));
-            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Configuration));
+            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Services));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
         }
