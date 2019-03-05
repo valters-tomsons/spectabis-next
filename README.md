@@ -36,3 +36,7 @@ Support for Mac OS is possible. I won't go out of my way to make sure it works t
 I've yet to come up with exact guidelines, but I try to follow SOLID principles wherever it's sensible. There's also full dependency injection with AutoFac, that includes Avalonia constructor injection etc.
 
 Let's keep third party dependencies to a minimum and use them sensibly.
+
+# Credits & Attributions
+
+* Graphics - [Pixro](https://www.instagram.com/artcallspixro/)
