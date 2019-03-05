@@ -4,6 +4,8 @@ Cross-platform graphical frontend for PCSX2 emulator to replace [.NET Framework 
 Plan is to implement most used and useful features of original Spectabis, improve code quality to encourage more contributions but most importantly, let me use PCSX2 again.
 [Began as a command-line frontend for the emulator](https://github.com/FaithLV/spectabis-cli), but that's too much effort for too little return.
 
+Currently, **this is not usable for end-users**. There's a graphical interface with game profile generation and boxart tile loading in UI.
+
 ## Current Technology Stack
 * .NET Core
 * Avalonia UI
