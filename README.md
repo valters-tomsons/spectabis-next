@@ -12,15 +12,23 @@ Plan is to implement most used and useful features of original Spectabis, improv
 * Linux (the point of the whole project)
 * Windows (obviously)
 
-Support for Mac OS is possible, not a priority. I won't go out of my way to make sure it works there though.
+Support for Mac OS is possible. I won't go out of my way to make sure it works there though.
 
 ## Must Have Features
 * Per-game configurations
 * Box-art Scraping
 * Basic emulator setting configuration
 * Global Controller profiles
+* ROM serial discovery (including .iso, .gz, .cso, .cue)
 
 ## Nice to have
 * Plugin configuration
 * Controller support
 * Couch mode
+* Playstation 1 game support and anything that comes with it
+* Extension (Plugin) System
+
+## Coding Standarts
+I've yet to come up with exact guidelines, but I try to follow SOLID principles wherever it's sensible. There's also full dependency injection with AutoFac, that includes Avalonia constructor injection etc.
+
+Let's keep third party dependencies to a minimum and use them sensibly.
