@@ -14,7 +14,7 @@ namespace SpectabisNext.Controls.GameTile
     public class GameTileView : UserControl, IGameTile
     {
         public GameProfile Profile { get; set; }
-        private Image BoxArt { get; set; }
+        public Image BoxArt { get; set; }
         private TextBlock BoxTitle { get; set; }
         private Rectangle HoverOverlayRectangle { get; set; }
 
@@ -44,6 +44,11 @@ namespace SpectabisNext.Controls.GameTile
             BoxTitle.Text = newTitle;
         }
 
+        public void LoadBoxart(Bitmap source)
+        {
+            BoxArt.Source = source;
+        }
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
@@ -59,7 +64,6 @@ namespace SpectabisNext.Controls.GameTile
         private void InitializeState(GameProfile game)
         {
             Profile = game;
-            BoxArt.Source = ImageBitmapFromPath(game.BoxArtPath);
             SetVisualTitle(game.Title);
         }
 
@@ -77,11 +81,6 @@ namespace SpectabisNext.Controls.GameTile
         private void OnMousePointerEnter(object sender, PointerEventArgs e)
         {
             ShowHoverOverlay = true;
-        }
-
-        private Bitmap ImageBitmapFromPath(string path)
-        {
-            return new Bitmap(path);
         }
     }
 }
