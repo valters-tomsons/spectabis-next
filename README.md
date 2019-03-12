@@ -16,12 +16,13 @@ Currently, **this is not usable for end-users**. There's a graphical interface w
 
 Support for Mac OS is possible. I won't go out of my way to make sure it works there though.
 
-## Must Have Features
+## Must Have Features before a "stable" release
 * Per-game configurations
 * Box-art Scraping
 * Basic emulator setting configuration
 * Global Controller profiles
 * ROM serial discovery (including .iso, .gz, .cso, .cue)
+* Better (than previous) logging system
 
 ## Nice to have (in no particular order)
 * Plugin configuration
