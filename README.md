@@ -33,6 +33,7 @@ Support for Mac OS is possible. I won't go out of my way to make sure it works t
 * Visual theming (at least, a dark mode)
 * Emulator version tracking (auto updates on windows, maybe?)
 * Discord Rich Presence
+* Multilingual support
 
 ## Coding Standarts
 I've yet to come up with exact guidelines, but I try to follow SOLID principles wherever it's sensible. There's also full dependency injection with AutoFac, that includes Avalonia constructor injection etc.
