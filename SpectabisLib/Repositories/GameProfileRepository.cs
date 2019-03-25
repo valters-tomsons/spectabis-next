@@ -16,8 +16,7 @@ namespace SpectabisLib.Repositories
             {
                 var game = new GameProfile()
                 {
-                    Title = "Shadow of the Colossus",
-                    BoxArtPath = $"/{SystemDirectories.HomePath}/Downloads/sotc.jpg"
+                    Title = "Placeholder Game",
                 };
 
                 Games.Add(game);

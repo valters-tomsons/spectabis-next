@@ -11,5 +11,6 @@ namespace SpectabisLib
 
         public static readonly string ConfigFolderPath = $"{HomePath}/.spectabis";
         public static readonly string SpectabisConfigPath = $"{ConfigFolderPath}/spectabis.json";
+        public static readonly string ResourcesPath = "Resources";
     }
 }

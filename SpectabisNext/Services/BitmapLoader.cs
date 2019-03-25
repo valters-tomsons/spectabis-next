@@ -1,5 +1,6 @@
 using System.IO;
 using Avalonia.Media.Imaging;
+using SpectabisLib;
 using SpectabisNext.Interfaces;
 
 namespace SpectabisNext.Services
@@ -28,7 +29,17 @@ namespace SpectabisNext.Services
 
         private Bitmap LoadDefaultBoxart()
         {
-            //null because i have no idea on how i'll handle embedded resources
+            var tempArtPath = $"{SystemDirectories.ResourcesPath}/Images/placeholderBoxart.jpg";
+            var fullPath = Path.GetFullPath(tempArtPath);
+
+            if(File.Exists(tempArtPath))
+            {
+                return new Bitmap(tempArtPath);
+            }
+
+            System.Console.WriteLine(Path.GetFullPath(tempArtPath));
+            System.Console.WriteLine($"Cannot locate {tempArtPath}");
+            System.Console.WriteLine("Failed to load default boxart");
             return null;
         }
 
