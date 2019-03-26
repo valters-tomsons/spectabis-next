@@ -13,8 +13,8 @@ namespace SpectabisNext.Services
 
         public BitmapLoader(ConfigurationLoader configurationLoader)
         {
-            DefaultBoxart = LoadDefaultBoxart();
             _configurationLoader = configurationLoader;
+            DefaultBoxart = LoadDefaultBoxart();
         }
 
         public Bitmap LoadFromFile(string filePath)
@@ -24,7 +24,7 @@ namespace SpectabisNext.Services
                 return new Bitmap(filePath);
             }
 
-            return DefaultBoxart;
+            return null;
         }
 
         private Bitmap LoadDefaultBoxart()
