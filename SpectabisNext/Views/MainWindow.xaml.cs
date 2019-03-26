@@ -32,8 +32,9 @@ namespace SpectabisNext.Views
             FillElementColors();
             GeneratePageIcons();
 
-            ContentContainer.Content = _pageRepository.GetPage<GameLibrary>();
             ContentContainer.PropertyChanged += OnContentContainerPropertyChanged;
+
+            SetInitialPage();
         }
 
         private void GeneratePageIcons()
@@ -74,6 +75,11 @@ namespace SpectabisNext.Views
                     this.FindControl<Grid>("TitlebarContainer").IsVisible = true;
                 }
             }
+        }
+
+        private void SetInitialPage()
+        {
+            ContentContainer.Content = _pageRepository.GetPage<GameLibrary>();
         }
     }
 }
