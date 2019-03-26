@@ -11,6 +11,7 @@ using SpectabisNext.Interfaces;
 using SpectabisNext.Configuration;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
+using SpectabisNext.Controls.PageIcon;
 
 namespace SpectabisNext.Views
 {
@@ -39,7 +40,16 @@ namespace SpectabisNext.Views
 
         private void GeneratePageIcons()
         {
-            TitlebarPanel.Children.Add(new TextBlock() { Text = "+", FontSize = 20, Foreground = new SolidColorBrush(Colors.White) });
+            var page = _pageRepository.GetPage<Settings>();
+            var icon = new PageIcon(page);
+            icon.InvokedCallback += OnIconPress;
+            TitlebarPanel.Children.Add(icon);
+        }
+
+        private void OnIconPress(object sender, EventArgs e)
+        {
+            var icon = (PageIcon) sender;
+            System.Console.WriteLine($"Clicked on {icon.Destination.PageTitle}");
         }
 
         private void FillElementColors()

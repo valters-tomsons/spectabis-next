@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui">
+    <Grid Name="PageIconGrid">
+
+
+        <Rectangle 
+            Name="HoverOverlay" 
+            Opacity = "0.6" 
+            Fill="White"
+            IsVisible = "False"
+        />
+
+        <TextBlock 
+            Name="DisplayText" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            FontSize="20"
+            Foreground = "White"
+            TextAlignment = "Center"
+            IsVisible = "False"
+        />
+
+        <Image 
+            Name="DisplayImage" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Stretch="Fill"
+            IsVisible = "False"
+        />
+
+    </Grid>
+</UserControl>
