@@ -1,6 +1,6 @@
 using SpectabisNext.Controls;
-using SpectabisNext.Configuration;
 using SpectabisNext.Services;
+using SpectabisUI.Controls;
 
 namespace SpectabisNext.Views
 {

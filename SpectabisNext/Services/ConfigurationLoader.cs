@@ -1,6 +1,6 @@
 using SpectabisLib.Configuration;
-using SpectabisNext.Configuration;
-using SpectabisNext.Interfaces;
+using SpectabisUI.Interfaces;
+using SpectaibsUI.Configuration;
 
 namespace SpectabisNext.Services
 {

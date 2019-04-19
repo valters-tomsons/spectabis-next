@@ -1,6 +1,6 @@
 using Avalonia.Media.Imaging;
 
-namespace SpectabisNext.Interfaces
+namespace SpectabisUI.Interfaces
 {
     public interface IBitmapLoader
     {

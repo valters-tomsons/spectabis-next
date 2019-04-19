@@ -7,7 +7,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Portable.Xaml.Markup;
 using SpectabisLib.Models;
-using SpectabisNext.Interfaces;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Controls.GameTile
 {

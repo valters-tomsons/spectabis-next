@@ -1,7 +1,7 @@
 using Avalonia.Media.Imaging;
 using SpectabisLib.Models;
 
-namespace SpectabisNext.Interfaces
+namespace SpectabisUI.Interfaces
 {
     public interface IGameTile
     {

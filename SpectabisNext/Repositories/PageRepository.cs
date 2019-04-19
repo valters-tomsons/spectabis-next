@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SpectabisNext.Controls;
 using SpectabisNext.Views;
+using SpectabisUI.Controls;
 
 namespace SpectabisNext.Repositories
 {

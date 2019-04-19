@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using SpectabisNext.Controls;
+using SpectabisUI.Controls;
 
 namespace SpectabisNext.Views
 {

@@ -1,8 +1,9 @@
 using System;
 using Avalonia.Media.Imaging;
 using SpectabisNext.Controls;
+using SpectabisUI.Controls;
 
-namespace SpectabisNext.Interfaces
+namespace SpectabisUI.Interfaces
 {
     public interface IPageIcon
     {

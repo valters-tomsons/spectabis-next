@@ -1,7 +1,7 @@
 using System.IO;
 using Avalonia.Media.Imaging;
 using SpectabisLib;
-using SpectabisNext.Interfaces;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Services
 {

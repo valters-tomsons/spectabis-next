@@ -13,10 +13,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectabisLib\SpectabisLib.csproj" />
+    <ProjectReference Include="..\SpectabisUI\SpectabisUI.csproj" />
   </ItemGroup>
   <ItemGroup>
       <None Include="Resources/Images/placeholderBoxart.jpg" CopyToOutputDirectory="Always" />

@@ -1,5 +1,5 @@
 using Avalonia;
-using SpectabisNext.Interfaces;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.ComponentConfiguration
 {
