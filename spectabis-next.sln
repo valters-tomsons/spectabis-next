@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisNext", "SpectabisN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisLib", "SpectabisLib\SpectabisLib.csproj", "{C1767F45-8156-41E5-A032-D71B172B7F01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisUI", "SpectabisUI\SpectabisUI.csproj", "{8BA82250-D86C-45AD-9E5C-E126EBEEE248}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{C1767F45-8156-41E5-A032-D71B172B7F01}.Release|x64.Build.0 = Release|Any CPU
 		{C1767F45-8156-41E5-A032-D71B172B7F01}.Release|x86.ActiveCfg = Release|Any CPU
 		{C1767F45-8156-41E5-A032-D71B172B7F01}.Release|x86.Build.0 = Release|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Debug|x64.Build.0 = Debug|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Debug|x86.Build.0 = Debug|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|x64.ActiveCfg = Release|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|x64.Build.0 = Release|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|x86.ActiveCfg = Release|Any CPU
+		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

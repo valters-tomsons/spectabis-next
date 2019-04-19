@@ -4,10 +4,9 @@ using System.Reflection;
 using Autofac;
 using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
-using SpectabisNext.Interfaces;
-using SpectabisNext.Configuration;
 using SpectabisNext.Repositories;
 using SpectabisNext.Views;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.ComponentConfiguration
 {
@@ -21,7 +20,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
 
             RegisterSpectabisLib(builder);
-            RegisterSpectabisUI(builder);
+            RegisterSpectabis(builder);
 
             return builder.Build();
         }
@@ -32,7 +31,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterNamespaceTypes(nameof(SpectabisLib.Repositories), spectabisLib);
         }
 
-        private static void RegisterSpectabisUI(ContainerBuilder builder)
+        private static void RegisterSpectabis(ContainerBuilder builder)
         {
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Repositories));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Services));

@@ -1,7 +1,7 @@
 using SpectabisLib.Configuration;
-using SpectabisNext.Configuration;
+using SpectaibsUI.Configuration;
 
-namespace SpectabisNext.Interfaces
+namespace SpectabisUI.Interfaces
 {
     public interface IConfigurationLoader
     {

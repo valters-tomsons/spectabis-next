@@ -1,4 +1,4 @@
-namespace SpectabisNext.Interfaces
+namespace SpectabisUI.Interfaces
 {
     public interface ISpectabis
     {

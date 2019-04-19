@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace SpectabisNext.Controls
+namespace SpectabisUI.Controls
 {
     public class Page : UserControl
     {

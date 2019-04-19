@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Avalonia;
 using SpectabisNext.ComponentConfiguration;
-using SpectabisNext.Interfaces;
 using SpectabisNext.Views;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext
 {

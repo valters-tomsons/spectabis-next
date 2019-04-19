@@ -1,8 +1,7 @@
 using SpectabisLib.Models;
-using SpectabisNext.Configuration;
-using SpectabisNext.Controls.GameTile;
-using SpectabisNext.Interfaces;
+using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Services;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Factories
 {

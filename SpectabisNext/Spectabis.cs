@@ -1,5 +1,5 @@
-using SpectabisNext.Interfaces;
 using SpectabisNext.Views;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext
 {
