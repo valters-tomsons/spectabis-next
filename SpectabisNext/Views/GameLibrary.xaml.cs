@@ -5,7 +5,6 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Portable.Xaml.Markup;
 using SpectabisLib.Repositories;
-using SpectabisNext.Controls;
 using SpectabisNext.Factories;
 using SpectabisUI.Controls;
 

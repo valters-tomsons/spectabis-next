@@ -1,5 +1,5 @@
 using SpectabisLib.Models;
-using SpectabisNext.Controls.GameTile;
+using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Services;
 using SpectabisUI.Interfaces;
 

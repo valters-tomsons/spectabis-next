@@ -9,7 +9,7 @@ using Portable.Xaml.Markup;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Controls.GameTile
+namespace SpectabisNext.Controls.GameTileView
 {
     public class GameTileView : UserControl, IGameTile
     {

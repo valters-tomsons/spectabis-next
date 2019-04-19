@@ -7,9 +7,9 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using SpectabisNext.Controls;
+using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
-using SpectabisNext.Controls.PageIcon;
 using SpectabisUI.Controls;
 
 namespace SpectabisNext.Views

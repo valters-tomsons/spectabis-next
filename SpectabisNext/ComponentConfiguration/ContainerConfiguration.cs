@@ -29,10 +29,6 @@ namespace SpectabisNext.ComponentConfiguration
         {
             var spectabisLib = Assembly.Load(nameof(SpectabisLib));
             builder.RegisterNamespaceTypes(nameof(SpectabisLib.Repositories), spectabisLib);
-
-            var ui = Assembly.Load(nameof(SpectabisUI));
-            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Interfaces));
-            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Controls));
         }
 
         private static void RegisterSpectabis(ContainerBuilder builder)
