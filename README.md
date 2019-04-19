@@ -6,6 +6,10 @@ Plan is to implement most used and useful features of original Spectabis, improv
 
 Currently, **this is not usable for end-users**. There's a graphical interface with game profile generation and boxart tile loading in UI.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/nk9bp0m8ak2wm2e3/branch/master?svg=true)](https://ci.appveyor.com/project/FaithLV/spectabis-next/branch/master)
+
+
+
 ## Current Technology Stack
 * .NET Core
 * Avalonia UI
