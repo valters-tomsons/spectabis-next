@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/SpectabisNext/SpectabisNext.csproj"
+                "${workspaceFolder}/src/SpectabisNext/SpectabisNext.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
