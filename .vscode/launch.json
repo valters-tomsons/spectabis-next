@@ -11,7 +11,7 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/src/SpectabisNext/bin/Debug/netcoreapp2.2/SpectabisNext.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SpectabisNext",
+            "cwd": "${workspaceFolder}/src/SpectabisNext",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
