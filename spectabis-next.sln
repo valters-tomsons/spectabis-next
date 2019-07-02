@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisNext", "SpectabisNext\SpectabisNext.csproj", "{E1C8DC0A-EABB-4742-A2A9-93D9D9040636}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisNext", "src\SpectabisNext\SpectabisNext.csproj", "{E1C8DC0A-EABB-4742-A2A9-93D9D9040636}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisLib", "SpectabisLib\SpectabisLib.csproj", "{C1767F45-8156-41E5-A032-D71B172B7F01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisLib", "src\SpectabisLib\SpectabisLib.csproj", "{C1767F45-8156-41E5-A032-D71B172B7F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisUI", "SpectabisUI\SpectabisUI.csproj", "{8BA82250-D86C-45AD-9E5C-E126EBEEE248}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisUI", "src\SpectabisUI\SpectabisUI.csproj", "{8BA82250-D86C-45AD-9E5C-E126EBEEE248}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
