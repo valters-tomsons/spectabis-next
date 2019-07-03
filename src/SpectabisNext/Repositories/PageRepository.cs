@@ -18,7 +18,7 @@ namespace SpectabisNext.Repositories
             Pages.Add(firstTimeWizard);
         }
 
-        public List<Page> GetAll()
+        public IEnumerable<Page> GetAll()
         {
             return Pages;
         }
