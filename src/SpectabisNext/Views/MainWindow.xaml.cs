@@ -39,10 +39,14 @@ namespace SpectabisNext.Views
 
         private void GeneratePageIcons()
         {
-            var page = _pageRepository.GetPage<Settings>();
-            var icon = new PageIcon(page);
-            icon.InvokedCallback += OnIconPress;
-            TitlebarPanel.Children.Add(icon);
+            var allPages = _pageRepository.GetAll().Where(x => x.ShowInTitlebar);
+
+            foreach (var page in allPages)
+            {
+                var pageIcon = new PageIcon(page);
+                pageIcon.InvokedCallback += OnIconPress;
+                TitlebarPanel.Children.Add(pageIcon);
+            }
         }
 
         private void OnIconPress(object sender, EventArgs e)
