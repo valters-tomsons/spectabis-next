@@ -10,6 +10,7 @@ namespace SpectabisNext.Views
         public Settings()
         {
             PageTitle = "Settings";
+            ShowInTitlebar = true;
         }
     }
 

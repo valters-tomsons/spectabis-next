@@ -7,11 +7,14 @@ namespace SpectabisUI.Controls
     {
         public string PageTitle { get; set; }
         public bool HideTitlebar { get; set; }
+        public bool ShowInTitlebar { get; set; }
 
         public Page()
         {
             InitializeComponent();
+
             HideTitlebar = false;
+            ShowInTitlebar = false;
         }
 
         private void InitializeComponent()

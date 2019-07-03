@@ -19,7 +19,9 @@ namespace SpectabisNext.Views
             _tileFactory = tileFactory;
             _gameRepo = gameRepo;
 
-            this.PageTitle = "Library";
+            PageTitle = "Library";
+            ShowInTitlebar = true;
+
             Populate();
         }
 
