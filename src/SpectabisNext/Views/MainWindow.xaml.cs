@@ -3,10 +3,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Input;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
-using SpectabisNext.Controls;
 using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
@@ -52,7 +49,7 @@ namespace SpectabisNext.Views
         private void OnIconPress(object sender, EventArgs e)
         {
             var icon = (PageIcon) sender;
-            System.Console.WriteLine($"Clicked on {icon.Destination.PageTitle}");
+            ContentContainer.Content = icon.Destination;
         }
 
         private void FillElementColors()
