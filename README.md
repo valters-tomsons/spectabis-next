@@ -30,7 +30,7 @@ Support for Mac OS is possible. I won't go out of my way to make sure it works t
 
 ## Nice to have (in no particular order)
 * Plugin configuration
-* Controller support
+* Controller support (at least selecting/launching games)
 * Couch mode
 * Playstation 1 game support and anything that comes with it
 * Extension (Plugin) System
