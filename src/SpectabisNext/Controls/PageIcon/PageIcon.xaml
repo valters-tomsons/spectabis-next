@@ -1,5 +1,5 @@
 <UserControl xmlns="https://github.com/avaloniaui">
-    <Grid Name="PageIconGrid">
+    <Grid Name="PageIconGrid" Margin="10,0,0,0">
 
 
         <Rectangle 
