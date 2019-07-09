@@ -18,6 +18,16 @@ namespace SpectabisNext.Repositories
             Pages.Add(firstTimeWizard);
         }
 
+        public void Add(Page page)
+        {
+            Pages.Add(page);
+        }
+
+        public void Add(IEnumerable<Page> pages)
+        {
+            Pages.AddRange(pages);
+        }
+
         public IEnumerable<Page> GetAll()
         {
             return Pages;
