@@ -27,6 +27,7 @@ Support for Mac OS is possible. I won't go out of my way to make sure it works t
 * Global Controller profiles
 * ROM serial discovery (including .iso, .gz, .cso, .cue)
 * Better (than previous) logging system
+* Playtime counter
 
 ## Nice to have (in no particular order)
 * Plugin configuration
@@ -40,6 +41,14 @@ Support for Mac OS is possible. I won't go out of my way to make sure it works t
 * Multilingual support
 * Isolated PCSX2 installation profiles 
 * Seperate plugin updates from Spectabis releases
+* Game favourites list
+* Advanced sorting options
+
+### Planned sorting options:
+* Playtime
+* Date Added
+* Alphabetical
+* Genre
 
 ## Coding Standarts
 I've yet to come up with exact guidelines, but I try to follow SOLID principles wherever it's sensible. There's also full dependency injection with AutoFac, that includes Avalonia constructor injection etc.
