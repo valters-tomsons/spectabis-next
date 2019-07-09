@@ -1,5 +1,6 @@
 using System;
 using Avalonia.Controls;
+using SpectabisUI.Controls;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
 
@@ -8,7 +9,8 @@ namespace SpectabisNext.Services
     public class PageNavigator : IPageNavigationProvider
     {
         private readonly IPageRepository _pageRepository;
-        private ContentControl PageContentContainer { get; set; };
+        private ContentControl PageContentContainer { get; set; }
+        private Page LastPageBuffer {get; set;}
 
         public PageNavigator(IPageRepository pageRepository)
         {
@@ -40,6 +42,11 @@ namespace SpectabisNext.Services
             {
                 Console.WriteLine($"Page '{typeof(T)}' not found!");
                 return;
+            }
+
+            if(LastPageBuffer != null)
+            {
+                LastPageBuffer = (Page) PageContentContainer.Content;
             }
 
             PageContentContainer.Content = _pageRepository.GetPage<T>();

@@ -13,8 +13,7 @@ namespace SpectabisNext.Repositories
 
         List<Page> Pages { get; set; }
 
-        // All views (pages) should be made to load auto with AutoFac
-        public PageRepository(PageFactory pageFactory, GameLibrary gameLibrary, Settings settingsPage, FirstTimeWizard firstTimeWizard)
+        public PageRepository(PageFactory pageFactory)
         {
             Pages = new List<Page>();
             _pageFactory = pageFactory;
