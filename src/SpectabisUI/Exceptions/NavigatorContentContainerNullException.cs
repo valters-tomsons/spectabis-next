@@ -4,7 +4,7 @@ namespace SpectabisUI.Exceptions
 {
     public class NavigatorContentContainerNullException : Exception
     {
-        public NavigatorContentContainerNullException() : base(message)
+        public NavigatorContentContainerNullException() : base(Message())
         {
         }
 
