@@ -5,6 +5,7 @@ using Autofac;
 using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
 using SpectabisNext.Repositories;
+using SpectabisNext.Services;
 using SpectabisNext.Views;
 using SpectabisUI.Interfaces;
 
@@ -37,6 +38,9 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Services));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
+
+            builder.RegisterType<PageRepository>().As<IPageRepository>();
+            builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>();
         }
 
         private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)

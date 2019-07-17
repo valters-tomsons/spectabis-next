@@ -29,6 +29,8 @@ namespace SpectabisNext.Views
 
             InitializeComponent();
             RegisterChildern();
+            _navigationProvider.ReferenceContainer(ContentContainer);
+
             FillElementColors();
             GeneratePageIcons();
 

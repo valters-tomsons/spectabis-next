@@ -1,17 +1,23 @@
+using System;
+using Autofac;
+using Autofac.Core;
 using SpectabisUI.Controls;
 
 namespace SpectabisNext.Factories
 {
     public class PageFactory
     {
-        public PageFactory()
-        {
+        private readonly ILifetimeScope _containerScope;
 
+        public PageFactory(ILifetimeScope containerScope)
+        {
+            _containerScope = containerScope;
         }
 
         public Page Create<T>()
         {
-            return null;
+            var ll = _containerScope.Resolve<T>();
+            return ll as Page;
         }
     }
 }

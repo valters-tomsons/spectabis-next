@@ -23,11 +23,11 @@ namespace SpectabisNext.Repositories
 
         public Page GetPage<T>()
         {
-            var page = Pages.Single(x => x.GetType() == typeof(T)); 
+            var page = Pages.SingleOrDefault(x => x.GetType() == typeof(T)); 
 
             if(page == null || page.ReloadOnNavigation)
             {
-                page = _pageFactory.Create<T>();
+                return _pageFactory.Create<T>();
             }
 
             return page;
