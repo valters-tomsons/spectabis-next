@@ -5,7 +5,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
             <TextBlock Foreground="White">Welcome!</TextBlock>
-            <Button>Begin</Button>
+            <Button Name="firstButton">Begin</Button>
         </StackPanel>
     </Grid>
 

@@ -39,8 +39,8 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
 
-            builder.RegisterType<PageRepository>().As<IPageRepository>();
-            builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>();
+            builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
+            builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
         }
 
         private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)
