@@ -8,6 +8,7 @@ using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
 using SpectabisUI.Controls;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Views
 {
@@ -15,17 +16,21 @@ namespace SpectabisNext.Views
     {
         private readonly PageRepository _pageRepository;
         private readonly ConfigurationLoader _configuration;
+        private readonly IPageNavigationProvider _navigationProvider;
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
 
-        public MainWindow(PageRepository pageRepository, ConfigurationLoader configurationLoader)
+        public MainWindow(PageRepository pageRepository, ConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
         {
             _configuration = configurationLoader;
+            _navigationProvider = navigationProvider;
             _pageRepository = pageRepository;
 
             InitializeComponent();
             RegisterChildern();
+            _navigationProvider.ReferenceContainer(ContentContainer);
+
             FillElementColors();
             GeneratePageIcons();
 
@@ -36,7 +41,7 @@ namespace SpectabisNext.Views
 
         private void GeneratePageIcons()
         {
-            var allPages = _pageRepository.GetAll().Where(x => x.ShowInTitlebar);
+            var allPages = _pageRepository.All.Where(x => x.ShowInTitlebar);
 
             foreach (var page in allPages)
             {
@@ -89,7 +94,8 @@ namespace SpectabisNext.Views
 
         private void SetInitialPage()
         {
-            ContentContainer.Content = _pageRepository.GetPage<GameLibrary>();
+            _navigationProvider.Navigate<FirstTimeWizard>();
         }
+
     }
 }
