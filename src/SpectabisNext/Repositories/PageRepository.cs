@@ -17,6 +17,7 @@ namespace SpectabisNext.Repositories
         {
             Pages = new List<Page>();
             _pageFactory = pageFactory;
+            InitializePages();
         }
 
         public IEnumerable<Page> All => Pages;
@@ -39,6 +40,12 @@ namespace SpectabisNext.Repositories
             }
 
             return page;
+        }
+
+        private void InitializePages()
+        {
+            GetPage<GameLibrary>();
+            GetPage<Settings>();
         }
     }
 }
