@@ -27,7 +27,8 @@ namespace SpectabisNext.Repositories
 
             if(page == null || page.ReloadOnNavigation)
             {
-                return _pageFactory.Create<T>();
+                page = _pageFactory.Create<T>();
+                Pages.Add(page);
             }
 
             return page;
