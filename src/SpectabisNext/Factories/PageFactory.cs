@@ -16,8 +16,9 @@ namespace SpectabisNext.Factories
 
         public Page Create<T>()
         {
-            var ll = _containerScope.Resolve<T>();
-            return ll as Page;
+            var page = _containerScope.Resolve<T>();
+            System.Console.WriteLine($"PageFactory: Creating new {page.GetType()}");
+            return page as Page;
         }
     }
 }
