@@ -49,7 +49,7 @@ namespace SpectabisNext.Services
                 LastPageBuffer = (Page) PageContentContainer.Content;
             }
 
-            PageContentContainer.Content = _pageRepository.GetPage<T>();
+            PageContentContainer.Content = pageResult;
         }
     }
 }
