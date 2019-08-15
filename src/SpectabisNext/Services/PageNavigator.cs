@@ -10,16 +10,20 @@ namespace SpectabisNext.Services
     {
         private readonly IPageRepository _pageRepository;
         private ContentControl PageContentContainer { get; set; }
-        private Page LastPageBuffer {get; set;}
+        private Page LastPageBuffer { get; set; }
+        private IPagePreloader _pagePreloader { get; set; }
 
-        public PageNavigator(IPageRepository pageRepository)
+        public PageNavigator(IPageRepository pageRepository, IPagePreloader pagePreloader)
         {
+            _pagePreloader = pagePreloader;
             _pageRepository = pageRepository;
+
+            PreloadPages();
         }
 
         public void ReferenceContainer(ContentControl container)
         {
-            if(container == null)
+            if (container == null)
             {
                 Console.WriteLine("MainWindow not initialized properly");
                 Console.WriteLine("Content [Control] container is null");
@@ -33,23 +37,28 @@ namespace SpectabisNext.Services
         {
             var pageResult = _pageRepository.GetPage<T>();
 
-            if(PageContentContainer == null)
+            if (PageContentContainer == null)
             {
                 throw new PageIconCreatedNotAllowedException();
             }
 
-            if(pageResult == null)
+            if (pageResult == null)
             {
                 Console.WriteLine($"Page '{typeof(T)}' not found!");
                 return;
             }
 
-            if(LastPageBuffer != null)
+            if (LastPageBuffer != null)
             {
                 LastPageBuffer = (Page) PageContentContainer.Content;
             }
 
             PageContentContainer.Content = pageResult;
+        }
+
+        private void PreloadPages()
+        {
+            _pagePreloader.Preload(_pageRepository);
         }
     }
 }
