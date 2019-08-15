@@ -28,24 +28,12 @@ namespace SpectabisNext.Views
             _navigationProvider.ReferenceContainer(ContentContainer);
 
             FillElementColors();
-            GeneratePageIcons();
 
             ContentContainer.PropertyChanged += OnContentContainerPropertyChanged;
 
             SetInitialPage();
         }
 
-        private void GeneratePageIcons()
-        {
-            // var allPages = _pageRepository.All.Where(x => x.ShowInTitlebar);
-
-            // foreach (var page in allPages)
-            // {
-            //     var pageIcon = new PageIcon(page);
-            //     pageIcon.InvokedCallback += OnIconPress;
-            //     TitlebarPanel.Children.Add(pageIcon);
-            // }
-        }
 
         private void OnIconPress(object sender, EventArgs e)
         {
