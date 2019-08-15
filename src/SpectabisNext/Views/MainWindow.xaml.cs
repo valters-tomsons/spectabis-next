@@ -1,11 +1,9 @@
 using System;
-using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
 using SpectabisNext.Controls.PageIcon;
-using SpectabisNext.Repositories;
 using SpectabisNext.Services;
 using SpectabisUI.Controls;
 using SpectabisUI.Interfaces;
@@ -14,18 +12,16 @@ namespace SpectabisNext.Views
 {
     public class MainWindow : Window
     {
-        private readonly PageRepository _pageRepository;
         private readonly ConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _navigationProvider;
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
 
-        public MainWindow(PageRepository pageRepository, ConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
+        public MainWindow(ConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
-            _pageRepository = pageRepository;
 
             InitializeComponent();
             RegisterChildern();
@@ -41,14 +37,14 @@ namespace SpectabisNext.Views
 
         private void GeneratePageIcons()
         {
-            var allPages = _pageRepository.All.Where(x => x.ShowInTitlebar);
+            // var allPages = _pageRepository.All.Where(x => x.ShowInTitlebar);
 
-            foreach (var page in allPages)
-            {
-                var pageIcon = new PageIcon(page);
-                pageIcon.InvokedCallback += OnIconPress;
-                TitlebarPanel.Children.Add(pageIcon);
-            }
+            // foreach (var page in allPages)
+            // {
+            //     var pageIcon = new PageIcon(page);
+            //     pageIcon.InvokedCallback += OnIconPress;
+            //     TitlebarPanel.Children.Add(pageIcon);
+            // }
         }
 
         private void OnIconPress(object sender, EventArgs e)
@@ -79,16 +75,19 @@ namespace SpectabisNext.Views
         {
             if (e.Property.Name == "Content")
             {
-                var newContent = (Page) e.NewValue;
+                NavigationBarVisiblity((Page) e.NewValue);
+            }
+        }
 
-                if (newContent.HideTitlebar)
-                {
-                    this.FindControl<Grid>("TitlebarContainer").IsVisible = false;
-                }
-                else
-                {
-                    this.FindControl<Grid>("TitlebarContainer").IsVisible = true;
-                }
+        private void NavigationBarVisiblity(Page newContent)
+        {
+            if (newContent.HideTitlebar)
+            {
+                this.FindControl<Grid>("TitlebarContainer").IsVisible = false;
+            }
+            else
+            {
+                this.FindControl<Grid>("TitlebarContainer").IsVisible = true;
             }
         }
 

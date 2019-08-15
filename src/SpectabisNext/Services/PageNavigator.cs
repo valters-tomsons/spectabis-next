@@ -14,7 +14,7 @@ namespace SpectabisNext.Services
 
         public PageNavigator(IPageRepository pageRepository)
         {
-            this._pageRepository = pageRepository;
+            _pageRepository = pageRepository;
         }
 
         public void ReferenceContainer(ContentControl container)
@@ -35,7 +35,7 @@ namespace SpectabisNext.Services
 
             if(PageContentContainer == null)
             {
-                throw new NavigatorContentContainerNullException();
+                throw new PageIconCreatedNotAllowedException();
             }
 
             if(pageResult == null)
