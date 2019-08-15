@@ -25,13 +25,16 @@ namespace SpectabisNext.Views
 
             InitializeComponent();
             RegisterChildern();
+
             _navigationProvider.ReferenceContainer(ContentContainer);
+            _navigationProvider.ReferenceNavigationControls(TitlebarPanel, OnIconPress);
 
             FillElementColors();
 
             ContentContainer.PropertyChanged += OnContentContainerPropertyChanged;
 
             SetInitialPage();
+            _navigationProvider.GeneratePageIcons();
         }
 
 

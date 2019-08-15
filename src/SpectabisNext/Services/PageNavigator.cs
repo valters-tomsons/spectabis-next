@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
 using Avalonia.Controls;
+using SpectabisNext.Controls.PageIcon;
+using SpectabisNext.Factories;
 using SpectabisUI.Controls;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
@@ -9,12 +12,16 @@ namespace SpectabisNext.Services
     public class PageNavigator : IPageNavigationProvider
     {
         private readonly IPageRepository _pageRepository;
-        private ContentControl PageContentContainer { get; set; }
-        private Page LastPageBuffer { get; set; }
         private IPagePreloader _pagePreloader { get; set; }
+        private readonly NavigationBarItemFactory _navItemFactory;
+        private ContentControl PageContentContainer { get; set; }
+        private StackPanel NavigationItemBar { get; set; }
+        private EventHandler NavigationItemClick { get; set; }
+        private Page LastPageBuffer { get; set; }
 
-        public PageNavigator(IPageRepository pageRepository, IPagePreloader pagePreloader)
+        public PageNavigator(IPageRepository pageRepository, IPagePreloader pagePreloader, NavigationBarItemFactory navItemFactory)
         {
+            _navItemFactory = navItemFactory;
             _pagePreloader = pagePreloader;
             _pageRepository = pageRepository;
 
@@ -31,6 +38,12 @@ namespace SpectabisNext.Services
             }
 
             PageContentContainer = container;
+        }
+
+        public void ReferenceNavigationControls(StackPanel navigationBar, EventHandler itemClickEvent)
+        {
+            NavigationItemBar = navigationBar;
+            NavigationItemClick = itemClickEvent;
         }
 
         public void Navigate<T>()
@@ -59,6 +72,18 @@ namespace SpectabisNext.Services
         private void PreloadPages()
         {
             _pagePreloader.Preload(_pageRepository);
+        }
+
+        public void GeneratePageIcons()
+        {
+            var loadedPages = _pageRepository.All.Where(x => x.ShowInTitlebar);
+
+            foreach (var page in loadedPages)
+            {
+                System.Console.WriteLine($"Generating navigation icon for {page.GetType()}");
+                var icon = _navItemFactory.Create(page, NavigationItemClick);
+                NavigationItemBar.Children.Add(icon);
+            }
         }
     }
 }

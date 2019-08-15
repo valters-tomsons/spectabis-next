@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 
 namespace SpectabisUI.Interfaces
@@ -6,5 +7,7 @@ namespace SpectabisUI.Interfaces
     {
         void Navigate<T>();
         void ReferenceContainer(ContentControl ContentContainer);
+        void ReferenceNavigationControls(StackPanel NavigationBar, EventHandler NavigationItemClickEvent);
+        void GeneratePageIcons();
     }
 }
