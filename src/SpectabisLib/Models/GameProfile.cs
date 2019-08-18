@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SpectabisLib.Enums;
 
@@ -16,5 +17,6 @@ namespace SpectabisLib.Models
         public string FilePath { get; set; }
         public string BoxArtPath { get; set; }
         public List<EmulatorLaunchOptions> LaunchOptions { get; set; }
+        public TimeSpan Playtime { get; set; }
     }
 }
