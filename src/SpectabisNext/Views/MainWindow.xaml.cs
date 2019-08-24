@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
+using SpectabisLib.Helpers;
 using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Services;
 using SpectabisUI.Controls;
@@ -23,6 +24,8 @@ namespace SpectabisNext.Views
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
 
+            InitializeFileSystem.Initialize();
+
             InitializeComponent();
             RegisterChildern();
 
@@ -36,7 +39,6 @@ namespace SpectabisNext.Views
             SetInitialPage();
             _navigationProvider.GeneratePageIcons();
         }
-
 
         private void OnIconPress(object sender, EventArgs e)
         {
