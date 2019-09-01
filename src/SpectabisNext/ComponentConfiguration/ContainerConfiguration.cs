@@ -37,6 +37,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Repositories));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Services));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
+            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
 
             builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();

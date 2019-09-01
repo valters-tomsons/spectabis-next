@@ -8,7 +8,7 @@ using SpectabisLib.Repositories;
 using SpectabisNext.Factories;
 using SpectabisUI.Controls;
 
-namespace SpectabisNext.Views
+namespace SpectabisNext.Pages
 {
     public class GameLibrary : Page
     {

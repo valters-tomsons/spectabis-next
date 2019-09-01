@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using SpectabisUI.Controls;
 
-namespace SpectabisNext.Views
+namespace SpectabisNext.Pages
 {
     public class Settings : Page
     {
