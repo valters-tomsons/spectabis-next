@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using SpectabisNext.Factories;
-using SpectabisNext.Repositories;
-using SpectabisNext.Views;
-using SpectabisUI.Controls;
+using SpectabisNext.Pages;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Services

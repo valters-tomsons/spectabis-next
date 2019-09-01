@@ -1,11 +1,10 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using SpectabisNext.Services;
 using SpectabisUI.Controls;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Views
+namespace SpectabisNext.Pages
 {
     public class FirstTimeWizard : Page
     {
