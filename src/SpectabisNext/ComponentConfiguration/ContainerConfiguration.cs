@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Autofac;
+using SpectabisLib.Interfaces;
 using SpectabisLib.Repositories;
+using SpectabisLib.Services;
 using SpectabisNext.Factories;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
@@ -43,6 +45,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
             builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
             builder.RegisterType<PagePreloader>().As<IPagePreloader>().SingleInstance();
+            builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>();
         }
 
         private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)
