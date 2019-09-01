@@ -30,6 +30,26 @@ namespace SpectabisLib.Helpers
             return launchArgument.ToString();
         }
 
+        public static string RomPathToArgument(string romPath)
+        {
+            if(String.IsNullOrWhiteSpace(romPath))
+            {
+                return String.Empty;
+            }
+
+            return $"\"{romPath}\"";
+        }
+
+        public static string ConfigurationPathToArgument(string cfgPath)
+        {
+            if(String.IsNullOrWhiteSpace(cfgPath))
+            {
+                return String.Empty;
+            }
+
+            return $"--cfgpath{cfgPath}";
+        }
+
         private static IEnumerable<string> GetSelectedOptionsList(EmulatorLaunchOptions launchOptions)
         {
             // var enumNames = typeof(EmulatorLaunchOptions).GetEnumNames();
