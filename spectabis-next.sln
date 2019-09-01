@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisLib", "src\Spectab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisUI", "src\SpectabisUI\SpectabisUI.csproj", "{8BA82250-D86C-45AD-9E5C-E126EBEEE248}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA920628-1720-46EE-8034-96C24EE4162E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpectabisTests", "SpectabisTests", "{53B23CD5-230F-4437-A8CC-11216E6751A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibraryTest", "src\SpectabisTests\CoreLibraryTest\CoreLibraryTest.csproj", "{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +64,21 @@ Global
 		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|x64.Build.0 = Release|Any CPU
 		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|x86.ActiveCfg = Release|Any CPU
 		{8BA82250-D86C-45AD-9E5C-E126EBEEE248}.Release|x86.Build.0 = Release|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Debug|x64.Build.0 = Debug|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Debug|x86.Build.0 = Debug|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Release|x64.ActiveCfg = Release|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Release|x64.Build.0 = Release|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Release|x86.ActiveCfg = Release|Any CPU
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53B23CD5-230F-4437-A8CC-11216E6751A2} = {AA920628-1720-46EE-8034-96C24EE4162E}
+		{CC6F24AE-B5F1-4343-9319-D8A5F8FB8B37} = {53B23CD5-230F-4437-A8CC-11216E6751A2}
 	EndGlobalSection
 EndGlobal
