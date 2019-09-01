@@ -8,9 +8,8 @@ namespace SpectabisLib.Services
 {
     public class GameLauncherPCSX2 : IGameLauncher
     {
-        public string EmulatorPath { get; set; }
         private Process EmulatorProcess { get; set; }
-        public GameLauncherPCSX2(string EmulatorPath)
+        public GameLauncherPCSX2()
         {
 
         }
@@ -19,7 +18,6 @@ namespace SpectabisLib.Services
         {
             EmulatorProcess = CreateEmulatorProcess(game);
             EmulatorProcess.Start();
-
             return EmulatorProcess;
         }
 
@@ -41,11 +39,21 @@ namespace SpectabisLib.Services
             var romArgument = EmulatorOptionsParser.RomPathToArgument(gameProfile.FilePath);
             var fullArguments = $"{launchArguments} {romArgument}";
 
-            process.StartInfo.FileName = EmulatorPath;
+            process.StartInfo.FileName = GetEmulatorPath(gameProfile);
             process.StartInfo.Arguments = fullArguments;
             process.EnableRaisingEvents = true;
 
             return process;
+        }
+
+        private string GetEmulatorPath(GameProfile profile)
+        {
+            if(string.IsNullOrWhiteSpace(profile.EmulatorPath))
+            {
+                return SystemDirectories.PCSX2ExecutablePath;
+            }
+
+            return profile.EmulatorPath;
         }
 
     }
