@@ -12,5 +12,11 @@ namespace SpectabisLib
         public static readonly string ConfigFolderPath = $"{HomePath}/.spectabis";
         public static readonly string SpectabisConfigPath = $"{ConfigFolderPath}/spectabis.json";
         public static readonly string ResourcesPath = "Resources";
+        //UPDATE ME LATER!
+        public static readonly string PCSX2ConfigurationPath = "./PCSX2";
+        //UPDATE ME LATER!
+        public static readonly string PCSX2ExecutablePath = "PCSX2";
+        //UPDATE ME LATER!
+        public static readonly string PCSX2GameDatabasePath = "./PCSX2/gameindex.csv";
     }
 }
