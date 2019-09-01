@@ -9,6 +9,11 @@ namespace SpectabisLib.Helpers
     {
         public static string ConvertToLaunchArguments(EmulatorLaunchOptions launchOptions)
         {
+            if(launchOptions == 0)
+            {
+                return String.Empty;
+            }
+
             var launchArgument = new StringBuilder();
             var optionEnums = GetSelectedOptionsList(launchOptions);
 
