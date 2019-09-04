@@ -10,7 +10,7 @@ namespace SpectabisNext.Factories
         private readonly IConfigurationLoader _configuration;
         private readonly IBitmapLoader _bitmapLoader;
 
-        public GameTileFactory(ConfigurationLoader configurationLoader, BitmapLoader bitmapLoader)
+        public GameTileFactory(IConfigurationLoader configurationLoader, IBitmapLoader bitmapLoader)
         {
             _configuration = configurationLoader;
             _bitmapLoader = bitmapLoader;

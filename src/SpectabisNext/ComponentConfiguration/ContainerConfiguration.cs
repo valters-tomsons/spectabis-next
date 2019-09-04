@@ -31,21 +31,22 @@ namespace SpectabisNext.ComponentConfiguration
         private static void RegisterSpectabisLib(ContainerBuilder builder)
         {
             var spectabisLib = Assembly.Load(nameof(SpectabisLib));
-            builder.RegisterNamespaceTypes(nameof(SpectabisLib.Repositories), spectabisLib);
+            builder.RegisterType<SpectabisLib.Repositories.GameProfileRepository>().SingleInstance();
+            builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>().SingleInstance();
         }
 
         private static void RegisterSpectabis(ContainerBuilder builder)
         {
-            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Repositories));
-            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Services));
+            builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
+            builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
+            builder.RegisterType<ConfigurationLoader>().As<IConfigurationLoader>().SingleInstance();
+           
+            builder.RegisterType<PagePreloader>().As<IPagePreloader>();
+            builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
+
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
-
-            builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
-            builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
-            builder.RegisterType<PagePreloader>().As<IPagePreloader>().SingleInstance();
-            builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>();
         }
 
         private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)

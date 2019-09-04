@@ -5,17 +5,16 @@ namespace SpectabisNext.Services
 {
     public class PagePreloader : IPagePreloader
     {
-        private IPageRepository pageRepository { get; set; }
+        private readonly IPageRepository _pageRepository;
 
-        public PagePreloader()
+        public PagePreloader(IPageRepository pageRepository)
         {
-
+            System.Console.WriteLine("PagePreloader: " +this.GetHashCode());
+            _pageRepository = pageRepository;
         }
 
-        public void Preload(IPageRepository targetRepository)
+        public void Preload()
         {
-            pageRepository = targetRepository;
-
             LoadPage<GameLibrary>();
             LoadPage<Settings>();
         }
@@ -24,9 +23,8 @@ namespace SpectabisNext.Services
         {
             var pageType = typeof(T);
             System.Console.WriteLine($"Preloading page: {pageType}");
-            pageRepository.GetPage<T>();
+            _pageRepository.GetPage<T>();
         }
-
 
     }
 }

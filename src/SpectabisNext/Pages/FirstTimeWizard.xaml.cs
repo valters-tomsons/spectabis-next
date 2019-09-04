@@ -8,11 +8,11 @@ namespace SpectabisNext.Pages
 {
     public class FirstTimeWizard : Page
     {
-        private readonly ConfigurationLoader _configuration;
+        private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _pageNavigator;
         private Button FirstButton;
 
-        public FirstTimeWizard(ConfigurationLoader configuration, IPageNavigationProvider pageNavigator)
+        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator)
         {
             _configuration = configuration;
             _pageNavigator = pageNavigator;

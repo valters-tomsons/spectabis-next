@@ -8,11 +8,11 @@ namespace SpectabisNext.Services
 {
     public class BitmapLoader : IBitmapLoader
     {
-        private readonly ConfigurationLoader _configurationLoader;
+        private readonly IConfigurationLoader _configurationLoader;
 
         public Bitmap DefaultBoxart { get; private set; }
 
-        public BitmapLoader(ConfigurationLoader configurationLoader)
+        public BitmapLoader(IConfigurationLoader configurationLoader)
         {
             _configurationLoader = configurationLoader;
             DefaultBoxart = LoadDefaultBoxart();

@@ -14,13 +14,13 @@ namespace SpectabisNext.Views
 {
     public class MainWindow : Window
     {
-        private readonly ConfigurationLoader _configuration;
+        private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _navigationProvider;
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
 
-        public MainWindow(ConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
+        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
