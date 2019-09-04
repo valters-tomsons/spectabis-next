@@ -6,6 +6,7 @@ using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Factories;
 using SpectabisUI.Controls;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
@@ -14,9 +15,11 @@ namespace SpectabisNext.Pages
         private readonly GameProfileRepository _gameRepo;
         private readonly GameTileFactory _tileFactory;
         private readonly IGameLauncher _gameLauncher;
+        private readonly IPageNavigationProvider _navigationProvider;
 
-        public GameLibrary(GameProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher)
+        public GameLibrary(GameProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
         {
+            _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
             _gameLauncher = gameLauncher;
             _gameRepo = gameRepo;
@@ -44,6 +47,7 @@ namespace SpectabisNext.Pages
             var clickedTile = (GameTileView) sender;
             System.Console.WriteLine($"Launching {clickedTile.Profile.Title}");
             _gameLauncher.Launch(clickedTile.Profile);
+            // _navigationProvider.Navigate<GameRunning>();
         }
     }
 }
