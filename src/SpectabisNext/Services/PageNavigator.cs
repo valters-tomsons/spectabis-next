@@ -25,11 +25,12 @@ namespace SpectabisNext.Services
             _pagePreloader = pagePreloader;
             _pageRepository = pageRepository;
 
-            PreloadPages();
         }
 
         public void ReferenceContainer(ContentControl container)
         {
+            PreloadPages();
+
             if (container == null)
             {
                 Console.WriteLine("MainWindow not initialized properly");
@@ -71,7 +72,7 @@ namespace SpectabisNext.Services
 
         private void PreloadPages()
         {
-            _pagePreloader.Preload(_pageRepository);
+            _pagePreloader.Preload();
         }
 
         public void GeneratePageIcons()

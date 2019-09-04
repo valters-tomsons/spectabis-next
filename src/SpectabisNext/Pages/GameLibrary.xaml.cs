@@ -47,7 +47,7 @@ namespace SpectabisNext.Pages
             var clickedTile = (GameTileView) sender;
             System.Console.WriteLine($"Launching {clickedTile.Profile.Title}");
             _gameLauncher.Launch(clickedTile.Profile);
-            // _navigationProvider.Navigate<GameRunning>();
+            _navigationProvider.Navigate<GameRunning>();
         }
     }
 }
