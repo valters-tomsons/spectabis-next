@@ -10,6 +10,7 @@ namespace SpectabisLib.Helpers
             Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
         
         public static readonly string ConfigFolder = $"{HomePath}/.config/spectabis";
+        public static readonly string ProfileFolder = $"{HomePath}/.config/spectabis/profiles";
         public static readonly string ConfigFile = $"{ConfigFolder}/spectabis.json";
         public static readonly string ResourcesPath = "Resources";
         //UPDATE ME LATER!
