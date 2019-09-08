@@ -2,8 +2,6 @@ namespace SpectabisLib.Models
 {
     public struct SystemPathsStruct
     {
-        private string HomePath { get; set; }
-
         public SystemPathsStruct(SystemPathsStruct defaultPathsStruct)
         {
             this = defaultPathsStruct;
