@@ -1,4 +1,6 @@
+using System;
 using System.Diagnostics;
+using System.IO;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
@@ -48,12 +50,18 @@ namespace SpectabisLib.Services
 
         private string GetEmulatorPath(GameProfile profile)
         {
-            if(string.IsNullOrWhiteSpace(profile.EmulatorPath))
+            if (string.IsNullOrWhiteSpace(profile.EmulatorPath))
             {
                 return SystemDirectories.PCSX2ExecutablePath;
             }
 
             return profile.EmulatorPath;
+        }
+
+        private bool IsGameFileValid(string gamePath)
+        {
+            if (!String.IsNullOrEmpty(gamePath) && File.Exists(gamePath)) { return true; }
+            return false;
         }
 
     }

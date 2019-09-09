@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using SpectabisLib.Helpers;
 using SpectabisLib.Models;
 
@@ -13,7 +14,12 @@ namespace SpectabisLib.Services
             _systemPaths = systemPaths;
         }
 
-        public GameProfile WriteProfile()
+        public IEnumerable<GameProfile> ReadAllProfiles()
+        {
+            throw new NotImplementedException();
+        }
+
+        public GameProfile WriteProfile(GameProfile profile)
         {
             throw new NotImplementedException();
         }
