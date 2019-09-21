@@ -42,6 +42,7 @@ Support for Mac OS is possible. I won't go out of my way to make sure it works t
 * Isolated PCSX2 installation profiles 
 * Seperate plugin updates from Spectabis releases
 * Game favourites list
+* Custom service with remastered game arts
 * Advanced sorting options
 
 ### Planned sorting options:
