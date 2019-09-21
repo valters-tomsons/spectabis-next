@@ -45,8 +45,17 @@ namespace SpectabisNext.Pages
         private void OnGameTileClick(object sender, PointerPressedEventArgs e)
         {
             var clickedTile = (GameTileView) sender;
-            System.Console.WriteLine($"Launching {clickedTile.Profile.Title}");
-            _gameLauncher.Launch(clickedTile.Profile);
+
+            if(e.MouseButton == MouseButton.Left)
+            {
+                LaunchTile(clickedTile);
+            }
+        }
+
+        private void LaunchTile(GameTileView gameTile)
+        {
+            System.Console.WriteLine($"Launching {gameTile.Profile.Title}");
+            _gameLauncher.Launch(gameTile.Profile);
             _navigationProvider.Navigate<GameRunning>();
         }
     }
