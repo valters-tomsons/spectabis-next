@@ -1,6 +1,6 @@
 namespace SpectabisLib.Enums
 {
-    public enum SupportedPlatforms
+    public enum GamePlatform
     {
         Playstation,
         Playstation2
