@@ -1,10 +1,10 @@
 using SpectabisLib.Configuration;
+using SpectabisUI.Configuration;
 using SpectabisUI.Interfaces;
-using SpectaibsUI.Configuration;
 
 namespace SpectabisNext.Services
 {
-    public class ConfigurationLoader : IConfigurationLoader
+    public class ConfigurationLoader : SpectabisUI.Interfaces.IConfigurationLoader
     {
         public SpectabisConfig Spectabis { get; private set; }
         public UIConfiguration UserInterface { get; private set; }

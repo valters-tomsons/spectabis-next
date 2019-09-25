@@ -1,5 +1,5 @@
 using SpectabisLib.Configuration;
-using SpectaibsUI.Configuration;
+using SpectabisUI.Configuration;
 
 namespace SpectabisUI.Interfaces
 {
