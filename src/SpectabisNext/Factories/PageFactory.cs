@@ -1,7 +1,5 @@
-using System;
 using Autofac;
-using Autofac.Core;
-using SpectabisUI.Controls;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Factories
 {
@@ -16,6 +14,7 @@ namespace SpectabisNext.Factories
 
         public Page Create<T>()
         {
+            var pageDeb = typeof(T);
             var page = _containerScope.Resolve<T>();
             System.Console.WriteLine($"PageFactory: Creating new {page.GetType()}");
             return page as Page;

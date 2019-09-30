@@ -6,8 +6,6 @@ using Avalonia.Markup.Xaml;
 using SpectabisLib.Helpers;
 using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Pages;
-using SpectabisNext.Services;
-using SpectabisUI.Controls;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Views
@@ -88,6 +86,7 @@ namespace SpectabisNext.Views
         private void SetInitialPage()
         {
             _navigationProvider.Navigate<FirstTimeWizard>();
+            // _navigationProvider.Navigate<FileBrowser>();
         }
 
     }

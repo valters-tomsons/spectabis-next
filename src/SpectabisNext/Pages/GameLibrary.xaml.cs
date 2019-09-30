@@ -1,17 +1,26 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Markup.Xaml;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Factories;
-using SpectabisUI.Controls;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
-    public class GameLibrary : Page
+    public class GameLibrary : UserControl, Page
     {
+        private string pageTitle = "Library";
+        private bool showInTitlebar = true;
+        private bool hideTitlebar = false;
+        private bool reloadOnNavigation = false;
+
+        public string PageTitle { get { return pageTitle; } }
+        public bool ShowInTitlebar { get { return showInTitlebar; } }
+        public bool HideTitlebar { get { return hideTitlebar; } }
+        public bool ReloadOnNavigation { get { return reloadOnNavigation; } }
+
         private readonly GameProfileRepository _gameRepo;
         private readonly GameTileFactory _tileFactory;
         private readonly IGameLauncher _gameLauncher;
@@ -19,15 +28,19 @@ namespace SpectabisNext.Pages
 
         public GameLibrary(GameProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
         {
+
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
             _gameLauncher = gameLauncher;
             _gameRepo = gameRepo;
 
-            PageTitle = "Library";
-            ShowInTitlebar = true;
-
+            InitializeComponent();
             Populate();
+        }
+
+        public void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
 
         private void Populate()

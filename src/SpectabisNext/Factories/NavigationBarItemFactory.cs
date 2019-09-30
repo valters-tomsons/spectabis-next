@@ -1,7 +1,7 @@
 using System;
 using SpectabisNext.Controls.PageIcon;
-using SpectabisUI.Controls;
 using SpectabisUI.Exceptions;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Factories
 {

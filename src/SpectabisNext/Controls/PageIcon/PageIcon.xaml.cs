@@ -4,7 +4,6 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
-using SpectabisUI.Controls;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Controls.PageIcon

@@ -1,15 +1,12 @@
-using System;
 using System.Linq;
 using System.Reflection;
 using Autofac;
 using SpectabisLib.Interfaces;
-using SpectabisLib.Repositories;
 using SpectabisLib.Services;
-using SpectabisNext.Factories;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
-using SpectabisNext.Views;
 using SpectabisUI.Interfaces;
+using SpectabisUI.Pages;
 
 namespace SpectabisNext.ComponentConfiguration
 {

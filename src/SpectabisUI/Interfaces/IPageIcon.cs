@@ -1,6 +1,5 @@
 using System;
 using Avalonia.Media.Imaging;
-using SpectabisUI.Controls;
 
 namespace SpectabisUI.Interfaces
 {

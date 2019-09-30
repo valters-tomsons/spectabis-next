@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
 using Avalonia.Controls;
-using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Factories;
-using SpectabisUI.Controls;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
 
