@@ -6,7 +6,6 @@ using SpectabisLib.Services;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
 using SpectabisUI.Interfaces;
-using SpectabisUI.Pages;
 
 namespace SpectabisNext.ComponentConfiguration
 {
