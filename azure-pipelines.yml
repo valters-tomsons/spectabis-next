@@ -13,13 +13,13 @@ variables:
   buildConfiguration: '$(Configuration)'
 
 steps:
-- script: dotnet publish -C $CONFIGURATION -r linux-x64
+- script: dotnet publish -c $CONFIGURATION -r linux-x64
   displayName: 'build linux-x64'
 
-- script: dotnet publish -C $CONFIGURATION -r osx-x64
+- script: dotnet publish -c $CONFIGURATION -r osx-x64
   displayName: 'build osx-x64'
 
-- script: dotnet publish -C $CONFIGURATION -r win-x64
+- script: dotnet publish -c $CONFIGURATION -r win-x64
   displayName: 'build win-x64'
 
 - script: tar -cvzf spectabis-next-release.tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/linux-x64
