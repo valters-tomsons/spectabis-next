@@ -13,7 +13,7 @@ variables:
   buildConfiguration: '$(Configuration)'
 
 steps:
-- script: export CommitHash="$(git log --pretty=format:'%h' -n 1)"
+- bash: export CommitHash="$(git log --pretty=format:'%h' -n 1)"
 - script: mkdir $ARTIFACTSFOLDER
 
 - script: dotnet publish -c $CONFIGURATION -r linux-x64
