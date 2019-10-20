@@ -44,6 +44,7 @@ Support for Mac OS is possible. I won't go out of my way to make sure it works t
 * Game favourites list
 * Custom service with remastered game arts
 * Advanced sorting options
+* Incorporate - https://github.com/Zombeaver/PCSX2-Configs
 
 ### Planned sorting options:
 * Playtime
