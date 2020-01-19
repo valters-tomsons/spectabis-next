@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
@@ -15,7 +16,8 @@ namespace SpectabisNext.Controls.GameTileView
         private TextBlock BoxTitle { get; set; }
         private Rectangle HoverOverlayRectangle { get; set; }
 
-        public GameTileView(){}
+        [Obsolete("XAMLIL placeholder", true)]
+        public GameTileView() { }
 
         public GameTileView(GameProfile game)
         {

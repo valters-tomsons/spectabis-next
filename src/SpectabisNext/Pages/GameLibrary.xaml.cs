@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
@@ -26,7 +27,8 @@ namespace SpectabisNext.Pages
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
 
-        public GameLibrary(){}
+        [Obsolete("XAMLIL placeholder", true)]
+        public GameLibrary() { }
 
         public GameLibrary(GameProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
         {
@@ -59,9 +61,9 @@ namespace SpectabisNext.Pages
 
         private void OnGameTileClick(object sender, PointerPressedEventArgs e)
         {
-            var clickedTile = (GameTileView) sender;
+            var clickedTile = (GameTileView)sender;
 
-            if(e.MouseButton == MouseButton.Left)
+            if (e.MouseButton == MouseButton.Left)
             {
                 LaunchTile(clickedTile);
             }

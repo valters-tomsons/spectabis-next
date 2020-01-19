@@ -18,10 +18,8 @@ namespace SpectabisNext.Views
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
 
-        public MainWindow()
-        {
-
-        }
+        [Obsolete("XAMLIL placeholder", true)]
+        public MainWindow() { }
 
         public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
         {
@@ -46,7 +44,7 @@ namespace SpectabisNext.Views
 
         private void OnIconPress(object sender, EventArgs e)
         {
-            var icon = (PageIcon) sender;
+            var icon = (PageIcon)sender;
             ContentContainer.Content = icon.Destination;
         }
 
@@ -72,7 +70,7 @@ namespace SpectabisNext.Views
         {
             if (e.Property.Name == "Content")
             {
-                NavigationBarVisiblity((Page) e.NewValue);
+                NavigationBarVisiblity((Page)e.NewValue);
             }
         }
 
