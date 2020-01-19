@@ -14,8 +14,8 @@ namespace CoreLibraryTest
 
             var arguments = EmulatorOptionsParser.ConvertToLaunchArguments(options);
 
-            Assert.True(arguments.Contains("--fullboot"));
-            Assert.True(arguments.Contains("--nohacks"));
+            Assert.Contains("--fullboot", arguments);
+            Assert.Contains("--nohacks", arguments);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace CoreLibraryTest
 
             var arguments = EmulatorOptionsParser.ConvertToLaunchArguments(options);
 
-            Assert.True(arguments.Contains("--nohacks --fullboot"));
+            Assert.Contains("--nohacks --fullboot", arguments);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace CoreLibraryTest
 
             var arguments = EmulatorOptionsParser.ConvertToLaunchArguments(options);
 
-            Assert.True(String.IsNullOrEmpty(arguments));
+            Assert.True(string.IsNullOrEmpty(arguments));
         }
     }
 }
