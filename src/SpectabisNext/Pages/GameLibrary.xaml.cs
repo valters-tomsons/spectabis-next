@@ -49,16 +49,17 @@ namespace SpectabisNext.Pages
             foreach (var gameProfile in _gameRepo.GetAll())
             {
                 var gameTile = _tileFactory.Create(gameProfile);
-                gameTile.PointerPressed += OnGameTileClick;
+                gameTile.PointerReleased += OnGameTileClick;
                 gamePanel.Children.Add(gameTile);
             }
         }
 
-        private void OnGameTileClick(object sender, PointerPressedEventArgs e)
+        private void OnGameTileClick(object sender, PointerReleasedEventArgs e)
         {
-            var clickedTile = (GameTileView)sender;
+            var clickedTile = (GameTileView) sender;
+            var pointerUpdate = e.GetCurrentPoint(null).Properties.PointerUpdateKind;
 
-            if (e.MouseButton == MouseButton.Left)
+            if (pointerUpdate == PointerUpdateKind.LeftButtonReleased)
             {
                 LaunchTile(clickedTile);
             }
