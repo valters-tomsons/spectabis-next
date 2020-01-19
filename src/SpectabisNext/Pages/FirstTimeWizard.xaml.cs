@@ -21,6 +21,10 @@ namespace SpectabisNext.Pages
         private readonly IPageNavigationProvider _pageNavigator;
         private Button FirstButton;
 
+        public FirstTimeWizard()
+        {}
+
+
         public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator)
         {
             _configuration = configuration;

@@ -18,6 +18,11 @@ namespace SpectabisNext.Views
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
 
+        public MainWindow()
+        {
+
+        }
+
         public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
         {
             _configuration = configurationLoader;

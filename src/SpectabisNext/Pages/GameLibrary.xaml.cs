@@ -26,6 +26,8 @@ namespace SpectabisNext.Pages
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
 
+        public GameLibrary(){}
+
         public GameLibrary(GameProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
         {
 

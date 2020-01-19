@@ -18,6 +18,8 @@ namespace SpectabisNext.Controls.PageIcon
         private Rectangle HoverOverlayRectangle { get; set; }
         private string FallbackDisplayString { get; set; }
 
+        public PageIcon() {}
+
         public PageIcon(Page destination)
         {
             Initialize(destination);
