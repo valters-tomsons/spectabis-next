@@ -23,7 +23,6 @@ namespace SpectabisNext.Services
             _navItemFactory = navItemFactory;
             _pagePreloader = pagePreloader;
             _pageRepository = pageRepository;
-
         }
 
         public void ReferenceContainer(ContentControl container)

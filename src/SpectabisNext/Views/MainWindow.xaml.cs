@@ -104,7 +104,6 @@ namespace SpectabisNext.Views
         private void SetInitialPage()
         {
             _navigationProvider.Navigate<FirstTimeWizard>();
-            // _navigationProvider.Navigate<FileBrowser>();
         }
 
     }
