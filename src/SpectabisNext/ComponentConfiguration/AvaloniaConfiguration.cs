@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Dialogs;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.ComponentConfiguration
@@ -18,7 +19,7 @@ namespace SpectabisNext.ComponentConfiguration
         }
 
         private static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>().UsePlatformDetect();
+            => AppBuilder.Configure<App>().UsePlatformDetect().UseManagedSystemDialogs();
 
     }
 }
