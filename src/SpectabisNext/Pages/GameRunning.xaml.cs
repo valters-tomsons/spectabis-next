@@ -39,6 +39,13 @@ namespace SpectabisNext.Pages
         {
             StopGame = this.FindControl<Button>("StopGame_Button");
             StopGame.Click += StopGame_Click;
+
+            _gameLauncher.GetRunningGame().GameStopped += OnGameStopped;
+        }
+
+        private void OnGameStopped(object sender, EventArgs args)
+        {
+            _pageNavigation.Navigate<GameLibrary>();
         }
 
         private void StopGame_Click(object sender, RoutedEventArgs e)

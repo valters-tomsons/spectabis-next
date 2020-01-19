@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Threading;
 using SpectabisNext.Factories;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
@@ -62,10 +63,10 @@ namespace SpectabisNext.Services
 
             if (LastPageBuffer != null)
             {
-                LastPageBuffer = (Page) PageContentContainer.Content;
+                LastPageBuffer = (Page)PageContentContainer.Content;
             }
 
-            PageContentContainer.Content = pageResult;
+            Dispatcher.UIThread.InvokeAsync(new Action(() => PageContentContainer.Content = pageResult));
         }
 
         private void PreloadPages()
