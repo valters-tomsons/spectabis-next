@@ -34,8 +34,13 @@ namespace SpectabisLib.Services
 
         public void StopGame()
         {
-            _gameProcess = null;
+            if(_gameProcess == null)
+            {
+                return;
+            }
+
             _gameProcess.Stop();
+            _gameProcess = null;
         }
 
         private Process CreateEmulatorProcess(GameProfile gameProfile)

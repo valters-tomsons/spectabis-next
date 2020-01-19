@@ -9,6 +9,7 @@ using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Pages;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Repositories;
+using SpectabisLib.Interfaces;
 
 namespace SpectabisNext.Views
 {
@@ -17,6 +18,7 @@ namespace SpectabisNext.Views
         private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly CancellationTokenRepository _cancelRepo;
+        private readonly IGameLauncher _gameLauncher;
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
@@ -24,13 +26,14 @@ namespace SpectabisNext.Views
         [Obsolete("XAMLIL placeholder", true)]
         public MainWindow() { }
 
-        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo)
+        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo, IGameLauncher gameLauncher)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
             _cancelRepo = tokenRepo;
+            _gameLauncher = gameLauncher;
 
-            this.Closed += OnWindowClosed;
+            Closed += OnWindowClosed;
 
             InitializeFileSystem.Initialize();
 
@@ -50,6 +53,7 @@ namespace SpectabisNext.Views
 
         private void OnWindowClosed(object sender, EventArgs e)
         {
+            _gameLauncher.StopGame();
             _cancelRepo.CancelToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp);
         }
 
