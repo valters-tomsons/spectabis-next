@@ -5,8 +5,9 @@ namespace SpectabisLib.Interfaces
 {
     public interface IGameLauncher
     {
-        Process Launch(GameProfile game);
-        void BeginShutdown();
-
+        GameProcess StartGame(GameProfile game);
+        // void PauseGame();
+        void StopGame();
+        GameProcess GetRunningGame();
     }
 }

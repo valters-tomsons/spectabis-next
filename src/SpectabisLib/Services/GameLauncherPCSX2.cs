@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
@@ -10,31 +9,42 @@ namespace SpectabisLib.Services
 {
     public class GameLauncherPCSX2 : IGameLauncher
     {
-        private Process EmulatorProcess { get; set; }
+        private GameProcess _gameProcess;
+        
         public GameLauncherPCSX2()
         {
 
         }
 
-        public Process Launch(GameProfile game)
+        public GameProcess StartGame(GameProfile game)
         {
-            EmulatorProcess = CreateEmulatorProcess(game);
-            EmulatorProcess.Start();
-            return EmulatorProcess;
+            var process = CreateEmulatorProcess(game);
+            var gameProcess = new GameProcess(game, process);
+
+            _gameProcess = gameProcess;
+            _gameProcess.Start();
+
+            return gameProcess;
         }
 
-        public void BeginShutdown()
+        public GameProcess GetRunningGame()
         {
-            KillEmulatorProcess();
+            return _gameProcess;
         }
 
-        private void KillEmulatorProcess()
+        public void StopGame()
         {
-            EmulatorProcess.Kill();
+            _gameProcess = null;
+            _gameProcess.Stop();
         }
 
         private Process CreateEmulatorProcess(GameProfile gameProfile)
         {
+            if(_gameProcess != null)
+            {
+                Console.WriteLine($"[PCSX2-GameLauncher] Losing lease of existing process '{_gameProcess.Process.MainModule.FileName}'");
+            }
+
             var process = new Process();
 
             var launchArguments = EmulatorOptionsParser.ConvertToLaunchArguments(gameProfile.LaunchOptions);

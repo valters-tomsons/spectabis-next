@@ -67,8 +67,9 @@ namespace SpectabisNext.Pages
 
         private void LaunchTile(GameTileView gameTile)
         {
-            System.Console.WriteLine($"Launching {gameTile.Profile.Title}");
-            _gameLauncher.Launch(gameTile.Profile);
+            Console.WriteLine($"[GameLibrary] Launching {gameTile.Profile.Title}");
+
+            _gameLauncher.StartGame(gameTile.Profile);
             _navigationProvider.Navigate<GameRunning>();
         }
     }
