@@ -3,9 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Portable.Xaml.Markup;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
 
@@ -17,6 +15,9 @@ namespace SpectabisNext.Controls.GameTileView
         public Image BoxArt { get; set; }
         private TextBlock BoxTitle { get; set; }
         private Rectangle HoverOverlayRectangle { get; set; }
+
+        [Obsolete("XAMLIL placeholder", true)]
+        public GameTileView() { }
 
         public GameTileView(GameProfile game)
         {

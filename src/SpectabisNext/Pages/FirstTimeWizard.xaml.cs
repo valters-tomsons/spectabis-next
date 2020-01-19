@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -20,6 +21,9 @@ namespace SpectabisNext.Pages
         private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _pageNavigator;
         private Button FirstButton;
+
+        [Obsolete("XAMLIL placeholder", true)]
+        public FirstTimeWizard() { }
 
         public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator)
         {

@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/SpectabisNext/bin/Debug/netcoreapp2.2/SpectabisNext.dll",
+            "program": "${workspaceFolder}/src/SpectabisNext/bin/Debug/netcoreapp3.1/SpectabisNext.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/SpectabisNext",
             "console": "internalConsole",

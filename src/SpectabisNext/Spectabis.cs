@@ -1,3 +1,5 @@
+using System.Threading;
+using Avalonia.Controls;
 using SpectabisNext.Views;
 using SpectabisUI.Interfaces;
 
@@ -16,8 +18,11 @@ namespace SpectabisNext
 
         public void Start()
         {
+            var cts = new CancellationTokenSource();
             var appInstance = _windowConfiguration.GetInstance();
-            appInstance.Run(_mainWindow);
+
+            _mainWindow.Show();
+            appInstance.Run(cts.Token);
         }
 
     }

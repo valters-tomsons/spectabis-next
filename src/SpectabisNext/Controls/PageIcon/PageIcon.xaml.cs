@@ -18,6 +18,9 @@ namespace SpectabisNext.Controls.PageIcon
         private Rectangle HoverOverlayRectangle { get; set; }
         private string FallbackDisplayString { get; set; }
 
+        [Obsolete("XAMLIL placeholder", true)]
+        public PageIcon() { }
+
         public PageIcon(Page destination)
         {
             Initialize(destination);
@@ -79,7 +82,7 @@ namespace SpectabisNext.Controls.PageIcon
         {
             ShowHoverOverlay = false;
         }
-        
+
         private bool ShowHoverOverlay
         {
             get
