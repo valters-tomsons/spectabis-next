@@ -11,8 +11,8 @@ Currently, **this is not usable for end-users**. There's a graphical interface w
 
 
 ## Current Technology Stack
-* .NET Core 2.2
-* Avalonia UI 0.8
+* .NET Core 3.1
+* Avalonia UI 0.9.1
 
 ## Platforms
 * Linux (the point of the whole project)
