@@ -1,3 +1,4 @@
+using System.Threading;
 using System;
 using Avalonia;
 using Avalonia.Controls;
@@ -7,6 +8,7 @@ using SpectabisLib.Helpers;
 using SpectabisNext.Controls.PageIcon;
 using SpectabisNext.Pages;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Repositories;
 
 namespace SpectabisNext.Views
 {
@@ -14,6 +16,7 @@ namespace SpectabisNext.Views
     {
         private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _navigationProvider;
+        private readonly CancellationTokenRepository _cancelRepo;
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
@@ -21,10 +24,13 @@ namespace SpectabisNext.Views
         [Obsolete("XAMLIL placeholder", true)]
         public MainWindow() { }
 
-        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider)
+        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
+            _cancelRepo = tokenRepo;
+
+            this.Closed += OnWindowClosed;
 
             InitializeFileSystem.Initialize();
 
@@ -40,6 +46,11 @@ namespace SpectabisNext.Views
 
             SetInitialPage();
             _navigationProvider.GeneratePageIcons();
+        }
+
+        private void OnWindowClosed(object sender, EventArgs e)
+        {
+            _cancelRepo.CancelToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp);
         }
 
         private void OnIconPress(object sender, EventArgs e)

@@ -28,6 +28,7 @@ namespace SpectabisNext.ComponentConfiguration
         {
             var spectabisLib = Assembly.Load(nameof(SpectabisLib));
             builder.RegisterType<SpectabisLib.Repositories.GameProfileRepository>().SingleInstance();
+            builder.RegisterType<SpectabisLib.Repositories.CancellationTokenRepository>().SingleInstance();
             builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>().SingleInstance();
         }
 
