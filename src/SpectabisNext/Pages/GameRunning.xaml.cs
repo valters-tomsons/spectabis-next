@@ -13,8 +13,8 @@ namespace SpectabisNext.Pages
         public bool ShowInTitlebar { get; } = false;
         public bool HideTitlebar { get; } = false;
         public bool ReloadOnNavigation { get; } = true;
+
         private readonly IGameLauncher _gameLauncher;
-        // private 
 
         [Obsolete("XAMLIL placeholder", true)]
         public GameRunning() { }
@@ -24,7 +24,8 @@ namespace SpectabisNext.Pages
             _gameLauncher = gameLauncher;
             InitializeComponent();
 
-            Console.WriteLine($"[GameRunning] Game running: {_gameLauncher.GetRunningGame().Game.Title}");
+            var gameProc = _gameLauncher.GetRunningGame();
+            Console.WriteLine($"[GameRunning] Game running:{gameProc.Game.Title} with processId '{gameProc.Process.Id}'");
         }
 
         public void InitializeComponent()
