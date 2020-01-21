@@ -16,7 +16,6 @@ namespace SpectabisNext.Services
         private ContentControl PageContentContainer { get; set; }
         private StackPanel NavigationItemBar { get; set; }
         private EventHandler NavigationItemClick { get; set; }
-        private Page LastPageBuffer { get; set; }
 
         public PageNavigator(IPageRepository pageRepository, IPagePreloader pagePreloader, NavigationBarItemFactory navItemFactory)
         {
@@ -58,11 +57,6 @@ namespace SpectabisNext.Services
             {
                 Console.WriteLine($"Page '{typeof(T)}' not found!");
                 return;
-            }
-
-            if (LastPageBuffer != null)
-            {
-                LastPageBuffer = (Page)PageContentContainer.Content;
             }
 
             Dispatcher.UIThread.InvokeAsync(new Action(() => PageContentContainer.Content = pageResult));
