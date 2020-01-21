@@ -16,7 +16,7 @@ namespace SpectabisNext.Pages
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
         public bool HideTitlebar { get; } = false;
-        public bool ReloadOnNavigation { get; } = false;
+        public bool ReloadOnNavigation { get; } = true;
 
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }

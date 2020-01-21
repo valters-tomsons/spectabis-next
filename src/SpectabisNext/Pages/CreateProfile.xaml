@@ -5,6 +5,8 @@
     >
 
     <Grid>
+        <StackPanel>
+        </StackPanel>
     </Grid>
 
 </UserControl>
