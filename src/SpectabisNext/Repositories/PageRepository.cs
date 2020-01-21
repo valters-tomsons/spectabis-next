@@ -24,17 +24,20 @@ namespace SpectabisNext.Repositories
         /// </summary>
         public Page GetPage<T>()
         {
-            var page = Pages.SingleOrDefault(x => x.GetType() == typeof(T)); 
+            var page = Pages.SingleOrDefault(x => x.GetType() == typeof(T));
 
-            if(page == null)
+            if (page != null)
             {
-                page = _pageFactory.Create<T>();
-
-                if(!page.ReloadOnNavigation)
+                if (page.ReloadOnNavigation)
                 {
-                    Pages.Add(page);
+                    page = _pageFactory.Create<T>();
                 }
+
+                return page;
             }
+
+            page = _pageFactory.Create<T>();
+            Pages.Add(page);
 
             return page;
         }
