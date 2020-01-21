@@ -9,7 +9,7 @@ using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
-    public class AddGame : UserControl, Page
+    public class CreateProfile : UserControl, Page
     {
         private readonly GameProfileRepository _gameRepo;
 
@@ -19,9 +19,9 @@ namespace SpectabisNext.Pages
         public bool ReloadOnNavigation { get; } = false;
 
         [Obsolete("XAMLIL placeholder", true)]
-        public AddGame() { }
+        public CreateProfile() { }
 
-        public AddGame(GameProfileRepository gameRepo)
+        public CreateProfile(GameProfileRepository gameRepo)
         {
             _gameRepo = gameRepo;
 

@@ -17,7 +17,7 @@ namespace SpectabisNext.Services
         {
             LoadPage<GameLibrary>();
             LoadPage<Settings>();
-            LoadPage<AddGame>();
+            LoadPage<CreateProfile>();
         }
 
         private void LoadPage<T>()
