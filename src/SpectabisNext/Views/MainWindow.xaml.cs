@@ -61,18 +61,8 @@ namespace SpectabisNext.Views
         {
             var icon = (PageIcon)sender;
             var page = icon.Destination;
+
             _navigationProvider.NavigatePage(page);
-            // ContentContainer.Content = icon.Destination;
-
-            // var pageType = page.GetType();
-            // var genericClass = typeof(_navigationProvider.Navigate<>);
-            // var constructedClass = pageType.MakeGenericType();
-
-            // _navigationProvider.Navigate();
-            
-            // var method = typeof(Page).GetMethod("");
-
-            // _navigationProvider.Navigate<>();
         }
 
         private void FillElementColors()
