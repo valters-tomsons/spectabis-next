@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using SpectabisNext.Factories;
@@ -44,7 +45,15 @@ namespace SpectabisNext.Services
             NavigationItemClick = itemClickEvent;
         }
 
-        public void Navigate<T>()
+        public void NavigatePage(Page page)
+        {
+            var type = page.GetType();
+            MethodInfo genericMethod = typeof(PageNavigator).GetMethod("Navigate");
+            MethodInfo specificMethod = genericMethod.MakeGenericMethod(type);
+            specificMethod.Invoke(this, null);
+        }
+
+        public void Navigate<T>() where T : Page
         {
             var pageResult = _pageRepository.GetPage<T>();
 

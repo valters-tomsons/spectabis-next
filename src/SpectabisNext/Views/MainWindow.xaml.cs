@@ -60,7 +60,19 @@ namespace SpectabisNext.Views
         private void OnIconPress(object sender, EventArgs e)
         {
             var icon = (PageIcon)sender;
-            ContentContainer.Content = icon.Destination;
+            var page = icon.Destination;
+            _navigationProvider.NavigatePage(page);
+            // ContentContainer.Content = icon.Destination;
+
+            // var pageType = page.GetType();
+            // var genericClass = typeof(_navigationProvider.Navigate<>);
+            // var constructedClass = pageType.MakeGenericType();
+
+            // _navigationProvider.Navigate();
+            
+            // var method = typeof(Page).GetMethod("");
+
+            // _navigationProvider.Navigate<>();
         }
 
         private void FillElementColors()
