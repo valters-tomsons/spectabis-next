@@ -1,5 +1,6 @@
 using System;
 using Avalonia.Controls;
+using SpectabisUI.Events;
 
 namespace SpectabisUI.Interfaces
 {
@@ -10,6 +11,6 @@ namespace SpectabisUI.Interfaces
         void ReferenceContainer(ContentControl ContentContainer);
         void ReferenceNavigationControls(StackPanel NavigationBar, EventHandler NavigationItemClickEvent);
         void GeneratePageIcons();
-        EventHandler OnPageNavigation { get; set; }
+        event EventHandler<NavigationArgs> PageNavigationEvent;
     }
 }

@@ -4,6 +4,7 @@ using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using SpectabisNext.Factories;
+using SpectabisUI.Events;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
 
@@ -16,8 +17,9 @@ namespace SpectabisNext.Services
         private readonly NavigationBarItemFactory _navItemFactory;
         private ContentControl PageContentContainer { get; set; }
         private StackPanel NavigationItemBar { get; set; }
+        private EventHandler PageNavigationClicked { get; set; }
 
-        public EventHandler OnPageNavigation { get; set; }
+        public event EventHandler<NavigationArgs> PageNavigationEvent;
 
         public PageNavigator(IPageRepository pageRepository, IPagePreloader pagePreloader, NavigationBarItemFactory navItemFactory)
         {
@@ -43,7 +45,7 @@ namespace SpectabisNext.Services
         public void ReferenceNavigationControls(StackPanel navigationBar, EventHandler itemClickEvent)
         {
             NavigationItemBar = navigationBar;
-            OnPageNavigation = itemClickEvent;
+            PageNavigationClicked = itemClickEvent;
         }
 
         public void NavigatePage(IPage page)
@@ -69,7 +71,14 @@ namespace SpectabisNext.Services
                 return;
             }
 
+            OnPageNavigation(this, pageResult);
             Dispatcher.UIThread.InvokeAsync(new Action(() => PageContentContainer.Content = pageResult));
+        }
+
+        private void OnPageNavigation(object sender, IPage page)
+        {
+            var args = new NavigationArgs(page);
+            PageNavigationEvent?.Invoke(sender, args);
         }
 
         private void PreloadPages()
@@ -84,7 +93,7 @@ namespace SpectabisNext.Services
             foreach (var page in loadedPages)
             {
                 System.Console.WriteLine($"Generating navigation icon for {page.GetType()}");
-                var icon = _navItemFactory.Create(page, OnPageNavigation);
+                var icon = _navItemFactory.Create(page, PageNavigationClicked);
                 NavigationItemBar.Children.Add(icon);
             }
         }
