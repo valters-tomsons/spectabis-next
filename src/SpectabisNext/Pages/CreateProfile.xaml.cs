@@ -1,17 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using SpectabisLib.Repositories;
+using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
-    public class CreateProfile : UserControl, Page
+    public class CreateProfile : UserControl, IPage
     {
         private readonly GameProfileRepository _gameRepo;
+        private readonly IPageNavigationProvider _navigation;
 
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
@@ -21,16 +20,42 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(GameProfileRepository gameRepo)
+        public CreateProfile(GameProfileRepository gameRepo, IPageNavigationProvider navigation)
         {
             _gameRepo = gameRepo;
+            _navigation = navigation;
 
             InitializeComponent();
+
+            _navigation.PageNavigationEvent += OnNavigation;
+        }
+
+        private void OnNavigation(object sender, NavigationArgs e)
+        {
+            if(e.Page != this)
+            {
+                _navigation.PageNavigationEvent -= OnNavigation;
+                return;
+            }
+
+            SelectGame();
         }
 
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void SelectGame()
+        {
+            var dialogWindow = new Window();
+            var fileDialog = new OpenFileDialog();
+            fileDialog.ShowAsync(dialogWindow);
+        }
+
+        ~CreateProfile()
+        {
+            Console.WriteLine("Destroying CreateProfile page");
         }
     }
 }
