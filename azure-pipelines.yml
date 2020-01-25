@@ -17,6 +17,11 @@ steps:
     echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
 - script: mkdir $ARTIFACTSFOLDER
 
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.101'
+
 - script: dotnet publish -c $CONFIGURATION -r linux-x64
   displayName: 'build linux-x64'
 
@@ -27,12 +32,12 @@ steps:
   displayName: 'build win-x64'
 
 - bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(CommitHash).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/linux-x64
+    tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/linux-x64
 
 - bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-osx-$(CommitHash).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/osx-x64
+    tar -cvzf $ARTIFACTSFOLDER/spectabis-osx-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/osx-x64
 
 - bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-next-win-$(CommitHash).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/win-x64
+    tar -cvzf $ARTIFACTSFOLDER/spectabis-next-win-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/win-x64
 
 - publish: $(System.DefaultWorkingDirectory)/$(ArtifactsFolder)
