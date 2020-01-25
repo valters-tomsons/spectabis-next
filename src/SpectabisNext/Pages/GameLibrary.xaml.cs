@@ -17,7 +17,7 @@ namespace SpectabisNext.Pages
         public bool HideTitlebar { get; } = false;
         public bool ReloadOnNavigation { get; } = false;
 
-        private readonly GameProfileRepository _gameRepo;
+        private readonly IProfileRepository _gameRepo;
         private readonly GameTileFactory _tileFactory;
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
@@ -25,7 +25,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary() { }
 
-        public GameLibrary(GameProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
         {
 
             _navigationProvider = navigationProvider;

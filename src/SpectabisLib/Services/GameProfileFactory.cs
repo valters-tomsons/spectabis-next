@@ -1,22 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Text;
 using SpectabisLib.Helpers;
+using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Services
 {
-    public class GameProfileFactory
+    public class GameProfileFactory : IProfileFactory
     {
-        private SystemPathsStruct _systemPaths { get; set; }
-        private static Random Random = new Random();
-
-        public GameProfileFactory(SystemPathsStruct systemPaths)
+        public GameProfileFactory()
         {
-            _systemPaths = systemPaths;
         }
 
-        public GameProfile CreateFromPath(string filePath, string gameName)
+        public GameProfile CreateFromPath(string filePath)
         {
             if(!File.Exists(filePath))
             {
@@ -25,18 +24,10 @@ namespace SpectabisLib.Services
 
             var profile = new GameProfile()
             {
-                Id = GetNewId(),
-                Title = gameName,
                 FilePath = filePath
             };
 
             return profile;
-        }
-
-        private string GetNewId()
-        {
-            var guid = new Guid();
-            return guid.ToString();
         }
     }
 }

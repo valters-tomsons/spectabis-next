@@ -27,7 +27,7 @@ namespace SpectabisNext.ComponentConfiguration
         private static void RegisterSpectabisLib(ContainerBuilder builder)
         {
             var spectabisLib = Assembly.Load(nameof(SpectabisLib));
-            builder.RegisterType<SpectabisLib.Repositories.GameProfileRepository>().SingleInstance();
+            builder.RegisterType<SpectabisLib.Repositories.GameProfileRepository>().As<IProfileRepository>().SingleInstance();
             builder.RegisterType<SpectabisLib.Repositories.CancellationTokenRepository>().SingleInstance();
             builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>().SingleInstance();
         }
@@ -40,6 +40,7 @@ namespace SpectabisNext.ComponentConfiguration
            
             builder.RegisterType<PagePreloader>().As<IPagePreloader>();
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
+            builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
 
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));

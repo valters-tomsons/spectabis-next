@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Repositories
 {
-    public class GameProfileRepository
+    public class GameProfileRepository : IProfileRepository
     {
         private List<GameProfile> Games { get; set; }
 
@@ -23,9 +24,14 @@ namespace SpectabisLib.Repositories
             }
         }
 
-        public ReadOnlyCollection<GameProfile> GetAll()
+        public IReadOnlyCollection<GameProfile> GetAll()
         {
             return Games.AsReadOnly();
+        }
+
+        public void Add(GameProfile profile)
+        {
+            Games.Add(profile);
         }
     }
 }
