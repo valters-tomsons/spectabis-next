@@ -16,7 +16,8 @@ namespace SpectabisNext.Services
         private readonly NavigationBarItemFactory _navItemFactory;
         private ContentControl PageContentContainer { get; set; }
         private StackPanel NavigationItemBar { get; set; }
-        private EventHandler NavigationItemClick { get; set; }
+
+        public EventHandler OnPageNavigation { get; set; }
 
         public PageNavigator(IPageRepository pageRepository, IPagePreloader pagePreloader, NavigationBarItemFactory navItemFactory)
         {
@@ -42,7 +43,7 @@ namespace SpectabisNext.Services
         public void ReferenceNavigationControls(StackPanel navigationBar, EventHandler itemClickEvent)
         {
             NavigationItemBar = navigationBar;
-            NavigationItemClick = itemClickEvent;
+            OnPageNavigation = itemClickEvent;
         }
 
         public void NavigatePage(Page page)
@@ -83,7 +84,7 @@ namespace SpectabisNext.Services
             foreach (var page in loadedPages)
             {
                 System.Console.WriteLine($"Generating navigation icon for {page.GetType()}");
-                var icon = _navItemFactory.Create(page, NavigationItemClick);
+                var icon = _navItemFactory.Create(page, OnPageNavigation);
                 NavigationItemBar.Children.Add(icon);
             }
         }

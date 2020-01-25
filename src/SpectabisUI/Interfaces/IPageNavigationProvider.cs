@@ -10,5 +10,6 @@ namespace SpectabisUI.Interfaces
         void ReferenceContainer(ContentControl ContentContainer);
         void ReferenceNavigationControls(StackPanel NavigationBar, EventHandler NavigationItemClickEvent);
         void GeneratePageIcons();
+        EventHandler OnPageNavigation { get; set; }
     }
 }
