@@ -1,5 +1,6 @@
 using System;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using SpectabisLib.Repositories;
 using SpectabisUI.Events;
@@ -30,9 +31,16 @@ namespace SpectabisNext.Pages
 
             _navigation = navigation;
             _bitmapLoader = bitmapLoader;
+
             _navigation.PageNavigationEvent += OnNavigation;
+            SelectGameButton.Click += SelectGameButtonClick;
 
             SetupLayout();
+        }
+
+        private void SelectGameButtonClick(object sender, RoutedEventArgs e)
+        {
+            SelectGame();
         }
 
         private void OnNavigation(object sender, NavigationArgs e)
