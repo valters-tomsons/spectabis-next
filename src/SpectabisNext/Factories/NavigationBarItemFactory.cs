@@ -12,7 +12,7 @@ namespace SpectabisNext.Factories
 
         }
 
-        public PageIcon Create(Page page, EventHandler clickCallback)
+        public PageIcon Create(IPage page, EventHandler clickCallback)
         {
             if(!page.ShowInTitlebar)
             {

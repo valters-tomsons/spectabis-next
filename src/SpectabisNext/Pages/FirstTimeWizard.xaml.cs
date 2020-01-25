@@ -6,7 +6,7 @@ using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
-    public class FirstTimeWizard : UserControl, Page
+    public class FirstTimeWizard : UserControl, IPage
     {
         private string pageTitle = "First Time Wizard";
         private bool showInTitlebar = false;

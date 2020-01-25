@@ -46,7 +46,7 @@ namespace SpectabisNext.Services
             OnPageNavigation = itemClickEvent;
         }
 
-        public void NavigatePage(Page page)
+        public void NavigatePage(IPage page)
         {
             var type = page.GetType();
             MethodInfo genericMethod = typeof(PageNavigator).GetMethod("Navigate");
@@ -54,7 +54,7 @@ namespace SpectabisNext.Services
             specificMethod.Invoke(this, null);
         }
 
-        public void Navigate<T>() where T : Page
+        public void Navigate<T>() where T : IPage
         {
             var pageResult = _pageRepository.GetPage<T>();
 

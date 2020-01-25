@@ -4,7 +4,7 @@ namespace SpectabisUI.Interfaces
 {
     public interface IPageRepository
     {
-        IEnumerable<Page> All {get;}
-        Page GetPage<T>();
+        IEnumerable<IPage> All {get;}
+        IPage GetPage<T>();
     }
 }

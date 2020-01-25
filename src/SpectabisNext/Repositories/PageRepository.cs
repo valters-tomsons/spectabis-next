@@ -9,20 +9,20 @@ namespace SpectabisNext.Repositories
     {
         private readonly PageFactory _pageFactory;
 
-        List<Page> Pages { get; set; }
+        List<IPage> Pages { get; set; }
 
         public PageRepository(PageFactory pageFactory)
         {
-            Pages = new List<Page>();
+            Pages = new List<IPage>();
             _pageFactory = pageFactory;
         }
 
-        public IEnumerable<Page> All => Pages;
+        public IEnumerable<IPage> All => Pages;
 
         /// <summary>
         /// Return an instance of a page from repository. If page does not exist yet, one is created.
         /// </summary>
-        public Page GetPage<T>()
+        public IPage GetPage<T>()
         {
             var page = Pages.SingleOrDefault(x => x.GetType() == typeof(T));
 

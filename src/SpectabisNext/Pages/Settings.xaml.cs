@@ -4,7 +4,7 @@ using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
-    public class Settings : UserControl, Page
+    public class Settings : UserControl, IPage
     {
         private string pageTitle = "Settings";
         private bool showInTitlebar = true;

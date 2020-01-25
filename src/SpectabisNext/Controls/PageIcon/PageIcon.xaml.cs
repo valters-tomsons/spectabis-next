@@ -10,7 +10,7 @@ namespace SpectabisNext.Controls.PageIcon
 {
     public class PageIcon : UserControl, IPageIcon
     {
-        public Page Destination { get; private set; }
+        public IPage Destination { get; private set; }
         public event EventHandler InvokedCallback;
 
         private Image DisplayImage { get; set; }
@@ -21,18 +21,18 @@ namespace SpectabisNext.Controls.PageIcon
         [Obsolete("XAMLIL placeholder", true)]
         public PageIcon() { }
 
-        public PageIcon(Page destination)
+        public PageIcon(IPage destination)
         {
             Initialize(destination);
             SetIconString(destination.PageTitle);
         }
 
-        public PageIcon(Page destination, string stringDisplay)
+        public PageIcon(IPage destination, string stringDisplay)
         {
 
         }
 
-        private void Initialize(Page destination)
+        private void Initialize(IPage destination)
         {
             InitializeComponent();
             RegisterChildren();

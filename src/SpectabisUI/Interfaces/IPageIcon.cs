@@ -5,7 +5,7 @@ namespace SpectabisUI.Interfaces
 {
     public interface IPageIcon
     {
-        Page Destination { get; }
+        IPage Destination { get; }
         event EventHandler InvokedCallback;
     }
 }

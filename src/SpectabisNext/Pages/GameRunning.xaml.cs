@@ -8,7 +8,7 @@ using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
-    public class GameRunning : UserControl, Page
+    public class GameRunning : UserControl, IPage
     {
         public string PageTitle { get; } = "PCSX2";
         public bool ShowInTitlebar { get; } = false;

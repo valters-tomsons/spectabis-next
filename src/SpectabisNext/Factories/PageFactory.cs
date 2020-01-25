@@ -12,11 +12,11 @@ namespace SpectabisNext.Factories
             _containerScope = containerScope;
         }
 
-        public Page Create<T>()
+        public IPage Create<T>()
         {
             var page = _containerScope.Resolve<T>();
             System.Console.WriteLine($"PageFactory: Creating new {page.GetType()}");
-            return page as Page;
+            return page as IPage;
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace SpectabisUI.Interfaces
 {
-    public interface Page
+    public interface IPage
     {
         string PageTitle { get; }
 

@@ -10,7 +10,7 @@ using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
-    public class GameLibrary : UserControl, Page
+    public class GameLibrary : UserControl, IPage
     {
         public string PageTitle { get; } = "Library";
         public bool ShowInTitlebar { get; } = true;

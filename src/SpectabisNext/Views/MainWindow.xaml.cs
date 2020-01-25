@@ -87,11 +87,11 @@ namespace SpectabisNext.Views
         {
             if (e.Property.Name == "Content")
             {
-                NavigationBarVisiblity((Page)e.NewValue);
+                NavigationBarVisiblity((IPage)e.NewValue);
             }
         }
 
-        private void NavigationBarVisiblity(Page newContent)
+        private void NavigationBarVisiblity(IPage newContent)
         {
             if (newContent.HideTitlebar)
             {
