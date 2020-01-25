@@ -4,16 +4,15 @@
     x:Class="SpectabisNext.Pages.CreateProfile"
     >
 
-    <Grid RowDefinitions="65, *" Margin="5">
-        <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30">Add Game</TextBlock>
-        <Grid Grid.Row="1" ColumnDefinitions="*,*" Margin="5">
-            <StackPanel Grid.Column="0" Orientation="Vertical">
-                <Image x:Name="BoxArtImage" />
-            </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Vertical">
-                <TextBox/>
-            </StackPanel>
-        </Grid>
+    <Grid Grid.Row="0" ColumnDefinitions="*,*" Margin="5">
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Center" Text="..." FontSize="30"/>
+            <Image x:Name="BoxArtImage" Stretch="Fill" HorizontalAlignment="Center"/>
+            <Button Margin="5,5,5,5" x:Name="SelectGameButton" Content="Browse Game"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <TextBox/>
+        </StackPanel>
     </Grid>
 
 </UserControl>
