@@ -10,6 +10,7 @@ namespace SpectabisNext.Pages
     public class CreateProfile : UserControl, IPage
     {
         private readonly IPageNavigationProvider _navigation;
+        private readonly IBitmapLoader _bitmapLoader;
 
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
@@ -22,13 +23,16 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(IPageNavigationProvider navigation)
+        public CreateProfile(IPageNavigationProvider navigation, IBitmapLoader bitmapLoader)
         {
             InitializeComponent();
             RegisterChildren();
 
             _navigation = navigation;
+            _bitmapLoader = bitmapLoader;
             _navigation.PageNavigationEvent += OnNavigation;
+
+            SetupLayout();
         }
 
         private void OnNavigation(object sender, NavigationArgs e)
@@ -44,6 +48,11 @@ namespace SpectabisNext.Pages
         {
             BoxArtImage = this.FindControl<Image>(nameof(BoxArtImage));
             SelectGameButton = this.FindControl<Button>(nameof(SelectGameButton));
+        }
+
+        private void SetupLayout()
+        {
+            BoxArtImage.Source = _bitmapLoader.DefaultBoxart;
         }
 
         public void InitializeComponent()
