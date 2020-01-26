@@ -25,6 +25,7 @@ namespace SpectabisLib.Services
             var iscueTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.CueDescription.Signature);
             var isBinTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.CD_I.Signature);
             var isCsoTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.CISOImage.Signature);
+            var isGzipTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.GZip.Signature);
 
             var profile = new GameProfile()
             {
@@ -35,11 +36,13 @@ namespace SpectabisLib.Services
             var isCue = await iscueTask;
             var isBin = await isBinTask;
             var isCso = await isCsoTask;
+            var isGzip = await isGzipTask;
 
             System.Console.WriteLine($"isIso: {isIso}");
             System.Console.WriteLine($"isCue: {isCue}");
             System.Console.WriteLine($"isBin: {isBin}");
             System.Console.WriteLine($"isCso: {isCso}");
+            System.Console.WriteLine($"isGzip: {isGzip}");
 
             return profile;
         }
