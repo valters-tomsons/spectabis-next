@@ -82,6 +82,12 @@ namespace SpectabisNext.Pages
             var fileDialog = new OpenFileDialog();
 
             var fileResult = await fileDialog.ShowAsync(dialogWindow);
+
+            if(fileResult == null)
+            {
+                return;
+            }
+
             var filePath = string.Concat(fileResult);
 
             var profile = await _profileFactory.CreateFromPath(filePath);
