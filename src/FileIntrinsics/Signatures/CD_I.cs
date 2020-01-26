@@ -9,7 +9,7 @@ namespace FileIntrinsics.Signatures
 
         static CD_I()
         {
-            Signature = new CueDescription();
+            Signature = new CD_I();
         }
 
         private readonly static byte[] _signature = {0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x02, 0x00, 0x02};
