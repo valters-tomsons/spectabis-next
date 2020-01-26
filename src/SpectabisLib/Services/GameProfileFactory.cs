@@ -21,6 +21,7 @@ namespace SpectabisLib.Services
 
             var fileId = new IntrinsicsProvider();
             var isIsoTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.ISO9660.Signature);
+            var iscueTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.CueDescription.Signature);
 
             var profile = new GameProfile()
             {
@@ -28,7 +29,10 @@ namespace SpectabisLib.Services
             };
 
             var isIso = await isIsoTask;
-            System.Console.WriteLine($"File is iso");
+            var isCue = await iscueTask;
+
+            System.Console.WriteLine($"isIso: {isIso}");
+            System.Console.WriteLine($"isCue: {isCue}");
 
             return profile;
         }
