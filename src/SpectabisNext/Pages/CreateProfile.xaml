@@ -11,7 +11,7 @@
             <Button Margin="5,5,5,5" x:Name="SelectGameButton" Content="Browse Game"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical">
-            <TextBox/>
+            <!-- <TextBox/> -->
         </StackPanel>
     </Grid>
 
