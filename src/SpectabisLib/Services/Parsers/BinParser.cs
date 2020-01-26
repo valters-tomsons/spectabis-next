@@ -10,11 +10,10 @@ namespace SpectabisLib.Services.Parsers
 {
     public static class BinParser
     {
-        private static int RootFileDescriptorOffset = 0xC800;
-        private static int RootFileDescriptorEndOffset = 0xCFFF;
-        private static byte[] DescriptionPrefix = { 0x24, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x0D };
-        private static int DescriptionTerminator = 0x3B;
-        private static List<string> _gameRegions = Enum.GetNames(typeof(GameRegion)).ToList();
+        private static readonly int RootFileDescriptorOffset = 0xC800;
+        private static readonly int RootFileDescriptorEndOffset = 0xCFFF;
+        private static readonly byte[] DescriptionPrefix = { 0x24, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x0D };
+        private static readonly List<string> _gameRegions = Enum.GetNames(typeof(GameRegion)).ToList();
 
         public static async Task<string> ReadSerial(string gamePath)
         {
@@ -48,7 +47,7 @@ namespace SpectabisLib.Services.Parsers
                 }
 
                 var descBuffer = new byte[0xB];
-                Array.Copy(descBuffer, descPrefixStartIndex + DescriptionPrefix.Length, descBuffer, 0, descBuffer.Length);
+                Array.Copy(fileDescriptionBuffer, descPrefixStartIndex + DescriptionPrefix.Length, descBuffer, 0, descBuffer.Length);
 
                 var descString = ParseDescription(descBuffer);
 
