@@ -1,4 +1,4 @@
-namespace ISO9660.Models
+namespace FileIntrinsics.Models
 {
     public class OffsetReading
     {

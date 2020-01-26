@@ -1,4 +1,4 @@
-namespace ISO9660
+namespace FileIntrinsics.Interfaces
 {
     public interface IHeaderSignature
     {

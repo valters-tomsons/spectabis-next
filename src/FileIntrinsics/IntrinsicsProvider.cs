@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ISO9660.Models;
+using FileIntrinsics.Interfaces;
+using FileIntrinsics.Models;
 
-namespace ISO9660
+namespace FileIntrinsics
 {
-    public class IsoReader
+    public class IntrinsicsProvider : IIntrinsicsProvider
     {
-        public async Task<bool> IsIso9660(string filePath)
+        public async Task<bool> SignatureFound(string filePath, IHeaderSignature signature)
         {
-            var signature = await FindSignature(filePath, new Signatures.ISO9660());
+            var signatureOffset = await GetSignatureOffset(filePath, signature);
 
-            if (signature == null)
+            if (signatureOffset == null)
             {
                 return false;
             }
@@ -22,7 +21,7 @@ namespace ISO9660
             return true;
         }
 
-        public async Task<OffsetReading> FindSignature(string filePath, IHeaderSignature signature)
+        public async Task<OffsetReading> GetSignatureOffset(string filePath, IHeaderSignature signature)
         {
             var signatureSize = signature.ByteSignature.Length;
             var bufferSize = signature.Offsets.Max() + signatureSize;

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\ISO9660\ISO9660.csproj" />
+    <ProjectReference Include="..\FileIntrinsics\FileIntrinsics.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

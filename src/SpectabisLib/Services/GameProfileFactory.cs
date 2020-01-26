@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Threading.Tasks;
-using SpectabisLib.Helpers;
+using FileIntrinsics;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 
@@ -23,8 +19,8 @@ namespace SpectabisLib.Services
                 throw new FileNotFoundException(gameFilePath);
             }
 
-            var isoReader = new ISO9660.IsoReader();
-            var isIsoTask = isoReader.IsIso9660(gameFilePath);
+            var fileId = new IntrinsicsProvider();
+            var isIsoTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.ISO9660.Signature);
 
             var profile = new GameProfile()
             {
@@ -32,7 +28,7 @@ namespace SpectabisLib.Services
             };
 
             var isIso = await isIsoTask;
-            System.Console.WriteLine(isIso);
+            System.Console.WriteLine($"File is iso");
 
             return profile;
         }
