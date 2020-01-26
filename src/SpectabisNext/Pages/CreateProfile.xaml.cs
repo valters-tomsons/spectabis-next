@@ -86,6 +86,8 @@ namespace SpectabisNext.Pages
 
             var profile = await _profileFactory.CreateFromPath(filePath);
             _currentProfile = profile;
+
+            System.Console.WriteLine(profile.SerialNumber);
         }
 
         ~CreateProfile()
