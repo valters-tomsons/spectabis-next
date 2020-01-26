@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Reflection;
 using Autofac;
+using FileIntrinsics;
+using FileIntrinsics.Interfaces;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Services;
 using SpectabisNext.Repositories;
@@ -18,6 +20,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<Spectabis>().As<ISpectabis>();
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
 
+            RegisterExternal(builder);
             RegisterSpectabisLib(builder);
             RegisterSpectabis(builder);
 
@@ -27,9 +30,13 @@ namespace SpectabisNext.ComponentConfiguration
         private static void RegisterSpectabisLib(ContainerBuilder builder)
         {
             var spectabisLib = Assembly.Load(nameof(SpectabisLib));
+
             builder.RegisterType<SpectabisLib.Repositories.GameProfileRepository>().As<IProfileRepository>().SingleInstance();
             builder.RegisterType<SpectabisLib.Repositories.CancellationTokenRepository>().SingleInstance();
             builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>().SingleInstance();
+
+            builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
+            builder.RegisterType<GameFileParser>().As<IGameFileParser>();
         }
 
         private static void RegisterSpectabis(ContainerBuilder builder)
@@ -40,11 +47,15 @@ namespace SpectabisNext.ComponentConfiguration
            
             builder.RegisterType<PagePreloader>().As<IPagePreloader>();
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
-            builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
 
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
+        }
+
+        private static void RegisterExternal(ContainerBuilder builder)
+        {
+            builder.RegisterType<IntrinsicsProvider>().As<IIntrinsicsProvider>();
         }
 
         private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)

@@ -7,5 +7,6 @@ namespace FileIntrinsics.Interfaces
     {
         Task<OffsetReading> GetSignatureOffset(string filePath, IHeaderSignature signature);
         Task<bool> SignatureFound(string filePath, IHeaderSignature signature);
+        Task<IHeaderSignature> GetFileSignature(string filePath);
     }
 }

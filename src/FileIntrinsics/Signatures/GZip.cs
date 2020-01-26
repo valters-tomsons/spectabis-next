@@ -1,3 +1,4 @@
+using FileIntrinsics.Enums;
 using FileIntrinsics.Interfaces;
 
 namespace FileIntrinsics.Signatures
@@ -21,5 +22,6 @@ namespace FileIntrinsics.Signatures
         public int[] Offsets => _offsets;
 
         public string[] FileExtensions => _extensions;
+        public FileType File => FileType.GZip;
     }
 }

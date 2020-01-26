@@ -1,14 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FileIntrinsics.Interfaces;
 using FileIntrinsics.Models;
+using FileIntrinsics.Signatures;
 
 namespace FileIntrinsics
 {
     public class IntrinsicsProvider : IIntrinsicsProvider
     {
+        private List<IHeaderSignature> _fileSignatures = new List<IHeaderSignature>();
+
+        public IntrinsicsProvider()
+        {
+            _fileSignatures.Add(new ISO9660());
+            _fileSignatures.Add(new GZip());
+            _fileSignatures.Add(new CueDescription());
+            _fileSignatures.Add(new CISOImage());
+            _fileSignatures.Add(new CD_I());
+        }
+
+        public async Task<IHeaderSignature> GetFileSignature(string filePath)
+        {
+            foreach (var sig in _fileSignatures)
+            {
+                var signatureFound = await SignatureFound(filePath, sig);
+
+                if(signatureFound)
+                {
+                    return sig;
+                }
+            }
+
+            return null;
+        }
+
         public async Task<bool> SignatureFound(string filePath, IHeaderSignature signature)
         {
             var signatureOffset = await GetSignatureOffset(filePath, signature);

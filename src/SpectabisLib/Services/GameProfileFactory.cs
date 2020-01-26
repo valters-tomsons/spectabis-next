@@ -8,8 +8,11 @@ namespace SpectabisLib.Services
 {
     public class GameProfileFactory : IProfileFactory
     {
-        public GameProfileFactory()
+        private readonly IGameFileParser _gameParser;
+
+        public GameProfileFactory(IGameFileParser gameParser)
         {
+            _gameParser = gameParser;
         }
 
         async Task<GameProfile> IProfileFactory.CreateFromPath(string gameFilePath)
@@ -19,30 +22,13 @@ namespace SpectabisLib.Services
                 throw new FileNotFoundException(gameFilePath);
             }
 
-            var fileId = new IntrinsicsProvider();
-
-            var isIsoTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.ISO9660.Signature);
-            var iscueTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.CueDescription.Signature);
-            var isBinTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.CD_I.Signature);
-            var isCsoTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.CISOImage.Signature);
-            var isGzipTask = fileId.SignatureFound(gameFilePath, FileIntrinsics.Signatures.GZip.Signature);
+            var gameSerial = await _gameParser.GetGameSerial(gameFilePath);
 
             var profile = new GameProfile()
             {
+                SerialNumber = gameSerial,
                 FilePath = gameFilePath
             };
-
-            var isIso = await isIsoTask;
-            var isCue = await iscueTask;
-            var isBin = await isBinTask;
-            var isCso = await isCsoTask;
-            var isGzip = await isGzipTask;
-
-            System.Console.WriteLine($"isIso: {isIso}");
-            System.Console.WriteLine($"isCue: {isCue}");
-            System.Console.WriteLine($"isBin: {isBin}");
-            System.Console.WriteLine($"isCso: {isCso}");
-            System.Console.WriteLine($"isGzip: {isGzip}");
 
             return profile;
         }
