@@ -32,12 +32,12 @@ steps:
   displayName: 'build win-x64'
 
 - bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/linux-x64
+    tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/linux-x64/publish
 
 - bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-osx-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/osx-x64
+    tar -cvzf $ARTIFACTSFOLDER/spectabis-osx-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/osx-x64/publish
 
 - bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-next-win-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/win-x64
+    tar -cvzf $ARTIFACTSFOLDER/spectabis-win-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/win-x64/publish
 
 - publish: $(System.DefaultWorkingDirectory)/$(ArtifactsFolder)
