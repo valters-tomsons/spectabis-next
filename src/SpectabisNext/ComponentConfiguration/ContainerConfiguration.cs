@@ -7,6 +7,7 @@ using SpectabisLib.Interfaces;
 using SpectabisLib.Services;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
+using SpectabisNext.ViewModels;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.ComponentConfiguration
@@ -23,6 +24,8 @@ namespace SpectabisNext.ComponentConfiguration
             RegisterExternal(builder);
             RegisterSpectabisLib(builder);
             RegisterSpectabis(builder);
+
+            builder.RegisterViewModels();
 
             return builder.Build();
         }
@@ -44,13 +47,18 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
             builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
             builder.RegisterType<ConfigurationLoader>().As<IConfigurationLoader>().SingleInstance();
-           
+
             builder.RegisterType<PagePreloader>().As<IPagePreloader>();
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
 
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
+        }
+
+        private static void RegisterViewModels(this ContainerBuilder builder)
+        {
+            builder.RegisterNamespaceTypes(nameof(ViewModels));
         }
 
         private static void RegisterExternal(ContainerBuilder builder)
