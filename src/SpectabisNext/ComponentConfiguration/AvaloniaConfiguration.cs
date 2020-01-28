@@ -6,16 +6,16 @@ namespace SpectabisNext.ComponentConfiguration
 {
     public class AvaloniaConfiguration : IWindowConfiguration
     {
-        private Application application { get; set; }
+        private Application Application { get; }
 
         public AvaloniaConfiguration()
         {
-            application = BuildAvaloniaApp().SetupWithoutStarting().Instance;
+            Application = BuildAvaloniaApp().SetupWithoutStarting().Instance;
         }
 
         public Application GetInstance()
         {
-            return application;
+            return Application;
         }
 
         private static AppBuilder BuildAvaloniaApp()

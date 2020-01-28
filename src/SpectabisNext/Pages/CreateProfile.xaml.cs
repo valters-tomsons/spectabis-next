@@ -26,7 +26,7 @@ namespace SpectabisNext.Pages
         private Image BoxArtImage;
         private Button SelectGameButton;
 
-        private GameProfile _currentProfile { get; set; }
+        private GameProfile CurrentProfile { get; set; }
 
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
@@ -56,7 +56,6 @@ namespace SpectabisNext.Pages
             if (e.Page != this)
             {
                 _navigation.PageNavigationEvent -= OnNavigation;
-                return;
             }
         }
 
@@ -81,7 +80,7 @@ namespace SpectabisNext.Pages
             var dialogWindow = new Window();
             var fileDialog = new OpenFileDialog();
 
-            var fileResult = await fileDialog.ShowAsync(dialogWindow);
+            var fileResult = await fileDialog.ShowAsync(dialogWindow).ConfigureAwait(false);
 
             if(fileResult == null)
             {
@@ -90,10 +89,10 @@ namespace SpectabisNext.Pages
 
             var filePath = string.Concat(fileResult);
 
-            var profile = await _profileFactory.CreateFromPath(filePath);
-            _currentProfile = profile;
+            var profile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
+            CurrentProfile = profile;
 
-            System.Console.WriteLine(profile.SerialNumber);
+            Console.WriteLine(profile.SerialNumber);
         }
 
         ~CreateProfile()

@@ -11,7 +11,7 @@ namespace FileIntrinsics
 {
     public class IntrinsicsProvider : IIntrinsicsProvider
     {
-        private List<IHeaderSignature> _fileSignatures = new List<IHeaderSignature>();
+        private readonly List<IHeaderSignature> _fileSignatures = new List<IHeaderSignature>();
 
         public IntrinsicsProvider()
         {
@@ -26,7 +26,7 @@ namespace FileIntrinsics
         {
             foreach (var sig in _fileSignatures)
             {
-                var signatureFound = await SignatureFound(filePath, sig);
+                var signatureFound = await SignatureFound(filePath, sig).ConfigureAwait(false);
 
                 if(signatureFound)
                 {
@@ -39,14 +39,8 @@ namespace FileIntrinsics
 
         public async Task<bool> SignatureFound(string filePath, IHeaderSignature signature)
         {
-            var signatureOffset = await GetSignatureOffset(filePath, signature);
-
-            if (signatureOffset == null)
-            {
-                return false;
-            }
-
-            return true;
+            var signatureOffset = await GetSignatureOffset(filePath, signature).ConfigureAwait(false);
+            return signatureOffset != null;
         }
 
         public async Task<OffsetReading> GetSignatureOffset(string filePath, IHeaderSignature signature)
@@ -57,7 +51,7 @@ namespace FileIntrinsics
 
             using(var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize : 4096, useAsync : true))
             {
-                await stream.ReadAsync(fileBuffer, 0, bufferSize);
+                await stream.ReadAsync(fileBuffer, 0, bufferSize).ConfigureAwait(false);
             }
 
             for (int i = 0; i < signature.Offsets.Length; i++)

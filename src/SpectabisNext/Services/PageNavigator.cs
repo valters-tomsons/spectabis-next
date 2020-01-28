@@ -13,8 +13,9 @@ namespace SpectabisNext.Services
     public class PageNavigator : IPageNavigationProvider
     {
         private readonly IPageRepository _pageRepository;
-        private IPagePreloader _pagePreloader { get; set; }
+        private readonly IPagePreloader _pagePreloader;
         private readonly NavigationBarItemFactory _navItemFactory;
+
         private ContentControl PageContentContainer { get; set; }
         private StackPanel NavigationItemBar { get; set; }
         private EventHandler PageNavigationClicked { get; set; }

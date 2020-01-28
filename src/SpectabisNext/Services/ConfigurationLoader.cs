@@ -4,14 +4,14 @@ using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Services
 {
-    public class ConfigurationLoader : SpectabisUI.Interfaces.IConfigurationLoader
+    public class ConfigurationLoader : IConfigurationLoader
     {
-        public SpectabisConfig Spectabis { get; private set; }
-        public UIConfiguration UserInterface { get; private set; }
+        public SpectabisConfig Spectabis { get; }
+        public UIConfiguration UserInterface { get; }
 
         public ConfigurationLoader()
         {
-           UserInterface = new UIConfiguration(); 
+           UserInterface = new UIConfiguration();
            Spectabis = new SpectabisConfig();
         }
     }

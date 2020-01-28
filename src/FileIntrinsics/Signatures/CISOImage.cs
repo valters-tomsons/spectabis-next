@@ -5,7 +5,6 @@ namespace FileIntrinsics.Signatures
 {
     public class CISOImage : IHeaderSignature
     {
-        
         public static IHeaderSignature Signature;
 
         static CISOImage()

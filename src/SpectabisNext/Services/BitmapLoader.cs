@@ -8,13 +8,10 @@ namespace SpectabisNext.Services
 {
     public class BitmapLoader : IBitmapLoader
     {
-        private readonly IConfigurationLoader _configurationLoader;
+        public Bitmap DefaultBoxart { get; }
 
-        public Bitmap DefaultBoxart { get; private set; }
-
-        public BitmapLoader(IConfigurationLoader configurationLoader)
+        public BitmapLoader()
         {
-            _configurationLoader = configurationLoader;
             DefaultBoxart = LoadDefaultBoxart();
         }
 
@@ -31,7 +28,6 @@ namespace SpectabisNext.Services
         private Bitmap LoadDefaultBoxart()
         {
             var tempArtPath = $"{SystemDirectories.ResourcesPath}/Images/placeholderBoxart.jpg";
-            var fullPath = Path.GetFullPath(tempArtPath);
 
             if(File.Exists(tempArtPath))
             {

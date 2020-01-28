@@ -7,11 +7,6 @@ namespace SpectabisNext.Factories
 {
     public class NavigationBarItemFactory
     {
-        public NavigationBarItemFactory()
-        {
-
-        }
-
         public PageIcon Create(IPage page, EventHandler clickCallback)
         {
             if(!page.ShowInTitlebar)

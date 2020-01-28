@@ -5,7 +5,6 @@ namespace FileIntrinsics.Signatures
 {
     public class GZip : IHeaderSignature
     {
-        
         public static IHeaderSignature Signature;
 
         static GZip()

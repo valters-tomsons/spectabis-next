@@ -9,7 +9,7 @@ namespace SpectabisNext.Services
 
         public PagePreloader(IPageRepository pageRepository)
         {
-            System.Console.WriteLine("PagePreloader: " +this.GetHashCode());
+            System.Console.WriteLine("PagePreloader: " + GetHashCode());
             _pageRepository = pageRepository;
         }
 

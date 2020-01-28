@@ -5,31 +5,27 @@ namespace SpectabisLib.Models
 {
     public class GameProcess
     {
-        private readonly Process _process;
-
-        private readonly GameProfile _game;
-
         public delegate void GameStoppedEventHandler(object sender, EventArgs args);
-        public event GameStoppedEventHandler GameStopped;
+        public event EventHandler<EventArgs> GameStopped;
 
-        public GameProfile Game { get => _game; }
-        public Process Process { get => _process; }
+        public GameProfile Game { get; }
+        public Process Process { get; }
 
         public GameProcess(GameProfile game, Process process)
         {
-            _game = game;
-            _process = process;
+            Game = game;
+            Process = process;
         }
 
         public void Start()
         {
-            _process.Exited += OnGameProcessExited;
-            _process.Start();
+            Process.Exited += OnGameProcessExited;
+            Process.Start();
         }
 
         public void Stop()
         {
-            _process.Kill();
+            Process.Kill();
             OnGameStopped();
         }
 

@@ -7,7 +7,7 @@ namespace SpectabisLib.Repositories
 {
     public class GameProfileRepository : IProfileRepository
     {
-        private List<GameProfile> Games { get; set; }
+        private List<GameProfile> Games { get; }
 
         public GameProfileRepository()
         {

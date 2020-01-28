@@ -8,15 +8,10 @@ namespace SpectabisNext.Pages
 {
     public class FirstTimeWizard : UserControl, IPage
     {
-        private string pageTitle = "First Time Wizard";
-        private bool showInTitlebar = false;
-        private bool hideTitlebar = true;
-        private bool reloadOnNavigation = true;
-
-        public string PageTitle { get { return pageTitle; } }
-        public bool ShowInTitlebar { get { return showInTitlebar; } }
-        public bool HideTitlebar { get { return hideTitlebar; } }
-        public bool ReloadOnNavigation { get { return reloadOnNavigation; } }
+        public string PageTitle => "Wizard";
+        public bool ShowInTitlebar => false;
+        public bool HideTitlebar => true;
+        public bool ReloadOnNavigation => true;
 
         private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _pageNavigator;

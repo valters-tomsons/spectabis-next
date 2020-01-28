@@ -10,11 +10,6 @@ namespace SpectabisLib.Services
     public class GameLauncherPCSX2 : IGameLauncher
     {
         private GameProcess _gameProcess;
-        
-        public GameLauncherPCSX2()
-        {
-
-        }
 
         public GameProcess StartGame(GameProfile game)
         {
@@ -75,8 +70,7 @@ namespace SpectabisLib.Services
 
         private bool IsGameFileValid(string gamePath)
         {
-            if (!String.IsNullOrEmpty(gamePath) && File.Exists(gamePath)) { return true; }
-            return false;
+            return !string.IsNullOrEmpty(gamePath) && File.Exists(gamePath);
         }
 
     }

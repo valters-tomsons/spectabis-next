@@ -9,7 +9,7 @@ namespace SpectabisLib.Repositories
 {
     public class CancellationTokenRepository
     {
-        private Dictionary<CancellationTokenKey, CancellationTokenSource> _tokenContainer = new Dictionary<CancellationTokenKey,CancellationTokenSource>();
+        private readonly Dictionary<CancellationTokenKey, CancellationTokenSource> _tokenContainer = new Dictionary<CancellationTokenKey,CancellationTokenSource>();
 
         public CancellationTokenRepository()
         {

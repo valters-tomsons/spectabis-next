@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
@@ -6,16 +7,17 @@ using SpectabisLib.Interfaces;
 using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Factories;
+using SpectabisNext.ViewModels;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
 {
     public class GameLibrary : UserControl, IPage
     {
-        public string PageTitle { get; } = "Library";
-        public bool ShowInTitlebar { get; } = true;
-        public bool HideTitlebar { get; } = false;
-        public bool ReloadOnNavigation { get; } = false;
+        public string PageTitle => "Library";
+        public bool ShowInTitlebar => true;
+        public bool HideTitlebar => false;
+        public bool ReloadOnNavigation => false;
 
         private readonly IProfileRepository _gameRepo;
         private readonly GameTileFactory _tileFactory;

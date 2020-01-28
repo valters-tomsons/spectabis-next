@@ -22,7 +22,7 @@ namespace SpectabisLib.Services
                 throw new FileNotFoundException(gameFilePath);
             }
 
-            var gameSerial = await _gameParser.GetGameSerial(gameFilePath);
+            var gameSerial = await _gameParser.GetGameSerial(gameFilePath).ConfigureAwait(false);
 
             var profile = new GameProfile()
             {

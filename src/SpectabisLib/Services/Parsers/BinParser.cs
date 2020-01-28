@@ -10,8 +10,8 @@ namespace SpectabisLib.Services.Parsers
 {
     public static class BinParser
     {
-        private static readonly int RootFileDescriptorOffset = 0xC800;
-        private static readonly int RootFileDescriptorEndOffset = 0xCFFF;
+        private const int RootFileDescriptorOffset = 0xC800;
+        private const int RootFileDescriptorEndOffset = 0xCFFF;
         private static readonly byte[] DescriptionPrefix = { 0x24, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x0D };
         private static readonly List<string> _gameRegions = Enum.GetNames(typeof(GameRegion)).ToList();
 
@@ -21,20 +21,20 @@ namespace SpectabisLib.Services.Parsers
 
             using(var stream = new FileStream(gamePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize : 4096, useAsync : true))
             {
-                await stream.ReadAsync(readBuffer, 0, RootFileDescriptorEndOffset);
+                await stream.ReadAsync(readBuffer, 0, RootFileDescriptorEndOffset).ConfigureAwait(false);
             }
 
-            var indexBufferSize = RootFileDescriptorEndOffset - RootFileDescriptorOffset;
+            const int indexBufferSize = RootFileDescriptorEndOffset - RootFileDescriptorOffset;
+
             var indexBuffer = new byte[indexBufferSize];
             Array.Copy(readBuffer, RootFileDescriptorOffset, indexBuffer, 0, indexBufferSize);
 
-            var serial = FindSerial(indexBuffer);
-            return serial;
+            return FindSerial(indexBuffer);
         }
 
         private static string FindSerial(byte[] fileDescriptionBuffer)
         {
-            var searching = true;
+            const bool searching = true;
             var searchIndex = 0;
 
             while(searching)
@@ -61,14 +61,11 @@ namespace SpectabisLib.Services.Parsers
 
                 searchIndex = descPrefixStartIndex + descBuffer.Length;
             }
-
-            return null;
         }
 
         private static string ParseDescription(byte[] buffer)
         {
-            var dString = Encoding.UTF8.GetString(buffer).Replace(".", string.Empty);
-            return dString;
+            return Encoding.UTF8.GetString(buffer).Replace(".", string.Empty);
         }
 
         private static int ByteSearch(byte[] searchIn, byte[] searchBytes, int start = 0)

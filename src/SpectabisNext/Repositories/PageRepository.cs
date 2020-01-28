@@ -9,7 +9,7 @@ namespace SpectabisNext.Repositories
     {
         private readonly PageFactory _pageFactory;
 
-        List<IPage> Pages { get; set; }
+        private List<IPage> Pages { get; }
 
         public PageRepository(PageFactory pageFactory)
         {

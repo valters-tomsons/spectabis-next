@@ -20,16 +20,16 @@ namespace SpectabisLib.Services
 
         public async Task<string> GetGameSerial(string gamePath)
         {
-            var fileType = await _intrinsics.GetFileSignature(gamePath);
+            var fileType = await _intrinsics.GetFileSignature(gamePath).ConfigureAwait(false);
 
             if (fileType.File == FileType.ISO9660)
             {
-                return await IsoParser.ReadSerialFromIso(gamePath);
+                return await IsoParser.ReadSerialFromIso(gamePath).ConfigureAwait(false);
             }
 
             if(fileType.File == FileType.CD_I)
             {
-                return await BinParser.ReadSerial(gamePath);
+                return await BinParser.ReadSerial(gamePath).ConfigureAwait(false);
             }
 
             return null;

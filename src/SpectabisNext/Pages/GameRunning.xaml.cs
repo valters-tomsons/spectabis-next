@@ -10,10 +10,10 @@ namespace SpectabisNext.Pages
 {
     public class GameRunning : UserControl, IPage
     {
-        public string PageTitle { get; } = "PCSX2";
-        public bool ShowInTitlebar { get; } = false;
-        public bool HideTitlebar { get; } = true;
-        public bool ReloadOnNavigation { get; } = true;
+        public string PageTitle => "PCSX2";
+        public bool ShowInTitlebar => false;
+        public bool HideTitlebar => true;
+        public bool ReloadOnNavigation => true;
 
         private Button StopGame;
 

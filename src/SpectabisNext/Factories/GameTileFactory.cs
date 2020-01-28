@@ -20,12 +20,7 @@ namespace SpectabisNext.Factories
         {
             var sizeModifier = _configuration.UserInterface.BoxArtSizeModifier;
             var tileGapSize = _configuration.UserInterface.BoxArtGapSize;
-            var boxartBitmap = _bitmapLoader.LoadFromFile(game.BoxArtPath);
-
-            if(boxartBitmap == null)
-            {
-                boxartBitmap = _bitmapLoader.DefaultBoxart;
-            }
+            var boxartBitmap = _bitmapLoader.LoadFromFile(game.BoxArtPath) ?? _bitmapLoader.DefaultBoxart;
 
             var tileView = new GameTileView(game)
             {

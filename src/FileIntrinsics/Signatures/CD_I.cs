@@ -5,7 +5,6 @@ namespace FileIntrinsics.Signatures
 {
     public class CD_I : IHeaderSignature
     {
-        
         public static IHeaderSignature Signature;
 
         static CD_I()

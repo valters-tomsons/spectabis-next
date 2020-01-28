@@ -6,15 +6,10 @@ namespace SpectabisNext.Pages
 {
     public class Settings : UserControl, IPage
     {
-        private string pageTitle = "Settings";
-        private bool showInTitlebar = true;
-        private bool hideTitlebar = false;
-        private bool reloadOnNavigation = false;
-
-        public string PageTitle { get { return pageTitle; } }
-        public bool ShowInTitlebar { get { return showInTitlebar; } }
-        public bool HideTitlebar { get { return hideTitlebar; } }
-        public bool ReloadOnNavigation { get { return reloadOnNavigation; } }
+        public string PageTitle => "Settings";
+        public bool ShowInTitlebar => true;
+        public bool HideTitlebar => false;
+        public bool ReloadOnNavigation => false;
 
         public Settings()
         {
@@ -26,5 +21,4 @@ namespace SpectabisNext.Pages
             AvaloniaXamlLoader.Load(this);
         }
     }
-
 }
