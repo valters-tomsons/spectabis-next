@@ -11,20 +11,18 @@ namespace SpectabisLib.Helpers
         {
             if(launchOptions == 0)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             var launchArgument = new StringBuilder();
-            var optionEnums = GetSelectedOptionsList(launchOptions);
-
-            foreach (var item in optionEnums)
+            foreach (var item in GetSelectedOptionsList(launchOptions))
             {
                 if(launchArgument.Length > 0)
                 {
                     launchArgument.Append(" ");
                 }
 
-                launchArgument.Append($"--{item}");
+                launchArgument.Append("--").Append(item);
             }
 
             return launchArgument.ToString();
@@ -32,9 +30,9 @@ namespace SpectabisLib.Helpers
 
         public static string RomPathToArgument(string romPath)
         {
-            if(String.IsNullOrWhiteSpace(romPath))
+            if(string.IsNullOrWhiteSpace(romPath))
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             return $"\"{romPath}\"";
@@ -42,9 +40,9 @@ namespace SpectabisLib.Helpers
 
         public static string ConfigurationPathToArgument(string cfgPath)
         {
-            if(String.IsNullOrWhiteSpace(cfgPath))
+            if(string.IsNullOrWhiteSpace(cfgPath))
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             return $"--cfgpath{cfgPath}";
@@ -52,14 +50,13 @@ namespace SpectabisLib.Helpers
 
         private static IEnumerable<string> GetSelectedOptionsList(EmulatorLaunchOptions launchOptions)
         {
-            // var enumNames = typeof(EmulatorLaunchOptions).GetEnumNames();
-            var enumNames = launchOptions.ToString().Replace(" ", String.Empty).ToLower().Split(',');
+            var enumNames = launchOptions.ToString().Replace(" ", string.Empty).ToLower().Split(',');
             var selectedOptions = new List<string>(enumNames.Length);
 
             foreach (var option in enumNames)
             {
                 Enum.TryParse(option, out EmulatorLaunchOptions parsedEnum);
-                if(launchOptions.HasFlag(parsedEnum))
+                if((launchOptions & parsedEnum) != 0)
                 {
                     selectedOptions.Add(option);
                 }
