@@ -6,12 +6,11 @@
 
     <Grid Grid.Row="0" ColumnDefinitions="*,*" Margin="5">
         <StackPanel Grid.Column="0" Orientation="Vertical">
-            <TextBlock HorizontalAlignment="Center" Text="..." FontSize="30"/>
-            <Image x:Name="BoxArtImage" Stretch="Fill" HorizontalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding SerialNumber}" FontSize="30"/>
+            <Image x:Name="BoxArtImage" Stretch="Fill" Width="{Binding BoxArtWidth}" Height="{Binding BoxArtHeight}" Source="{Binding BoxArtImage}" HorizontalAlignment="Center"/>
             <Button Margin="5,5,5,5" x:Name="SelectGameButton" Content="Browse Game"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical">
-            <!-- <TextBox/> -->
         </StackPanel>
     </Grid>
 
