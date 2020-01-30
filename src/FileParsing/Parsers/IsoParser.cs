@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpectabisLib.Services.Parsers
+namespace FileParsing.Parsers
 {
     public static class IsoParser
     {

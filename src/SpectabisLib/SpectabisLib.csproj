@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FileIntrinsics\FileIntrinsics.csproj" />
+    <ProjectReference Include="..\FileParsing\FileParsing.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

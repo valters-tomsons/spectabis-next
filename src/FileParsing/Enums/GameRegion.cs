@@ -1,4 +1,4 @@
-namespace SpectabisLib.Enums
+namespace FileParsing.Enums
 {
     public enum GameRegion
     {
