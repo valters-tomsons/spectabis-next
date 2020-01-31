@@ -1,44 +1,53 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
+using DiscUtils.Iso9660;
 
 namespace FileParsing.Parsers
 {
     public static class IsoParser
     {
-        public static async Task<string> ReadSerialFromIso(string gamePath)
+        public static string ReadSerialFromIso(string gamePath)
         {
-            const int serialOffset = 0x828bd;
-            const int serialTerminator = 0x3B;
-            const int readLength = serialOffset + 64;
-            var readBuffer = new byte[readLength];
-            var indexBuffer = new byte[64];
+            var systemInfo = ReadSystemCnf(gamePath);
+            return FindSerialInSystemInfo(systemInfo);
+        }
 
-            using(var stream = new FileStream(gamePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize : 4096, useAsync : true))
+        private static byte[] ReadSystemCnf(string gamePath)
+        {
+            using(var stream = File.Open(gamePath, FileMode.Open))
             {
-                await stream.ReadAsync(readBuffer, 0, readLength).ConfigureAwait(false);
-                Array.Copy(readBuffer, serialOffset, indexBuffer, 0, 64);
-            }
+                var reader = new CDReader(stream, true);
+                var syscnfStream = reader.OpenFile("SYSTEM.CNF", FileMode.Open);
 
-            var seekBuffer = new byte[64];
-            int terminatorLocation = 0;
-            for (int i = 0; i < indexBuffer.Length; i++)
-            {
-                if (indexBuffer[i] == serialTerminator)
+                if (syscnfStream == null)
                 {
-                    terminatorLocation = i;
-                    break;
+                    Console.WriteLine($"[IsoParser] Failed to find SYSTEM.CNF in '{gamePath}'");
                 }
 
-                seekBuffer[i] = indexBuffer[i];
+                var cnfBuffer = new byte[syscnfStream.Length];
+                syscnfStream.Read(cnfBuffer, 0, cnfBuffer.Length);
+                return cnfBuffer;
             }
+        }
 
-            var resultBuffer = new byte[terminatorLocation];
-            Array.Copy(seekBuffer, 0, resultBuffer, 0, terminatorLocation);
+        private static string FindSerialInSystemInfo(byte[] cnfContent)
+        {
+            var cnfString = Encoding.UTF8.GetString(cnfContent);
 
-            var serialString = Encoding.UTF8.GetString(resultBuffer);
-            return serialString.Replace(".", string.Empty);
+            const char lineBreak = (char) 0x0A;
+
+            var serialStringBuilder = new StringBuilder(cnfString.Split(lineBreak)[0]);
+            serialStringBuilder.Replace(@"BOOT2 = cdrom0:\", string.Empty);
+            serialStringBuilder.Replace(".", string.Empty);
+            serialStringBuilder.Replace("_", string.Empty);
+            serialStringBuilder.Replace(";1", string.Empty);
+            serialStringBuilder.Replace($"{lineBreak}", string.Empty);
+
+            var result = serialStringBuilder.ToString();
+
+            Console.WriteLine(result);
+            return result;
         }
     }
 }

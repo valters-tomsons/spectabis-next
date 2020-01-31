@@ -28,7 +28,7 @@ namespace SpectabisLib.Services
 
             if (fileType.File == FileType.ISO9660)
             {
-                return await IsoParser.ReadSerialFromIso(gamePath).ConfigureAwait(false);
+                return IsoParser.ReadSerialFromIso(gamePath);
             }
 
             if(fileType.File == FileType.CD_I)
