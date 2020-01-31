@@ -24,13 +24,11 @@ namespace SpectabisLib.Services
 
             var gameSerial = await _gameParser.GetGameSerial(gameFilePath).ConfigureAwait(false);
 
-            var profile = new GameProfile()
+            return new GameProfile()
             {
                 SerialNumber = gameSerial,
                 FilePath = gameFilePath
             };
-
-            return profile;
         }
     }
 }
