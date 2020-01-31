@@ -67,11 +67,5 @@ namespace SpectabisLib.Services
 
             return profile.EmulatorPath;
         }
-
-        private bool IsGameFileValid(string gamePath)
-        {
-            return !string.IsNullOrEmpty(gamePath) && File.Exists(gamePath);
-        }
-
     }
 }
