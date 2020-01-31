@@ -22,6 +22,12 @@ namespace SpectabisLib.Services
         {
             var fileType = await _intrinsics.GetFileSignature(gamePath).ConfigureAwait(false);
 
+            if(fileType == null)
+            {
+                Console.WriteLine($"[GameFileParser] parsing failed for unsupported file:'{gamePath}'");
+                return null;
+            }
+
             if (fileType.File == FileType.ISO9660)
             {
                 return await IsoParser.ReadSerialFromIso(gamePath).ConfigureAwait(false);
@@ -34,6 +40,5 @@ namespace SpectabisLib.Services
 
             return null;
         }
-
     }
 }
