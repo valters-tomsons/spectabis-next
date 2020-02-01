@@ -44,10 +44,7 @@ namespace FileParsing.Parsers
             serialStringBuilder.Replace(";1", string.Empty);
             serialStringBuilder.Replace($"{lineBreak}", string.Empty);
 
-            var result = serialStringBuilder.ToString();
-
-            Console.WriteLine(result);
-            return result;
+            return serialStringBuilder.ToString();
         }
     }
 }
