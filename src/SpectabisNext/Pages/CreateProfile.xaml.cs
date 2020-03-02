@@ -30,7 +30,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel,IPageNavigationProvider navigation, IBitmapLoader bitmapLoader, IProfileFactory profileFactory)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IBitmapLoader bitmapLoader, IProfileFactory profileFactory)
         {
             _navigation = navigation;
             _bitmapLoader = bitmapLoader;
@@ -75,7 +75,7 @@ namespace SpectabisNext.Pages
 
             var fileResult = await fileDialog.ShowAsync(dialogWindow).ConfigureAwait(false);
 
-            if(fileResult == null)
+            if (fileResult == null)
             {
                 return;
             }
@@ -85,6 +85,7 @@ namespace SpectabisNext.Pages
             var profile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
 
             _viewModel.SerialNumber = profile.SerialNumber;
+            _viewModel.GameTitle = profile.Title;
 
             Console.WriteLine(profile.SerialNumber);
         }
