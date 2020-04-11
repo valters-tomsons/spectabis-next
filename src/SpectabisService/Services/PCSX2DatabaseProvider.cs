@@ -14,6 +14,7 @@ namespace SpectabisService.Services
     {
         private static readonly Uri DatabaseUri = new Uri("https://forums.pcsx2.net/data/data.csv");
         private readonly HttpClient _httpClient;
+        private static IEnumerable<GameMetadata> _dbCache;
 
         public PCSX2DatabaseProvider(HttpClient httpClient)
         {
@@ -22,6 +23,11 @@ namespace SpectabisService.Services
 
         public async Task<IEnumerable<GameMetadata>> GetDatabase()
         {
+            if(_dbCache != null)
+            {
+                return _dbCache;
+            }
+
             var dbContent = await _httpClient.GetAsync(DatabaseUri).ConfigureAwait(false);
             var contentStream = await dbContent.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
@@ -29,7 +35,8 @@ namespace SpectabisService.Services
             var csvMapper = new DatabaseModelMapping();
             var parser = new CsvParser<GameMetadata>(parserOptions, csvMapper);
 
-            return parser.ReadFromStream(contentStream, Encoding.UTF8).Select(x => x.Result);
+            _dbCache = parser.ReadFromStream(contentStream, Encoding.UTF8).Select(x => x.Result);
+            return _dbCache;
         }
     }
 
