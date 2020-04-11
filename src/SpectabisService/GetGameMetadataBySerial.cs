@@ -19,23 +19,22 @@ namespace SpectabisService
             [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
         {
             var reqSerial = req.Query["serial"];
-            var reqTitle = req.Query["title"];
 
-            if(reqSerial.Count < 1 && reqTitle.Count < 1)
+            if (reqSerial.Count < 1)
             {
-                return new BadRequestObjectResult("Missing serial or title in request query");
+                return new BadRequestObjectResult("Missing serial in query");
             }
 
             var gameDb = await _dbProvider.GetDatabase().ConfigureAwait(false);
 
-            if(gameDb == null)
+            if (gameDb == null)
             {
                 return new BadRequestObjectResult("Failed retrieving database");
             }
 
             var result = gameDb.FirstOrDefault(x => x.Serial.Equals(reqSerial));
 
-            if(result == null)
+            if (result == null)
             {
                 return new BadRequestObjectResult("No results");
             }
