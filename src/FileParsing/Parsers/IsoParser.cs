@@ -36,6 +36,7 @@ namespace FileParsing.Parsers
             var cnfString = Encoding.UTF8.GetString(cnfContent);
 
             const char lineBreak = (char) 0x0A;
+            const char carrageReturn = (char) 0x0D;
 
             var serialStringBuilder = new StringBuilder(cnfString.Split(lineBreak)[0]);
             serialStringBuilder.Replace(@"BOOT2 = cdrom0:\", string.Empty);
@@ -43,6 +44,7 @@ namespace FileParsing.Parsers
             serialStringBuilder.Replace("_", string.Empty);
             serialStringBuilder.Replace(";1", string.Empty);
             serialStringBuilder.Replace($"{lineBreak}", string.Empty);
+            serialStringBuilder.Replace($"{carrageReturn}", string.Empty);
 
             return serialStringBuilder.ToString();
         }
