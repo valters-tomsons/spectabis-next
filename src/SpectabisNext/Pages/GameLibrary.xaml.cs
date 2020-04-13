@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -11,6 +12,7 @@ using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Factories;
 using SpectabisNext.ViewModels;
+using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
@@ -27,6 +29,8 @@ namespace SpectabisNext.Pages
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
 
+        private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
+
         private WrapPanel GamePanel;
 
         [Obsolete("XAMLIL placeholder", true)]
@@ -39,6 +43,8 @@ namespace SpectabisNext.Pages
             _gameLauncher = gameLauncher;
             _gameRepo = gameRepo;
 
+            _navigationProvider.PageNavigationEvent += OnNavigation;
+
             InitializeComponent();
             RegisterChildren();
             Dispatcher.UIThread.Post(Populate);
@@ -47,6 +53,25 @@ namespace SpectabisNext.Pages
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void OnNavigation(object sender, NavigationArgs e)
+        {
+            if(e.Page == this)
+            {
+                Dispatcher.UIThread.InvokeAsync(AddNewGames);
+            }
+        }
+
+        private async Task AddNewGames()
+        {
+            var allGames = await _gameRepo.GetAll().ConfigureAwait(true);
+            var newGames = allGames.Except(LoadedProfiles);
+
+            foreach (var item in newGames)
+            {
+                await Dispatcher.UIThread.InvokeAsync(() => AddProfileTile(item)).ConfigureAwait(true);
+            }
         }
 
         private void RegisterChildren()
@@ -69,6 +94,7 @@ namespace SpectabisNext.Pages
             var gameTile = _tileFactory.Create(gameProfile);
             gameTile.PointerReleased += OnGameTileClick;
             GamePanel.Children.Add(gameTile);
+            LoadedProfiles.Add(gameProfile);
         }
 
         private void OnGameTileClick(object sender, PointerReleasedEventArgs e)
