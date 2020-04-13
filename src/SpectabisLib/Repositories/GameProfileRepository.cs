@@ -34,7 +34,7 @@ namespace SpectabisLib.Repositories
 
         public async Task UpsertProfile(GameProfile profile)
         {
-            if(Games.Contains(profile))
+            if(profile.Id == Guid.Empty)
             {
                 profile.Id = Guid.NewGuid();
             }

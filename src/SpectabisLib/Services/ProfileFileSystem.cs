@@ -18,7 +18,8 @@ namespace SpectabisLib.Services
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
             var profileJson = JsonConvert.SerializeObject(profile, Formatting.Indented);
 
-            Console.WriteLine(profileJson);
+            Console.WriteLine($"[ProfileFileSystem] Writing profile json '{profile.Id}'");
+
             await WriteTextAsync(profileUri, profileJson).ConfigureAwait(false);
         }
 
