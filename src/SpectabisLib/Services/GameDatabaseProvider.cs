@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using SpectabisLib.Enums;
+using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using TinyCsvParser;
@@ -15,7 +16,7 @@ namespace SpectabisLib.Services
     public class GameDatabaseProvider : IGameDatabaseProvider
     {
         private IEnumerable<GameMetadata> _metadataDb;
-        private readonly Uri DatabaseUri = new Uri("Resources/gamedatabase.csv", UriKind.Relative);
+        private readonly Uri DatabaseUri = new Uri($"{SystemDirectories.ResourcesPath}/gamedatabase.csv", UriKind.Relative);
 
         public GameMetadata GetBySerial(string serial)
         {

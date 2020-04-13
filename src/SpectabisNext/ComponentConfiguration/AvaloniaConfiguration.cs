@@ -20,6 +20,5 @@ namespace SpectabisNext.ComponentConfiguration
 
         private static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>().UsePlatformDetect().UseManagedSystemDialogs();
-
     }
 }

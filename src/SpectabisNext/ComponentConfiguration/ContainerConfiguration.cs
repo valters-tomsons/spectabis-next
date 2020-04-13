@@ -41,6 +41,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
             builder.RegisterType<GameFileParser>().As<IGameFileParser>();
             builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>();
+            builder.RegisterType<ProfileFileSystem>();
         }
 
         private static void RegisterSpectabis(ContainerBuilder builder)

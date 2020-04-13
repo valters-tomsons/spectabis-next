@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -18,6 +19,7 @@ namespace SpectabisNext.Pages
         private readonly IPageNavigationProvider _navigation;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly IProfileFactory _profileFactory;
+        private readonly IProfileRepository _gameRepo;
 
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
@@ -25,13 +27,17 @@ namespace SpectabisNext.Pages
         public bool ReloadOnNavigation { get; } = true;
 
         private Button SelectGameButton;
+        private Button AddGameButton;
+
         private readonly CreateProfileViewModel _viewModel;
+        private GameProfile _currentProfile;
 
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IBitmapLoader bitmapLoader, IProfileFactory profileFactory)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IBitmapLoader bitmapLoader, IProfileFactory profileFactory, IProfileRepository gameRepo)
         {
+            _gameRepo = gameRepo;
             _navigation = navigation;
             _bitmapLoader = bitmapLoader;
             _profileFactory = profileFactory;
@@ -42,6 +48,12 @@ namespace SpectabisNext.Pages
 
             _navigation.PageNavigationEvent += OnNavigation;
             SelectGameButton.Click += SelectGameButtonClick;
+            AddGameButton.Click += AddGameButtonClick;
+        }
+
+        private void AddGameButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddGame();
         }
 
         private void SelectGameButtonClick(object sender, RoutedEventArgs e)
@@ -60,6 +72,7 @@ namespace SpectabisNext.Pages
         private void RegisterChildren()
         {
             SelectGameButton = this.FindControl<Button>(nameof(SelectGameButton));
+            AddGameButton = this.FindControl<Button>(nameof(AddGameButton));
         }
 
         public void InitializeComponent()
@@ -68,7 +81,15 @@ namespace SpectabisNext.Pages
             DataContext = _viewModel;
         }
 
-        private async void SelectGame()
+        private async Task AddGame()
+        {
+            _currentProfile.Title = _viewModel.GameTitle;
+            await _gameRepo.UpsertProfile(_currentProfile).ConfigureAwait(false);
+
+            _navigation.Navigate<GameLibrary>();
+        }
+
+        private async Task SelectGame()
         {
             var dialogWindow = new Window();
             var fileDialog = new OpenFileDialog();
@@ -82,12 +103,12 @@ namespace SpectabisNext.Pages
 
             var filePath = string.Concat(fileResult);
 
-            var profile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
+            _currentProfile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
 
-            _viewModel.SerialNumber = profile.SerialNumber;
-            _viewModel.GameTitle = profile.Title;
+            _viewModel.SerialNumber = _currentProfile.SerialNumber;
+            _viewModel.GameTitle = _currentProfile.Title;
 
-            Console.WriteLine(profile.SerialNumber);
+            Console.WriteLine(_currentProfile.SerialNumber);
         }
 
         ~CreateProfile()

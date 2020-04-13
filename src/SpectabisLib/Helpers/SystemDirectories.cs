@@ -17,7 +17,5 @@ namespace SpectabisLib.Helpers
         public static readonly string PCSX2ConfigurationPath = "./PCSX2";
         //UPDATE ME LATER!
         public static readonly string PCSX2ExecutablePath = "PCSX2";
-        //UPDATE ME LATER!
-        public static readonly string PCSX2GameDatabasePath = "./PCSX2/gameindex.csv";
     }
 }

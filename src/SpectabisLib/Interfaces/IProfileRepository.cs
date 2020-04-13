@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Interfaces
@@ -7,5 +8,6 @@ namespace SpectabisLib.Interfaces
     {
         IReadOnlyCollection<GameProfile> GetAll();
         void Add(GameProfile profile);
+        Task UpsertProfile(GameProfile profile);
     }
 }
