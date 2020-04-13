@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 
@@ -8,7 +9,8 @@ namespace SpectabisNext.ViewModels
     {
         public GameLibraryViewModel(IProfileRepository profileRepository)
         {
-            ProfileCollection = profileRepository.GetAll();
+            var profiles = profileRepository.GetAll();
+            ProfileCollection = profiles.Result;
         }
 
         public IEnumerable<GameProfile> ProfileCollection { get; set; }

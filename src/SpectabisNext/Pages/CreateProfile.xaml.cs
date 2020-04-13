@@ -83,6 +83,11 @@ namespace SpectabisNext.Pages
 
         private async Task AddGame()
         {
+            if(_currentProfile == null)
+            {
+                return;
+            }
+
             _currentProfile.Title = _viewModel.GameTitle;
             await _gameRepo.UpsertProfile(_currentProfile).ConfigureAwait(false);
 
@@ -107,8 +112,6 @@ namespace SpectabisNext.Pages
 
             _viewModel.SerialNumber = _currentProfile.SerialNumber;
             _viewModel.GameTitle = _currentProfile.Title;
-
-            Console.WriteLine(_currentProfile.SerialNumber);
         }
 
         ~CreateProfile()

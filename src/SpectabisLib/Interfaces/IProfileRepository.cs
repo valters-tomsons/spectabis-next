@@ -6,8 +6,7 @@ namespace SpectabisLib.Interfaces
 {
     public interface IProfileRepository
     {
-        IReadOnlyCollection<GameProfile> GetAll();
-        void Add(GameProfile profile);
         Task UpsertProfile(GameProfile profile);
+        Task<IEnumerable<GameProfile>> GetAll();
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SpectabisLib.Interfaces;
@@ -12,24 +13,12 @@ namespace SpectabisLib.Repositories
 {
     public class GameProfileRepository : IProfileRepository
     {
-        private List<GameProfile> Games { get; }
+        private IEnumerable<GameProfile> Games;
         private ProfileFileSystem _pfs { get; }
 
         public GameProfileRepository(ProfileFileSystem pfs)
         {
             _pfs = pfs;
-
-            Games = new List<GameProfile>();
-
-            for (int i = 0; i < 30; i++)
-            {
-                var game = new GameProfile()
-                {
-                    Title = "Placeholder Game",
-                };
-
-                Games.Add(game);
-            }
         }
 
         public async Task UpsertProfile(GameProfile profile)
@@ -42,14 +31,20 @@ namespace SpectabisLib.Repositories
             await _pfs.WriteProfileAsync(profile).ConfigureAwait(false);
         }
 
-        public IReadOnlyCollection<GameProfile> GetAll()
+        public async Task<IEnumerable<GameProfile>> GetAll()
         {
-            return Games.AsReadOnly();
+            await ReadProfiles().ConfigureAwait(false);
+            return Games;
         }
 
-        public void Add(GameProfile profile)
+        private async Task ReadProfiles()
         {
-            Games.Add(profile);
+            if(Games != null)
+            {
+                return;
+            }
+
+            Games = await _pfs.ReadAllProfiles().ConfigureAwait(false);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTileView;
@@ -29,14 +30,13 @@ namespace SpectabisNext.Pages
 
         public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
         {
-
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
             _gameLauncher = gameLauncher;
             _gameRepo = gameRepo;
 
             InitializeComponent();
-            Populate();
+            Dispatcher.UIThread.Post(Populate);
         }
 
         public void InitializeComponent()
@@ -44,11 +44,12 @@ namespace SpectabisNext.Pages
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void Populate()
+        private async void Populate()
         {
             var gamePanel = this.FindControl<WrapPanel>("GamePanel");
+            var games = await _gameRepo.GetAll().ConfigureAwait(true);
 
-            foreach (var gameProfile in _gameRepo.GetAll())
+            foreach (var gameProfile in games)
             {
                 var gameTile = _tileFactory.Create(gameProfile);
                 gameTile.PointerReleased += OnGameTileClick;
