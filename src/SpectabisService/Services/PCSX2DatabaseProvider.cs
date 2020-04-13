@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using SpectabisService.Models;
+using SpectabisLib.Enums;
+using SpectabisLib.Models;
 using TinyCsvParser;
 using TinyCsvParser.Mapping;
+using TinyCsvParser.TypeConverter;
 
 namespace SpectabisService.Services
 {
@@ -45,6 +47,7 @@ namespace SpectabisService.Services
         public DatabaseModelMapping()
         {
             MapProperty(0, x => x.Serial);
+            MapProperty(1, x => x.Compatibility, new EnumConverter<GameCompatibility>(true));
             MapProperty(5, x => x.Title);
             MapProperty(6, x => x.Region);
         }

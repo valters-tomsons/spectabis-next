@@ -22,5 +22,6 @@
   </ItemGroup>
   <ItemGroup>
       <None Include="Resources/Images/placeholderBoxart.jpg" CopyToOutputDirectory="Always" />
+      <None Include="Resources/gamedatabase.csv" CopyToOutputDirectory="Always" />
   </ItemGroup>
 </Project>

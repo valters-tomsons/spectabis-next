@@ -16,4 +16,7 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpectabisLib\SpectabisLib.csproj" />
+  </ItemGroup>
 </Project>

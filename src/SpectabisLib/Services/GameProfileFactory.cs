@@ -9,10 +9,12 @@ namespace SpectabisLib.Services
     public class GameProfileFactory : IProfileFactory
     {
         private readonly IGameFileParser _gameParser;
+        private readonly IGameDatabaseProvider _dbProvider;
 
-        public GameProfileFactory(IGameFileParser gameParser)
+        public GameProfileFactory(IGameFileParser gameParser, IGameDatabaseProvider dbProvider)
         {
             _gameParser = gameParser;
+            _dbProvider = dbProvider;
         }
 
         async Task<GameProfile> IProfileFactory.CreateFromPath(string gameFilePath)
@@ -23,11 +25,13 @@ namespace SpectabisLib.Services
             }
 
             var gameSerial = await _gameParser.GetGameSerial(gameFilePath).ConfigureAwait(false);
+            var metadata = _dbProvider.GetBySerial(gameSerial);
 
             return new GameProfile()
             {
                 SerialNumber = gameSerial,
-                FilePath = gameFilePath
+                FilePath = gameFilePath,
+                Title = metadata.Title
             };
         }
     }

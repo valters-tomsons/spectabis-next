@@ -5,6 +5,10 @@
     <ProjectReference Include="..\FileParsing\FileParsing.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="TinyCsvParser" Version="2.5.2" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
