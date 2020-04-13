@@ -25,7 +25,7 @@ namespace SpectabisLib.Services
             await WriteTextAsync(profileUri, profileJson).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<GameProfile>> ReadAllProfiles()
+        public async Task<IList<GameProfile>> ReadAllProfiles()
         {
             var guids = GetAllProfileIds();
             var profiles = new List<GameProfile>();
@@ -82,10 +82,6 @@ namespace SpectabisLib.Services
                 await stream.ReadAsync(content, 0, (int) stream.Length).ConfigureAwait(false);
                 return Encoding.Unicode.GetString(content);
             }
-            // using(var stream = File.OpenText(filePath.LocalPath))
-            // {
-            //     return await stream.ReadToEndAsync().ConfigureAwait(false);
-            // }
         }
 
         private async Task WriteTextAsync(Uri filePath, string text)

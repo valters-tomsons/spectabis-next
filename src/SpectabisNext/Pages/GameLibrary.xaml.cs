@@ -1,10 +1,12 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Models;
 using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Factories;
@@ -25,6 +27,8 @@ namespace SpectabisNext.Pages
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
 
+        private WrapPanel GamePanel;
+
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary() { }
 
@@ -36,6 +40,7 @@ namespace SpectabisNext.Pages
             _gameRepo = gameRepo;
 
             InitializeComponent();
+            RegisterChildren();
             Dispatcher.UIThread.Post(Populate);
         }
 
@@ -44,17 +49,26 @@ namespace SpectabisNext.Pages
             AvaloniaXamlLoader.Load(this);
         }
 
+        private void RegisterChildren()
+        {
+            GamePanel = this.FindControl<WrapPanel>(nameof(GamePanel));
+        }
+
         private async void Populate()
         {
-            var gamePanel = this.FindControl<WrapPanel>("GamePanel");
             var games = await _gameRepo.GetAll().ConfigureAwait(true);
 
             foreach (var gameProfile in games)
             {
-                var gameTile = _tileFactory.Create(gameProfile);
-                gameTile.PointerReleased += OnGameTileClick;
-                gamePanel.Children.Add(gameTile);
+                AddProfileTile(gameProfile);
             }
+        }
+
+        private void AddProfileTile(GameProfile gameProfile)
+        {
+            var gameTile = _tileFactory.Create(gameProfile);
+            gameTile.PointerReleased += OnGameTileClick;
+            GamePanel.Children.Add(gameTile);
         }
 
         private void OnGameTileClick(object sender, PointerReleasedEventArgs e)

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisLib.Repositories;
@@ -53,12 +54,12 @@ namespace SpectabisNext.Pages
 
         private void AddGameButtonClick(object sender, RoutedEventArgs e)
         {
-            AddGame();
+            Dispatcher.UIThread.InvokeAsync(AddGame);
         }
 
         private void SelectGameButtonClick(object sender, RoutedEventArgs e)
         {
-            SelectGame();
+            Dispatcher.UIThread.InvokeAsync(SelectGame);
         }
 
         private void OnNavigation(object sender, NavigationArgs e)

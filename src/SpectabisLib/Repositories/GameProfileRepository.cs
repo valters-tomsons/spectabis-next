@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisLib.Services;
@@ -13,7 +9,7 @@ namespace SpectabisLib.Repositories
 {
     public class GameProfileRepository : IProfileRepository
     {
-        private IEnumerable<GameProfile> Games;
+        private IList<GameProfile> Games;
         private ProfileFileSystem _pfs { get; }
 
         public GameProfileRepository(ProfileFileSystem pfs)
@@ -26,6 +22,11 @@ namespace SpectabisLib.Repositories
             if(profile.Id == Guid.Empty)
             {
                 profile.Id = Guid.NewGuid();
+            }
+
+            if(!Games.Contains(profile))
+            {
+                Games.Add(profile);
             }
 
             await _pfs.WriteProfileAsync(profile).ConfigureAwait(false);
