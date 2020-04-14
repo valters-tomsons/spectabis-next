@@ -38,6 +38,12 @@ namespace SpectabisLib.Repositories
             return Games;
         }
 
+        public void DeleteProfile(GameProfile profile)
+        {
+            Games.Remove(profile);
+            _pfs.DeleteProfileAsync(profile.Id);
+        }
+
         private async Task ReadProfiles()
         {
             if(Games != null)

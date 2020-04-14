@@ -8,5 +8,6 @@ namespace SpectabisLib.Interfaces
     {
         Task UpsertProfile(GameProfile profile);
         Task<IEnumerable<GameProfile>> GetAll();
+        void DeleteProfile(GameProfile profile);
     }
 }

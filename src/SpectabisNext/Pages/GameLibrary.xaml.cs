@@ -117,6 +117,11 @@ namespace SpectabisNext.Pages
                 LaunchConfiguration(tile);
             }
 
+            if(selectd == GameContextMenuItem.Remove)
+            {
+                RemoveGame(tile);
+            }
+
             // TODO: Should share one global context menu when Avalonia supports it
             obj.Close();
             obj.PointerReleased -= OnGameContextMenuClick;
@@ -157,6 +162,14 @@ namespace SpectabisNext.Pages
 
             _gameLauncher.StartGame(gameTile.Profile);
             _navigationProvider.Navigate<GameRunning>();
+        }
+
+        private void RemoveGame(GameTileView gameTile)
+        {
+            System.Console.WriteLine($"[GameLibrary] Removing {gameTile.Profile.Id}");
+            _gameRepo.DeleteProfile(gameTile.Profile);
+            LoadedProfiles.Remove(gameTile.Profile);
+            GamePanel.Children.Remove(gameTile);
         }
     }
 }

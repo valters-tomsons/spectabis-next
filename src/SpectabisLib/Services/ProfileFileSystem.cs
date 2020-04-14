@@ -68,6 +68,27 @@ namespace SpectabisLib.Services
             return JsonConvert.DeserializeObject<GameProfile>(profileJson);
         }
 
+        public void DeleteProfileAsync(Guid gameId)
+        {
+            var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
+            var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
+
+            if (!Directory.Exists(profileFolderUri.LocalPath))
+            {
+                Console.WriteLine($"[ProfileFileSystem] Profile folder '{gameId}' does not exist");
+                return;
+            }
+
+            if(!File.Exists(profileUri.LocalPath))
+            {
+                Console.WriteLine($"[ProfileFileSystem] Profile json '{gameId}' does not exist");
+                return;
+            }
+
+            Directory.Delete(profileFolderUri.LocalPath, true);
+            Console.WriteLine($"[ProfileFileSystem] Profile '{gameId}' deleted");
+        }
+
         private IEnumerable<Guid> GetAllProfileIds()
         {
             var profilesFolderUri = new Uri(SystemDirectories.ProfileFolder, UriKind.Absolute);
