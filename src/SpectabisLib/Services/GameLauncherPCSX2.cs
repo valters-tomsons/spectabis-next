@@ -28,6 +28,17 @@ namespace SpectabisLib.Services
             return gameProcess;
         }
 
+        public GameProcess StartConfiguration(GameProfile game)
+        {
+            var process = CreateEmulatorProcess(game, false);
+            var gameProcess = new GameProcess(game, process);
+
+            _gameProcess = gameProcess;
+            _gameProcess.Start();
+
+            return gameProcess;
+        }
+
         public GameProcess GetRunningGame()
         {
             return _gameProcess;
@@ -44,7 +55,7 @@ namespace SpectabisLib.Services
             _gameProcess = null;
         }
 
-        private Process CreateEmulatorProcess(GameProfile gameProfile)
+        private Process CreateEmulatorProcess(GameProfile gameProfile, bool launchGame = true)
         {
             if (_gameProcess != null)
             {
@@ -54,8 +65,9 @@ namespace SpectabisLib.Services
             var process = new Process();
 
             var launchArguments = EmulatorOptionsParser.ConvertToLaunchArguments(gameProfile.LaunchOptions);
-            var romArgument = EmulatorOptionsParser.RomPathToArgument(gameProfile.FilePath);
             var cfgArgument = EmulatorOptionsParser.ConfigurationPathToArgument(_pfs.GetProfileConfigLocation(gameProfile));
+            var romArgument = launchGame ? EmulatorOptionsParser.RomPathToArgument(gameProfile.FilePath) : string.Empty;
+
             var fullArguments = $"{launchArguments} {romArgument} {cfgArgument}";
 
             process.StartInfo.FileName = GetEmulatorPath(gameProfile);

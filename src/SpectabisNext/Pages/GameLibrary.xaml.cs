@@ -14,6 +14,7 @@ using SpectabisNext.Factories;
 using SpectabisNext.ViewModels;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
+using SpectabisUI.Enums;
 
 namespace SpectabisNext.Pages
 {
@@ -57,7 +58,7 @@ namespace SpectabisNext.Pages
 
         private void OnNavigation(object sender, NavigationArgs e)
         {
-            if(e.Page == this)
+            if (e.Page == this)
             {
                 Dispatcher.UIThread.InvokeAsync(AddNewGames);
             }
@@ -93,8 +94,32 @@ namespace SpectabisNext.Pages
         {
             var gameTile = _tileFactory.Create(gameProfile);
             gameTile.PointerReleased += OnGameTileClick;
+
             GamePanel.Children.Add(gameTile);
             LoadedProfiles.Add(gameProfile);
+        }
+
+        private void OnGameContextMenuClick(object sender, PointerReleasedEventArgs e)
+        {
+            var obj = (ContextMenu) sender;
+            var tile = (GameTileView) obj.Parent.Parent;
+
+            var selectd = (GameContextMenuItem) obj.SelectedIndex;
+            System.Console.WriteLine(selectd);
+
+            if(selectd == GameContextMenuItem.Launch)
+            {
+                LaunchTile(tile);
+            }
+
+            if(selectd == GameContextMenuItem.Configure)
+            {
+                LaunchConfiguration(tile);
+            }
+
+            // TODO: Should share one global context menu when Avalonia supports it
+            obj.Close();
+            obj.PointerReleased -= OnGameContextMenuClick;
         }
 
         private void OnGameTileClick(object sender, PointerReleasedEventArgs e)
@@ -106,6 +131,24 @@ namespace SpectabisNext.Pages
             {
                 LaunchTile(clickedTile);
             }
+
+            if (pointerUpdate == PointerUpdateKind.RightButtonReleased)
+            {
+                var menuItems = Enum.GetValues(typeof(GameContextMenuItem)).Cast<GameContextMenuItem>();
+
+                // TODO: Should share one global context menu when Avalonia supports it
+                var contextMenu = new ContextMenu() { Items = menuItems };
+                contextMenu.PointerReleased += OnGameContextMenuClick;
+                contextMenu.Open(clickedTile);
+            }
+        }
+
+        private void LaunchConfiguration(GameTileView gameTile)
+        {
+            Console.WriteLine($"[GameLibrary] Configuring {gameTile.Profile.Title}");
+
+            _gameLauncher.StartConfiguration(gameTile.Profile);
+            _navigationProvider.Navigate<GameRunning>();
         }
 
         private void LaunchTile(GameTileView gameTile)

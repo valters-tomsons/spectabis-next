@@ -6,7 +6,7 @@ namespace SpectabisLib.Interfaces
     public interface IGameLauncher
     {
         GameProcess StartGame(GameProfile game);
-        // void PauseGame();
+        GameProcess StartConfiguration(GameProfile game);
         void StopGame();
         GameProcess GetRunningGame();
     }
