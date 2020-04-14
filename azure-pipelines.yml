@@ -35,8 +35,4 @@ steps:
 - bash: |
     tar -cvzf $ARTIFACTSFOLDER/spectabis-win-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/win-x64/publish
 
-- publish: $(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-linux-$(Build.SourceVersion).tar.gz
-
-- publish: $(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-osx-$(Build.SourceVersion).tar.gz
-
-- publish: $(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-win-$(Build.SourceVersion).tar.gz
+- publish: $(System.DefaultWorkingDirectory)/$(ArtifactsFolder)
