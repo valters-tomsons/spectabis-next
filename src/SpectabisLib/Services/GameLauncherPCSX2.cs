@@ -10,6 +10,12 @@ namespace SpectabisLib.Services
     public class GameLauncherPCSX2 : IGameLauncher
     {
         private GameProcess _gameProcess;
+        private readonly ProfileFileSystem _pfs;
+
+        public GameLauncherPCSX2(ProfileFileSystem pfs)
+        {
+            _pfs = pfs;
+        }
 
         public GameProcess StartGame(GameProfile game)
         {
@@ -29,7 +35,7 @@ namespace SpectabisLib.Services
 
         public void StopGame()
         {
-            if(_gameProcess == null)
+            if (_gameProcess == null)
             {
                 return;
             }
@@ -40,7 +46,7 @@ namespace SpectabisLib.Services
 
         private Process CreateEmulatorProcess(GameProfile gameProfile)
         {
-            if(_gameProcess != null)
+            if (_gameProcess != null)
             {
                 Console.WriteLine($"[PCSX2-GameLauncher] Losing lease of existing process '{_gameProcess.Game.Title}' : '{_gameProcess.Process.Id}'");
             }
@@ -49,7 +55,8 @@ namespace SpectabisLib.Services
 
             var launchArguments = EmulatorOptionsParser.ConvertToLaunchArguments(gameProfile.LaunchOptions);
             var romArgument = EmulatorOptionsParser.RomPathToArgument(gameProfile.FilePath);
-            var fullArguments = $"{launchArguments} {romArgument}";
+            var cfgArgument = EmulatorOptionsParser.ConfigurationPathToArgument(_pfs.GetProfileConfigLocation(gameProfile));
+            var fullArguments = $"{launchArguments} {romArgument} {cfgArgument}";
 
             process.StartInfo.FileName = GetEmulatorPath(gameProfile);
             process.StartInfo.Arguments = fullArguments;

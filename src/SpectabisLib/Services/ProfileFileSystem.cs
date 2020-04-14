@@ -12,6 +12,19 @@ namespace SpectabisLib.Services
 {
     public class ProfileFileSystem
     {
+        public Uri GetProfileConfigLocation(GameProfile profile)
+        {
+            if(profile.Id == Guid.Empty)
+            {
+                throw new Exception("Game guid is empty");
+            }
+
+            var location = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/", UriKind.Absolute);
+
+            Directory.CreateDirectory(location.LocalPath);
+            return location;
+        }
+
         public async Task WriteProfileAsync(GameProfile profile)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}", UriKind.Absolute);

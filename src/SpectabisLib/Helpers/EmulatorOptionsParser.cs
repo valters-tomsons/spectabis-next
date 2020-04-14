@@ -38,14 +38,9 @@ namespace SpectabisLib.Helpers
             return $"\"{romPath}\"";
         }
 
-        public static string ConfigurationPathToArgument(string cfgPath)
+        public static string ConfigurationPathToArgument(Uri cfgContainerLocation)
         {
-            if(string.IsNullOrWhiteSpace(cfgPath))
-            {
-                return string.Empty;
-            }
-
-            return $"--cfgpath{cfgPath}";
+            return $"--cfgpath{cfgContainerLocation.LocalPath}";
         }
 
         private static IEnumerable<string> GetSelectedOptionsList(EmulatorLaunchOptions launchOptions)
