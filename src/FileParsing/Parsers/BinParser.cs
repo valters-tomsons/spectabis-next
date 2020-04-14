@@ -30,7 +30,8 @@ namespace FileParsing.Parsers
             var indexBuffer = new byte[indexBufferSize];
             Array.Copy(readBuffer, RootFileDescriptorOffset, indexBuffer, 0, indexBufferSize);
 
-            return FindSerial(indexBuffer);
+            var serial = FindSerial(indexBuffer);
+            return serial.Replace("_", string.Empty);
         }
 
         private static string FindSerial(byte[] fileDescriptionBuffer)
