@@ -1,21 +1,49 @@
 using System;
+using System.Runtime.InteropServices;
 
 namespace SpectabisLib.Helpers
 {
     public static class SystemDirectories
     {
-        private static readonly string HomePath = (Environment.OSVersion.Platform == PlatformID.Unix ||
-                Environment.OSVersion.Platform == PlatformID.MacOSX) ?
-            Environment.GetEnvironmentVariable("HOME") :
-            Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
-        
-        public static readonly string ConfigFolder = $"{HomePath}/.config/spectabis";
-        public static readonly string ProfileFolder = $"{HomePath}/.config/spectabis/profiles";
-        public static readonly string ConfigFile = $"{ConfigFolder}/spectabis.json";
-        public static readonly string ResourcesPath = "Resources";
-        //UPDATE ME LATER!
-        public static readonly string PCSX2ConfigurationPath = "./PCSX2";
-        //UPDATE ME LATER!
-        public static readonly string PCSX2ExecutablePath = "PCSX2";
+        public static string ConfigFolder { get; private set; }
+        public static string ProfileFolder { get; private set; }
+        public static string Default_PCSX2ConfigurationPath { get; private set; }
+        public static string Default_PCSX2ExecutablePath { get; private set; }
+        public static string ResourcesPath { get; } = "Resources";
+
+        static SystemDirectories()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                InitializeForWindows();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                InitializeForUnix();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                InitializeForUnix();
+            }
+            else
+            {
+                throw new PlatformNotSupportedException();
+            }
+        }
+
+        private static void InitializeForUnix()
+        {
+            var homePath = Environment.GetEnvironmentVariable("HOME");
+            ConfigFolder = $"{homePath}/.config/spectabis";
+            ProfileFolder = $"{ConfigFolder}/profiles";
+            Default_PCSX2ConfigurationPath = $"{homePath}/.config/PCSX2";
+            Default_PCSX2ExecutablePath = "PCSX2";
+        }
+
+        private static void InitializeForWindows()
+        {
+            var homePath = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            throw new PlatformNotSupportedException();
+        }
     }
 }

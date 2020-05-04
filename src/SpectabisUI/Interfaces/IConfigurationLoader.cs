@@ -7,5 +7,6 @@ namespace SpectabisUI.Interfaces
     {
         SpectabisConfig Spectabis { get; }
         UIConfiguration UserInterface { get; }
+        DirectoryStruct Directories { get; }
     }
 }

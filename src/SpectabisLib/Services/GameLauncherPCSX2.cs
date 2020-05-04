@@ -81,7 +81,7 @@ namespace SpectabisLib.Services
         {
             if (string.IsNullOrWhiteSpace(profile.EmulatorPath))
             {
-                return SystemDirectories.PCSX2ExecutablePath;
+                return SystemDirectories.Default_PCSX2ExecutablePath;
             }
 
             return profile.EmulatorPath;
