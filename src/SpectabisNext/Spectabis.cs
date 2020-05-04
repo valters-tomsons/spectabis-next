@@ -26,6 +26,5 @@ namespace SpectabisNext
             _mainWindow.Show();
             appInstance.Run(_cancelRepo.GetToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp));
         }
-
     }
 }

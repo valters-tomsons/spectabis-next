@@ -11,15 +11,29 @@ namespace SpectabisNext.Services
 {
     public class ConfigurationLoader : IConfigurationLoader
     {
-        public SpectabisConfig Spectabis { get; }
-        public UIConfiguration UserInterface { get; }
-        public DirectoryStruct Directories { get; }
+        public SpectabisConfig Spectabis { get; private set; }
+        public UIConfiguration UserInterface { get; private set; }
+        public DirectoryStruct Directories { get; private set; }
 
         public ConfigurationLoader()
         {
-            UserInterface = new UIConfiguration();
-            Spectabis = new SpectabisConfig();
-            Directories = ReadConfiguration<DirectoryStruct>().Result;
+            var update = UpdateConfiguration();
+            Task.WaitAll(update);
+        }
+
+        public async Task UpdateConfiguration()
+        {
+            // UserInterface = new UIConfiguration();
+            UserInterface = await ReadConfiguration<UIConfiguration>().ConfigureAwait(false);
+            Spectabis = await ReadConfiguration<SpectabisConfig>().ConfigureAwait(false);
+            Directories = await ReadConfiguration<DirectoryStruct>().ConfigureAwait(false);
+        }
+
+        public bool ConfigurationExists<T>() where T : IJsonConfig, new()
+        {
+            var configTitle = new T().Title.ToLowerInvariant();
+            var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
+            return File.Exists(configUri.LocalPath);
         }
 
         public async Task WriteConfiguration<T>(T obj) where T : IJsonConfig, new()
@@ -33,41 +47,28 @@ namespace SpectabisNext.Services
                 File.Delete(configUri.LocalPath);
             }
 
-            byte[] encodedText = Encoding.UTF8.GetBytes(configText);
-
-            using var stream = File.Open(configUri.LocalPath, FileMode.OpenOrCreate);
-            stream.Seek(0, SeekOrigin.End);
-            await stream.WriteAsync(encodedText, 0, encodedText.Length).ConfigureAwait(false);
-        }
-
-        public bool ConfigurationExists<T>() where T : IJsonConfig, new()
-        {
-            var configTitle = new T().Title.ToLowerInvariant();
-            var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
-            return File.Exists(configUri.LocalPath);
+            await AsyncIOHelper.WriteTextToFile(configUri, configText).ConfigureAwait(false);
         }
 
         public async Task<T> ReadConfiguration<T>() where T : IJsonConfig, new()
         {
             if (!ConfigurationExists<T>())
             {
-                return new T();
+                return ReturnDefault<T>();
             }
 
             var configTitle = new T().Title.ToLowerInvariant();
             Console.WriteLine($"[ConfigLoader] Loading '{configTitle}.json'");
 
             var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
-
-            byte[] configBytes;
-            using(var stream = File.Open(configUri.LocalPath, FileMode.Open))
-            {
-                configBytes = new byte[stream.Length];
-                await stream.ReadAsync(configBytes, 0, configBytes.Length).ConfigureAwait(false);
-            }
-
-            var configText = Encoding.UTF8.GetString(configBytes);
+            var configText = await AsyncIOHelper.ReadTextFromFile(configUri).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<T>(configText);
+        }
+
+        private T ReturnDefault<T>() where T : IJsonConfig, new()
+        {
+            Console.WriteLine($"[ConfigLoader] Getting default config for '{typeof(T)}'");
+            return new T();
         }
     }
 }

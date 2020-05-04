@@ -1,11 +1,14 @@
 using Avalonia.Media;
+using SpectabisLib.Interfaces;
 
 namespace SpectabisLib.Configuration
 {
-    public class UIConfiguration
+    public class UIConfiguration : IJsonConfig
     {
         public UIConfiguration()
         {
+            Title = "Style";
+
             BoxArtWidth = 150;
             BoxArtHeight = 200;
             BoxArtSizeModifier = 1.2;
@@ -21,6 +24,8 @@ namespace SpectabisLib.Configuration
         public double BoxArtGapSize { get; set; }
         public LinearGradientBrush UIBackgroundGradient { get; set; }
         public LinearGradientBrush TitlebarGradient { get; set; }
+
+        public string Title { get; }
 
         private LinearGradientBrush DefaultBackgroundGradient()
         {
