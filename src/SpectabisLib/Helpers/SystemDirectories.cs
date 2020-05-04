@@ -43,10 +43,10 @@ namespace SpectabisLib.Helpers
         private static void InitializeForWindows()
         {
             var homePath = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
-            ConfigFolder = $"{homePath}/Spectabis";
+            ConfigFolder = $"{homePath}/.spectabis";
             ProfileFolder = $"{ConfigFolder}/profiles";
             Default_PCSX2ConfigurationPath = $"{homePath}/PCSX2";
-            Default_PCSX2ExecutablePath = @"C:/Program Files (x86)/PCSX2/pcsx2.exe";
+            Default_PCSX2ExecutablePath = "C:/Program Files (x86)/PCSX2/pcsx2.exe";
         }
     }
 }
