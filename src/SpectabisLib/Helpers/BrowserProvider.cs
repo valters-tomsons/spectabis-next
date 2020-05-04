@@ -24,7 +24,8 @@ namespace SpectabisLib.Helpers
             {
                 Process.Start("open", url.ToString());
             }
-            else{
+            else
+            {
                 throw new PlatformNotSupportedException();
             }
         }
