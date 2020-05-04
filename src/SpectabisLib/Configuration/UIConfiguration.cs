@@ -1,6 +1,6 @@
 using Avalonia.Media;
 
-namespace SpectabisUI.Configuration
+namespace SpectabisLib.Configuration
 {
     public class UIConfiguration
     {

@@ -1,6 +1,6 @@
+using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisNext.Controls.GameTileView;
-using SpectabisNext.Services;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Factories

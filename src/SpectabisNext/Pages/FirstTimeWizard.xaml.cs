@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using SpectabisLib.Interfaces;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
@@ -44,6 +45,8 @@ namespace SpectabisNext.Pages
         private void FirstButtonClick(object sender, RoutedEventArgs e)
         {
             _pageNavigator.Navigate<GameLibrary>();
+            // var config = _configuration.ReadConfiguration<DirectoryStruct>();
+            _configuration.WriteConfiguration(_configuration.Directories);
         }
     }
 }

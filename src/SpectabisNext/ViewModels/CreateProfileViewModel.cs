@@ -1,6 +1,6 @@
 using Avalonia.Media.Imaging;
 using ReactiveUI;
-using SpectabisLib.Models;
+using SpectabisLib.Interfaces;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.ViewModels
