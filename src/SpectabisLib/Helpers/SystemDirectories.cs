@@ -46,7 +46,7 @@ namespace SpectabisLib.Helpers
             ConfigFolder = $"{homePath}/Spectabis";
             ProfileFolder = $"{ConfigFolder}/profiles";
             Default_PCSX2ConfigurationPath = $"{homePath}/PCSX2";
-            Default_PCSX2ExecutablePath = @"C:/Program Files (x86)/PCSX2/PCSX2.exe";
+            Default_PCSX2ExecutablePath = @"C:/Program Files (x86)/PCSX2/pcsx2.exe";
         }
     }
 }
