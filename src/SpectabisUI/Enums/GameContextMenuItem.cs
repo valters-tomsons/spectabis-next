@@ -4,6 +4,7 @@ namespace SpectabisUI.Enums
     {
         Launch,
         Configure,
-        Remove
+        Remove,
+        OpenWiki
     }
 }

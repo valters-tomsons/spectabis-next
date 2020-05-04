@@ -7,7 +7,6 @@ using SpectabisLib.Interfaces;
 using SpectabisLib.Services;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
-using SpectabisNext.ViewModels;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.ComponentConfiguration
@@ -52,6 +51,7 @@ namespace SpectabisNext.ComponentConfiguration
 
             builder.RegisterType<PagePreloader>().As<IPagePreloader>();
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
+            builder.RegisterType<ContextMenuEnumMapper>().As<IContextMenuEnumMapper>();
 
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));

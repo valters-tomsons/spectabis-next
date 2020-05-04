@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
-using SpectabisLib.Repositories;
 using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Factories;
-using SpectabisNext.ViewModels;
+using SpectabisUI.Enums;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
-using SpectabisUI.Enums;
 
 namespace SpectabisNext.Pages
 {
@@ -29,15 +29,17 @@ namespace SpectabisNext.Pages
         private readonly GameTileFactory _tileFactory;
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
+        private readonly IContextMenuEnumMapper _menuMapper;
 
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
 
         private WrapPanel GamePanel;
 
         [Obsolete("XAMLIL placeholder", true)]
-        public GameLibrary() { }
+        public GameLibrary()
+        { }
 
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider)
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper)
         {
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
@@ -49,6 +51,7 @@ namespace SpectabisNext.Pages
             InitializeComponent();
             RegisterChildren();
             Dispatcher.UIThread.Post(Populate);
+            _menuMapper = menuMapper;
         }
 
         public void InitializeComponent()
@@ -105,21 +108,25 @@ namespace SpectabisNext.Pages
             var tile = (GameTileView) obj.Parent.Parent;
 
             var selectd = (GameContextMenuItem) obj.SelectedIndex;
-            System.Console.WriteLine(selectd);
 
-            if(selectd == GameContextMenuItem.Launch)
+            if (selectd == GameContextMenuItem.Launch)
             {
                 LaunchTile(tile);
             }
 
-            if(selectd == GameContextMenuItem.Configure)
+            if (selectd == GameContextMenuItem.Configure)
             {
                 LaunchConfiguration(tile);
             }
 
-            if(selectd == GameContextMenuItem.Remove)
+            if (selectd == GameContextMenuItem.Remove)
             {
                 RemoveGame(tile);
+            }
+
+            if (selectd == GameContextMenuItem.OpenWiki)
+            {
+                OpenWikiPage(tile);
             }
 
             // TODO: Should share one global context menu when Avalonia supports it
@@ -139,7 +146,8 @@ namespace SpectabisNext.Pages
 
             if (pointerUpdate == PointerUpdateKind.RightButtonReleased)
             {
-                var menuItems = Enum.GetValues(typeof(GameContextMenuItem)).Cast<GameContextMenuItem>();
+                // var menuItems = Enum.GetValues(typeof(GameContextMenuItem)).Cast<GameContextMenuItem>();
+                var menuItems = _menuMapper.GetDisplayNames();
 
                 // TODO: Should share one global context menu when Avalonia supports it
                 var contextMenu = new ContextMenu() { Items = menuItems };
@@ -170,6 +178,17 @@ namespace SpectabisNext.Pages
             _gameRepo.DeleteProfile(gameTile.Profile);
             LoadedProfiles.Remove(gameTile.Profile);
             GamePanel.Children.Remove(gameTile);
+        }
+
+        private void OpenWikiPage(GameTileView gameTile)
+        {
+            var titleQuery = new StringBuilder(gameTile.Profile.Title);
+            titleQuery.Replace(" - ", ":+");
+            titleQuery.Replace(" ", "+");
+            titleQuery.Replace("++", ":+");
+
+            var wikiUrl = new Uri($"http://wiki.pcsx2.net/index.php?search={titleQuery}", UriKind.Absolute);
+            BrowserProvider.OpenWebBrowser(wikiUrl);
         }
     }
 }
