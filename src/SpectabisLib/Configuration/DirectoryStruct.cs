@@ -9,7 +9,7 @@ namespace SpectabisLib.Configuration
         public DirectoryStruct()
         {
             PCSX2ConfigurationPath = new Uri(SystemDirectories.Default_PCSX2ConfigurationPath, UriKind.Absolute);
-            PCSX2Executable = new Uri(SystemDirectories.Default_PCSX2ExecutablePath, UriKind.RelativeOrAbsolute);
+            PCSX2Executable = new Uri(SystemDirectories.Default_PCSX2ExecutablePath, UriKind.Absolute);
         }
 
         public string Title { get; } = "Directory";

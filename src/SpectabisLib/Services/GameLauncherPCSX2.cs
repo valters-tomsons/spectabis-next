@@ -11,10 +11,12 @@ namespace SpectabisLib.Services
     {
         private GameProcess _gameProcess;
         private readonly ProfileFileSystem _pfs;
+        private readonly IConfigurationLoader _configLoader;
 
-        public GameLauncherPCSX2(ProfileFileSystem pfs)
+        public GameLauncherPCSX2(ProfileFileSystem pfs, IConfigurationLoader configLoader)
         {
             _pfs = pfs;
+            _configLoader = configLoader;
         }
 
         public GameProcess StartGame(GameProfile game)
@@ -79,12 +81,21 @@ namespace SpectabisLib.Services
 
         private string GetEmulatorPath(GameProfile profile)
         {
-            if (string.IsNullOrWhiteSpace(profile.EmulatorPath))
+            if(!string.IsNullOrWhiteSpace(profile.EmulatorPath))
             {
-                return SystemDirectories.Default_PCSX2ExecutablePath;
+                Console.WriteLine($"Emulator path for '{profile.Title}' loaded from profile.json");
+                return profile.EmulatorPath;
             }
 
-            return profile.EmulatorPath;
+            var configValue = _configLoader.Directories.PCSX2Executable.ToString();
+            if(!string.IsNullOrWhiteSpace(configValue))
+            {
+                Console.WriteLine($"Emulator path for '{profile.Title}' loaded from directory.json");
+                return configValue;
+            }
+
+            Console.WriteLine($"Emulator path for '{profile.Title}' loaded from default configuration : '{SystemDirectories.Default_PCSX2ExecutablePath}'");
+            return SystemDirectories.Default_PCSX2ExecutablePath;
         }
     }
 }
