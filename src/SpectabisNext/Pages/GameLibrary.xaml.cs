@@ -30,6 +30,7 @@ namespace SpectabisNext.Pages
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly IContextMenuEnumMapper _menuMapper;
+        private readonly IDiscordService _discordService;
 
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
 
@@ -39,7 +40,7 @@ namespace SpectabisNext.Pages
         public GameLibrary()
         { }
 
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper)
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService)
         {
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
@@ -52,6 +53,7 @@ namespace SpectabisNext.Pages
             RegisterChildren();
             Dispatcher.UIThread.Post(Populate);
             _menuMapper = menuMapper;
+            _discordService = discordService;
         }
 
         public void InitializeComponent()
@@ -169,6 +171,8 @@ namespace SpectabisNext.Pages
             Console.WriteLine($"[GameLibrary] Launching {gameTile.Profile.Title}");
 
             _gameLauncher.StartGame(gameTile.Profile);
+            _discordService.SetGamePresence(gameTile.Profile);
+
             _navigationProvider.Navigate<GameRunning>();
         }
 

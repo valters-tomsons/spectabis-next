@@ -54,6 +54,8 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
             builder.RegisterType<ContextMenuEnumMapper>().As<IContextMenuEnumMapper>();
 
+            builder.RegisterType<DiscordService>().As<IDiscordService>().SingleInstance();
+
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));
             builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));

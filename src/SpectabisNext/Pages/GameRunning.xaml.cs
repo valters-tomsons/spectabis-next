@@ -19,14 +19,17 @@ namespace SpectabisNext.Pages
 
         private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _pageNavigation;
+        private readonly IDiscordService _discordService;
 
         [Obsolete("XAMLIL placeholder", true)]
-        public GameRunning() { }
+        public GameRunning()
+        { }
 
-        public GameRunning(IGameLauncher gameLauncher, IPageNavigationProvider pageNavigation)
+        public GameRunning(IGameLauncher gameLauncher, IPageNavigationProvider pageNavigation, IDiscordService discordService)
         {
             _gameLauncher = gameLauncher;
             _pageNavigation = pageNavigation;
+            _discordService = discordService;
 
             InitializeComponent();
             RegisterChildren();
@@ -45,6 +48,7 @@ namespace SpectabisNext.Pages
 
         private void OnGameStopped(object sender, EventArgs args)
         {
+            _discordService.SetMenuPresence();
             _pageNavigation.Navigate<GameLibrary>();
         }
 

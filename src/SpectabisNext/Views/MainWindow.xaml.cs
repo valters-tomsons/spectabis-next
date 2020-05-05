@@ -19,19 +19,24 @@ namespace SpectabisNext.Views
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly CancellationTokenRepository _cancelRepo;
         private readonly IGameLauncher _gameLauncher;
+        private readonly IDiscordService _discordService;
+
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
 
         [Obsolete("XAMLIL placeholder", true)]
-        public MainWindow() { }
+        public MainWindow()
+        {
+        }
 
-        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo, IGameLauncher gameLauncher)
+        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo, IGameLauncher gameLauncher, IDiscordService discordService)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
             _cancelRepo = tokenRepo;
             _gameLauncher = gameLauncher;
+            _discordService = discordService;
 
             Closed += OnWindowClosed;
 
@@ -81,6 +86,7 @@ namespace SpectabisNext.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            _discordService.InitializeDiscord();
         }
 
         private void OnContentContainerPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
