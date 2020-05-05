@@ -5,10 +5,13 @@
     >
 
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
-            <TextBlock Foreground="White">Welcome!</TextBlock>
-            <Button Name="firstButton">Begin</Button>
-        </StackPanel>
+        <!-- <Grid x:Name="SelectEmulatorDirectory">
+        </Grid> -->
+
+        <Grid x:Name="Finish" RowDefinitions="*,*" Margin="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">That's it!</TextBlock>
+                <Button Grid.Row="1" Name="firstButton" Margin="25">To Library</Button>
+        </Grid>
     </Grid>
 
 </UserControl>

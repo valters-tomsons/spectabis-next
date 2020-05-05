@@ -1,4 +1,5 @@
 using Avalonia.Media;
+using Avalonia.Threading;
 using SpectabisLib.Interfaces;
 
 namespace SpectabisLib.Configuration
