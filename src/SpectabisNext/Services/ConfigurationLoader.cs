@@ -49,6 +49,17 @@ namespace SpectabisNext.Services
             await AsyncIOHelper.WriteTextToFile(configUri, configText).ConfigureAwait(false);
         }
 
+        public async Task WriteDefaultsIfNotExist<T>() where T : IJsonConfig, new()
+        {
+            if(ConfigurationExists<T>())
+            {
+                return;
+            }
+
+            var obj = new T();
+            await WriteConfiguration<T>(obj).ConfigureAwait(false);
+        }
+
         public async Task<T> ReadConfiguration<T>() where T : IJsonConfig, new()
         {
             if (!ConfigurationExists<T>())

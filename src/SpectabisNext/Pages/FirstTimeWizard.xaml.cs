@@ -16,15 +16,17 @@ namespace SpectabisNext.Pages
 
         private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _pageNavigator;
+        private readonly IFirstTimeWizard _wizardService;
         private Button FirstButton;
 
         [Obsolete("XAMLIL placeholder", true)]
         public FirstTimeWizard() { }
 
-        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator)
+        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator, IFirstTimeWizard wizardService)
         {
             _configuration = configuration;
             _pageNavigator = pageNavigator;
+            _wizardService = wizardService;
             Background = _configuration.UserInterface.TitlebarGradient;
 
             InitializeComponent();
@@ -44,9 +46,8 @@ namespace SpectabisNext.Pages
 
         private void FirstButtonClick(object sender, RoutedEventArgs e)
         {
+            _wizardService.WriteInitialConfigs();
             _pageNavigator.Navigate<GameLibrary>();
-            // var config = _configuration.ReadConfiguration<DirectoryStruct>();
-            _configuration.WriteConfiguration(_configuration.Directories);
         }
     }
 }

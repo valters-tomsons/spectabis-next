@@ -37,6 +37,8 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<SpectabisLib.Repositories.CancellationTokenRepository>().SingleInstance();
             builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>().SingleInstance();
 
+            builder.RegisterType<ConfigurationLoader>().As<IConfigurationLoader>().SingleInstance();
+            builder.RegisterType<FirstTimeWizardService>().As<IFirstTimeWizard>().SingleInstance();
             builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
             builder.RegisterType<GameFileParser>().As<IGameFileParser>();
             builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>();
@@ -47,7 +49,6 @@ namespace SpectabisNext.ComponentConfiguration
         {
             builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
             builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
-            builder.RegisterType<ConfigurationLoader>().As<IConfigurationLoader>().SingleInstance();
 
             builder.RegisterType<PagePreloader>().As<IPagePreloader>();
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
