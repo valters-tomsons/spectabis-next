@@ -26,6 +26,5 @@ namespace SpectabisNext.Services
             System.Console.WriteLine($"Preloading page: {pageType}");
             _pageRepository.GetPage<T>();
         }
-
     }
 }

@@ -11,7 +11,6 @@ namespace SpectabisLib.Services
     {
         private GameProcess _gameProcess;
         private readonly ProfileFileSystem _pfs;
-        private readonly IConfigurationLoader _configLoader;
 
         public GameLauncherPCSX2(ProfileFileSystem pfs)
         {

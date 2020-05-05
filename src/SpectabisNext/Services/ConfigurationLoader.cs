@@ -23,7 +23,6 @@ namespace SpectabisNext.Services
 
         public async Task UpdateConfiguration()
         {
-            // UserInterface = new UIConfiguration();
             UserInterface = await ReadConfiguration<UIConfiguration>().ConfigureAwait(false);
             Spectabis = await ReadConfiguration<SpectabisConfig>().ConfigureAwait(false);
             Directories = await ReadConfiguration<DirectoryStruct>().ConfigureAwait(false);

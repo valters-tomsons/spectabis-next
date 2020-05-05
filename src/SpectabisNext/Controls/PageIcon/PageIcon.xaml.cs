@@ -16,7 +16,6 @@ namespace SpectabisNext.Controls.PageIcon
         private Image DisplayImage { get; set; }
         private TextBlock DisplayText { get; set; }
         private Rectangle HoverOverlayRectangle { get; set; }
-        private string FallbackDisplayString { get; set; }
 
         [Obsolete("XAMLIL placeholder", true)]
         public PageIcon() { }
@@ -29,7 +28,6 @@ namespace SpectabisNext.Controls.PageIcon
 
         public PageIcon(IPage destination, string stringDisplay)
         {
-
         }
 
         private void Initialize(IPage destination)
@@ -39,18 +37,11 @@ namespace SpectabisNext.Controls.PageIcon
             RegisterEvents();
 
             Destination = destination;
-
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-        }
-
-        private void SetIconImage(Bitmap bmp)
-        {
-            DisplayImage.Source = bmp;
-            DisplayImage.IsVisible = true;
         }
 
         private void SetIconString(string str)
@@ -80,24 +71,17 @@ namespace SpectabisNext.Controls.PageIcon
 
         private void OnMousePointerLeave(object sender, PointerEventArgs e)
         {
-            ShowHoverOverlay = false;
+            SetShowHoverOverlay(false);
         }
 
-        private bool ShowHoverOverlay
+        private void SetShowHoverOverlay(bool value)
         {
-            get
-            {
-                return HoverOverlayRectangle.IsVisible;
-            }
-            set
-            {
-                HoverOverlayRectangle.IsVisible = value;
-            }
+            HoverOverlayRectangle.IsVisible = value;
         }
 
         private void OnMousePointerEnter(object sender, PointerEventArgs e)
         {
-            ShowHoverOverlay = true;
+            SetShowHoverOverlay(true);
         }
     }
 }

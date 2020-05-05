@@ -15,6 +15,5 @@ namespace SpectabisLib.Models
         public string PCSX2ConfigurationFolder { get; set; }
         public string PCSX2ExecutablePath { get; set; }
         public string PCSX2GameDatabaseFilePath { get; set; }
-
     }
 }

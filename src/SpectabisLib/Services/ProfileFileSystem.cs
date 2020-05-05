@@ -68,7 +68,7 @@ namespace SpectabisLib.Services
             return JsonConvert.DeserializeObject<GameProfile>(profileJson);
         }
 
-        public void DeleteProfileAsync(Guid gameId)
+        public void DeleteProfile(Guid gameId)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);

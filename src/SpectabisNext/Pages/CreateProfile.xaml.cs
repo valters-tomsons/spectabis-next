@@ -18,7 +18,6 @@ namespace SpectabisNext.Pages
     public class CreateProfile : UserControl, IPage
     {
         private readonly IPageNavigationProvider _navigation;
-        private readonly IBitmapLoader _bitmapLoader;
         private readonly IProfileFactory _profileFactory;
         private readonly IProfileRepository _gameRepo;
 
@@ -36,11 +35,10 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IBitmapLoader bitmapLoader, IProfileFactory profileFactory, IProfileRepository gameRepo)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo)
         {
             _gameRepo = gameRepo;
             _navigation = navigation;
-            _bitmapLoader = bitmapLoader;
             _profileFactory = profileFactory;
             _viewModel = viewModel;
 

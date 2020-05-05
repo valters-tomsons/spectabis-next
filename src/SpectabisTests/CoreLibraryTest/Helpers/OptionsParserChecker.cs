@@ -10,7 +10,7 @@ namespace CoreLibraryTest
         [Fact]
         public void CheckIfOptionsAreParsedCorrectAsArguments()
         {
-            EmulatorLaunchOptions options = EmulatorLaunchOptions.Fullboot | EmulatorLaunchOptions.Nohacks;
+            const EmulatorLaunchOptions options = EmulatorLaunchOptions.Fullboot | EmulatorLaunchOptions.Nohacks;
 
             var arguments = EmulatorOptionsParser.ConvertToLaunchArguments(options);
 
@@ -21,7 +21,7 @@ namespace CoreLibraryTest
         [Fact]
         public void CheckIfArgumentOptionsAreSplitWithSpaces()
         {
-            EmulatorLaunchOptions options = EmulatorLaunchOptions.Fullboot | EmulatorLaunchOptions.Nohacks;
+            const EmulatorLaunchOptions options = EmulatorLaunchOptions.Fullboot | EmulatorLaunchOptions.Nohacks;
 
             var arguments = EmulatorOptionsParser.ConvertToLaunchArguments(options);
 
@@ -31,7 +31,7 @@ namespace CoreLibraryTest
         [Fact]
         public void CheckIfReturnEmptyWithNoOptions()
         {
-            EmulatorLaunchOptions options = 0;
+            const EmulatorLaunchOptions options = 0;
 
             var arguments = EmulatorOptionsParser.ConvertToLaunchArguments(options);
 

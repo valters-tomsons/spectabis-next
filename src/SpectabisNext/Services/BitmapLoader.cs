@@ -39,6 +39,5 @@ namespace SpectabisNext.Services
             System.Console.WriteLine("Failed to load default boxart");
             return null;
         }
-
     }
 }

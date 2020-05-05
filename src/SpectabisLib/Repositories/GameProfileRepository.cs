@@ -10,11 +10,11 @@ namespace SpectabisLib.Repositories
     public class GameProfileRepository : IProfileRepository
     {
         private IList<GameProfile> Games;
-        private ProfileFileSystem _pfs { get; }
+        private ProfileFileSystem Pfs { get; }
 
         public GameProfileRepository(ProfileFileSystem pfs)
         {
-            _pfs = pfs;
+            Pfs = pfs;
         }
 
         public async Task UpsertProfile(GameProfile profile)
@@ -29,7 +29,7 @@ namespace SpectabisLib.Repositories
                 Games.Add(profile);
             }
 
-            await _pfs.WriteProfileAsync(profile).ConfigureAwait(false);
+            await Pfs.WriteProfileAsync(profile).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<GameProfile>> GetAll()
@@ -41,7 +41,7 @@ namespace SpectabisLib.Repositories
         public void DeleteProfile(GameProfile profile)
         {
             Games.Remove(profile);
-            _pfs.DeleteProfileAsync(profile.Id);
+            Pfs.DeleteProfile(profile.Id);
         }
 
         private async Task ReadProfiles()
@@ -51,7 +51,7 @@ namespace SpectabisLib.Repositories
                 return;
             }
 
-            Games = await _pfs.ReadAllProfiles().ConfigureAwait(false);
+            Games = await Pfs.ReadAllProfiles().ConfigureAwait(false);
         }
     }
 }

@@ -93,20 +93,12 @@ namespace SpectabisNext.Views
 
         private void NavigationBarVisiblity(IPage newContent)
         {
-            if (newContent.HideTitlebar)
-            {
-                this.FindControl<Grid>("TitlebarContainer").IsVisible = false;
-            }
-            else
-            {
-                this.FindControl<Grid>("TitlebarContainer").IsVisible = true;
-            }
+            this.FindControl<Grid>("TitlebarContainer").IsVisible = !newContent.HideTitlebar;
         }
 
         private void SetInitialPage()
         {
             _navigationProvider.Navigate<FirstTimeWizard>();
         }
-
     }
 }
