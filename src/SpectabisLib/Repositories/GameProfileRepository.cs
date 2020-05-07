@@ -30,6 +30,11 @@ namespace SpectabisLib.Repositories
             }
 
             await Pfs.WriteProfileAsync(profile).ConfigureAwait(false);
+
+            if(!Pfs.IsProfileContainerValid(profile))
+            {
+                await CopyDefault(profile).ConfigureAwait(false);
+            }
         }
 
         public async Task<IEnumerable<GameProfile>> GetAll()
@@ -42,6 +47,11 @@ namespace SpectabisLib.Repositories
         {
             Games.Remove(profile);
             Pfs.DeleteProfile(profile.Id);
+        }
+
+        private async Task CopyDefault(GameProfile profile)
+        {
+            await Pfs.CopyDefaultConfiguration(profile).ConfigureAwait(false);
         }
 
         private async Task ReadProfiles()

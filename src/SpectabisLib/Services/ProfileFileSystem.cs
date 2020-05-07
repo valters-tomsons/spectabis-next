@@ -15,7 +15,7 @@ namespace SpectabisLib.Services
     {
         public Uri GetProfileConfigLocation(GameProfile profile, ContainerConfigType containerType)
         {
-            if(profile.Id == Guid.Empty)
+            if (profile.Id == Guid.Empty)
             {
                 throw new Exception("Game guid is empty");
             }
@@ -25,6 +25,11 @@ namespace SpectabisLib.Services
 
             Directory.CreateDirectory(location.LocalPath);
             return location;
+        }
+
+        public Uri GetGlobalConfigLocation()
+        {
+            return new Uri($"{SystemDirectories.ConfigFolder}/global/", UriKind.Absolute);
         }
 
         public async Task WriteProfileAsync(GameProfile profile)
@@ -38,6 +43,32 @@ namespace SpectabisLib.Services
             Console.WriteLine($"[ProfileFileSystem] Writing profile json '{profile.Id}'");
 
             await WriteTextAsync(profileUri, profileJson).ConfigureAwait(false);
+        }
+
+        public async Task CopyDefaultConfiguration(GameProfile profile)
+        {
+            var profileContainerUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/inis/", UriKind.Absolute);
+            Directory.CreateDirectory(profileContainerUri.LocalPath);
+
+            Console.WriteLine($"[ProfileFileSystem] Writing default to profile container : `{profile.Id}`");
+
+            var globalConfigUri = GetGlobalConfigLocation();
+            var globalConfigFiles = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly).Select(Path.GetFileName);
+            var globalConfigFiles2 = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly);
+
+            foreach (var file in globalConfigFiles)
+            {
+                var fileSource = new Uri(globalConfigUri, file);
+                var fileTarget = new Uri(profileContainerUri, file);
+
+                using(FileStream SourceStream = File.Open(fileSource.LocalPath, FileMode.Open))
+                {
+                    using(FileStream DestinationStream = File.Create(fileTarget.LocalPath))
+                    {
+                        await SourceStream.CopyToAsync(DestinationStream).ConfigureAwait(false);
+                    }
+                }
+            }
         }
 
         public async Task<IList<GameProfile>> ReadAllProfiles()
@@ -81,7 +112,7 @@ namespace SpectabisLib.Services
                 return;
             }
 
-            if(!File.Exists(profileUri.LocalPath))
+            if (!File.Exists(profileUri.LocalPath))
             {
                 Console.WriteLine($"[ProfileFileSystem] Profile json '{gameId}' does not exist");
                 return;
@@ -89,6 +120,16 @@ namespace SpectabisLib.Services
 
             Directory.Delete(profileFolderUri.LocalPath, true);
             Console.WriteLine($"[ProfileFileSystem] Profile '{gameId}' deleted");
+        }
+
+        public bool IsProfileContainerValid(GameProfile profile)
+        {
+            var gameId = profile.Id;
+
+            var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
+            var inisFolderUri = new Uri(profileFolderUri, "inis");
+
+            return Directory.Exists(inisFolderUri.LocalPath);
         }
 
         private IEnumerable<Guid> GetAllProfileIds()
@@ -101,7 +142,7 @@ namespace SpectabisLib.Services
             foreach (var item in directories)
             {
                 var guid = Guid.TryParse(item, out Guid result);
-                if(guid)
+                if (guid)
                 {
                     guids.Add(result);
                 }
