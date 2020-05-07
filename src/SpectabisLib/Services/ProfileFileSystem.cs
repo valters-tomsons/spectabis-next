@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Models;
 
@@ -12,14 +13,15 @@ namespace SpectabisLib.Services
 {
     public class ProfileFileSystem
     {
-        public Uri GetProfileConfigLocation(GameProfile profile)
+        public Uri GetProfileConfigLocation(GameProfile profile, ContainerConfigType containerType)
         {
             if(profile.Id == Guid.Empty)
             {
                 throw new Exception("Game guid is empty");
             }
 
-            var location = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/", UriKind.Absolute);
+            var containerDirectoryName = ContainerConfigTypeParser.GetTypeDirectoryName(containerType);
+            var location = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/{containerDirectoryName}", UriKind.Absolute);
 
             Directory.CreateDirectory(location.LocalPath);
             return location;

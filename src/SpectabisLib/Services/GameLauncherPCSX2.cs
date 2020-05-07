@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
@@ -67,7 +68,7 @@ namespace SpectabisLib.Services
             var process = new Process();
 
             var launchArguments = EmulatorOptionsParser.ConvertToLaunchArguments(gameProfile.LaunchOptions);
-            var cfgArgument = EmulatorOptionsParser.ConfigurationPathToArgument(_pfs.GetProfileConfigLocation(gameProfile));
+            var cfgArgument = EmulatorOptionsParser.ConfigurationPathToArgument(_pfs.GetProfileConfigLocation(gameProfile, ContainerConfigType.Inis));
             var romArgument = launchGame ? EmulatorOptionsParser.RomPathToArgument(gameProfile.FilePath) : string.Empty;
 
             var fullArguments = $"{launchArguments} {romArgument} {cfgArgument}";
