@@ -59,11 +59,11 @@ namespace SpectabisNext.Services
                 Details = status,
                 Timestamps = new Timestamps()
                 {
-                StartUnixMilliseconds = StartTime
+                    StartUnixMilliseconds = StartTime
                 },
                 Assets = new Assets()
                 {
-                LargeImageKey = "menus",
+                    LargeImageKey = "menus",
                 }
             };
 
