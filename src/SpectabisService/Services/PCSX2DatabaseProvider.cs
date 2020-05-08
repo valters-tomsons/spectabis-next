@@ -37,7 +37,7 @@ namespace SpectabisService.Services
             var csvMapper = new DatabaseModelMapping();
             var parser = new CsvParser<GameMetadata>(parserOptions, csvMapper);
 
-            _dbCache = parser.ReadFromStream(contentStream, Encoding.UTF8).Select(x => x.Result);
+            _dbCache = parser.ReadFromStream(contentStream, Encoding.UTF8).Select(x => x.Result).ToList();
             return _dbCache;
         }
     }

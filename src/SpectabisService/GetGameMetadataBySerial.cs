@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using SpectabisLib.Helpers;
 using SpectabisService.Services;
 
 namespace SpectabisService
@@ -32,7 +33,8 @@ namespace SpectabisService
                 return new BadRequestObjectResult("Failed retrieving database");
             }
 
-            var result = gameDb.FirstOrDefault(x => x.Serial.Equals(reqSerial));
+            var normalizedSerial = ((string)reqSerial).NormalizeSerial();
+            var result = gameDb.FirstOrDefault(x => x.Serial.Equals(normalizedSerial));
 
             if (result == null)
             {
