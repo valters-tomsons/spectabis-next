@@ -1,5 +1,11 @@
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - src/SpectabisService
+    - src/SpectabisLib
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -8,8 +14,6 @@ variables:
   buildConfiguration: '$(Configuration)'
 
 steps:
-- bash: |
-    echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
 - script: mkdir $ARTIFACTSFOLDER
 
 - task: UseDotNet@2
