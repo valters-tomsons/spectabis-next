@@ -1,0 +1,35 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: '$(Configuration)'
+
+steps:
+- bash: |
+    echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
+- script: mkdir $ARTIFACTSFOLDER
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.101'
+
+- script: dotnet publish src/SpectabisService -c $CONFIGURATION -r linux-x64 -o $ARTIFACTSFOLDER
+  displayName: 'build service'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$ARTIFACTSFOLDER'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    artifact: 'Spectabis-Service'
+    publishLocation: 'pipeline'
