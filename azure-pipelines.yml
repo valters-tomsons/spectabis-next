@@ -23,7 +23,7 @@ steps:
   displayName: 'Insert Service API'
   inputs:
     filePath: 'Scripts/InsertSecretsInSource.ps1'
-    arguments: '../src/ServiceClient/Helpers/ServiceCredentialsHelper.cs'
+    arguments: 'src/ServiceClient/Helpers/ServiceCredentialsHelper.cs'
   env:
     SERVICE_API_KEY: $(SERVICE_API_KEY)
 
