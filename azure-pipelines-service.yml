@@ -14,19 +14,19 @@ variables:
   buildConfiguration: '$(Configuration)'
 
 steps:
-- script: mkdir $ARTIFACTSFOLDER
+- script: mkdir $(ARTIFACTSFOLDER)
 
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
     version: '3.1.101'
 
-- script: dotnet publish src/SpectabisService -c $CONFIGURATION -r linux-x64 -o $ARTIFACTSFOLDER
+- script: dotnet publish src/SpectabisService -c $(CONFIGURATION) -r linux-x64 -o $(ARTIFACTSFOLDER)
   displayName: 'build service'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$ARTIFACTSFOLDER'
+    rootFolderOrFile: '$(ARTIFACTSFOLDER)'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
