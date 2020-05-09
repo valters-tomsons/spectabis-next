@@ -17,12 +17,6 @@ namespace ServiceClient.Services
 
         public SpectabisClient(IRestClient restClient)
         {
-            if(ServiceApiKey == "{{ServiceApiKey}}")
-            {
-                Console.WriteLine("[SpectabisClient] WARNING! No API key has been inserted into source code.");
-                return;
-            }
-
             _restClient = restClient;
             _restClient.SetSession(ServiceApiKey, ServiceBaseUrl);
         }
