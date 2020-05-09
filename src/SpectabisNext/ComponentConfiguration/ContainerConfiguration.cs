@@ -3,6 +3,8 @@ using System.Reflection;
 using Autofac;
 using FileIntrinsics;
 using FileIntrinsics.Interfaces;
+using ServiceClient.Interfaces;
+using ServiceClient.Services;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Services;
 using SpectabisNext.Repositories;
@@ -20,7 +22,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<Spectabis>().As<ISpectabis>();
             builder.RegisterType<AvaloniaConfiguration>().As<IWindowConfiguration>();
 
-            RegisterExternal(builder);
+            RegisterLibs(builder);
             RegisterSpectabisLib(builder);
             RegisterSpectabis(builder);
 
@@ -66,9 +68,11 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterNamespaceTypes(nameof(ViewModels));
         }
 
-        private static void RegisterExternal(ContainerBuilder builder)
+        private static void RegisterLibs(ContainerBuilder builder)
         {
             builder.RegisterType<IntrinsicsProvider>().As<IIntrinsicsProvider>();
+            builder.RegisterType<RestClient>().As<IRestClient>();
+            builder.RegisterType<SpectabisClient>().As<ISpectabisClient>();
         }
 
         private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)
