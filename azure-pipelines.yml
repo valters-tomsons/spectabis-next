@@ -15,6 +15,7 @@ steps:
 - script: mkdir $ARTIFACTSFOLDER
 
 - task: UseDotNet@2
+  displayName: 'Install Dotnet SDK'
   inputs:
     packageType: 'sdk'
     version: '3.1.101'
@@ -28,13 +29,13 @@ steps:
     SERVICE_API_KEY: $(SERVICE_API_KEY)
 
 - script: dotnet publish -c $CONFIGURATION -r linux-x64
-  displayName: 'build linux-x64'
+  displayName: 'Build for linux-x64'
 
 - script: dotnet publish -c $CONFIGURATION -r osx-x64
-  displayName: 'build osx-x64'
+  displayName: 'Build for osx-x64'
 
 - script: dotnet publish -c $CONFIGURATION -r win-x64
-  displayName: 'build win-x64'
+  displayName: 'Build for win-x64'
 
 - bash: |
     tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/linux-x64/publish
