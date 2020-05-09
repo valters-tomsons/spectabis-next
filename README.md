@@ -10,11 +10,10 @@ Currently, **this is not usable for end-users**. There's a graphical interface w
 [![Build Status](https://dev.azure.com/Spectabis/SpectabisNext/_apis/build/status/FaithLV.spectabis-next?branchName=master)](https://dev.azure.com/Spectabis/SpectabisNext/_build/latest?definitionId=1&branchName=master)
 
 
-
 ## Current Technology Stack
 * .NET Core 3.1
-* Avalonia UI 0.9.1
-* Avalona ReactiveUI 0.9.1
+* Avalonia UI 0.9.7
+* Avalona ReactiveUI 0.9.7
 * AutoFac 4.9.2
 
 ## Platforms
