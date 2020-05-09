@@ -22,7 +22,7 @@ namespace SpectabisLib.Services
         {
             if (_metadataDb == null)
             {
-                _metadataDb = GetDatabase();
+                _metadataDb = GetDatabase().ToList();
             }
 
             return _metadataDb.FirstOrDefault(x => x.Serial == serial);
