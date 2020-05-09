@@ -7,8 +7,6 @@ pool:
 variables:
   buildConfiguration: '$(Configuration)'
 
-
-
 steps:
 - bash: |
     echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
