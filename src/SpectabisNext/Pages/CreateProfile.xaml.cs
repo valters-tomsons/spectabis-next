@@ -20,6 +20,7 @@ namespace SpectabisNext.Pages
         private readonly IPageNavigationProvider _navigation;
         private readonly IProfileFactory _profileFactory;
         private readonly IProfileRepository _gameRepo;
+        private readonly IBackgroundQueueService _artService;
 
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
@@ -35,12 +36,13 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService)
         {
             _gameRepo = gameRepo;
             _navigation = navigation;
             _profileFactory = profileFactory;
             _viewModel = viewModel;
+            _artService = artService;
 
             InitializeComponent();
             RegisterChildren();
@@ -82,13 +84,16 @@ namespace SpectabisNext.Pages
 
         private async Task AddGame()
         {
-            if(_currentProfile == null)
+            if (_currentProfile == null)
             {
                 return;
             }
 
             _currentProfile.Title = _viewModel.GameTitle;
             await _gameRepo.UpsertProfile(_currentProfile).ConfigureAwait(false);
+
+            _artService.QueueForBoxArt(_currentProfile);
+            _artService.StartProcessing();
 
             _navigation.Navigate<GameLibrary>();
         }
