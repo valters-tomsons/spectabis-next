@@ -16,6 +16,7 @@ namespace SpectabisService
         private static readonly HttpClient _httpClient = new HttpClient();
         private static readonly IGameArtClient _artClient;
         private static readonly PCSX2DatabaseProvider _dbProvider = new PCSX2DatabaseProvider(_httpClient);
+        private static readonly ContentDownloader _downloader = new ContentDownloader(_httpClient);
 
         static GetGameBoxArt()
         {
@@ -48,8 +49,10 @@ namespace SpectabisService
                 return new BadRequestObjectResult("Unknown game");
             }
 
-            var result = await _artClient.GetBoxArt(game.Title).ConfigureAwait(false);
-            return new OkObjectResult(result);
+            var artUrl = await _artClient.GetBoxArt(game.Title).ConfigureAwait(false);
+            var result = await _downloader.DownloadGameArt(artUrl).ConfigureAwait(false);
+
+            return new FileContentResult(result, "image/png");
         }
     }
 }
