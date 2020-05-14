@@ -5,6 +5,6 @@ namespace ServiceClient.Interfaces
 {
     public interface ISpectabisClient
     {
-        Task<Uri> GetBoxArtUrl(string serial);
+        Task<byte[]> DownloadBoxArt(string serial);
     }
 }

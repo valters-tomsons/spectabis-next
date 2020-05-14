@@ -16,13 +16,17 @@ namespace SpectabisLib.Services
         private IEnumerable<Task<GameProfile>> _gameArtTasks;
 
         private readonly ISpectabisClient _client;
+        private readonly ProfileFileSystem _profileFs;
 
-        public BackgroundQueueService(ISpectabisClient client)
+        public BackgroundQueueService(ISpectabisClient client, ProfileFileSystem profileFs)
         {
             _client = client;
-            InitializeArtThread();
+            _profileFs = profileFs;
+
             _gameArtQueue = new Queue<GameProfile>();
             _gameArtTasks = new List<Task<GameProfile>>();
+
+            InitializeArtThread();
         }
 
         public void StartProcessing()
@@ -56,8 +60,11 @@ namespace SpectabisLib.Services
             var game = _gameArtQueue.Dequeue();
             Console.WriteLine($"[QueueService] Dequeued '{game.Id}'");
 
-            var boxArtUrl = await _client.GetBoxArtUrl(game.SerialNumber).ConfigureAwait(false);
-            Console.WriteLine($"[QueueService] Url Retrieved: {boxArtUrl}");
+            Console.WriteLine($"[QueueService] Downloading boxart");
+            var boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
+
+            Console.WriteLine($"[QueueService] Writing boxart to file system");
+            await _profileFs.WriteGameBoxArtImage(game, boxBytes).ConfigureAwait(false);
         }
     }
 }

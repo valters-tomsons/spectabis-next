@@ -20,7 +20,9 @@ namespace ServiceClient.Helpers
             {
                 Console.WriteLine("[CredentialsHelper] WARNING! No API key has been inserted into source code.");
                 Console.WriteLine("[CredentialsHelper] Trying to use api key from 'SERVICE_API_KEY' variable.");
-                return Environment.GetEnvironmentVariable("SERVICE_API_KEY");
+                var key = Environment.GetEnvironmentVariable("SERVICE_API_KEY");
+                Console.WriteLine(key);
+                return key;
             }
 
             return _apiKeyTokenized;

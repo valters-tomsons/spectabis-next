@@ -39,5 +39,13 @@ namespace SpectabisLib.Helpers
 
             return encoding.GetString(readBuffer);
         }
+
+        public async static Task WriteBytesToFile(Uri destination, byte[] buffer)
+        {
+            using(var stream = new FileStream(destination.LocalPath, FileMode.CreateNew, FileAccess.Write, FileShare.Write))
+            {
+                await stream.WriteAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+            }
+        }
     }
 }

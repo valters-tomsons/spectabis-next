@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ServiceClient.Interfaces;
@@ -27,6 +28,18 @@ namespace ServiceClient.Services
         public async Task<RestResponse> GetFunctionRequest(Uri endpoint, string query = null)
         {
             return await CommonFunctionRequest(endpoint, HttpMethod.Get, query).ConfigureAwait(false);
+        }
+
+        public async Task<byte[]> GetBytesAsync(Uri source, string query = null)
+        {
+            if (_httpClient == null)
+            {
+                throw new Exception("HttpClient not initialized!");
+            }
+
+            var requestMessage = CreateFunctionMessage(HttpMethod.Get, source, query);
+            var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
         }
 
         private void InitializeHttpClient()

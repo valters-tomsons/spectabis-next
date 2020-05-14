@@ -21,13 +21,9 @@ namespace ServiceClient.Services
             _restClient.SetSession(ServiceApiKey, ServiceBaseUrl);
         }
 
-        public async Task<Uri> GetBoxArtUrl(string serial)
+        public async Task<byte[]> DownloadBoxArt(string serial)
         {
-            var response = await _restClient.GetFunctionRequest(GetArtEndpoint, $"serial={serial}").ConfigureAwait(false);
-            response.Body = response.Body.Replace("\"", string.Empty);
-            var isValidUri = Uri.TryCreate(response.Body, UriKind.Absolute, out var result);
-
-            return isValidUri ? result : null;
+            return await _restClient.GetBytesAsync(GetArtEndpoint, $"serial={serial}").ConfigureAwait(false);
         }
     }
 }

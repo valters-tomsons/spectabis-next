@@ -87,11 +87,11 @@ namespace SpectabisLib.Services
 
         public Uri GetBoxArtPath(GameProfile profile)
         {
-            if(string.IsNullOrWhiteSpace(profile.BoxArtPath))
+            if (string.IsNullOrWhiteSpace(profile.BoxArtPath))
             {
                 var artFilePath = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/{Constants.BoxArtFileName}", UriKind.Absolute);
 
-                if(File.Exists(artFilePath.LocalPath))
+                if (File.Exists(artFilePath.LocalPath))
                 {
                     return artFilePath;
                 }
@@ -149,9 +149,10 @@ namespace SpectabisLib.Services
             return Directory.Exists(inisFolderUri.LocalPath);
         }
 
-        public async Task WriteGameBoxArtImage(GameProfile game)
+        public async Task WriteGameBoxArtImage(GameProfile game, byte[] artBuffer)
         {
-
+            var artFilePath = new Uri($"{SystemDirectories.ProfileFolder}/{game.Id}/{Constants.BoxArtFileName}", UriKind.Absolute);
+            await AsyncIOHelper.WriteBytesToFile(artFilePath, artBuffer).ConfigureAwait(false);
         }
 
         private IEnumerable<Guid> GetAllProfileIds()
