@@ -21,7 +21,7 @@ namespace SpectabisLib.Services
             }
 
             var containerDirectoryName = ContainerConfigTypeParser.GetTypeDirectoryName(containerType);
-            var location = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/{containerDirectoryName}", UriKind.Absolute);
+            var location = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/{containerDirectoryName}/", UriKind.Absolute);
 
             Directory.CreateDirectory(location.LocalPath);
             return location;
@@ -85,6 +85,23 @@ namespace SpectabisLib.Services
             return profiles;
         }
 
+        public Uri GetBoxArtPath(GameProfile profile)
+        {
+            if(string.IsNullOrWhiteSpace(profile.BoxArtPath))
+            {
+                var artFilePath = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/{Constants.BoxArtFileName}", UriKind.Absolute);
+
+                if(File.Exists(artFilePath.LocalPath))
+                {
+                    return artFilePath;
+                }
+
+                return null;
+            }
+
+            return new Uri(profile.BoxArtPath, UriKind.Absolute);
+        }
+
         public async Task<GameProfile> ReadProfileAsync(Guid gameId)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
@@ -130,6 +147,11 @@ namespace SpectabisLib.Services
             var inisFolderUri = new Uri(profileFolderUri, "inis");
 
             return Directory.Exists(inisFolderUri.LocalPath);
+        }
+
+        public async Task WriteGameBoxArtImage(GameProfile game)
+        {
+
         }
 
         private IEnumerable<Guid> GetAllProfileIds()

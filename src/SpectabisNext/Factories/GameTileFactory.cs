@@ -20,7 +20,7 @@ namespace SpectabisNext.Factories
         {
             var sizeModifier = _configuration.UserInterface.BoxArtSizeModifier;
             var tileGapSize = _configuration.UserInterface.BoxArtGapSize;
-            var boxartBitmap = _bitmapLoader.LoadFromFile(game.BoxArtPath) ?? _bitmapLoader.DefaultBoxart;
+            var boxartBitmap = _bitmapLoader.GetBoxArt(game);
 
             var tileView = new GameTileView(game)
             {
@@ -29,7 +29,10 @@ namespace SpectabisNext.Factories
                 Margin = new Avalonia.Thickness(0, 0, tileGapSize, tileGapSize),
             };
 
-            tileView.LoadBoxart(boxartBitmap);
+            if (boxartBitmap != null)
+            {
+                tileView.LoadBoxart(boxartBitmap);
+            }
 
             return tileView;
         }

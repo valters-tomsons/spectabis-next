@@ -1,35 +1,46 @@
 using System.IO;
 using Avalonia.Media.Imaging;
-using SpectabisLib;
 using SpectabisLib.Helpers;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Services;
+using SpectabisLib.Models;
+using SpectabisLib.Enums;
 
 namespace SpectabisNext.Services
 {
     public class BitmapLoader : IBitmapLoader
     {
         public Bitmap DefaultBoxart { get; }
+        private readonly ProfileFileSystem _profileFs;
 
-        public BitmapLoader()
+        public BitmapLoader(ProfileFileSystem profileFs)
         {
+            _profileFs = profileFs;
             DefaultBoxart = LoadDefaultBoxart();
         }
 
-        public Bitmap LoadFromFile(string filePath)
+        public Bitmap GetBoxArt(GameProfile game)
         {
-            if(File.Exists(filePath))
+            if(!string.IsNullOrWhiteSpace(game.BoxArtPath))
             {
-                return new Bitmap(filePath);
+                return new Bitmap(game.BoxArtPath);
             }
 
-            return null;
+            var boxArtPath = _profileFs.GetBoxArtPath(game);
+
+            if(boxArtPath == null)
+            {
+                return DefaultBoxart;
+            }
+
+            return new Bitmap(boxArtPath.LocalPath);
         }
 
         private Bitmap LoadDefaultBoxart()
         {
             var tempArtPath = $"{SystemDirectories.ResourcesPath}/Images/placeholderBoxart.jpg";
 
-            if(File.Exists(tempArtPath))
+            if (File.Exists(tempArtPath))
             {
                 return new Bitmap(tempArtPath);
             }
