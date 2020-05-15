@@ -14,9 +14,12 @@ namespace SpectabisLib.Services
         private BackgroundWorker _gameArtThread;
         private Queue<GameProfile> _gameArtQueue;
         private IEnumerable<Task<GameProfile>> _gameArtTasks;
+        private Stack<GameProfile> _finishedArt;
 
         private readonly ISpectabisClient _client;
         private readonly ProfileFileSystem _profileFs;
+
+        public event EventHandler<EventArgs> ItemFinished;
 
         public BackgroundQueueService(ISpectabisClient client, ProfileFileSystem profileFs)
         {
@@ -25,6 +28,7 @@ namespace SpectabisLib.Services
 
             _gameArtQueue = new Queue<GameProfile>();
             _gameArtTasks = new List<Task<GameProfile>>();
+            _finishedArt = new Stack<GameProfile>();
 
             InitializeArtThread();
         }
@@ -42,6 +46,16 @@ namespace SpectabisLib.Services
             {
                 _gameArtQueue.Enqueue(game);
             }
+        }
+
+        public GameProfile GetLastFinishedGame()
+        {
+            return _finishedArt.Pop();
+        }
+
+        protected virtual void OnItemFinished()
+        {
+            ItemFinished?.Invoke(this, EventArgs.Empty);
         }
 
         private void InitializeArtThread()
@@ -65,6 +79,9 @@ namespace SpectabisLib.Services
 
             Console.WriteLine($"[QueueService] Writing boxart to file system");
             await _profileFs.WriteGameBoxArtImage(game, boxBytes).ConfigureAwait(false);
+
+            _finishedArt.Push(game);
+            OnItemFinished();
         }
     }
 }

@@ -31,34 +31,70 @@ namespace SpectabisNext.Pages
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly IContextMenuEnumMapper _menuMapper;
         private readonly IDiscordService _discordService;
+        private readonly IBackgroundQueueService _queueService;
+        private readonly IBitmapLoader _bitmapLoader;
 
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
 
         private WrapPanel GamePanel;
 
         [Obsolete("XAMLIL placeholder", true)]
-        public GameLibrary()
-        { }
+        public GameLibrary() { }
 
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService)
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IBackgroundQueueService queueService, IBitmapLoader bitmapLoader)
         {
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
             _gameLauncher = gameLauncher;
             _gameRepo = gameRepo;
+            _queueService = queueService;
+            _bitmapLoader = bitmapLoader;
 
             _navigationProvider.PageNavigationEvent += OnNavigation;
 
             InitializeComponent();
             RegisterChildren();
+
             Dispatcher.UIThread.Post(Populate);
             _menuMapper = menuMapper;
             _discordService = discordService;
+
+            _queueService.ItemFinished += OnGameArtDownloaded;
         }
 
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void OnGameArtDownloaded(object sender, EventArgs e)
+        {
+            var game = _queueService.GetLastFinishedGame();
+            Dispatcher.UIThread.Post(() => RefreshGameTileArt(game));
+        }
+
+        private void RefreshGameTileArt(GameProfile game)
+        {
+            var tileControls = GamePanel.Children;
+
+            foreach (var item in tileControls)
+            {
+                if (item.GetType() != typeof(GameTileView))
+                {
+                    continue;
+                }
+
+                var tile = (GameTileView) item;
+
+                if (tile.Profile != game)
+                {
+                    continue;
+                }
+
+                var bitmap = _bitmapLoader.GetBoxArt(game);
+                tile.LoadBoxart(bitmap);
+                break;
+            }
         }
 
         private void OnNavigation(object sender, NavigationArgs e)
