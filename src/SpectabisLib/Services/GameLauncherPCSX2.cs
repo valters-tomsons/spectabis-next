@@ -21,13 +21,15 @@ namespace SpectabisLib.Services
             _configLoader = configLoader;
         }
 
-        public GameProcess StartGame(GameProfile game)
+        public async Task<GameProcess> StartGame(GameProfile game)
         {
             var process = CreateEmulatorProcess(game);
             var gameProcess = new GameProcess(game, process);
 
             _gameProcess = gameProcess;
             _gameProcess.Start();
+
+            await UpdateLastPlayed(game).ConfigureAwait(false);
 
             return gameProcess;
         }
@@ -69,9 +71,8 @@ namespace SpectabisLib.Services
             await _pfs.WriteProfileAsync(profile).ConfigureAwait(false);
         }
 
-        private async Task UpdateLastPlayed(GameProcess process)
+        private async Task UpdateLastPlayed(GameProfile profile)
         {
-            var profile = process.Game;
             profile.LastPlayed = DateTimeOffset.Now;
             await _pfs.WriteProfileAsync(profile).ConfigureAwait(false);
         }
