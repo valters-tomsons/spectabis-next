@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using System.Threading.Tasks;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Interfaces
@@ -7,7 +7,7 @@ namespace SpectabisLib.Interfaces
     {
         GameProcess StartGame(GameProfile game);
         GameProcess StartConfiguration(GameProfile game);
-        void StopGame();
+        Task StopGame();
         GameProcess GetRunningGame();
     }
 }

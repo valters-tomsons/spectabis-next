@@ -35,13 +35,19 @@ namespace SpectabisLib.Services
         public async Task WriteProfileAsync(GameProfile profile)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}", UriKind.Absolute);
-            Directory.CreateDirectory(profileFolderUri.LocalPath);
-
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
             var profileJson = JsonConvert.SerializeObject(profile, Formatting.Indented);
 
-            Console.WriteLine($"[ProfileFileSystem] Writing profile json '{profile.Id}'");
+            Directory.CreateDirectory(profileFolderUri.LocalPath);
 
+            if (File.Exists(profileUri.LocalPath))
+            {
+                Console.WriteLine($"[ProfileFileSystem] Overwriting profile json '{profile.Id}'");
+                await OverwriteProfile(profileUri, profileJson).ConfigureAwait(false);
+                return;
+            }
+
+            Console.WriteLine($"[ProfileFileSystem] Creating profile json '{profile.Id}'");
             await WriteTextAsync(profileUri, profileJson).ConfigureAwait(false);
         }
 
@@ -192,6 +198,12 @@ namespace SpectabisLib.Services
             {
                 await stream.WriteAsync(encoded, 0, encoded.Length).ConfigureAwait(false);
             }
+        }
+
+        private async Task OverwriteProfile(Uri filePath, string text)
+        {
+            File.Delete(filePath.LocalPath);
+            await WriteTextAsync(filePath, text).ConfigureAwait(false);
         }
     }
 }

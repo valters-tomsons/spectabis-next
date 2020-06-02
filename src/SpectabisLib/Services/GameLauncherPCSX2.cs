@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
@@ -47,7 +48,7 @@ namespace SpectabisLib.Services
             return _gameProcess;
         }
 
-        public void StopGame()
+        public async Task StopGame()
         {
             if (_gameProcess == null)
             {
@@ -55,7 +56,24 @@ namespace SpectabisLib.Services
             }
 
             _gameProcess.Stop();
+            await UpdatePlaytime(_gameProcess).ConfigureAwait(false);
             _gameProcess = null;
+        }
+
+        private async Task UpdatePlaytime(GameProcess process)
+        {
+            var session = process.GetSessionLength();
+            var profile = process.Game;
+
+            profile.Playtime += session;
+            await _pfs.WriteProfileAsync(profile).ConfigureAwait(false);
+        }
+
+        private async Task UpdateLastPlayed(GameProcess process)
+        {
+            var profile = process.Game;
+            profile.LastPlayed = DateTimeOffset.Now;
+            await _pfs.WriteProfileAsync(profile).ConfigureAwait(false);
         }
 
         private Process CreateEmulatorProcess(GameProfile gameProfile, bool launchGame = true)
@@ -82,14 +100,14 @@ namespace SpectabisLib.Services
 
         private string GetEmulatorPath(GameProfile profile)
         {
-            if(!string.IsNullOrWhiteSpace(profile.EmulatorPath))
+            if (!string.IsNullOrWhiteSpace(profile.EmulatorPath))
             {
                 Console.WriteLine($"Emulator path for '{profile.Title}' loaded from profile.json");
                 return profile.EmulatorPath;
             }
 
             var configValue = _configLoader.Directories.PCSX2Executable.ToString();
-            if(!string.IsNullOrWhiteSpace(configValue))
+            if (!string.IsNullOrWhiteSpace(configValue))
             {
                 Console.WriteLine($"Emulator path for '{profile.Title}' loaded from directory.json");
                 return configValue;

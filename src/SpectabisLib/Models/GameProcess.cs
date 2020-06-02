@@ -11,6 +11,8 @@ namespace SpectabisLib.Models
         public GameProfile Game { get; }
         public Process Process { get; }
 
+        private readonly Stopwatch playTimer = new Stopwatch();
+
         public GameProcess(GameProfile game, Process process)
         {
             Game = game;
@@ -21,12 +23,23 @@ namespace SpectabisLib.Models
         {
             Process.Exited += OnGameProcessExited;
             Process.Start();
+            playTimer.Start();
         }
 
-        public void Stop()
+        public TimeSpan Stop()
         {
+            playTimer.Stop();
             Process.Kill();
             OnGameStopped();
+
+            Process.Exited -= OnGameProcessExited;
+
+            return GetSessionLength();
+        }
+
+        public TimeSpan GetSessionLength()
+        {
+            return playTimer.Elapsed;
         }
 
         private void OnGameProcessExited(object sender, EventArgs e)

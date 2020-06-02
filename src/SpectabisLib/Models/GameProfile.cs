@@ -14,5 +14,6 @@ namespace SpectabisLib.Models
         public string BoxArtPath { get; set; }
         public EmulatorLaunchOptions LaunchOptions { get; set; }
         public TimeSpan Playtime { get; set; }
+        public DateTimeOffset LastPlayed { get; set; }
     }
 }
