@@ -13,6 +13,12 @@ namespace SpectabisService.Services
         public GiantBombClient()
         {
             var apiKey = Environment.GetEnvironmentVariable("ApiKey_GiantBomb");
+
+            if(string.IsNullOrEmpty(apiKey))
+            {
+                throw new Exception("Variable 'ApiKey_GiantBomb' not set");
+            }
+
             _client = new GiantBombRestClient(apiKey);
         }
 
