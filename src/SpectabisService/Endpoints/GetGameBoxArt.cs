@@ -9,7 +9,7 @@ using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisService.Services;
 
-namespace SpectabisService
+namespace SpectabisService.Endpoints
 {
     public static class GetGameBoxArt
     {
