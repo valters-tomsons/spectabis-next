@@ -1,13 +1,11 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
-using System.Runtime;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace SpectabisService.Services
 {
-    public class StorageProvider
+    public class ArtCacheProvider
     {
         private const string ContainerName = "service-cache";
 
@@ -15,7 +13,7 @@ namespace SpectabisService.Services
         private CloudBlobClient client;
         private CloudBlobContainer container;
 
-        public StorageProvider()
+        public ArtCacheProvider()
         {
             var conString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
             storageAccount = CloudStorageAccount.Parse(conString);
