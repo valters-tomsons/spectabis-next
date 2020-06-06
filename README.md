@@ -33,7 +33,9 @@ Support for Mac is possible and is taken into account, but *is not* currently in
 * Profile Configuration
 * Global Controller profile
 * ROM serial discovery (.gz, .cso)
+* CLI support
 * Playtime counter
+* Licensing and GDPR compliance
 
 ## Nice to have (in no particular order)
 * Plugin configuration
