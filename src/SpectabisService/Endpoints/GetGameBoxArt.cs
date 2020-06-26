@@ -9,7 +9,7 @@ using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisService.Services;
 
-namespace SpectabisService
+namespace SpectabisService.Endpoints
 {
     public static class GetGameBoxArt
     {
@@ -17,7 +17,7 @@ namespace SpectabisService
         private static readonly IGameArtClient _artClient;
         private static readonly PCSX2DatabaseProvider _dbProvider = new PCSX2DatabaseProvider(_httpClient);
         private static readonly ContentDownloader _downloader = new ContentDownloader(_httpClient);
-        private static readonly StorageProvider _storage = new StorageProvider();
+        private static readonly ArtCacheProvider _storage = new ArtCacheProvider();
 
         static GetGameBoxArt()
         {

@@ -4,7 +4,7 @@ Cross-platform graphical frontend for PCSX2 emulator to replace [.NET Framework 
 Plan is to implement most used and useful features of original Spectabis, improve code quality to encourage more contributions but most importantly, let me use PCSX2 again.
 [Began as a command-line frontend for the emulator](https://github.com/FaithLV/spectabis-cli), but that's too much effort for too little return.
 
-Currently, **this is not usable for end-users**. There's a graphical interface with game profile generation and boxart tile loading in UI.
+Currently, **this is not usable for end-users**.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/nk9bp0m8ak2wm2e3/branch/master?svg=true)](https://ci.appveyor.com/project/FaithLV/spectabis-next/branch/master) 
 [![Build Status](https://dev.azure.com/Spectabis/SpectabisNext/_apis/build/status/FaithLV.spectabis-next?branchName=master)](https://dev.azure.com/Spectabis/SpectabisNext/_build/latest?definitionId=1&branchName=master)
@@ -15,36 +15,38 @@ Currently, **this is not usable for end-users**. There's a graphical interface w
 * Avalonia UI 0.9.7
 * Avalona ReactiveUI 0.9.7
 * AutoFac 4.9.2
+* Azure Functions v3
 
 ## Platforms
 * Linux (the point of the whole project)
 * Windows (obviously)
 
-Support for Mac OS is possible. I won't go out of my way to make sure it works there though.
+Support for Mac is possible and is taken into account, but *is not* currently in scope.
+
+## Current Features
+* Game Profiles
+* Online service (API aggregator)
+* Automated builds for Linux/Windows/Mac
+* Discord Rich Presence
 
 ## Must Have Features before a "stable" release
-* Per-game configurations
-* Box-art Scraping
-* Basic emulator setting configuration
-* Global Controller profiles
-* ROM serial discovery (including .iso, .gz, .cso, .cue)
-* Better (than previous) logging system
+* Profile Configuration
+* Global Controller profile
+* ROM serial discovery (.gz, .cso)
+* CLI support
 * Playtime counter
+* Licensing and GDPR compliance
 
 ## Nice to have (in no particular order)
 * Plugin configuration
-* Controller support (at least selecting/launching games)
-* Couch mode
-* Playstation 1 game support and anything that comes with it
+* Controller support / Couch Mode
 * Extension (Plugin) System
-* Visual theming (at least, a dark mode)
-* Emulator version tracking (auto updates on windows, maybe?)
-* Discord Rich Presence
+* Dark Mode
+* Emulator version tracking
 * Multilingual support
 * Isolated PCSX2 installation profiles 
 * Seperate plugin updates from Spectabis releases
 * Game favourites list
-* Custom service with remastered game arts
 * Advanced sorting options
 * Incorporate - https://github.com/Zombeaver/PCSX2-Configs
 
@@ -62,3 +64,5 @@ Let's keep third party dependencies to a minimum and use them sensibly.
 # Credits & Attributions
 
 * Graphics - [Pixro](https://www.instagram.com/artcallspixro/)
+
+* Game Art - [GiantBomb](https://www.giantbomb.com/api/)
