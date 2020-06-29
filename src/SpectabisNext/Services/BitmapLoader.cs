@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Avalonia.Media.Imaging;
 using SpectabisLib.Helpers;
@@ -32,7 +33,17 @@ namespace SpectabisNext.Services
                 return DefaultBoxart;
             }
 
-            return new Bitmap(boxArtPath.LocalPath);
+            try
+            {
+                return new Bitmap(boxArtPath.LocalPath);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"Failed to load boxart for '{game.Id}'");
+                Console.WriteLine(e.Message);
+
+                return DefaultBoxart;
+            }
         }
 
         private Bitmap LoadDefaultBoxart()
@@ -44,9 +55,9 @@ namespace SpectabisNext.Services
                 return new Bitmap(tempArtPath);
             }
 
-            System.Console.WriteLine(Path.GetFullPath(tempArtPath));
-            System.Console.WriteLine($"Cannot locate {tempArtPath}");
-            System.Console.WriteLine("Failed to load default boxart");
+            Console.WriteLine(Path.GetFullPath(tempArtPath));
+            Console.WriteLine($"Cannot locate {tempArtPath}");
+            Console.WriteLine("Failed to load default boxart");
             return null;
         }
     }
