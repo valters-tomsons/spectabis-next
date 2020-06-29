@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using ServiceClient.Interfaces;
 using SpectabisLib.Interfaces;
@@ -72,10 +73,16 @@ namespace SpectabisLib.Services
 
         private async void DownloadArtLatestInQueue(object sender, DoWorkEventArgs e)
         {
+            if (_gameArtQueue.Count == 0)
+            {
+                Console.WriteLine("[QueueService] Queue is empty");
+                return;
+            }
+
             var game = _gameArtQueue.Dequeue();
             Console.WriteLine($"[QueueService] Dequeued '{game.Id}'");
 
-            Console.WriteLine($"[QueueService] Downloading boxart");
+            Console.WriteLine("[QueueService] Downloading boxart");
             var boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
 
             Console.WriteLine($"[QueueService] Writing boxart to file system");
