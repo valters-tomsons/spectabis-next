@@ -214,10 +214,12 @@ namespace SpectabisNext.Pages
 
         private void RemoveGame(GameTileView gameTile)
         {
-            System.Console.WriteLine($"[GameLibrary] Removing {gameTile.Profile.Id}");
+            Console.WriteLine($"[GameLibrary] Removing {gameTile.Profile.Id}");
+
             _gameRepo.DeleteProfile(gameTile.Profile);
             LoadedProfiles.Remove(gameTile.Profile);
-            GamePanel.Children.Remove(gameTile);
+
+            Dispatcher.UIThread.Post(() => GamePanel.Children.Remove(gameTile));
         }
 
         private void OpenWikiPage(GameTileView gameTile)
