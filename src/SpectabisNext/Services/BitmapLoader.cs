@@ -1,10 +1,9 @@
 using System.IO;
 using Avalonia.Media.Imaging;
 using SpectabisLib.Helpers;
-using SpectabisUI.Interfaces;
-using SpectabisLib.Services;
 using SpectabisLib.Models;
-using SpectabisLib.Enums;
+using SpectabisLib.Services;
+using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Services
 {
@@ -21,14 +20,14 @@ namespace SpectabisNext.Services
 
         public Bitmap GetBoxArt(GameProfile game)
         {
-            if(!string.IsNullOrWhiteSpace(game.BoxArtPath))
+            if (!string.IsNullOrWhiteSpace(game.BoxArtPath))
             {
                 return new Bitmap(game.BoxArtPath);
             }
 
             var boxArtPath = _profileFs.GetBoxArtPath(game);
 
-            if(boxArtPath == null)
+            if (boxArtPath == null || !File.Exists(boxArtPath.LocalPath))
             {
                 return DefaultBoxart;
             }
