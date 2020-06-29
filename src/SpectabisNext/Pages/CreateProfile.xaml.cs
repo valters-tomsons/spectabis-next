@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -7,8 +6,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
-using SpectabisLib.Repositories;
-using SpectabisLib.Services;
 using SpectabisNext.ViewModels;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
@@ -101,7 +98,11 @@ namespace SpectabisNext.Pages
         private async Task SelectGame()
         {
             var dialogWindow = new Window();
-            var fileDialog = new OpenFileDialog();
+            var fileDialog = new OpenFileDialog()
+            {
+                Title = "Select ROM location...",
+                AllowMultiple = false
+            };
 
             var fileResult = await fileDialog.ShowAsync(dialogWindow).ConfigureAwait(false);
 
