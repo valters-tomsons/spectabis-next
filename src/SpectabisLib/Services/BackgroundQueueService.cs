@@ -12,9 +12,8 @@ namespace SpectabisLib.Services
     public class BackgroundQueueService : IBackgroundQueueService
     {
         private BackgroundWorker _gameArtThread;
-        private Queue<GameProfile> _gameArtQueue;
-        private IEnumerable<Task<GameProfile>> _gameArtTasks;
-        private Stack<GameProfile> _finishedArt;
+        private readonly Queue<GameProfile> _gameArtQueue;
+        private readonly Stack<GameProfile> _finishedArt;
 
         private readonly ISpectabisClient _client;
         private readonly ProfileFileSystem _profileFs;
@@ -27,7 +26,6 @@ namespace SpectabisLib.Services
             _profileFs = profileFs;
 
             _gameArtQueue = new Queue<GameProfile>();
-            _gameArtTasks = new List<Task<GameProfile>>();
             _finishedArt = new Stack<GameProfile>();
 
             InitializeArtThread();
@@ -42,10 +40,13 @@ namespace SpectabisLib.Services
         {
             var gameQueued = _gameArtQueue.Contains(game);
 
-            if (!gameQueued)
+            if (gameQueued || string.IsNullOrWhiteSpace(game.SerialNumber))
             {
-                _gameArtQueue.Enqueue(game);
+                Console.WriteLine($"[QueueService] Not queuing '{game.Id}' because serial is null");
+                return;
             }
+
+            _gameArtQueue.Enqueue(game);
         }
 
         public GameProfile GetLastFinishedGame()
