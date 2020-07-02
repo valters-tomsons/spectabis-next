@@ -184,7 +184,6 @@ namespace SpectabisNext.Pages
 
             if (pointerUpdate == PointerUpdateKind.RightButtonReleased)
             {
-                // var menuItems = Enum.GetValues(typeof(GameContextMenuItem)).Cast<GameContextMenuItem>();
                 var menuItems = _menuMapper.GetDisplayNames();
 
                 // TODO: Should share one global context menu when Avalonia supports it
