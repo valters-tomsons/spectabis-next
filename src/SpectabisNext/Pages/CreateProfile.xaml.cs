@@ -1,9 +1,13 @@
 using System;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisNext.ViewModels;
@@ -18,6 +22,7 @@ namespace SpectabisNext.Pages
         private readonly IProfileFactory _profileFactory;
         private readonly IProfileRepository _gameRepo;
         private readonly IBackgroundQueueService _artService;
+        private readonly IConfigurationLoader _configuration;
 
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
@@ -33,13 +38,14 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService, IConfigurationLoader configuration)
         {
             _gameRepo = gameRepo;
             _navigation = navigation;
             _profileFactory = profileFactory;
             _viewModel = viewModel;
             _artService = artService;
+            _configuration = configuration;
 
             InitializeComponent();
             RegisterChildren();
@@ -98,30 +104,52 @@ namespace SpectabisNext.Pages
         private async Task SelectGame()
         {
             var dialogWindow = new Window();
+
+            var lastLocation = _configuration.Directories.LastFileBrowserDirectory.LocalPath;
+
+            if (!Directory.Exists(lastLocation))
+            {
+                lastLocation = SystemDirectories.HomeFolder;
+            }
+
             var fileDialog = new OpenFileDialog()
             {
                 Title = "Select ROM location...",
-                AllowMultiple = false
+                AllowMultiple = false,
+                Directory = lastLocation
             };
 
             var fileResult = await fileDialog.ShowAsync(dialogWindow).ConfigureAwait(false);
 
-            if (fileResult == null)
+            if (fileResult == null || string.IsNullOrWhiteSpace(fileResult[0]))
             {
                 return;
             }
 
-            var filePath = string.Concat(fileResult);
+            var filePath = fileResult[0];
+
+            _configuration.Directories.LastFileBrowserDirectory = GetFileDirectory(filePath);
+            var updateConfig = _configuration.WriteConfiguration(_configuration.Directories);
 
             _currentProfile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
 
             _viewModel.SerialNumber = _currentProfile.SerialNumber;
             _viewModel.GameTitle = _currentProfile.Title;
+
+            await updateConfig.ConfigureAwait(true);
         }
 
         ~CreateProfile()
         {
             Console.WriteLine("Destroying CreateProfile page");
+        }
+
+        private Uri GetFileDirectory(string filePath)
+        {
+            var sb = new StringBuilder(filePath);
+            var indexOfLast = filePath.LastIndexOf(Path.DirectorySeparatorChar);
+            sb.Remove(indexOfLast, sb.Length - indexOfLast);
+            return new Uri(sb.ToString(), UriKind.Absolute);
         }
     }
 }

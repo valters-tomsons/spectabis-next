@@ -10,6 +10,7 @@ namespace SpectabisLib.Helpers
         public static string Default_PCSX2ConfigurationPath { get; private set; }
         public static string Default_PCSX2ExecutablePath { get; private set; }
         public static string ResourcesPath { get; } = "Resources";
+        public static string HomeFolder { get; private set; }
 
         static SystemDirectories()
         {
@@ -34,6 +35,7 @@ namespace SpectabisLib.Helpers
         private static void InitializeForUnix()
         {
             var homePath = Environment.GetEnvironmentVariable("HOME");
+            HomeFolder = homePath;
             ConfigFolder = $"{homePath}/.config/spectabis";
             ProfileFolder = $"{ConfigFolder}/profiles";
             Default_PCSX2ConfigurationPath = $"{homePath}/.config/PCSX2";
@@ -43,6 +45,7 @@ namespace SpectabisLib.Helpers
         private static void InitializeForWindows()
         {
             var homePath = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            HomeFolder = homePath;
             ConfigFolder = $"{homePath}/.spectabis";
             ProfileFolder = $"{ConfigFolder}/profiles";
             Default_PCSX2ConfigurationPath = $"{homePath}/PCSX2";

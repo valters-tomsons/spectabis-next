@@ -10,11 +10,13 @@ namespace SpectabisLib.Configuration
         {
             PCSX2ConfigurationPath = new Uri(SystemDirectories.Default_PCSX2ConfigurationPath, UriKind.Absolute);
             PCSX2Executable = new Uri(SystemDirectories.Default_PCSX2ExecutablePath, UriKind.Absolute);
+            LastFileBrowserDirectory = new Uri(SystemDirectories.HomeFolder, UriKind.Absolute);
         }
 
         public string Title { get; } = "Directory";
 
         public Uri PCSX2Executable { get; set; }
         public Uri PCSX2ConfigurationPath { get; set; }
+        public Uri LastFileBrowserDirectory { get; set; }
     }
 }
