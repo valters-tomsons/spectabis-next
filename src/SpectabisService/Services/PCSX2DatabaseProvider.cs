@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SpectabisLib.Enums;
 using SpectabisLib.Models;
+using SpectabisService.Abstractions.Interfaces;
 using TinyCsvParser;
 using TinyCsvParser.Mapping;
 using TinyCsvParser.TypeConverter;
@@ -14,11 +15,12 @@ namespace SpectabisService.Services
 {
     public class PCSX2DatabaseProvider
     {
+        private readonly IHttpClient _httpClient;
+
         private static readonly Uri DatabaseUri = new Uri("https://forums.pcsx2.net/data/data.csv");
-        private readonly HttpClient _httpClient;
         private static IEnumerable<GameMetadata> _dbCache;
 
-        public PCSX2DatabaseProvider(HttpClient httpClient)
+        public PCSX2DatabaseProvider(IHttpClient httpClient)
         {
             _httpClient = httpClient;
         }

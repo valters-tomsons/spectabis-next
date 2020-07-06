@@ -1,15 +1,14 @@
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using SpectabisLib.Models;
+using SpectabisService.Abstractions.Interfaces;
 
 namespace SpectabisService.Services
 {
     public class ContentDownloader
     {
-        private readonly HttpClient _client;
+        private readonly IHttpClient _client;
 
-        public ContentDownloader(HttpClient client)
+        public ContentDownloader(IHttpClient client)
         {
             _client = client;
         }

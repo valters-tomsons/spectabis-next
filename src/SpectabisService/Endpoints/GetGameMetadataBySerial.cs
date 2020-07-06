@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +11,9 @@ namespace SpectabisService.Endpoints
 {
     public static class GameArt
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
-        private static readonly PCSX2DatabaseProvider _dbProvider = new PCSX2DatabaseProvider(_httpClient);
+        private static readonly PCSX2DatabaseProvider _dbProvider;
 
-        [FunctionName("GetGameMetadataBySerial")]
+        // [FunctionName("GetGameMetadataBySerial")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
         {

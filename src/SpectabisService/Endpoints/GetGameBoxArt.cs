@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,21 +10,23 @@ using SpectabisService.Services;
 
 namespace SpectabisService.Endpoints
 {
-    public static class GetGameBoxArt
+    public class GetGameBoxArt
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
-        private static readonly IGameArtClient _artClient;
-        private static readonly PCSX2DatabaseProvider _dbProvider = new PCSX2DatabaseProvider(_httpClient);
-        private static readonly ContentDownloader _downloader = new ContentDownloader(_httpClient);
-        private static readonly ArtCacheProvider _storage = new ArtCacheProvider();
+        private readonly IGameArtClient _artClient;
+        private readonly PCSX2DatabaseProvider _dbProvider;
+        private readonly ContentDownloader _downloader;
+        private readonly ArtCacheProvider _storage;
 
-        static GetGameBoxArt()
+        public GetGameBoxArt(IGameArtClient artClient, PCSX2DatabaseProvider dbProvider, ContentDownloader downloader, ArtCacheProvider storage)
         {
-            _artClient = new GiantBombClient();
+            _artClient = artClient;
+            _dbProvider = dbProvider;
+            _downloader = downloader;
+            _storage = storage;
         }
 
         [FunctionName("GetGameBoxArt")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
         {
             var reqSerial = req.Query["serial"];
