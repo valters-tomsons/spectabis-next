@@ -2,7 +2,6 @@ using SpectabisLib.Interfaces;
 using SpectabisService.Services;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
 using SpectabisService.Abstractions.Interfaces;
 using SpectabisService.Abstractions;
 
