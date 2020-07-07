@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
+using SpectabisService.Abstractions.Interfaces;
 using SpectabisService.Services;
 
 namespace SpectabisService.Endpoints
@@ -15,9 +16,9 @@ namespace SpectabisService.Endpoints
         private readonly IGameArtClient _artClient;
         private readonly PCSX2DatabaseProvider _dbProvider;
         private readonly ContentDownloader _downloader;
-        private readonly ArtCacheProvider _storage;
+        private readonly IArtCacheProvider _storage;
 
-        public GetGameBoxArt(IGameArtClient artClient, PCSX2DatabaseProvider dbProvider, ContentDownloader downloader, ArtCacheProvider storage)
+        public GetGameBoxArt(IGameArtClient artClient, PCSX2DatabaseProvider dbProvider, ContentDownloader downloader, IArtCacheProvider storage)
         {
             _artClient = artClient;
             _dbProvider = dbProvider;
@@ -51,7 +52,6 @@ namespace SpectabisService.Endpoints
                 return new BadRequestObjectResult("Unknown game");
             }
 
-            await _storage.InitializeStorage().ConfigureAwait(false);
             var cached = await _storage.GetFromCache(normalizedSerial).ConfigureAwait(false);
 
             if (cached != null)
