@@ -2,10 +2,11 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SpectabisService.Abstractions.Interfaces;
 
 namespace SpectabisService.Services
 {
-    public class ArtCacheProvider
+    public class ArtCacheProvider : IArtCacheProvider
     {
         private const string ContainerName = "service-cache";
 
@@ -13,26 +14,15 @@ namespace SpectabisService.Services
         private CloudBlobClient client;
         private CloudBlobContainer container;
 
-        public ArtCacheProvider()
+        public ArtCacheProvider(string connectionString)
         {
-            var conString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
-            storageAccount = CloudStorageAccount.Parse(conString);
-        }
-
-        public async Task InitializeStorage()
-        {
-            if(client != null)
-            {
-                return;
-            }
-
-            client = storageAccount.CreateCloudBlobClient();
-            container = client.GetContainerReference(ContainerName);
-            await container.CreateIfNotExistsAsync().ConfigureAwait(false);
+            storageAccount = CloudStorageAccount.Parse(connectionString);
         }
 
         public async Task<byte[]> GetFromCache(string serial)
         {
+            await InitializeStorage().ConfigureAwait(false);
+
             var blob = container.GetBlockBlobReference(serial);
             var exists = await blob.ExistsAsync().ConfigureAwait(false);
 
@@ -51,9 +41,23 @@ namespace SpectabisService.Services
 
         public async Task WriteToCache(string serial, byte[] image)
         {
+            await InitializeStorage().ConfigureAwait(false);
+
             var blob = container.GetBlockBlobReference(serial);
             blob.Properties.ContentType = "image/png";
             await blob.UploadFromByteArrayAsync(image, 0, image.Length).ConfigureAwait(false);
+        }
+
+        private async Task InitializeStorage()
+        {
+            if(client != null)
+            {
+                return;
+            }
+
+            client = storageAccount.CreateCloudBlobClient();
+            container = client.GetContainerReference(ContainerName);
+            await container.CreateIfNotExistsAsync().ConfigureAwait(false);
         }
     }
 }
