@@ -8,18 +8,11 @@ namespace SpectabisService.Services
 {
     public class GiantBombClient : IGameArtClient
     {
-        private static GiantBombRestClient _client;
+        private readonly IGiantBombRestClient _client;
 
-        public GiantBombClient()
+        public GiantBombClient(IGiantBombRestClient gbClient)
         {
-            var apiKey = Environment.GetEnvironmentVariable("ApiKey_GiantBomb");
-
-            if(string.IsNullOrEmpty(apiKey))
-            {
-                throw new Exception("Variable 'ApiKey_GiantBomb' not set");
-            }
-
-            _client = new GiantBombRestClient(apiKey);
+            _client = gbClient;
         }
 
         public async Task<Uri> GetBoxArt(string titleQuery)
