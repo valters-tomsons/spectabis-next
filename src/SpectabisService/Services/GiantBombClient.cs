@@ -15,10 +15,18 @@ namespace SpectabisService.Services
             _client = gbClient;
         }
 
-        public async Task<Uri> GetBoxArt(string titleQuery)
+        public async Task<Uri> GetBoxArtPS2(string titleQuery)
         {
             var result = await _client.SearchForGamesAsync(titleQuery).ConfigureAwait(false);
+            result = result.Where(x => x.Platforms.Any(y => y.Abbreviation == "PS2"));
+
             var firstGame = result.First();
+
+            if(firstGame == null)
+            {
+                return null;
+            }
+
             return new Uri(firstGame.Image.SmallUrl, UriKind.Absolute);
         }
     }

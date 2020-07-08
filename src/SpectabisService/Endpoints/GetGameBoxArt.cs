@@ -59,7 +59,7 @@ namespace SpectabisService.Endpoints
                 return new FileContentResult(cached, "image/png");
             }
 
-            var artUrl = await _artClient.GetBoxArt(game.Title).ConfigureAwait(false);
+            var artUrl = await _artClient.GetBoxArtPS2(game.Title).ConfigureAwait(false);
             var result = await _downloader.DownloadGameArt(artUrl).ConfigureAwait(false);
 
             await _storage.WriteToCache(normalizedSerial, result).ConfigureAwait(false);

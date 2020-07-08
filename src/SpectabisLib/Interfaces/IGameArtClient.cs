@@ -5,6 +5,6 @@ namespace SpectabisLib.Interfaces
 {
     public interface IGameArtClient
     {
-        Task<Uri> GetBoxArt(string titleQuery);
+        Task<Uri> GetBoxArtPS2(string titleQuery);
     }
 }
