@@ -16,9 +16,9 @@ namespace SpectabisService.Endpoints
         private readonly IGameArtClient _artClient;
         private readonly PCSX2DatabaseProvider _dbProvider;
         private readonly ContentDownloader _downloader;
-        private readonly IArtCacheProvider _storage;
+        private readonly IStorageProvider _storage;
 
-        public GetGameBoxArt(IGameArtClient artClient, PCSX2DatabaseProvider dbProvider, ContentDownloader downloader, IArtCacheProvider storage)
+        public GetGameBoxArt(IGameArtClient artClient, PCSX2DatabaseProvider dbProvider, ContentDownloader downloader, IStorageProvider storage)
         {
             _artClient = artClient;
             _dbProvider = dbProvider;

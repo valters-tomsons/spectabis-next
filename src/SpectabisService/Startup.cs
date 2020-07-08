@@ -22,7 +22,7 @@ namespace SpectabisService
             services.AddSingleton<IHttpClient, HttpClientFacade>();
 
             services.AddSingleton<IGiantBombRestClient>(_ => new GiantBombRestClient(giantBombApiKey));
-            services.AddSingleton<IArtCacheProvider>(_ => new ArtCacheProvider(storageConnectionString));
+            services.AddSingleton<IStorageProvider>(_ => new StorageProvider(storageConnectionString));
             services.AddSingleton<PCSX2DatabaseProvider>();
 
             services.AddScoped<IGameArtClient, GiantBombClient>();

@@ -4,9 +4,9 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using SpectabisService.Abstractions.Interfaces;
 
-namespace SpectabisService.Services
+namespace SpectabisService.Abstractions
 {
-    public class ArtCacheProvider : IArtCacheProvider
+    public class StorageProvider : IStorageProvider
     {
         private const string ContainerName = "service-cache";
 
@@ -14,7 +14,7 @@ namespace SpectabisService.Services
         private CloudBlobClient client;
         private CloudBlobContainer container;
 
-        public ArtCacheProvider(string connectionString)
+        public StorageProvider(string connectionString)
         {
             storageAccount = CloudStorageAccount.Parse(connectionString);
         }
