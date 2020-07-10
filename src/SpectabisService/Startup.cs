@@ -6,6 +6,7 @@ using SpectabisLib.Interfaces;
 using SpectabisService.Abstractions;
 using SpectabisService.Abstractions.Interfaces;
 using SpectabisService.Services;
+using Microsoft.Extensions.Configuration;
 
 [assembly: FunctionsStartup(typeof(SpectabisService.Startup))]
 namespace SpectabisService
@@ -14,19 +15,31 @@ namespace SpectabisService
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var giantBombApiKey = Environment.GetEnvironmentVariable("ApiKey_GiantBomb");
-            var storageConnectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
-
             var services = builder.Services;
+            services.AddConfiguration();
 
             services.AddSingleton<IHttpClient, HttpClientFacade>();
 
-            services.AddSingleton<IGiantBombRestClient>(_ => new GiantBombRestClient(giantBombApiKey));
-            services.AddSingleton<IStorageProvider>(_ => new StorageProvider(storageConnectionString));
-            services.AddSingleton<PCSX2DatabaseProvider>();
+            services.AddTransient<IStorageProvider, StorageProvider>();
+            services.AddTransient<PCSX2DatabaseProvider>();
 
-            services.AddScoped<IGameArtClient, GiantBombClient>();
-            services.AddScoped<ContentDownloader>();
+            services.AddTransient<IGameArtClient, GiantBombClient>();
+            services.AddTransient<ContentDownloader>();
+        }
+    }
+
+    public static class Extensions
+    {
+        public static IServiceCollection AddConfiguration(this IServiceCollection services)
+        {
+            services.AddSingleton(_ => new ConfigurationBuilder()
+            .SetBasePath(Environment.CurrentDirectory)
+            .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build());
+
+            return services;
         }
     }
 }
