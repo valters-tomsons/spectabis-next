@@ -24,7 +24,9 @@ namespace SpectabisService.Services
 
         public PCSX2DatabaseProvider(IHttpClient httpClient, IConfigurationRoot config)
         {
-            _databaseUri = config.GetValue<Uri>("DatabaseUri_PCSX2");
+            var databaseUrl = config.GetValue<string>("DatabaseUri_PCSX2");
+            _databaseUri = new Uri(databaseUrl ,UriKind.Absolute);
+
             _httpClient = httpClient;
         }
 

@@ -34,9 +34,11 @@ namespace SpectabisService
         {
             services.AddSingleton(_ => new ConfigurationBuilder()
             .SetBasePath(Environment.CurrentDirectory)
+
             .AddJsonFile("appsettings.json", optional: true)
-            .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
+            .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+
             .Build());
 
             return services;
