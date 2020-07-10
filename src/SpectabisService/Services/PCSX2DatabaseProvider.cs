@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using SpectabisLib.Enums;
 using SpectabisLib.Models;
 using SpectabisService.Abstractions.Interfaces;
@@ -17,11 +18,13 @@ namespace SpectabisService.Services
     {
         private readonly IHttpClient _httpClient;
 
-        private static readonly Uri DatabaseUri = new Uri("https://forums.pcsx2.net/data/data.csv");
+        private readonly Uri _databaseUri;
+
         private static IEnumerable<GameMetadata> _dbCache;
 
-        public PCSX2DatabaseProvider(IHttpClient httpClient)
+        public PCSX2DatabaseProvider(IHttpClient httpClient, IConfigurationRoot config)
         {
+            _databaseUri = config.GetValue<Uri>("DatabaseUri_PCSX2");
             _httpClient = httpClient;
         }
 
@@ -32,7 +35,7 @@ namespace SpectabisService.Services
                 return _dbCache;
             }
 
-            var dbContent = await _httpClient.GetAsync(DatabaseUri).ConfigureAwait(false);
+            var dbContent = await _httpClient.GetAsync(_databaseUri).ConfigureAwait(false);
             var contentStream = await dbContent.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
             var parserOptions = new CsvParserOptions(true, '\t');

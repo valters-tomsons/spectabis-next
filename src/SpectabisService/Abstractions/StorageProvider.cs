@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using SpectabisService.Abstractions.Interfaces;
@@ -14,8 +15,9 @@ namespace SpectabisService.Abstractions
         private CloudBlobClient client;
         private CloudBlobContainer container;
 
-        public StorageProvider(string connectionString)
+        public StorageProvider(IConfigurationRoot config)
         {
+            var connectionString = config.GetValue<string>("AzureWebJobsStorage");
             storageAccount = CloudStorageAccount.Parse(connectionString);
         }
 
