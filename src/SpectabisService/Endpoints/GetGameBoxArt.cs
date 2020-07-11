@@ -52,7 +52,7 @@ namespace SpectabisService.Endpoints
                 return new BadRequestObjectResult("Unknown game");
             }
 
-            var cached = await _storage.GetFromCache(normalizedSerial).ConfigureAwait(false);
+            var cached = await _storage.ReadBytesFromStorage(normalizedSerial).ConfigureAwait(false);
 
             if (cached != null)
             {
@@ -62,7 +62,7 @@ namespace SpectabisService.Endpoints
             var artUrl = await _artClient.GetBoxArtPS2(game.Title).ConfigureAwait(false);
             var result = await _downloader.DownloadGameArt(artUrl).ConfigureAwait(false);
 
-            await _storage.WriteToCache(normalizedSerial, result).ConfigureAwait(false);
+            await _storage.WriteImageToStorage(normalizedSerial, result).ConfigureAwait(false);
 
             return new FileContentResult(result, "image/png");
         }

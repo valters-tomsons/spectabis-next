@@ -1,4 +1,5 @@
 using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
@@ -21,11 +22,28 @@ namespace SpectabisService.Abstractions
             storageAccount = CloudStorageAccount.Parse(connectionString);
         }
 
-        public async Task<byte[]> GetFromCache(string serial)
+        public async Task<DateTimeOffset?> GetLastModified(string fileName)
         {
             await InitializeStorage().ConfigureAwait(false);
 
-            var blob = container.GetBlockBlobReference(serial);
+            var blob = container.GetBlockBlobReference(fileName);
+            var exists = await blob.ExistsAsync().ConfigureAwait(false);
+
+            if(!exists)
+            {
+                return null;
+            }
+
+            await blob.FetchAttributesAsync().ConfigureAwait(false);
+
+            return blob.Properties.LastModified;
+        }
+
+        public async Task<byte[]> ReadBytesFromStorage(string fileName)
+        {
+            await InitializeStorage().ConfigureAwait(false);
+
+            var blob = container.GetBlockBlobReference(fileName);
             var exists = await blob.ExistsAsync().ConfigureAwait(false);
 
             if(!exists)
@@ -41,13 +59,22 @@ namespace SpectabisService.Abstractions
             return imageBuffer;
         }
 
-        public async Task WriteToCache(string serial, byte[] image)
+        public async Task WriteImageToStorage(string fileName, byte[] buffer)
         {
             await InitializeStorage().ConfigureAwait(false);
 
-            var blob = container.GetBlockBlobReference(serial);
+            var blob = container.GetBlockBlobReference(fileName);
             blob.Properties.ContentType = "image/png";
-            await blob.UploadFromByteArrayAsync(image, 0, image.Length).ConfigureAwait(false);
+            await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+        }
+
+        public async Task WriteDataToStorage(string fileName, byte[] buffer)
+        {
+            await InitializeStorage().ConfigureAwait(false);
+
+            var blob = container.GetBlockBlobReference(fileName);
+            blob.Properties.ContentType = "application/octet-stream";
+            await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
         }
 
         private async Task InitializeStorage()

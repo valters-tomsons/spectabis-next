@@ -1,10 +1,13 @@
+using System;
 using System.Threading.Tasks;
 
 namespace SpectabisService.Abstractions.Interfaces
 {
     public interface IStorageProvider
     {
-        Task<byte[]> GetFromCache(string serial);
-        Task WriteToCache(string serial, byte[] image);
+        Task<DateTimeOffset?> GetLastModified(string fileName);
+        Task<byte[]> ReadBytesFromStorage(string fileName);
+        Task WriteDataToStorage(string fileName, byte[] buffer);
+        Task WriteImageToStorage(string fileName, byte[] buffer);
     }
 }

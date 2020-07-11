@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.11" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.5" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.5" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="TinyCsvParser" Version="2.5.2" />
   </ItemGroup>
