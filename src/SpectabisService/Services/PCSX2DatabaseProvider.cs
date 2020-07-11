@@ -25,8 +25,6 @@ namespace SpectabisService.Services
 
         private const string DatabaseFileName = "PCSX2_GAMES";
 
-        // private static IEnumerable<GameMetadata> _dbCache;
-
         public PCSX2DatabaseProvider(IHttpClient httpClient, IConfigurationRoot config, IStorageProvider storageProvider)
         {
             var databaseUrl = config.GetValue<string>("DatabaseUri_PCSX2");
