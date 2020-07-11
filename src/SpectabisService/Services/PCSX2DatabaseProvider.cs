@@ -56,9 +56,9 @@ namespace SpectabisService.Services
 
         private async Task<IEnumerable<GameMetadata>> UpdateStorageDatabase()
         {
-                var fromSource = await GetDatabaseFromSource().ConfigureAwait(false);
-                await UploadDatabaseToStorage(fromSource).ConfigureAwait(false);
-                return fromSource;
+            var fromSource = await GetDatabaseFromSource().ConfigureAwait(false);
+            await UploadDatabaseToStorage(fromSource).ConfigureAwait(false);
+            return fromSource;
         }
 
         private async Task<IEnumerable<GameMetadata>> GetDatabaseFromSource()
