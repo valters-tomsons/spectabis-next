@@ -46,6 +46,8 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>();
             builder.RegisterType<BackgroundQueueService>().As<IBackgroundQueueService>().SingleInstance();
             builder.RegisterType<ProfileFileSystem>();
+
+            builder.RegisterType<Telemetry>().As<ITelemetry>().SingleInstance();
         }
 
         private static void RegisterSpectabis(ContainerBuilder builder)

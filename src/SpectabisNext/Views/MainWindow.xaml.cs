@@ -9,6 +9,7 @@ using SpectabisNext.Pages;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Repositories;
 using SpectabisLib.Interfaces;
+using ServiceClient.Interfaces;
 
 namespace SpectabisNext.Views
 {
@@ -19,6 +20,7 @@ namespace SpectabisNext.Views
         private readonly CancellationTokenRepository _cancelRepo;
         private readonly IGameLauncher _gameLauncher;
         private readonly IDiscordService _discordService;
+        private readonly ITelemetry _telemetry;
 
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
@@ -29,15 +31,21 @@ namespace SpectabisNext.Views
         {
         }
 
-        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo, IGameLauncher gameLauncher, IDiscordService discordService)
+        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
             _cancelRepo = tokenRepo;
             _gameLauncher = gameLauncher;
             _discordService = discordService;
+            _telemetry = telemetry;
 
             Closed += OnWindowClosed;
+
+            if(configurationLoader.Spectabis.EnableTelemetry)
+            {
+                _telemetry.EnableTelemetry();
+            }
 
             InitializeFileSystem.Initialize();
 

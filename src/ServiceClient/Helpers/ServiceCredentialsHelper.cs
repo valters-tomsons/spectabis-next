@@ -4,13 +4,23 @@ namespace ServiceClient.Helpers
 {
     public static class ServiceCredentialsHelper
     {
+        // Parameterized
         private const string _spectabisApiKey = "{{ServiceApiKey}}";
+        private const string _telemetryKey = "{{TelemetryKey}}";
 
         public static string ApiKey
         {
             get
             {
                 return GetApiKey();
+            }
+        }
+
+        public static string TelemetryInstrumentationKey
+        {
+            get
+            {
+                return GetTelemetryKey();
             }
         }
 
@@ -24,6 +34,11 @@ namespace ServiceClient.Helpers
             }
 
             return _spectabisApiKey;
+        }
+
+        private static string GetTelemetryKey()
+        {
+            return _telemetryKey;
         }
     }
 }
