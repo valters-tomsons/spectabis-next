@@ -25,5 +25,10 @@
   <ItemGroup>
       <None Include="Resources/Images/placeholderBoxart.jpg" CopyToOutputDirectory="Always" />
       <None Include="Resources/gamedatabase.csv" CopyToOutputDirectory="Always" />
+
+      <None Update="local.settings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </None>
   </ItemGroup>
 </Project>

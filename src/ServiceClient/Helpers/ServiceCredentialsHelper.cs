@@ -1,44 +1,29 @@
 using System;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace ServiceClient.Helpers
 {
     public static class ServiceCredentialsHelper
     {
         // Parameterized
-        private const string _spectabisApiKey = "{{ServiceApiKey}}";
-        private const string _telemetryKey = "{{TelemetryKey}}";
+        public static readonly string ServiceApiKey = "{{ServiceApiKey}}";
+        public static readonly string TelemetryKey = "{{TelemetryKey}}";
 
-        public static string ApiKey
+        private const string LocalSettings = "local.settings.json";
+
+        static ServiceCredentialsHelper()
         {
-            get
+            if(File.Exists(LocalSettings))
             {
-                return GetApiKey();
+                Console.WriteLine($"Reading settings from '{LocalSettings}'");
+
+                var settingsData = File.ReadAllText(LocalSettings);
+                dynamic settings = JToken.Parse(settingsData);
+
+                ServiceApiKey = settings.ServiceApiKey;
+                TelemetryKey = settings.TelemetryKey;
             }
-        }
-
-        public static string TelemetryInstrumentationKey
-        {
-            get
-            {
-                return GetTelemetryKey();
-            }
-        }
-
-        private static string GetApiKey()
-        {
-            if (_spectabisApiKey == string.Concat("{{", "ServiceApiKey", "}}"))
-            {
-                Console.WriteLine("[CredentialsHelper] Trying to use api key from 'SERVICE_API_KEY' variable.");
-                var key = Environment.GetEnvironmentVariable("SERVICE_API_KEY");
-                return key;
-            }
-
-            return _spectabisApiKey;
-        }
-
-        private static string GetTelemetryKey()
-        {
-            return _telemetryKey;
         }
     }
 }

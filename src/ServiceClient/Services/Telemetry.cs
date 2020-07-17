@@ -14,11 +14,6 @@ namespace ServiceClient.Services
         private TelemetryClient _client;
         private bool isEnabled;
 
-        public Telemetry()
-        {
-
-        }
-
         public void EnableTelemetry()
         {
             if(_client == null)
@@ -78,7 +73,7 @@ namespace ServiceClient.Services
         private TelemetryClient CreateClient()
         {
             Console.WriteLine("[Telemetry] Creating telemetry client");
-            var instrumentationKey = ServiceCredentialsHelper.TelemetryInstrumentationKey;
+            var instrumentationKey = ServiceCredentialsHelper.TelemetryKey;
 
             var config = new TelemetryConfiguration
             {

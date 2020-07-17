@@ -11,14 +11,13 @@ namespace ServiceClient.Services
     {
         private Uri ServiceBaseUrl { get; } = new Uri("https://spectabis-api-eu.azurewebsites.net/api/", UriKind.Absolute);
         private Uri GetArtEndpoint { get; } = new Uri("GetGameBoxArt", UriKind.Relative);
-        private readonly string ServiceApiKey = ServiceCredentialsHelper.ApiKey;
 
         private readonly IRestClient _restClient;
 
         public SpectabisClient(IRestClient restClient)
         {
             _restClient = restClient;
-            _restClient.SetSession(ServiceApiKey, ServiceBaseUrl);
+            _restClient.SetSession(ServiceCredentialsHelper.ServiceApiKey, ServiceBaseUrl);
         }
 
         public async Task<byte[]> DownloadBoxArt(string serial)
