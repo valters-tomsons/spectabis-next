@@ -58,6 +58,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<PagePreloader>().As<IPagePreloader>();
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
             builder.RegisterType<ContextMenuEnumMapper>().As<IContextMenuEnumMapper>();
+            builder.RegisterType<FileBrowser>().As<IFileBrowserFactory>();
 
             builder.RegisterType<DiscordService>().As<IDiscordService>().SingleInstance();
 

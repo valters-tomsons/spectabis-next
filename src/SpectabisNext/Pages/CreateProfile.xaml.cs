@@ -1,13 +1,11 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisNext.ViewModels;
@@ -23,6 +21,7 @@ namespace SpectabisNext.Pages
         private readonly IProfileRepository _gameRepo;
         private readonly IBackgroundQueueService _artService;
         private readonly IConfigurationLoader _configuration;
+        private readonly IFileBrowserFactory _fileBrowser;
 
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
@@ -38,7 +37,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService, IConfigurationLoader configuration)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService, IConfigurationLoader configuration, IFileBrowserFactory fileBrowser)
         {
             _gameRepo = gameRepo;
             _navigation = navigation;
@@ -46,6 +45,7 @@ namespace SpectabisNext.Pages
             _viewModel = viewModel;
             _artService = artService;
             _configuration = configuration;
+            _fileBrowser = fileBrowser;
 
             InitializeComponent();
             RegisterChildren();
@@ -103,30 +103,13 @@ namespace SpectabisNext.Pages
 
         private async Task SelectGame()
         {
-            var dialogWindow = new Window();
-
             var lastLocation = _configuration.Directories.LastFileBrowserDirectory.LocalPath;
+            var filePath = await _fileBrowser.BeginGetSingleFilePath(lastLocation, lastLocation).ConfigureAwait(false);
 
-            if (!Directory.Exists(lastLocation))
-            {
-                lastLocation = SystemDirectories.HomeFolder;
-            }
-
-            var fileDialog = new OpenFileDialog()
-            {
-                Title = "Select ROM location...",
-                AllowMultiple = false,
-                Directory = lastLocation
-            };
-
-            var fileResult = await fileDialog.ShowAsync(dialogWindow).ConfigureAwait(false);
-
-            if (fileResult == null || string.IsNullOrWhiteSpace(fileResult[0]))
+            if(string.IsNullOrEmpty(filePath))
             {
                 return;
             }
-
-            var filePath = fileResult[0];
 
             _configuration.Directories.LastFileBrowserDirectory = GetFileDirectory(filePath);
             var updateConfig = _configuration.WriteConfiguration(_configuration.Directories);
