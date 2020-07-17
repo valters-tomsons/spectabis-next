@@ -30,6 +30,7 @@ steps:
     arguments: 'src/ServiceClient/Helpers/ServiceCredentialsHelper.cs'
   env:
     SERVICE_API_KEY: $(SERVICE_API_KEY)
+    TELEMETRY_KEY: $(TELEMETRY_KEY)
 
 - script: dotnet publish -c $CONFIGURATION -r linux-x64
   displayName: 'Build for linux-x64'
