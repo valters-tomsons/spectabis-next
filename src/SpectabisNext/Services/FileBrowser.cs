@@ -24,7 +24,7 @@ namespace SpectabisNext.Services
 
             if(File.Exists(path))
             {
-                var fileName = Path.GetFileNameWithoutExtension(path);
+                var fileName = Path.GetFileName(path);
                 dialog.Directory = path.Replace(fileName, string.Empty);
             }
             else if(Directory.Exists(path))
