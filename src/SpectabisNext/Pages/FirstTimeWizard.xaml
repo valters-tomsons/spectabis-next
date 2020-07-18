@@ -7,12 +7,12 @@
     <StackPanel Orientation="Vertical" Margin="200" Spacing="100">
         <Grid x:Name="EmulatorSelect" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Executable Path</TextBlock>
-                <Button Grid.Row="1" Name="BrowseExecutable">Browse</Button>
+                <Button Grid.Row="1" Name="BrowseExecutableButton">Browse for File</Button>
         </Grid>
 
         <Grid x:Name="ConfigurationSelect" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Configuration Folder</TextBlock>
-                <Button Grid.Row="1">Browse</Button>
+                <Button Grid.Row="1" Name="BrowseConfigurationButton">Browse for Directory</Button>
         </Grid>
 
         <Grid x:Name="TelemetrySelect" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
