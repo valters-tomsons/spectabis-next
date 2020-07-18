@@ -5,6 +5,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using SpectabisLib.Interfaces;
+using SpectabisNext.ViewModels;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Pages
@@ -24,15 +25,18 @@ namespace SpectabisNext.Pages
         private Button BrowseConfigurationButton;
         private Button FinishButton;
 
+        private readonly FirstTimeWizardViewModel _viewModel;
+
         [Obsolete("XAMLIL placeholder", true)]
         public FirstTimeWizard() { }
 
-        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator, IFirstTimeWizard wizardService, IFileBrowserFactory fileBrowser)
+        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator, IFirstTimeWizard wizardService, IFileBrowserFactory fileBrowser, FirstTimeWizardViewModel viewModel)
         {
             _configuration = configuration;
             _pageNavigator = pageNavigator;
             _wizardService = wizardService;
             _fileBrowser = fileBrowser;
+            _viewModel = viewModel;
             Background = _configuration.UserInterface.TitlebarGradient;
 
             InitializeComponent();
@@ -42,6 +46,7 @@ namespace SpectabisNext.Pages
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            DataContext = _viewModel;
         }
 
         private void RegisterChildren()

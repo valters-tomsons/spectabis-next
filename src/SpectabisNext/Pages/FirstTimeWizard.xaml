@@ -5,25 +5,27 @@
     >
 
     <StackPanel Orientation="Vertical" Margin="200" Spacing="100">
-        <Grid x:Name="EmulatorSelect" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Executable Path</TextBlock>
-                <Button Grid.Row="1" Name="BrowseExecutableButton">Browse for File</Button>
-        </Grid>
+        <StackPanel>
+                <TextBlock FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Executable Path</TextBlock>
+                <Button Name="BrowseExecutableButton">Browse for File</Button>
+                <TextBlock FontFamily="Roboto:Light" FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding ExecutablePath}" />
+        </StackPanel>
 
-        <Grid x:Name="ConfigurationSelect" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Configuration Folder</TextBlock>
-                <Button Grid.Row="1" Name="BrowseConfigurationButton">Browse for Directory</Button>
-        </Grid>
+        <StackPanel>
+                <TextBlock FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Configuration Folder</TextBlock>
+                <Button  Name="BrowseConfigurationButton">Browse for Directory</Button>
+                <TextBlock FontFamily="Roboto:Light" FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding ConfigurationPath}" />
+        </StackPanel>
 
-        <Grid x:Name="TelemetrySelect" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Telemetry is enabled</TextBlock>
-                <Button Grid.Row="1" IsEnabled="false">Not implemented</Button>
-        </Grid>
+        <StackPanel>
+                <TextBlock  FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Telemetry is enabled</TextBlock>
+                <Button  IsEnabled="false">Not implemented</Button>
+        </StackPanel>
 
-        <Grid x:Name="Finish" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">To Library</TextBlock>
-                <Button Grid.Row="1" Name="FinishButton" Margin="25">Finish</Button>
-        </Grid>
+        <StackPanel>
+                <TextBlock  FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">To Library</TextBlock>
+                <Button  Name="FinishButton" Margin="25">Finish</Button>
+        </StackPanel>
     </StackPanel>
 
 </UserControl>
