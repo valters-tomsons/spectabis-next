@@ -106,7 +106,8 @@ namespace SpectabisLib.Services
                 return profile.EmulatorPath;
             }
 
-            var configValue = _configLoader.Directories.PCSX2Executable.ToString();
+            var configValue = _configLoader.Directories.PCSX2Executable.LocalPath;
+
             if (!string.IsNullOrWhiteSpace(configValue))
             {
                 Console.WriteLine($"Emulator path for '{profile.Title}' loaded from directory.json");

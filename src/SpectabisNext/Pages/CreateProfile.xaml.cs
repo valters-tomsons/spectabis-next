@@ -104,7 +104,7 @@ namespace SpectabisNext.Pages
         private async Task SelectGame()
         {
             var lastLocation = _configuration.Directories.LastFileBrowserDirectory.LocalPath;
-            var filePath = await _fileBrowser.BeginGetSingleFilePath(lastLocation, lastLocation).ConfigureAwait(false);
+            var filePath = await _fileBrowser.BeginGetSingleFilePath("Select Game File", lastLocation).ConfigureAwait(false);
 
             if(string.IsNullOrEmpty(filePath))
             {

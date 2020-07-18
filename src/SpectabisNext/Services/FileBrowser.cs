@@ -8,7 +8,7 @@ namespace SpectabisNext.Services
 {
     public class FileBrowser : IFileBrowserFactory
     {
-        public async Task<string> BeginGetSingleFilePath(string title, string initialDirectory = null)
+        public async Task<string> BeginGetSingleFilePath(string title, string path = null)
         {
             var dialog = new OpenFileDialog
             {
@@ -17,17 +17,22 @@ namespace SpectabisNext.Services
                 Directory = SystemDirectories.HomeFolder
             };
 
-            if(!string.IsNullOrEmpty(initialDirectory))
+            if(!string.IsNullOrEmpty(path))
             {
-                dialog.Directory = initialDirectory;
+                dialog.Directory = path;
             }
 
-            if (!Directory.Exists(initialDirectory))
+            if(File.Exists(path))
             {
-                dialog.Directory = SystemDirectories.HomeFolder;
+                var fileName = Path.GetFileNameWithoutExtension(path);
+                dialog.Directory = path.Replace(fileName, string.Empty);
+            }
+            else if(Directory.Exists(path))
+            {
+                dialog.Directory = path;
             }
 
-            var fileResult = await dialog.ShowAsync(new Window()).ConfigureAwait(false);
+            var fileResult = await dialog.ShowAsync(new Window()).ConfigureAwait(true);
 
             if (fileResult == null || string.IsNullOrWhiteSpace(fileResult[0]))
             {

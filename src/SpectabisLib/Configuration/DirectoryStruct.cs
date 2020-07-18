@@ -15,19 +15,19 @@ namespace SpectabisLib.Configuration
         public Uri PCSX2Executable
         {
             get { return new Uri(_pcsx2Executable, UriKind.Absolute); }
-            set { _pcsx2Executable = value.ToString(); }
+            set { _pcsx2Executable = value.OriginalString; }
         }
 
         public Uri PCSX2ConfigurationPath
         {
             get { return new Uri(_pcsx2ConfigurationPath, UriKind.Absolute); }
-            set { _pcsx2ConfigurationPath = value.ToString(); }
+            set { _pcsx2ConfigurationPath = value.OriginalString; }
         }
 
         public Uri LastFileBrowserDirectory
         {
             get { return new Uri(_lastFileBrowserDirectory, UriKind.Absolute); }
-            set { _lastFileBrowserDirectory = value.ToString(); }
+            set { _lastFileBrowserDirectory = value.OriginalString; }
         }
     }
 }
