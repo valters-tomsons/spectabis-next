@@ -17,6 +17,7 @@
 
         <Grid x:Name="TelemetrySelect" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Grid.Row="0" FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Telemetry is enabled</TextBlock>
+                <Button Grid.Row="1" IsEnabled="false">Not implemented</Button>
         </Grid>
 
         <Grid x:Name="Finish" RowDefinitions="*,*" VerticalAlignment="Center" HorizontalAlignment="Center">
