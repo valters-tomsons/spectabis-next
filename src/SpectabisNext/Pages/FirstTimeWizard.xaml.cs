@@ -77,6 +77,7 @@ namespace SpectabisNext.Pages
 
             _configuration.Directories.PCSX2ConfigurationPath = new Uri(browserResult, UriKind.Absolute);
             await _configuration.WriteConfiguration(_configuration.Directories).ConfigureAwait(true);
+            _viewModel.ConfigurationPath = browserResult;
         }
 
         private void BrowseExecutableClick(object sender, RoutedEventArgs e)
@@ -96,6 +97,7 @@ namespace SpectabisNext.Pages
 
             _configuration.Directories.PCSX2Executable = new Uri(browserResult, UriKind.Absolute);
             await _configuration.WriteConfiguration(_configuration.Directories).ConfigureAwait(true);
+            _viewModel.ExecutablePath= browserResult;
         }
 
         private void FirstButtonClick(object sender, RoutedEventArgs e)
