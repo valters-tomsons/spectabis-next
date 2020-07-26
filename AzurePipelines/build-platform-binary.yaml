@@ -33,11 +33,11 @@ steps:
 - script: dotnet publish -c $CONFIGURATION -r $PLATFORM
   displayName: 'Build for linux-x64'
 
-- bash: cp src/SpectabisNext/Resources src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/$PLATFORM/publish/ -r
+- bash: cp src/SpectabisNext/Resources src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/$PLATFORM/publish/ -r
   displayName: Copy resources to publish
 
 - bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/$PLATFORM/publish
+    tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/$PLATFORM/publish
     
 - task: PublishPipelineArtifact@1
   displayName: 'Publish linux artifact'
