@@ -13,8 +13,14 @@ variables:
   buildConfiguration: '$(Configuration)'
 
 steps:
-- bash: echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
-- script: mkdir $ARTIFACTSFOLDER
+
+- task: Bash@3
+  displayName: 'Initialize pipeline'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
+      mkdir $ARTIFACTSFOLDER
 
 - task: UseDotNet@2
   displayName: 'Install Dotnet SDK'
