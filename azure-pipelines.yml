@@ -11,8 +11,8 @@ pool:
 
 variables:
   - group: Spectabis-Next
-  Version: '$(ClientVersion)'
-  buildConfiguration: '$(Configuration)'
+  - name: Version
+    value: '$(ClientVersion)'
 
 steps:
 
