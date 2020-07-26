@@ -1,4 +1,5 @@
-using System.Threading;
+using System.Diagnostics;
+using System.Reflection;
 using Avalonia.Controls;
 using SpectabisLib.Repositories;
 using SpectabisNext.Views;
@@ -25,6 +26,20 @@ namespace SpectabisNext
 
             _mainWindow.Show();
             appInstance.Run(_cancelRepo.GetToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp));
+        }
+
+        public string GetVersion()
+        {
+            var assembly = Assembly.GetEntryAssembly();
+            var fileInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var fileVersion = fileInfo.FileVersion;
+
+            if(fileVersion == "0.0.0.0")
+            {
+                return "develop";
+            }
+
+            return fileInfo.FileVersion;
         }
     }
 }

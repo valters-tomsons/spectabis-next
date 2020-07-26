@@ -16,6 +16,10 @@ namespace SpectabisNext
         {
             using var scope = container.BeginLifetimeScope();
             var spectabisApp = scope.Resolve<ISpectabis>();
+
+            var spectabisVersion = spectabisApp.GetVersion();
+            System.Console.WriteLine($"Starting Spectabis '{spectabisVersion}'");
+
             spectabisApp.Start();
         }
     }
