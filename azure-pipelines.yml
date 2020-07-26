@@ -41,14 +41,10 @@ steps:
 - script: dotnet publish -c $CONFIGURATION -r win-x64
   displayName: 'Build for win-x64'
 
-- bash:
-    displayName: Copy resources to publish
-    co
-
 - task: Bash@3
+  displayName: 'Copy resources'
   inputs:
     targetType: 'inline'
-    displayName: 'Copy resources'
     script: |
       cp src/SpectabisNext/Resources src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/linux-x64/publish/ -r
       cp src/SpectabisNext/Resources src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/osx-x64/publish/ -r
