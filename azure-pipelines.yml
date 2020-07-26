@@ -13,8 +13,7 @@ variables:
   buildConfiguration: '$(Configuration)'
 
 steps:
-- bash: |
-    echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
+- bash: echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
 - script: mkdir $ARTIFACTSFOLDER
 
 - task: UseDotNet@2
@@ -24,7 +23,7 @@ steps:
     version: '3.1.101'
 
 - task: PowerShell@2
-  displayName: 'Insert Service API'
+  displayName: 'Insert service secrets'
   inputs:
     filePath: 'Scripts/InsertSecretsInSource.ps1'
     arguments: 'src/ServiceClient/Helpers/ServiceCredentialsHelper.cs'
@@ -50,15 +49,15 @@ steps:
       cp src/SpectabisNext/Resources src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/osx-x64/publish/ -r
       cp src/SpectabisNext/Resources src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/win-x64/publish/ -r
 
-- bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/linux-x64/publish
+- task: Bash@3
+  displayName: 'Package build artifacts'
+  inputs:
+    targetType: 'inline'
+    script: |
+      tar -cvzf $ARTIFACTSFOLDER/spectabis-linux-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/linux-x64/publish
+      tar -cvzf $ARTIFACTSFOLDER/spectabis-osx-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/osx-x64/publish
+      tar -cvzf $ARTIFACTSFOLDER/spectabis-win-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/win-x64/publish
 
-- bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-osx-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/osx-x64/publish
-
-- bash: |
-    tar -cvzf $ARTIFACTSFOLDER/spectabis-win-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/Release/$SDKRELEASEFOLDER/win-x64/publish
-    
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-linux-$(Build.SourceVersion).tar.gz'
