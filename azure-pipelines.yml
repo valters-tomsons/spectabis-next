@@ -10,6 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
+  - group: Spectabis-Next
+  Version: '$(ClientVersion)'
   buildConfiguration: '$(Configuration)'
 
 steps:
@@ -56,7 +58,7 @@ steps:
       cp src/SpectabisNext/Resources src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/win-x64/publish/ -r
 
 - task: Bash@3
-  displayName: 'Package build artifacts'
+  displayName: 'Package build artifacts for $(Version)'
   inputs:
     targetType: 'inline'
     script: |
