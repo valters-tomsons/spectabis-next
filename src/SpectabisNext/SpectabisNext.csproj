@@ -1,10 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <RootNamespace>SpectabisNext</RootNamespace>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RuntimeIdentifiers>linux-x64;win-x64;osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishTrimmed>true</PublishTrimmed>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -13,24 +21,28 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
     <PackageReference Include="Avalonia.Desktop" Version="0.9.11" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.11" />
     <PackageReference Include="DiscordRichPresence" Version="1.0.150" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\SpectabisLib\SpectabisLib.csproj" />
     <ProjectReference Include="..\SpectabisUI\SpectabisUI.csproj" />
     <ProjectReference Include="..\ServiceClient\ServiceClient.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-      <None Include="Resources/Images/placeholderBoxart.jpg" CopyToOutputDirectory="Always" />
-      <None Include="Resources/gamedatabase.csv" CopyToOutputDirectory="Always" />
+      <None Include="Resources/Images/placeholderBoxart.jpg" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+      <None Include="Resources/gamedatabase.csv" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
 
       <None Update="local.settings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         <CopyToPublishDirectory>Never</CopyToPublishDirectory>
       </None>
   </ItemGroup>
+
 </Project>
