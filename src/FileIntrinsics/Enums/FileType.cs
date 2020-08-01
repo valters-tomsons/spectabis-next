@@ -6,6 +6,7 @@ namespace FileIntrinsics.Enums
         GZip,
         CueDescription,
         CISOImage,
-        CD_I
+        CD_I,
+        Fake
     }
 }

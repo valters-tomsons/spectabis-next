@@ -20,6 +20,7 @@ namespace FileIntrinsics
             _fileSignatures.Add(new CueDescription());
             _fileSignatures.Add(new CISOImage());
             _fileSignatures.Add(new CD_I());
+            _fileSignatures.Add(new FakeImage());
         }
 
         public async Task<IHeaderSignature> GetFileSignature(string filePath)

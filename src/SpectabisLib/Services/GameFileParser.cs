@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using FileIntrinsics.Enums;
 using FileIntrinsics.Interfaces;
@@ -34,6 +35,12 @@ namespace SpectabisLib.Services
             if(fileType.File == FileType.CD_I)
             {
                 return await BinParser.ReadSerial(gamePath).ConfigureAwait(false);
+            }
+
+            if(fileType.File == FileType.Fake)
+            {
+                var content = File.ReadAllLines(gamePath);
+                return content[1];
             }
 
             return null;
