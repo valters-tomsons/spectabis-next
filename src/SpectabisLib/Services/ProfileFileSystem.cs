@@ -27,9 +27,9 @@ namespace SpectabisLib.Services
             return location;
         }
 
-        public Uri GetGlobalConfigLocation()
+        public Uri GetGlobalConfigsUri()
         {
-            return new Uri($"{SystemDirectories.ConfigFolder}/global/", UriKind.Absolute);
+            return new Uri(SystemDirectories.GlobalConfigsFolder, UriKind.Absolute);
         }
 
         public async Task WriteProfileAsync(GameProfile profile)
@@ -58,7 +58,7 @@ namespace SpectabisLib.Services
 
             Console.WriteLine($"[ProfileFileSystem] Writing default to profile container : `{profile.Id}`");
 
-            var globalConfigUri = GetGlobalConfigLocation();
+            var globalConfigUri = GetGlobalConfigsUri();
             var globalConfigFiles = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly).Select(Path.GetFileName);
             var globalConfigFiles2 = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly);
 
