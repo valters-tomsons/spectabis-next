@@ -7,7 +7,8 @@ namespace SpectabisLib.Interfaces
     {
         void QueueForBoxArt(GameProfile game);
         void StartProcessing();
-        GameProfile GetLastFinishedGame();
+        GameProfile PopFinishedGames();
+        bool IsProcessing(GameProfile game);
         event EventHandler<EventArgs> ItemFinished;
     }
 }
