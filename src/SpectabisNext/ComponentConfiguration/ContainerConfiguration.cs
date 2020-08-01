@@ -54,11 +54,13 @@ namespace SpectabisNext.ComponentConfiguration
         {
             builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
             builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
-
             builder.RegisterType<PagePreloader>().As<IPagePreloader>();
+
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
-            builder.RegisterType<ContextMenuEnumMapper>().As<IContextMenuEnumMapper>();
+            builder.RegisterType<GifProvider>().As<IGifProvider>();
             builder.RegisterType<FileBrowser>().As<IFileBrowserFactory>();
+
+            builder.RegisterType<ContextMenuEnumMapper>().As<IContextMenuEnumMapper>();
 
             builder.RegisterType<DiscordService>().As<IDiscordService>().SingleInstance();
 
