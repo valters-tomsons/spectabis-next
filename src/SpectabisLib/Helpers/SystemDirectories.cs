@@ -37,22 +37,22 @@ namespace SpectabisLib.Helpers
         {
             var homePath = Environment.GetEnvironmentVariable("HOME");
             HomeFolder = homePath;
-            ConfigFolder = $"{homePath}/.config/spectabis";
-            ProfileFolder = $"{ConfigFolder}/profiles";
-            Default_PCSX2ConfigurationPath = $"{homePath}/.config/PCSX2";
+            ConfigFolder = $"{homePath}/.config/spectabis/";
+            ProfileFolder = $"{ConfigFolder}/profiles/";
+            Default_PCSX2ConfigurationPath = $"{homePath}/.config/PCSX2/";
             Default_PCSX2ExecutablePath = "/usr/bin/PCSX2";
-            GlobalConfigsFolder = $"{ConfigFolder}/global";
+            GlobalConfigsFolder = $"{ConfigFolder}/global/";
         }
 
         private static void InitializeForWindows()
         {
             var homePath = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
             HomeFolder = homePath;
-            ConfigFolder = $"{homePath}/.spectabis";
-            ProfileFolder = $"{ConfigFolder}/profiles";
-            Default_PCSX2ConfigurationPath = $"{homePath}/PCSX2";
+            ConfigFolder = $"{homePath}/.spectabis/";
+            ProfileFolder = $"{ConfigFolder}/profiles/";
+            Default_PCSX2ConfigurationPath = $"{homePath}/PCSX2/";
             Default_PCSX2ExecutablePath = "C:/Program Files (x86)/PCSX2/pcsx2.exe";
-            GlobalConfigsFolder = $"{ConfigFolder}/global";
+            GlobalConfigsFolder = $"{ConfigFolder}/global/";
         }
     }
 }
