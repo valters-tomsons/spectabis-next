@@ -33,6 +33,7 @@ namespace SpectabisNext.Pages
         private readonly IDiscordService _discordService;
         private readonly IBackgroundQueueService _queueService;
         private readonly IBitmapLoader _bitmapLoader;
+        private readonly IGifProvider _gifProvider;
 
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
 
@@ -41,7 +42,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary() { }
 
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IBackgroundQueueService queueService, IBitmapLoader bitmapLoader)
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IBackgroundQueueService queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider)
         {
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
@@ -49,6 +50,7 @@ namespace SpectabisNext.Pages
             _gameRepo = gameRepo;
             _queueService = queueService;
             _bitmapLoader = bitmapLoader;
+            _gifProvider = gifProvider;
 
             _navigationProvider.PageNavigationEvent += OnNavigation;
 
@@ -69,11 +71,12 @@ namespace SpectabisNext.Pages
 
         private void OnGameArtDownloaded(object sender, EventArgs e)
         {
-            var game = _queueService.GetLastFinishedGame();
+            var game = _queueService.PopFinishedGames();
             Dispatcher.UIThread.Post(() => RefreshGameTileArt(game));
+            _gifProvider.DisponseSpinner(game);
         }
 
-        private void RefreshGameTileArt(GameProfile game)
+        private GameTileView GetGameTileControl(GameProfile game)
         {
             var tileControls = GamePanel.Children;
 
@@ -91,10 +94,17 @@ namespace SpectabisNext.Pages
                     continue;
                 }
 
-                var bitmap = _bitmapLoader.GetBoxArt(game);
-                tile.LoadBoxart(bitmap);
-                break;
+                return item as GameTileView;
             }
+
+            return null;
+        }
+
+        private void RefreshGameTileArt(GameProfile game)
+        {
+            var tile = GetGameTileControl(game);
+            var bitmap = _bitmapLoader.GetBoxArt(game);
+            tile.LoadBoxart(bitmap);
         }
 
         private void OnNavigation(object sender, NavigationArgs e)
@@ -112,7 +122,13 @@ namespace SpectabisNext.Pages
 
             foreach (var item in newGames)
             {
-                await Dispatcher.UIThread.InvokeAsync(() => AddProfileTile(item)).ConfigureAwait(true);
+                var tile = await Dispatcher.UIThread.InvokeAsync(() => AddProfileTile(item)).ConfigureAwait(true);
+                var isQueued = _queueService.IsProcessing(item);
+
+                if(isQueued)
+                {
+                    Dispatcher.UIThread.Post(() => _gifProvider.StartSpinner(item, tile.BoxArt));
+                }
             }
         }
 
@@ -131,13 +147,15 @@ namespace SpectabisNext.Pages
             }
         }
 
-        private void AddProfileTile(GameProfile gameProfile)
+        private GameTileView AddProfileTile(GameProfile gameProfile)
         {
             var gameTile = _tileFactory.Create(gameProfile);
             gameTile.PointerReleased += OnGameTileClick;
 
             GamePanel.Children.Add(gameTile);
             LoadedProfiles.Add(gameProfile);
+
+            return gameTile;
         }
 
         private void OnGameContextMenuClick(object sender, PointerReleasedEventArgs e)
@@ -145,6 +163,7 @@ namespace SpectabisNext.Pages
             var obj = (ContextMenu) sender;
             var tile = (GameTileView) obj.Parent.Parent;
 
+            // TODO: Please fix this mess someday
             var selectd = (GameContextMenuItem) obj.SelectedIndex;
 
             if (selectd == GameContextMenuItem.Launch)

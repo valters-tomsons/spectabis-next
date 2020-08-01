@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using ServiceClient.Interfaces;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
@@ -18,6 +15,8 @@ namespace SpectabisLib.Services
 
         private readonly ISpectabisClient _client;
         private readonly ProfileFileSystem _profileFs;
+
+        private GameProfile _currentProcess;
 
         public event EventHandler<EventArgs> ItemFinished;
 
@@ -50,9 +49,14 @@ namespace SpectabisLib.Services
             _gameArtQueue.Enqueue(game);
         }
 
-        public GameProfile GetLastFinishedGame()
+        public GameProfile PopFinishedGames()
         {
             return _finishedArt.Pop();
+        }
+
+        public bool IsProcessing(GameProfile game)
+        {
+            return _gameArtQueue.Contains(game) || _finishedArt.Contains(game) || _currentProcess == game;
         }
 
         protected virtual void OnItemFinished()
@@ -80,15 +84,18 @@ namespace SpectabisLib.Services
             }
 
             var game = _gameArtQueue.Dequeue();
+            _currentProcess = game;
             Console.WriteLine($"[QueueService] Dequeued '{game.Id}'");
 
             Console.WriteLine("[QueueService] Downloading boxart");
             var boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
 
-            Console.WriteLine($"[QueueService] Writing boxart to file system");
+            Console.WriteLine("[QueueService] Writing boxart to file system");
             await _profileFs.WriteGameBoxArtImage(game, boxBytes).ConfigureAwait(false);
 
             _finishedArt.Push(game);
+            _currentProcess = null;
+
             OnItemFinished();
         }
     }

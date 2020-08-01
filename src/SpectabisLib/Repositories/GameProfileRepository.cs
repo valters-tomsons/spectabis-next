@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,12 +10,12 @@ namespace SpectabisLib.Repositories
 {
     public class GameProfileRepository : IProfileRepository
     {
-        private IList<GameProfile> Games;
-        private ProfileFileSystem Pfs { get; }
+        private IList<GameProfile> _games;
+        private ProfileFileSystem _fileSystem { get; }
 
         public GameProfileRepository(ProfileFileSystem pfs)
         {
-            Pfs = pfs;
+            _fileSystem = pfs;
         }
 
         public async Task UpsertProfile(GameProfile profile)
@@ -24,44 +25,49 @@ namespace SpectabisLib.Repositories
                 profile.Id = Guid.NewGuid();
             }
 
-            if(!Games.Contains(profile))
+            if(!_games.Contains(profile))
             {
-                Games.Add(profile);
+                _games.Add(profile);
             }
 
-            await Pfs.WriteProfileAsync(profile).ConfigureAwait(false);
+            await _fileSystem.WriteProfileAsync(profile).ConfigureAwait(false);
 
-            if(!Pfs.IsProfileContainerValid(profile))
+            if(!_fileSystem.IsProfileContainerValid(profile))
             {
                 await CopyDefault(profile).ConfigureAwait(false);
             }
         }
 
+        public GameProfile Get(Guid gameId)
+        {
+            return _games.FirstOrDefault(x => x.Id == gameId);
+        }
+
         public async Task<IEnumerable<GameProfile>> GetAll()
         {
             await ReadProfiles().ConfigureAwait(false);
-            return Games;
+            return _games;
         }
 
         public void DeleteProfile(GameProfile profile)
         {
-            Games.Remove(profile);
-            Pfs.DeleteProfile(profile.Id);
+            _games.Remove(profile);
+            _fileSystem.DeleteProfile(profile.Id);
         }
 
         private async Task CopyDefault(GameProfile profile)
         {
-            await Pfs.CopyDefaultConfiguration(profile).ConfigureAwait(false);
+            await _fileSystem.CopyDefaultConfiguration(profile).ConfigureAwait(false);
         }
 
         private async Task ReadProfiles()
         {
-            if(Games != null)
+            if(_games != null)
             {
                 return;
             }
 
-            Games = await Pfs.ReadAllProfiles().ConfigureAwait(false);
+            _games = await _fileSystem.ReadAllProfiles().ConfigureAwait(false);
         }
     }
 }

@@ -4,7 +4,7 @@
     x:Class="SpectabisNext.Pages.FirstTimeWizard"
     >
 
-    <StackPanel Orientation="Vertical" Margin="200" Spacing="100">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="50">
         <StackPanel>
                 <TextBlock FontFamily="Roboto:Light" FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Executable Path</TextBlock>
                 <Button Name="BrowseExecutableButton">Browse for File</Button>
