@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SpectabisLib.Models;
@@ -9,5 +10,6 @@ namespace SpectabisLib.Interfaces
         Task UpsertProfile(GameProfile profile);
         Task<IEnumerable<GameProfile>> GetAll();
         void DeleteProfile(GameProfile profile);
+        GameProfile Get(Guid gameId);
     }
 }
