@@ -93,6 +93,7 @@ namespace SpectabisNext.Pages
             }
 
             _currentProfile.Title = _viewModel.GameTitle;
+            _currentProfile.SerialNumber = _viewModel.SerialNumber;
             await _gameRepo.UpsertProfile(_currentProfile).ConfigureAwait(false);
 
             _artService.QueueForBoxArt(_currentProfile);
