@@ -1,4 +1,7 @@
+using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +25,7 @@ namespace SpectabisNext.Pages
         private readonly IBackgroundQueueService _artService;
         private readonly IConfigurationLoader _configuration;
         private readonly IFileBrowserFactory _fileBrowser;
+        private readonly IGameDatabaseProvider _gameDb;
 
         public string PageTitle { get; } = "Add Game";
         public bool ShowInTitlebar { get; } = true;
@@ -30,6 +34,8 @@ namespace SpectabisNext.Pages
 
         private Button SelectGameButton;
         private Button AddGameButton;
+        private TextBox TitleTextBox;
+        private ListBox TitleSuggestionsBox;
 
         private readonly CreateProfileViewModel _viewModel;
         private GameProfile _currentProfile;
@@ -37,7 +43,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService, IConfigurationLoader configuration, IFileBrowserFactory fileBrowser)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService, IConfigurationLoader configuration, IFileBrowserFactory fileBrowser, IGameDatabaseProvider gameDb)
         {
             _gameRepo = gameRepo;
             _navigation = navigation;
@@ -46,43 +52,39 @@ namespace SpectabisNext.Pages
             _artService = artService;
             _configuration = configuration;
             _fileBrowser = fileBrowser;
+            _gameDb = gameDb;
 
             InitializeComponent();
             RegisterChildren();
 
-            _navigation.PageNavigationEvent += OnNavigation;
             SelectGameButton.Click += SelectGameButtonClick;
             AddGameButton.Click += AddGameButtonClick;
+            TitleSuggestionsBox.SelectionChanged += OnTitleSuggestionSelect;
+
+            _navigation.PageNavigationEvent += OnNavigation;
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
-        private void AddGameButtonClick(object sender, RoutedEventArgs e)
+        private async Task SelectGame()
         {
-            Dispatcher.UIThread.InvokeAsync(AddGame);
-        }
+            var lastLocation = _configuration.Directories.LastFileBrowserDirectory.LocalPath;
+            var filePath = await _fileBrowser.BeginGetSingleFilePath("Select Game File", lastLocation).ConfigureAwait(false);
 
-        private void SelectGameButtonClick(object sender, RoutedEventArgs e)
+            if(string.IsNullOrEmpty(filePath))
         {
-            Dispatcher.UIThread.InvokeAsync(SelectGame);
-        }
-
-        private void OnNavigation(object sender, NavigationArgs e)
-        {
-            if (e.Page != this)
-            {
-                _navigation.PageNavigationEvent -= OnNavigation;
+                return;
             }
-        }
 
-        private void RegisterChildren()
-        {
-            SelectGameButton = this.FindControl<Button>(nameof(SelectGameButton));
-            AddGameButton = this.FindControl<Button>(nameof(AddGameButton));
-        }
+            _configuration.Directories.LastFileBrowserDirectory = GetFileDirectory(filePath);
+            var updateConfig = _configuration.WriteConfiguration(_configuration.Directories);
 
-        public void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-            DataContext = _viewModel;
+            _currentProfile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
+
+            _viewModel.GameTitle = _currentProfile.Title;
+            _viewModel.SerialNumber = _currentProfile.SerialNumber;
+            _viewModel.SerialEnabled = string.IsNullOrEmpty(_currentProfile.SerialNumber);
+
+            await updateConfig.ConfigureAwait(true);
         }
 
         private async Task AddGame()
@@ -102,31 +104,18 @@ namespace SpectabisNext.Pages
             _navigation.Navigate<GameLibrary>();
         }
 
-        private async Task SelectGame()
+        private void SetTitleSuggestions(IEnumerable<GameMetadata> data)
         {
-            var lastLocation = _configuration.Directories.LastFileBrowserDirectory.LocalPath;
-            var filePath = await _fileBrowser.BeginGetSingleFilePath("Select Game File", lastLocation).ConfigureAwait(false);
-
-            if(string.IsNullOrEmpty(filePath))
+            if(data?.Any() == true)
             {
-                return;
+                TitleSuggestionsBox.Items = data.Select(x => x.Title);
+                TitleSuggestionsBox.IsVisible = true;
             }
-
-            _configuration.Directories.LastFileBrowserDirectory = GetFileDirectory(filePath);
-            var updateConfig = _configuration.WriteConfiguration(_configuration.Directories);
-
-            _currentProfile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
-
-            _viewModel.GameTitle = _currentProfile.Title;
-            _viewModel.SerialNumber = _currentProfile.SerialNumber;
-            _viewModel.SerialEnabled = string.IsNullOrEmpty(_currentProfile.SerialNumber);
-
-            await updateConfig.ConfigureAwait(true);
-        }
-
-        ~CreateProfile()
-        {
-            Console.WriteLine("Destroying CreateProfile page");
+            else
+            {
+                TitleSuggestionsBox.IsVisible = false;
+                TitleSuggestionsBox.Items = new List<object>(0);
+            }
         }
 
         private Uri GetFileDirectory(string filePath)
@@ -135,6 +124,86 @@ namespace SpectabisNext.Pages
             var indexOfLast = filePath.LastIndexOf(Path.DirectorySeparatorChar);
             sb.Remove(indexOfLast, sb.Length - indexOfLast);
             return new Uri(sb.ToString(), UriKind.Absolute);
+        }
+
+        private async void OnNavigation(object sender, NavigationArgs e)
+        {
+            if (e.Page != this)
+            {
+                _navigation.PageNavigationEvent -= OnNavigation;
+            }
+            else
+        {
+                await _gameDb.IntializeDatabase().ConfigureAwait(false);
+            }
+        }
+
+        private async void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+            if (e.PropertyName == nameof(_viewModel.GameTitle))
+            {
+                await OnGameTitleFieldChange().ConfigureAwait(false);
+            }
+        }
+
+        private async Task OnGameTitleFieldChange()
+        {
+            if (_viewModel.GameTitle.Length < 3)
+            {
+                Dispatcher.UIThread.Post(() => SetTitleSuggestions(null));
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine(_viewModel.GameTitle);
+                var query = await _gameDb.QueryByTitle(_viewModel.GameTitle).ConfigureAwait(true);
+                Dispatcher.UIThread.Post(() => SetTitleSuggestions(query));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to query database by title `{_viewModel.GameTitle}`");
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void AddGameButtonClick(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.UIThread.InvokeAsync(AddGame);
+        }
+
+        private void SelectGameButtonClick(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.UIThread.InvokeAsync(SelectGame);
+        }
+
+        private async void OnTitleSuggestionSelect(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (string item in e.AddedItems)
+            {
+                var game = await _gameDb.GetNearestByTitle(item).ConfigureAwait(false);
+                _viewModel.GameTitle = game.Title;
+                _viewModel.SerialNumber = game.Serial;
+            }
+        }
+
+        private void RegisterChildren()
+        {
+            SelectGameButton = this.FindControl<Button>(nameof(SelectGameButton));
+            AddGameButton = this.FindControl<Button>(nameof(AddGameButton));
+            TitleTextBox = this.FindControl<TextBox>(nameof(TitleTextBox));
+            TitleSuggestionsBox = this.FindControl<ListBox>(nameof(TitleSuggestionsBox));
+        }
+
+        public void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            DataContext = _viewModel;
+        }
+
+        ~CreateProfile()
+        {
+            Console.WriteLine("Destroying CreateProfile page");
         }
     }
 }

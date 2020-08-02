@@ -43,7 +43,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<FirstTimeWizardService>().As<IFirstTimeWizard>().SingleInstance();
             builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
             builder.RegisterType<GameFileParser>().As<IGameFileParser>();
-            builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>();
+            builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>().SingleInstance();
             builder.RegisterType<BackgroundQueueService>().As<IBackgroundQueueService>().SingleInstance();
             builder.RegisterType<ProfileFileSystem>();
 

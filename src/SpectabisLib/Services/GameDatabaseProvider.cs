@@ -22,23 +22,34 @@ namespace SpectabisLib.Services
 
         public async Task<GameMetadata> GetBySerial(string serial)
         {
-            await InitializeStorage().ConfigureAwait(false);
+            await IntializeDatabase().ConfigureAwait(false);
             return _metadataDb.FirstOrDefault(x => x.Serial == serial);
         }
 
         public async Task<GameMetadata> GetNearestByTitle(string title)
         {
-            await InitializeStorage().ConfigureAwait(false);
+            await IntializeDatabase().ConfigureAwait(false);
+
+            var query = await QueryByTitle(title, 5).ConfigureAwait(false);
+            return query.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<GameMetadata>> QueryByTitle(string title, int count = 5)
+        {
+            await IntializeDatabase().ConfigureAwait(false);
+
+            var results = new List<GameMetadata>(count);
 
             await foreach (var item in _gameTitleIndex.Search(title))
             {
-                return await GetBySerial(item.DocumentReference).ConfigureAwait(false);
+                var result = await GetBySerial(item.DocumentReference).ConfigureAwait(false);
+                results.Add(result);
             }
 
-            return null;
+            return results.Distinct(new MetadataTitleComparer()).Take(count);
         }
 
-        private async Task InitializeStorage()
+        public async Task IntializeDatabase()
         {
             if (_metadataDb == null)
             {
@@ -53,7 +64,7 @@ namespace SpectabisLib.Services
 
         private async Task<Index> CreateIndexFromMetadata(IEnumerable<GameMetadata> data)
         {
-            var index = await Index.Build(async builder =>
+            return await Index.Build(async builder =>
             {
                 builder.AddField("title");
 
@@ -61,13 +72,11 @@ namespace SpectabisLib.Services
                 {
                     await builder.Add(new Document
                     {
-                        ["title"] = game.Title,
+                        ["title"] = game.Title.Replace(" - ", String.Empty).Replace("-", String.Empty),
                         ["id"] = game.Serial
                     }).ConfigureAwait(false);
                 }
             }).ConfigureAwait(false);
-
-            return index;
         }
 
         private IEnumerable<GameMetadata> GetDatabase()
@@ -90,6 +99,20 @@ namespace SpectabisLib.Services
             MapProperty(1, x => x.Compatibility, new EnumConverter<GameCompatibility>(true));
             MapProperty(5, x => x.Title);
             MapProperty(6, x => x.Region);
+        }
+    }
+
+    internal class MetadataTitleComparer : IEqualityComparer<GameMetadata>
+    {
+        public bool Equals(GameMetadata x, GameMetadata y)
+        {
+            return x.Title == y.Title;
+        }
+
+        public int GetHashCode(GameMetadata obj)
+        {
+            var code = obj.Title;
+            return code.GetHashCode();
         }
     }
 }

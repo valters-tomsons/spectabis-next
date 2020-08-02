@@ -14,7 +14,8 @@
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <StackPanel>
                 <TextBlock FontFamily="Roboto:Light">Game Title</TextBlock>
-                <TextBox Text="{Binding GameTitle}"/>
+                <TextBox x:Name="TitleTextBox" Text="{Binding GameTitle}"/>
+                <ListBox x:Name="TitleSuggestionsBox" IsVisible="False"/>
             </StackPanel>
 
             <StackPanel>
