@@ -116,8 +116,9 @@ namespace SpectabisNext.Pages
 
             _currentProfile = await _profileFactory.CreateFromPath(filePath).ConfigureAwait(false);
 
-            _viewModel.SerialNumber = _currentProfile.SerialNumber;
             _viewModel.GameTitle = _currentProfile.Title;
+            _viewModel.SerialNumber = _currentProfile.SerialNumber;
+            _viewModel.SerialEnabled = string.IsNullOrEmpty(_currentProfile.SerialNumber);
 
             await updateConfig.ConfigureAwait(true);
         }

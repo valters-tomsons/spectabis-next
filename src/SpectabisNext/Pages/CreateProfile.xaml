@@ -5,15 +5,26 @@
     >
 
     <Grid Grid.Row="0" ColumnDefinitions="*,*" Margin="5">
+
         <StackPanel Grid.Column="0" Orientation="Vertical">
-            <TextBlock HorizontalAlignment="Center" Text="{Binding SerialNumber}" FontSize="30"/>
             <Image x:Name="BoxArtImage" Stretch="Fill" Width="{Binding BoxArtWidth}" Height="{Binding BoxArtHeight}" Source="{Binding BoxArtImage}" HorizontalAlignment="Center"/>
             <Button Margin="5,5,5,5" x:Name="SelectGameButton" Content="Browse Game"/>
         </StackPanel>
+
         <StackPanel Grid.Column="1" Orientation="Vertical">
-            <TextBox Text="{Binding GameTitle}"/>
+            <StackPanel>
+                <TextBlock FontFamily="Roboto:Light">Game Title</TextBlock>
+                <TextBox Text="{Binding GameTitle}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock FontFamily="Roboto:Light">Serial Number</TextBlock>
+                <TextBox Text="{Binding SerialNumber}" IsEnabled="{Binding SerialEnabled}"/>
+            </StackPanel>
+
             <Button Margin="0,5,0,5" x:Name="AddGameButton" Content="Add" />
         </StackPanel>
+
     </Grid>
 
 </UserControl>
