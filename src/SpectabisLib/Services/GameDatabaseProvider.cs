@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using SpectabisLib.Enums;
@@ -10,22 +9,65 @@ using SpectabisLib.Models;
 using TinyCsvParser;
 using TinyCsvParser.Mapping;
 using TinyCsvParser.TypeConverter;
+using Lunr;
+using System.Threading.Tasks;
 
 namespace SpectabisLib.Services
 {
     public class GameDatabaseProvider : IGameDatabaseProvider
     {
         private IEnumerable<GameMetadata> _metadataDb;
+        private Index _gameTitleIndex;
         private readonly Uri DatabaseUri = new Uri($"{SystemDirectories.ResourcesPath}/gamedatabase.csv", UriKind.Relative);
 
-        public GameMetadata GetBySerial(string serial)
+        public async Task<GameMetadata> GetBySerial(string serial)
+        {
+            await InitializeStorage().ConfigureAwait(false);
+            return _metadataDb.FirstOrDefault(x => x.Serial == serial);
+        }
+
+        public async Task<GameMetadata> GetNearestByTitle(string title)
+        {
+            await InitializeStorage().ConfigureAwait(false);
+
+            await foreach (var item in _gameTitleIndex.Search(title))
+            {
+                return await GetBySerial(item.DocumentReference).ConfigureAwait(false);
+            }
+
+            return null;
+        }
+
+        private async Task InitializeStorage()
         {
             if (_metadataDb == null)
             {
                 _metadataDb = GetDatabase().ToList();
             }
 
-            return _metadataDb.FirstOrDefault(x => x.Serial == serial);
+            if(_gameTitleIndex == null)
+            {
+                _gameTitleIndex = await CreateIndexFromMetadata(_metadataDb).ConfigureAwait(false);
+            }
+        }
+
+        private async Task<Index> CreateIndexFromMetadata(IEnumerable<GameMetadata> data)
+        {
+            var index = await Index.Build(async builder =>
+            {
+                builder.AddField("title");
+
+                foreach(var game in data)
+                {
+                    await builder.Add(new Document
+                    {
+                        ["title"] = game.Title,
+                        ["id"] = game.Serial
+                    }).ConfigureAwait(false);
+                }
+            }).ConfigureAwait(false);
+
+            return index;
         }
 
         private IEnumerable<GameMetadata> GetDatabase()

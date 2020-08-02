@@ -24,17 +24,19 @@ namespace SpectabisLib.Services
             }
 
             var gameSerial = await _gameParser.GetGameSerial(gameFilePath).ConfigureAwait(false);
-            var metadata = _dbProvider.GetBySerial(gameSerial);
+            var metadata = await _dbProvider.GetBySerial(gameSerial).ConfigureAwait(false);
 
             if(metadata == null)
             {
                 var fileName = Path.GetFileName(gameFilePath);
                 System.Console.WriteLine($"[GameProfileFactory] Could not parse '{fileName}', using file name as game title");
 
+                var title = GetNameFromPath(gameFilePath);
+
                 return new GameProfile()
                 {
                     FilePath = gameFilePath,
-                    Title = GetNameFromPath(gameFilePath)
+                    Title = title
                 };
             }
 
