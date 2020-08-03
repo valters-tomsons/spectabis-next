@@ -70,8 +70,8 @@ namespace SpectabisNext.Pages
             var lastLocation = _configuration.Directories.LastFileBrowserDirectory.LocalPath;
             var filePath = await _fileBrowser.BeginGetSingleFilePath("Select Game File", lastLocation).ConfigureAwait(false);
 
-            if(string.IsNullOrEmpty(filePath))
-        {
+            if (string.IsNullOrEmpty(filePath))
+            {
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace SpectabisNext.Pages
 
         private void SetTitleSuggestions(IEnumerable<GameMetadata> data)
         {
-            if(data?.Any() == true)
+            if (data?.Any() == true)
             {
                 TitleSuggestionsBox.Items = data.Select(x => x.Title);
                 TitleSuggestionsBox.IsVisible = true;
@@ -136,7 +136,7 @@ namespace SpectabisNext.Pages
                 _navigation.PageNavigationEvent -= OnNavigation;
             }
             else
-        {
+            {
                 await _gameDb.IntializeDatabase().ConfigureAwait(false);
             }
         }
