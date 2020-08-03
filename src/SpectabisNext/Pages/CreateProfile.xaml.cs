@@ -110,11 +110,13 @@ namespace SpectabisNext.Pages
             {
                 TitleSuggestionsBox.Items = data.Select(x => x.Title);
                 TitleSuggestionsBox.IsVisible = true;
+                _viewModel.SerialEnabled = true;
             }
             else
             {
                 TitleSuggestionsBox.IsVisible = false;
                 TitleSuggestionsBox.Items = new List<object>(0);
+                _viewModel.SerialEnabled = string.IsNullOrEmpty(_viewModel.GameTitle);
             }
         }
 
@@ -139,7 +141,7 @@ namespace SpectabisNext.Pages
         }
 
         private async void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-            {
+        {
             if (e.PropertyName == nameof(_viewModel.GameTitle))
             {
                 await OnGameTitleFieldChange().ConfigureAwait(false);
@@ -184,6 +186,8 @@ namespace SpectabisNext.Pages
                 var game = await _gameDb.GetNearestByTitle(item).ConfigureAwait(false);
                 _viewModel.GameTitle = game.Title;
                 _viewModel.SerialNumber = game.Serial;
+                _viewModel.SerialEnabled = false;
+                Dispatcher.UIThread.Post(() => SetTitleSuggestions(null));
             }
         }
 
