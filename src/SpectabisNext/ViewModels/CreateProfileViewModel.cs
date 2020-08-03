@@ -16,6 +16,7 @@ namespace SpectabisNext.ViewModels
         private double boxArtWidth;
         private double boxArtHeight;
         private string gameTitle;
+        private string filePath;
 
         public CreateProfileViewModel(IBitmapLoader bitmapLoader, IConfigurationLoader configuration)
         {
@@ -33,5 +34,6 @@ namespace SpectabisNext.ViewModels
         public double BoxArtWidth { get => boxArtWidth; set => this.RaiseAndSetIfChanged(ref boxArtWidth, value); }
         public double BoxArtHeight { get => boxArtHeight; set => this.RaiseAndSetIfChanged(ref boxArtHeight, value); }
         public string GameTitle { get => gameTitle; set => this.RaiseAndSetIfChanged(ref gameTitle, value); }
+        public string FilePath { get => filePath; set => this.RaiseAndSetIfChanged(ref filePath, value); }
     }
 }

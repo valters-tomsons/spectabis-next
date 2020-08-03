@@ -23,6 +23,11 @@
                 <TextBox Text="{Binding SerialNumber}" IsEnabled="{Binding SerialEnabled}"/>
             </StackPanel>
 
+            <StackPanel>
+                <TextBlock FontFamily="Roboto:Light">File Path</TextBlock>
+                <TextBox Text="{Binding FilePath}" IsEnabled="False"/>
+            </StackPanel>
+
             <Button Margin="0,5,0,5" x:Name="AddGameButton" Content="Add" />
         </StackPanel>
 

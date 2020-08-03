@@ -83,6 +83,7 @@ namespace SpectabisNext.Pages
             _viewModel.GameTitle = _currentProfile.Title;
             _viewModel.SerialNumber = _currentProfile.SerialNumber;
             _viewModel.SerialEnabled = string.IsNullOrEmpty(_currentProfile.SerialNumber);
+            _viewModel.FilePath = _currentProfile.FilePath;
 
             await updateConfig.ConfigureAwait(true);
         }
