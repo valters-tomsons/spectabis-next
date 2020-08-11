@@ -20,7 +20,7 @@ namespace SpectabisService
 
             services.AddSingleton<IHttpClient, HttpClientFacade>();
 
-            services.AddTransient<IStorageProvider, StorageProvider>();
+            services.AddTransient<IStorageProvider, AzureStorageProvider>();
             services.AddTransient<PCSX2DatabaseProvider>();
 
             services.AddTransient<IGameArtClient, GiantBombClient>();
