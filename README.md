@@ -48,6 +48,7 @@ Currently usable but not useful yet.
 
 ## Nice to have (in no particular order)
 
+* "steam-like" library view
 * Plugin configuration
 * Controller support / Couch Mode
 * Extension (Plugin) System
