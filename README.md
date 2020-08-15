@@ -15,12 +15,12 @@ Currently usable but not useful yet.
 **Desktop:**
 
 * .NET Core 3.1
-* Avalonia UI 0.9.7
-* Avalona ReactiveUI 0.9.7
 * AutoFac 4.9.2
+* Avalonia UI 0.9.7
 
 **Service:**
 
+* .NET Core 3.1
 * Azure Functions v3
 
 ## Platforms
