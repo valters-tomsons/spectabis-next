@@ -1,5 +1,7 @@
 # spectabis-next
 
+
+
 Cross-platform graphical frontend for PCSX2 emulator to replace [.NET Framework Spectabis](https://github.com/FaithLV/Spectabis). Currently developing in my free time, feel free to contribute.
 Plan is to implement most used and useful features of original Spectabis, improve code quality to encourage more contributions but most importantly, let me use PCSX2 again.
 [Began as a command-line frontend for the emulator](https://github.com/FaithLV/spectabis-cli), but that's too much effort for too little return.
@@ -9,6 +11,8 @@ Currently usable but not useful yet.
 *Please Note:* If you're building the desktop client from source, you will **not** be able to connect to the service and online functionality will not work. You can host the service locally though.
 
 [![Build Status](https://dev.azure.com/Spectabis/SpectabisNext/_apis/build/status/FaithLV.spectabis-next?branchName=master)](https://dev.azure.com/Spectabis/SpectabisNext/_build/latest?definitionId=1&branchName=master)
+
+![](https://i.imgur.com/RcbMegH.png)
 
 ## Current Technology Stack
 
