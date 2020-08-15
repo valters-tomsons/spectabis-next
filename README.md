@@ -12,7 +12,7 @@ Currently usable but not useful yet.
 
 [![Build Status](https://dev.azure.com/Spectabis/SpectabisNext/_apis/build/status/FaithLV.spectabis-next?branchName=master)](https://dev.azure.com/Spectabis/SpectabisNext/_build/latest?definitionId=1&branchName=master)
 
-![](https://i.imgur.com/RcbMegH.png)
+![Screenshot](https://i.imgur.com/RcbMegH.png)
 
 ## Current Technology Stack
 
