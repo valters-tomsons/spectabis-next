@@ -10,11 +10,12 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/src/SpectabisNext/bin/Debug/netcoreapp3.1/SpectabisNext.dll",
-            "args": [],
+            "args": [""],
             "cwd": "${workspaceFolder}/src/SpectabisNext",
             "console": "internalConsole",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {"LD_DEBUG":"files"}
         },
         {
             "name": ".NET Core Attach",

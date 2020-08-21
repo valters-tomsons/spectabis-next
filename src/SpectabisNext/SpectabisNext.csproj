@@ -40,6 +40,7 @@
     <ProjectReference Include="..\SpectabisUI\SpectabisUI.csproj" />
     <ProjectReference Include="..\ServiceClient\ServiceClient.csproj" />
     <ProjectReference Include="..\AvaloniaGif\AvaloniaGif.csproj" />
+    <ProjectReference Include="..\NativeBridge\NativeBridge.csproj" />
   </ItemGroup>
 
   <ItemGroup>

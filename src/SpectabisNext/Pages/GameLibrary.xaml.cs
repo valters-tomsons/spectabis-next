@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using NativeBridge.Plugins;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
@@ -173,7 +174,9 @@ namespace SpectabisNext.Pages
 
             if (selectd == GameContextMenuItem.Configure)
             {
-                LaunchConfiguration(tile);
+                // LaunchConfiguration(tile);
+                var pad = new LilyPad();
+                pad.Configure();
             }
 
             if (selectd == GameContextMenuItem.Remove)
