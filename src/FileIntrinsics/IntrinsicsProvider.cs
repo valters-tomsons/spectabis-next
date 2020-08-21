@@ -69,5 +69,10 @@ namespace FileIntrinsics
 
             return null;
         }
+
+        public IEnumerable<string> GetKnownExtensions()
+        {
+            return _fileSignatures.SelectMany(x => x.FileExtensions);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FileIntrinsics.Models;
 
@@ -8,5 +9,6 @@ namespace FileIntrinsics.Interfaces
         Task<OffsetReading> GetSignatureOffset(string filePath, IHeaderSignature signature);
         Task<bool> SignatureFound(string filePath, IHeaderSignature signature);
         Task<IHeaderSignature> GetFileSignature(string filePath);
+        IEnumerable<string> GetKnownExtensions();
     }
 }
