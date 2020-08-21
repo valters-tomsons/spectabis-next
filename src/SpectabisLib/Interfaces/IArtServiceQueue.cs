@@ -3,7 +3,7 @@ using SpectabisLib.Models;
 
 namespace SpectabisLib.Interfaces
 {
-    public interface IBackgroundQueueService
+    public interface IArtServiceQueue
     {
         void QueueForBoxArt(GameProfile game);
         void StartProcessing();

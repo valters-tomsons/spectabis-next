@@ -7,7 +7,7 @@ using SpectabisLib.Models;
 
 namespace SpectabisLib.Services
 {
-    public class BackgroundQueueService : IBackgroundQueueService
+    public class GameArtQueue : IArtServiceQueue
     {
         private BackgroundWorker _gameArtThread;
         private readonly Queue<GameProfile> _gameArtQueue;
@@ -20,7 +20,7 @@ namespace SpectabisLib.Services
 
         public event EventHandler<EventArgs> ItemFinished;
 
-        public BackgroundQueueService(ISpectabisClient client, ProfileFileSystem profileFs)
+        public GameArtQueue(ISpectabisClient client, ProfileFileSystem profileFs)
         {
             _client = client;
             _profileFs = profileFs;

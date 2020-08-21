@@ -31,7 +31,7 @@ namespace SpectabisNext.Pages
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly IContextMenuEnumMapper _menuMapper;
         private readonly IDiscordService _discordService;
-        private readonly IBackgroundQueueService _queueService;
+        private readonly IArtServiceQueue _queueService;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly IGifProvider _gifProvider;
 
@@ -42,7 +42,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary() { }
 
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IBackgroundQueueService queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider)
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider)
         {
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;

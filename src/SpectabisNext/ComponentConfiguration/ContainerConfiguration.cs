@@ -44,7 +44,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
             builder.RegisterType<GameFileParser>().As<IGameFileParser>();
             builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>().SingleInstance();
-            builder.RegisterType<BackgroundQueueService>().As<IBackgroundQueueService>().SingleInstance();
+            builder.RegisterType<GameArtQueue>().As<IArtServiceQueue>().SingleInstance();
             builder.RegisterType<ProfileFileSystem>();
 
             builder.RegisterType<Telemetry>().As<ITelemetry>().SingleInstance();

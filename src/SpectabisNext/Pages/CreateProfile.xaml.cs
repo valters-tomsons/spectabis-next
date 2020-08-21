@@ -22,7 +22,7 @@ namespace SpectabisNext.Pages
         private readonly IPageNavigationProvider _navigation;
         private readonly IProfileFactory _profileFactory;
         private readonly IProfileRepository _gameRepo;
-        private readonly IBackgroundQueueService _artService;
+        private readonly IArtServiceQueue _artService;
         private readonly IConfigurationLoader _configuration;
         private readonly IFileBrowserFactory _fileBrowser;
         private readonly IGameDatabaseProvider _gameDb;
@@ -43,7 +43,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public CreateProfile() { }
 
-        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IBackgroundQueueService artService, IConfigurationLoader configuration, IFileBrowserFactory fileBrowser, IGameDatabaseProvider gameDb)
+        public CreateProfile(CreateProfileViewModel viewModel, IPageNavigationProvider navigation, IProfileFactory profileFactory, IProfileRepository gameRepo, IArtServiceQueue artService, IConfigurationLoader configuration, IFileBrowserFactory fileBrowser, IGameDatabaseProvider gameDb)
         {
             _gameRepo = gameRepo;
             _navigation = navigation;
