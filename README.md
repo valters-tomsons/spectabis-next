@@ -1,31 +1,16 @@
 # spectabis-next
 
+[![Build Status](https://dev.azure.com/Spectabis/SpectabisNext/_apis/build/status/FaithLV.spectabis-next?branchName=master)](https://dev.azure.com/Spectabis/SpectabisNext/_build/latest?definitionId=1&branchName=master)
 
-
-Cross-platform graphical frontend for PCSX2 emulator to replace [.NET Framework Spectabis](https://github.com/FaithLV/Spectabis). Currently developing in my free time, feel free to contribute.
-Plan is to implement most used and useful features of original Spectabis, improve code quality to encourage more contributions but most importantly, let me use PCSX2 again.
-[Began as a command-line frontend for the emulator](https://github.com/FaithLV/spectabis-cli), but that's too much effort for too little return.
+Spectabis is a free and open-source graphical frontend for [`PCSX2`](https://pcsx2.net/). Its purpose is to add aditional features which make using the PlayStation 2 (PS2) emulator easier and faster. This allows you to use PCSX2 with per-game configuration and many additional features and benefits. This source code is available to everyone under the standard [MIT license](LICENSE).
 
 Currently usable but not useful yet.
 
 *Please Note:* If you're building the desktop client from source, you will **not** be able to connect to the service and online functionality will not work. You can host the service locally though.
 
-[![Build Status](https://dev.azure.com/Spectabis/SpectabisNext/_apis/build/status/FaithLV.spectabis-next?branchName=master)](https://dev.azure.com/Spectabis/SpectabisNext/_build/latest?definitionId=1&branchName=master)
-
 ![Screenshot](https://i.imgur.com/RcbMegH.png)
 
-## Current Technology Stack
-
-**Desktop:**
-
-* .NET Core 3.1
-* AutoFac 4.9.2
-* Avalonia UI 0.9.7
-
-**Service:**
-
-* .NET Core 3.1
-* Azure Functions v3
+`! Games are not included and must be dumped from original game disc and imported.`
 
 ## Platforms
 
@@ -72,14 +57,25 @@ Currently usable but not useful yet.
 * Alphabetical
 * Genre
 
-## Coding Standarts
+## Open Source Technologies
 
-I've yet to come up with exact guidelines, but I try to follow SOLID principles wherever it's sensible. There's also full dependency injection with AutoFac, that includes Avalonia constructor injection etc.
+### Desktop
 
-Let's keep third party dependencies to a minimum and use them sensibly.
+* .NET Core 3.1
+* AutoFac 4.9.2
+* Avalonia UI 0.9.7
+* Avalo
 
-### Credits & Attributions
+### Service
 
-* Graphics - [Pixro](https://www.instagram.com/artcallspixro/)
+* .NET Core 3.1
+* Azure Functions v3
 
-* Game Art - [GiantBomb](https://www.giantbomb.com/api/)
+### Attributions
+
+* Graphics design by [Piksro](https://www.instagram.com/piksro/)
+* Game art delivered by [GiantBomb API](https://www.giantbomb.com/api/)
+
+## Contributing
+
+Please see [CONTIRUBTING.md](CONTRIBUTING.md)
