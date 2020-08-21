@@ -3,7 +3,7 @@
 
 using System;
 
-namespace AvaloniaGif.Caching
+namespace SpectabisUI.AnimatedImage.Caching
 {
     /// <summary>
     /// Basic builder methods common to all caches.

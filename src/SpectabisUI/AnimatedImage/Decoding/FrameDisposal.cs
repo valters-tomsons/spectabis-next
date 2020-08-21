@@ -1,4 +1,4 @@
-namespace AvaloniaGif.Decoding
+namespace SpectabisUI.AnimatedImage.Decoding
 {
     public enum FrameDisposal
     {

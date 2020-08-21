@@ -3,7 +3,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace AvaloniaGif.Decoding
+namespace SpectabisUI.AnimatedImage.Decoding
 {
     public class GifHeader
     {

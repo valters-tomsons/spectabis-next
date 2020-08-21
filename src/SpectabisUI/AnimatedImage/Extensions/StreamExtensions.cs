@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace AvaloniaGif.Extensions
+namespace SpectabisUI.AnimatedImage.Extensions
 {
     [DebuggerStepThrough]
     internal static class StreamExtensions

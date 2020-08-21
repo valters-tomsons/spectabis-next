@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace AvaloniaGif.Decoding
+namespace SpectabisUI.AnimatedImage.Decoding
 {
     [Serializable]
     public class LzwDecompressionException : Exception

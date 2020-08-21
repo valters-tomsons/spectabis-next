@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Avalonia.Controls;
-using AvaloniaGif;
+using SpectabisUI.AnimatedImage;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Helpers;

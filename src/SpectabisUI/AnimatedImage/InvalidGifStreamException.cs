@@ -1,13 +1,10 @@
-// Licensed under the MIT License.
-// Copyright (C) 2018 Jumar A. Macato, All Rights Reserved.
-
 using System;
 using System.Runtime.Serialization;
 
-namespace AvaloniaGif.Decoding
+namespace SpectabisUI.AnimatedImage
 {
     [Serializable]
-    public class InvalidGifStreamException : Exception
+    internal class InvalidGifStreamException : Exception
     {
         public InvalidGifStreamException()
         {

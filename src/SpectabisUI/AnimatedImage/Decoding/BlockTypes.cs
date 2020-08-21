@@ -1,4 +1,4 @@
-namespace AvaloniaGif.Decoding
+namespace SpectabisUI.AnimatedImage.Decoding
 {
     internal enum BlockTypes
     {

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace AvaloniaGif
+namespace SpectabisUI.AnimatedImage
 {
     [StructLayout(LayoutKind.Explicit)]
     public readonly struct GifColor

@@ -1,4 +1,4 @@
-﻿namespace AvaloniaGif
+﻿namespace SpectabisUI.AnimatedImage
 {
     internal enum BgWorkerCommand
     {
