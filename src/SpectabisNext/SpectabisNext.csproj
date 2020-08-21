@@ -39,7 +39,6 @@
     <ProjectReference Include="..\SpectabisLib\SpectabisLib.csproj" />
     <ProjectReference Include="..\SpectabisUI\SpectabisUI.csproj" />
     <ProjectReference Include="..\ServiceClient\ServiceClient.csproj" />
-    <ProjectReference Include="..\AvaloniaGif\AvaloniaGif.csproj" />
   </ItemGroup>
 
   <ItemGroup>
