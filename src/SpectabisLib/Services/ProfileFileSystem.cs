@@ -67,13 +67,9 @@ namespace SpectabisLib.Services
                 var fileSource = new Uri(globalConfigUri, file);
                 var fileTarget = new Uri(profileContainerUri, file);
 
-                using(FileStream SourceStream = File.Open(fileSource.LocalPath, FileMode.Open))
-                {
-                    using(FileStream DestinationStream = File.Create(fileTarget.LocalPath))
-                    {
-                        await SourceStream.CopyToAsync(DestinationStream).ConfigureAwait(false);
-                    }
-                }
+                using FileStream SourceStream = File.Open(fileSource.LocalPath, FileMode.Open);
+                using FileStream DestinationStream = File.Create(fileTarget.LocalPath);
+                await SourceStream.CopyToAsync(DestinationStream).ConfigureAwait(false);
             }
         }
 
@@ -182,22 +178,18 @@ namespace SpectabisLib.Services
 
         private async Task<string> ReadTextAsync(Uri filePath)
         {
-            using(var stream = File.OpenRead(filePath.LocalPath))
-            {
-                var content = new byte[stream.Length];
-                await stream.ReadAsync(content, 0, (int) stream.Length).ConfigureAwait(false);
-                return Encoding.Unicode.GetString(content);
-            }
+            using var stream = File.OpenRead(filePath.LocalPath);
+            var content = new byte[stream.Length];
+            await stream.ReadAsync(content, 0, (int)stream.Length).ConfigureAwait(false);
+            return Encoding.Unicode.GetString(content);
         }
 
         private async Task WriteTextAsync(Uri filePath, string text)
         {
             var encoded = Encoding.Unicode.GetBytes(text);
 
-            using(var stream = new FileStream(filePath.LocalPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, bufferSize : 4096, useAsync : true))
-            {
-                await stream.WriteAsync(encoded, 0, encoded.Length).ConfigureAwait(false);
-            }
+            using var stream = new FileStream(filePath.LocalPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true);
+            await stream.WriteAsync(encoded, 0, encoded.Length).ConfigureAwait(false);
         }
 
         private async Task OverwriteProfile(Uri filePath, string text)

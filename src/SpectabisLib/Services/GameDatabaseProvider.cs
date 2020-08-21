@@ -18,7 +18,7 @@ namespace SpectabisLib.Services
     {
         private IEnumerable<GameMetadata> _metadataDb;
         private Index _gameTitleIndex;
-        private readonly Uri DatabaseUri = new Uri($"{SystemDirectories.ResourcesPath}/gamedatabase.csv", UriKind.Relative);
+        private readonly Uri DatabaseUri = new Uri($"{SystemDirectories.ResourcesPath}/{Constants.PCSX2DatabaseName}", UriKind.Relative);
 
         public async Task<GameMetadata> GetBySerial(string serial)
         {
