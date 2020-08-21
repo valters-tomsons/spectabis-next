@@ -75,7 +75,7 @@ Currently usable but not useful yet.
 
 * Graphics design by [Piksro](https://www.instagram.com/piksro/)
 * Game art delivered by [GiantBomb API](https://www.giantbomb.com/api/)
-* AvaloniaGif by [Jumar Macato](https://github.com/jmacato/AvaloniaGif)
+* AvaloniaGif by [Jumar Macato](src/SpectabisUI/AnimatedImage/README.md)
 
 ## Contributing
 
