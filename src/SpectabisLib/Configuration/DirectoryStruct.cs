@@ -10,7 +10,6 @@ namespace SpectabisLib.Configuration
         private string _pcsx2Executable = SystemDirectories.Default_PCSX2ExecutablePath;
         private string _pcsx2ConfigurationPath = SystemDirectories.Default_PCSX2ConfigurationPath;
         private string _lastFileBrowserDirectory = SystemDirectories.HomeFolder;
-        private IEnumerable<string> _gameScanDirectories = new List<string>();
 
         public string Title { get; } = "Directory";
 
@@ -32,10 +31,6 @@ namespace SpectabisLib.Configuration
             set { _lastFileBrowserDirectory = value.OriginalString; }
         }
 
-        public IEnumerable<string> GameScanDirectories
-        {
-            get { return _gameScanDirectories; }
-            set { _gameScanDirectories = value;}
-        }
+        public IEnumerable<string> GameScanDirectories { get; set; } = new List<string>();
     }
 }

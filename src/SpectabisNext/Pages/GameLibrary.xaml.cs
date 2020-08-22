@@ -10,6 +10,7 @@ using Avalonia.Threading;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
+using SpectabisLib.Services;
 using SpectabisNext.Controls.GameTileView;
 using SpectabisNext.Factories;
 using SpectabisUI.Enums;
@@ -34,6 +35,7 @@ namespace SpectabisNext.Pages
         private readonly IArtServiceQueue _queueService;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly IGifProvider _gifProvider;
+        private readonly IDirectoryScan _dirScan;
 
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
 
@@ -42,7 +44,7 @@ namespace SpectabisNext.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary() { }
 
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider)
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider, IDirectoryScan dirScan)
         {
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
@@ -51,6 +53,7 @@ namespace SpectabisNext.Pages
             _queueService = queueService;
             _bitmapLoader = bitmapLoader;
             _gifProvider = gifProvider;
+            _dirScan = dirScan;
 
             _navigationProvider.PageNavigationEvent += OnNavigation;
 
@@ -62,6 +65,8 @@ namespace SpectabisNext.Pages
             _discordService = discordService;
 
             _queueService.ItemFinished += OnGameArtDownloaded;
+
+            _dirScan.ScanNewGames();
         }
 
         public void InitializeComponent()
