@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SpectabisLib.Configuration;
@@ -46,6 +45,7 @@ namespace SpectabisNext.Services
                 File.Delete(configUri.LocalPath);
             }
 
+            Console.WriteLine($"[Configuration] Writing to file '{configUri.LocalPath}'");
             await AsyncIOHelper.WriteTextToFile(configUri, configText).ConfigureAwait(false);
         }
 
