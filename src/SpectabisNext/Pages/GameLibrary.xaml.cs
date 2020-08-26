@@ -65,8 +65,6 @@ namespace SpectabisNext.Pages
             _discordService = discordService;
 
             _queueService.ItemFinished += OnGameArtDownloaded;
-
-            _dirScan.ScanNewGames();
         }
 
         public void InitializeComponent()
@@ -117,6 +115,7 @@ namespace SpectabisNext.Pages
             if (e.Page == this)
             {
                 Dispatcher.UIThread.InvokeAsync(AddNewGames);
+                Dispatcher.UIThread.InvokeAsync(() => _dirScan.ScanNewGames());
             }
         }
 

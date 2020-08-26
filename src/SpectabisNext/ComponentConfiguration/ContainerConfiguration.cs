@@ -41,13 +41,15 @@ namespace SpectabisNext.ComponentConfiguration
 
             builder.RegisterType<ConfigurationLoader>().As<IConfigurationLoader>().SingleInstance();
             builder.RegisterType<FirstTimeWizardService>().As<IFirstTimeWizard>().SingleInstance();
-            builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
-            builder.RegisterType<GameFileParser>().As<IGameFileParser>();
             builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>().SingleInstance();
             builder.RegisterType<GameArtQueue>().As<IArtServiceQueue>().SingleInstance();
-            builder.RegisterType<ProfileFileSystem>();
-            builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>();
+            builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>().SingleInstance();
 
+            builder.RegisterType<ProfileFileSystem>();
+            builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
+            builder.RegisterType<GameFileParser>().As<IGameFileParser>();
+
+            builder.RegisterType<ToastService>().As<INotificationService>().SingleInstance();
             builder.RegisterType<Telemetry>().As<ITelemetry>().SingleInstance();
         }
 

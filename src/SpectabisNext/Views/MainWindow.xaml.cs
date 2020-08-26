@@ -10,6 +10,7 @@ using SpectabisUI.Interfaces;
 using SpectabisLib.Repositories;
 using SpectabisLib.Interfaces;
 using ServiceClient.Interfaces;
+using Avalonia.Input;
 
 namespace SpectabisNext.Views
 {
@@ -21,17 +22,21 @@ namespace SpectabisNext.Views
         private readonly IGameLauncher _gameLauncher;
         private readonly IDiscordService _discordService;
         private readonly ITelemetry _telemetry;
+        private readonly INotificationService _notify;
 
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
         private ContentControl ContentContainer;
+        private Grid NotificationPanel;
+        private Rectangle NotificationPanelBackground;
+        private Grid NotificationButton;
 
         [Obsolete("XAMLIL placeholder", true)]
         public MainWindow()
         {
         }
 
-        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry)
+        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, CancellationTokenRepository tokenRepo, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry, INotificationService notify)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
@@ -39,6 +44,7 @@ namespace SpectabisNext.Views
             _gameLauncher = gameLauncher;
             _discordService = discordService;
             _telemetry = telemetry;
+            _notify = notify;
 
             Closed += OnWindowClosed;
 
@@ -61,6 +67,20 @@ namespace SpectabisNext.Views
 
             SetInitialPage();
             _navigationProvider.GeneratePageIcons();
+
+            // _notify.ToastNotification +=
+            NotificationButton.PointerPressed += OnNotificationButtonPress;
+            NotificationPanelBackground.PointerReleased += OnNotificationBackgroundPress;
+        }
+
+        private void OnNotificationBackgroundPress(object sender, PointerReleasedEventArgs e)
+        {
+            NotificationPanel.IsVisible = false;
+        }
+
+        private void OnNotificationButtonPress(object sender, PointerPressedEventArgs e)
+        {
+            NotificationPanel.IsVisible = true;
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -85,9 +105,13 @@ namespace SpectabisNext.Views
 
         private void RegisterChildern()
         {
-            Titlebar = this.FindControl<Rectangle>("Titlebar");
-            TitlebarPanel = this.FindControl<StackPanel>("TitlebarPanel");
-            ContentContainer = this.FindControl<ContentControl>("ContentContainer");
+            Titlebar = this.FindControl<Rectangle>(nameof(Titlebar));
+            TitlebarPanel = this.FindControl<StackPanel>(nameof(TitlebarPanel));
+            ContentContainer = this.FindControl<ContentControl>(nameof(ContentContainer));
+
+            NotificationButton = this.FindControl<Grid>(nameof(NotificationButton));
+            NotificationPanel = this.FindControl<Grid>(nameof(NotificationPanel));
+            NotificationPanelBackground = this.FindControl<Rectangle>(nameof(NotificationPanelBackground));
         }
 
         private void InitializeComponent()
