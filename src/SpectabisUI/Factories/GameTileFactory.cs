@@ -1,9 +1,9 @@
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
-using SpectabisNext.Controls.GameTileView;
+using SpectabisUI.Controls.GameTileView;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Factories
+namespace SpectabisUI.Factories
 {
     public class GameTileFactory
     {

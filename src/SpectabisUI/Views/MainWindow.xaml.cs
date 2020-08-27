@@ -4,14 +4,14 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
 using SpectabisLib.Helpers;
-using SpectabisNext.Controls.PageIcon;
-using SpectabisNext.Pages;
+using SpectabisUI.Controls.PageIcon;
+using SpectabisUI.Pages;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Repositories;
 using SpectabisLib.Interfaces;
 using ServiceClient.Interfaces;
 
-namespace SpectabisNext.Views
+namespace SpectabisUI.Views
 {
     public class MainWindow : Window
     {

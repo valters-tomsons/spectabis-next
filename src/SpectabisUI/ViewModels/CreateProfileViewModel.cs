@@ -3,7 +3,7 @@ using ReactiveUI;
 using SpectabisLib.Interfaces;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.ViewModels
+namespace SpectabisUI.ViewModels
 {
     public class CreateProfileViewModel : ReactiveObject
     {

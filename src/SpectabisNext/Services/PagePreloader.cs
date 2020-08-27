@@ -1,4 +1,4 @@
-using SpectabisNext.Pages;
+using SpectabisUI.Pages;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Services

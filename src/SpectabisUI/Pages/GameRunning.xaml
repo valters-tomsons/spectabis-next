@@ -1,7 +1,7 @@
 
 <UserControl
     xmlns="https://github.com/avaloniaui" 
-    x:Class="SpectabisNext.Pages.GameRunning"
+    x:Class="SpectabisUI.Pages.GameRunning"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
     <Grid Margin="10">

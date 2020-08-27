@@ -5,14 +5,14 @@ using System.IO;
 using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using SpectabisNext.ViewModels;
+using SpectabisUI.ViewModels;
 using SpectabisUI.Interfaces;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using System.Collections.Generic;
 using SpectabisLib.Interfaces;
 
-namespace SpectabisNext.Pages
+namespace SpectabisUI.Pages
 {
     public class Settings : UserControl, IPage
     {

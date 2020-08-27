@@ -8,7 +8,7 @@ using Avalonia.Threading;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Controls.GameTileView
+namespace SpectabisUI.Controls.GameTileView
 {
     public class GameTileView : UserControl, IGameTile
     {

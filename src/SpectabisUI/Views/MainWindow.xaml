@@ -5,7 +5,7 @@
     Width = "920"
     Height = "480"
     Title="Spectabis Next"
-    x:Class="SpectabisNext.Views.MainWindow"
+    x:Class="SpectabisUI.Views.MainWindow"
     >
 
     <Grid RowDefinitions="Auto,*">

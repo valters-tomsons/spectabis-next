@@ -6,7 +6,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Controls.PageIcon
+namespace SpectabisUI.Controls.PageIcon
 {
     public class PageIcon : UserControl, IPageIcon
     {

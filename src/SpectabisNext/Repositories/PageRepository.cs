@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using SpectabisNext.Factories;
+using SpectabisUI.Factories;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.Repositories

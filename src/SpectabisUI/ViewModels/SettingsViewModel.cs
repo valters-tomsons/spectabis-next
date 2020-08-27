@@ -5,7 +5,7 @@ using Avalonia.Threading;
 using ReactiveUI;
 using SpectabisLib.Interfaces;
 
-namespace SpectabisNext.ViewModels
+namespace SpectabisUI.ViewModels
 {
     public class SettingsViewModel : ReactiveObject
     {

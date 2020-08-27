@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Reflection;
 using Avalonia.Controls;
 using SpectabisLib.Repositories;
-using SpectabisNext.Views;
+using SpectabisUI.Views;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisNext
@@ -23,9 +23,10 @@ namespace SpectabisNext
         public void Start()
         {
             var appInstance = _windowConfiguration.GetInstance();
+            appInstance.Run(_mainWindow);
 
-            _mainWindow.Show();
-            appInstance.Run(_cancelRepo.GetToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp));
+            // _mainWindow.Show();
+            // appInstance.Run(_cancelRepo.GetToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp));
         }
 
         public string GetVersion()

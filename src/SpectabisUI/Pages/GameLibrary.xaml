@@ -1,6 +1,6 @@
 <UserControl
     xmlns="https://github.com/avaloniaui" 
-    x:Class="SpectabisNext.Pages.GameLibrary"
+    x:Class="SpectabisUI.Pages.GameLibrary"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
     <Grid Margin="10" Name="LibraryControlGrid">

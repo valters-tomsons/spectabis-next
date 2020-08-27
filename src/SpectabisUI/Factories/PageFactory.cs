@@ -1,7 +1,7 @@
 using Autofac;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Factories
+namespace SpectabisUI.Factories
 {
     public class PageFactory
     {

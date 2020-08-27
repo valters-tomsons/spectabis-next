@@ -25,54 +25,49 @@ namespace SpectabisNext.ComponentConfiguration
             RegisterLibs(builder);
             RegisterSpectabisLib(builder);
             RegisterSpectabis(builder);
-
-            builder.RegisterViewModels();
+            RegisterSpectabisUI(builder);
 
             return builder.Build();
         }
 
         private static void RegisterSpectabisLib(ContainerBuilder builder)
         {
-            var spectabisLib = Assembly.Load(nameof(SpectabisLib));
-
             builder.RegisterType<SpectabisLib.Repositories.GameProfileRepository>().As<IProfileRepository>().SingleInstance();
             builder.RegisterType<SpectabisLib.Repositories.CancellationTokenRepository>().SingleInstance();
             builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>().SingleInstance();
-
             builder.RegisterType<ConfigurationLoader>().As<IConfigurationLoader>().SingleInstance();
             builder.RegisterType<FirstTimeWizardService>().As<IFirstTimeWizard>().SingleInstance();
-            builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
-            builder.RegisterType<GameFileParser>().As<IGameFileParser>();
             builder.RegisterType<GameDatabaseProvider>().As<IGameDatabaseProvider>().SingleInstance();
             builder.RegisterType<GameArtQueue>().As<IArtServiceQueue>().SingleInstance();
-            builder.RegisterType<ProfileFileSystem>();
-            builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>();
-
             builder.RegisterType<Telemetry>().As<ITelemetry>().SingleInstance();
+
+            builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>();
+            builder.RegisterType<ProfileFileSystem>();
+            builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
+            builder.RegisterType<GameFileParser>().As<IGameFileParser>();
         }
 
         private static void RegisterSpectabis(ContainerBuilder builder)
         {
             builder.RegisterType<PageRepository>().As<IPageRepository>().SingleInstance();
             builder.RegisterType<PageNavigator>().As<IPageNavigationProvider>().SingleInstance();
-            builder.RegisterType<PagePreloader>().As<IPagePreloader>();
+            builder.RegisterType<DiscordService>().As<IDiscordService>().SingleInstance();
 
+            builder.RegisterType<PagePreloader>().As<IPagePreloader>();
             builder.RegisterType<BitmapLoader>().As<IBitmapLoader>();
             builder.RegisterType<GifProvider>().As<IGifProvider>();
             builder.RegisterType<FileBrowser>().As<IFileBrowserFactory>();
-
             builder.RegisterType<ContextMenuEnumMapper>().As<IContextMenuEnumMapper>();
-
-            builder.RegisterType<DiscordService>().As<IDiscordService>().SingleInstance();
-
-            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Views));
-            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Pages));
-            builder.RegisterNamespaceTypes(nameof(SpectabisNext.Factories));
         }
 
-        private static void RegisterViewModels(this ContainerBuilder builder)
+        private static void RegisterSpectabisUI(ContainerBuilder builder)
         {
-            builder.RegisterNamespaceTypes(nameof(ViewModels));
+            var uiLib = Assembly.Load(nameof(SpectabisUI));
+
+            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Views), uiLib);
+            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Pages), uiLib);
+            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Factories), uiLib);
+            builder.RegisterNamespaceTypes(nameof(SpectabisUI.ViewModels), uiLib);
         }
 
         private static void RegisterLibs(ContainerBuilder builder)

@@ -1,9 +1,9 @@
 using System;
-using SpectabisNext.Controls.PageIcon;
+using SpectabisUI.Controls.PageIcon;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Factories
+namespace SpectabisUI.Factories
 {
     public class NavigationBarItemFactory
     {

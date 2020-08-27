@@ -11,11 +11,11 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
-using SpectabisNext.ViewModels;
+using SpectabisUI.ViewModels;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Pages
+namespace SpectabisUI.Pages
 {
     public class CreateProfile : UserControl, IPage
     {

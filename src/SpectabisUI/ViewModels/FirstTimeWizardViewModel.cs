@@ -1,7 +1,7 @@
 using ReactiveUI;
 using SpectabisLib.Interfaces;
 
-namespace SpectabisNext.ViewModels
+namespace SpectabisUI.ViewModels
 {
     public class FirstTimeWizardViewModel : ReactiveObject
     {

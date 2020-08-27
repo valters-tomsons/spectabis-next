@@ -11,13 +11,13 @@ using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisLib.Services;
-using SpectabisNext.Controls.GameTileView;
-using SpectabisNext.Factories;
+using SpectabisUI.Controls.GameTileView;
+using SpectabisUI.Factories;
 using SpectabisUI.Enums;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Pages
+namespace SpectabisUI.Pages
 {
     public class GameLibrary : UserControl, IPage
     {

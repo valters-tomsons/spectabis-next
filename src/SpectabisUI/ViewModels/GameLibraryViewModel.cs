@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 
-namespace SpectabisNext.ViewModels
+namespace SpectabisUI.ViewModels
 {
     public class GameLibraryViewModel
     {

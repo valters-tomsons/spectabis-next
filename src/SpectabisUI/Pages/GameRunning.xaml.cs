@@ -6,7 +6,7 @@ using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Pages
+namespace SpectabisUI.Pages
 {
     public class GameRunning : UserControl, IPage
     {

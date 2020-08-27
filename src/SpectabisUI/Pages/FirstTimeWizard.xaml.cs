@@ -5,10 +5,10 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using SpectabisLib.Interfaces;
-using SpectabisNext.ViewModels;
+using SpectabisUI.ViewModels;
 using SpectabisUI.Interfaces;
 
-namespace SpectabisNext.Pages
+namespace SpectabisUI.Pages
 {
     public class FirstTimeWizard : UserControl, IPage
     {
