@@ -13,7 +13,7 @@ using SpectabisUI.Interfaces;
 
 namespace SpectabisNext.ComponentConfiguration
 {
-    public static class ContainerConfiguration
+    public static class AutoFacConfiguration
     {
         public static IContainer Configure()
         {

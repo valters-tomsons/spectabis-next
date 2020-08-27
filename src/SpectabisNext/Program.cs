@@ -8,7 +8,7 @@ namespace SpectabisNext
     {
         private static void Main(string[] args)
         {
-            var container = ContainerConfiguration.Configure();
+            var container = AutoFacConfiguration.Configure();
             StartSpectabis(container);
         }
 
