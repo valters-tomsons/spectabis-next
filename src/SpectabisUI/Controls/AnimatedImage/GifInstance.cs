@@ -1,4 +1,4 @@
-using SpectabisUI.AnimatedImage.Decoding;
+using SpectabisUI.Controls.AnimatedImage.Decoding;
 using System;
 using System.IO;
 using Avalonia;
@@ -8,7 +8,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Rendering;
 
-namespace SpectabisUI.AnimatedImage
+namespace SpectabisUI.Controls.AnimatedImage
 {
     public class GifInstance : IDisposable
     {

@@ -4,7 +4,7 @@ using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
 
-namespace SpectabisUI.AnimatedImage
+namespace SpectabisUI.Controls.AnimatedImage
 {
     public class GifImage
     {

@@ -15,10 +15,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using SpectabisUI.AnimatedImage.Caching;
-using static SpectabisUI.AnimatedImage.Extensions.StreamExtensions;
+using SpectabisUI.Controls.AnimatedImage.Caching;
+using static SpectabisUI.Controls.AnimatedImage.Extensions.StreamExtensions;
 
-namespace SpectabisUI.AnimatedImage.Decoding
+namespace SpectabisUI.Controls.AnimatedImage.Decoding
 {
     public sealed class GifDecoder : IDisposable
     {

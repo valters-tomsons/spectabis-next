@@ -1,4 +1,4 @@
-namespace SpectabisUI.AnimatedImage.Decoding
+namespace SpectabisUI.Controls.AnimatedImage.Decoding
 {
     public readonly struct GifRect
     {

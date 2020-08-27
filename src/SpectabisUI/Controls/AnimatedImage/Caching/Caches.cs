@@ -2,7 +2,7 @@
 /// This source file is derived from https://github.com/launchdarkly/dotnet-cache/
 /// Under the terms of Apache 2.0 License.
 /// </summary>
-namespace SpectabisUI.AnimatedImage.Caching
+namespace SpectabisUI.Controls.AnimatedImage.Caching
 {
     /// <summary>
     /// Methods for building caches.

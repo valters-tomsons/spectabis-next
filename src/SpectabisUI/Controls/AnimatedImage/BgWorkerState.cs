@@ -1,4 +1,4 @@
-﻿namespace SpectabisUI.AnimatedImage
+﻿namespace SpectabisUI.Controls.AnimatedImage
 {
     internal enum BgWorkerState
     {

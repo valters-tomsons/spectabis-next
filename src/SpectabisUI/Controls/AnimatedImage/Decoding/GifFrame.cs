@@ -1,6 +1,6 @@
 using System;
 
-namespace SpectabisUI.AnimatedImage.Decoding
+namespace SpectabisUI.Controls.AnimatedImage.Decoding
 {
     public class GifFrame
     {

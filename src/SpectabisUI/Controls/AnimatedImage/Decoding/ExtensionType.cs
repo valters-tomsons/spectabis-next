@@ -1,4 +1,4 @@
-namespace SpectabisUI.AnimatedImage.Decoding
+namespace SpectabisUI.Controls.AnimatedImage.Decoding
 {
     internal enum ExtensionType
     {

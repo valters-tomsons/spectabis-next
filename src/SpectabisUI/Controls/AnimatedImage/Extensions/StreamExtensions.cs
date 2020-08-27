@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace SpectabisUI.AnimatedImage.Extensions
+namespace SpectabisUI.Controls.AnimatedImage.Extensions
 {
     [DebuggerStepThrough]
     internal static class StreamExtensions

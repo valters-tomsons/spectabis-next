@@ -3,10 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.Generic;
-using SpectabisUI.AnimatedImage.Decoding;
+using SpectabisUI.Controls.AnimatedImage.Decoding;
 using System.Linq;
 
-namespace SpectabisUI.AnimatedImage
+namespace SpectabisUI.Controls.AnimatedImage
 {
     internal sealed class GifBackgroundWorker
     {

@@ -7,7 +7,7 @@ using System.Runtime;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SpectabisUI.AnimatedImage.Caching
+namespace SpectabisUI.Controls.AnimatedImage.Caching
 {
     /// <summary>
     /// A concurrent in-memory cache with optional read-through behavior, an optional TTL, and the

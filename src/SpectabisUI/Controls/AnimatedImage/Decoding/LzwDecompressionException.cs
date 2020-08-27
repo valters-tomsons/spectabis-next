@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace SpectabisUI.AnimatedImage.Decoding
+namespace SpectabisUI.Controls.AnimatedImage.Decoding
 {
     [Serializable]
     public class LzwDecompressionException : Exception

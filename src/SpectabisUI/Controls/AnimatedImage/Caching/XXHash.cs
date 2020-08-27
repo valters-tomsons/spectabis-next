@@ -38,7 +38,7 @@ using System.Security.Cryptography;
 using System.Runtime.CompilerServices;
 
 
-namespace SpectabisUI.AnimatedImage.Caching
+namespace SpectabisUI.Controls.AnimatedImage.Caching
 {
     //see details: https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md
 

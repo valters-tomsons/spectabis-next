@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SpectabisUI.AnimatedImage.Caching
+namespace SpectabisUI.Controls.AnimatedImage.Caching
 {
     /// <summary>
     /// Builder for a key-value cache.
