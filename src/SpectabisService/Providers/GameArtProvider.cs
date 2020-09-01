@@ -4,19 +4,18 @@ using SpectabisLib.Interfaces;
 using SpectabisLib.Helpers;
 using SpectabisService.Abstractions.Interfaces;
 using SpectabisService.Providers.Interfaces;
-using SpectabisService.Services;
-using System.Linq;
+using SpectabisService.Services.Interfaces;
 
 namespace SpectabisService.Providers
 {
     public class GameArtProvider : IGameArtProvider
     {
         private readonly IGameArtClient _artClient;
-        private readonly PCSX2DatabaseProvider _dbProvider;
-        private readonly ContentDownloader _downloader;
+        private readonly IGameDatabaseProvider _dbProvider;
+        private readonly IContentDownloader _downloader;
         private readonly IStorageProvider _storage;
 
-        public GameArtProvider(IGameArtClient artClient, PCSX2DatabaseProvider dbProvider, ContentDownloader downloader, IStorageProvider storage)
+        public GameArtProvider(IGameArtClient artClient, IGameDatabaseProvider dbProvider, IContentDownloader downloader, IStorageProvider storage)
         {
             _artClient = artClient;
             _dbProvider = dbProvider;
@@ -31,15 +30,8 @@ namespace SpectabisService.Providers
                 return new BadRequestObjectResult("Missing serial in query");
             }
 
-            var gameDb = await _dbProvider.GetDatabase().ConfigureAwait(false);
-
-            if (gameDb == null)
-            {
-                return new BadRequestObjectResult("Failed retrieving database");
-            }
-
             var normalizedSerial = serial.NormalizeSerial();
-            var game = gameDb.FirstOrDefault(x => x.Serial.Equals(normalizedSerial));
+            var game = await _dbProvider.GetBySerial(normalizedSerial).ConfigureAwait(false);
 
             if (game == null)
             {

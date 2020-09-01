@@ -9,9 +9,15 @@
   <ItemGroup>
     <PackageReference Include="Bard" Version="3.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="Moq" Version="4.14.5" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SpectabisService\SpectabisService.csproj" />
+    <ProjectReference Include="..\..\src\SpectabisLib\SpectabisLib.csproj" />
   </ItemGroup>
 
 </Project>

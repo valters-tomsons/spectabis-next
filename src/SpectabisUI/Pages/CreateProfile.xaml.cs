@@ -137,7 +137,7 @@ namespace SpectabisUI.Pages
             }
             else
             {
-                await _gameDb.IntializeDatabase().ConfigureAwait(false);
+                await _gameDb.InitializeDatabase().ConfigureAwait(false);
             }
         }
 

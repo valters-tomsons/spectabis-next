@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using SpectabisLib.Enums;
+using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisService.Abstractions.Interfaces;
 using SpectabisService.Models;
@@ -17,7 +18,7 @@ using TinyCsvParser.TypeConverter;
 
 namespace SpectabisService.Services
 {
-    public class PCSX2DatabaseProvider
+    public class CloudDatabaseProvider : IGameDatabaseProvider
     {
         private readonly IHttpClient _httpClient;
         private readonly IStorageProvider _storageProvider;
@@ -25,7 +26,7 @@ namespace SpectabisService.Services
 
         private const string DatabaseFileName = "PCSX2_GAMES";
 
-        public PCSX2DatabaseProvider(IHttpClient httpClient, IConfigurationRoot config, IStorageProvider storageProvider)
+        public CloudDatabaseProvider(IHttpClient httpClient, IConfigurationRoot config, IStorageProvider storageProvider)
         {
             var databaseUrl = config.GetValue<string>("DatabaseUri_PCSX2");
             _databaseUri = new Uri(databaseUrl ,UriKind.Absolute);
@@ -34,7 +35,30 @@ namespace SpectabisService.Services
             _storageProvider = storageProvider;
         }
 
-        public async Task<IEnumerable<GameMetadata>> GetDatabase()
+        public async Task<GameMetadata> GetBySerial(string serial)
+        {
+            var db = await GetDatabase().ConfigureAwait(false);
+            return db.FirstOrDefault(x => x.Serial.Equals(serial));
+        }
+
+        #pragma warning disable CS1998
+        public async Task<GameMetadata> GetNearestByTitle(string title)
+        {
+            throw new NotSupportedException();
+        }
+
+        public async Task<IEnumerable<GameMetadata>> QueryByTitle(string title, int count)
+        {
+            throw new NotSupportedException();
+        }
+
+        public async Task InitializeDatabase()
+        {
+            throw new NotSupportedException();
+        }
+        #pragma warning restore CS1998
+
+        private async Task<IEnumerable<GameMetadata>> GetDatabase()
         {
             var fromStorage = ReadParsedFromStorage().ConfigureAwait(false);
             var lastModified = await _storageProvider.GetLastModified(DatabaseFileName).ConfigureAwait(false);

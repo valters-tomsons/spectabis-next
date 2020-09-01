@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SpectabisLib.Services
 {
-    public class GameDatabaseProvider : IGameDatabaseProvider
+    public class LocalDatabaseProvider : IGameDatabaseProvider
     {
         private IEnumerable<GameMetadata> _metadataDb;
         private Index _gameTitleIndex;
@@ -22,13 +22,13 @@ namespace SpectabisLib.Services
 
         public async Task<GameMetadata> GetBySerial(string serial)
         {
-            await IntializeDatabase().ConfigureAwait(false);
+            await InitializeDatabase().ConfigureAwait(false);
             return _metadataDb.FirstOrDefault(x => x.Serial == serial);
         }
 
         public async Task<GameMetadata> GetNearestByTitle(string title)
         {
-            await IntializeDatabase().ConfigureAwait(false);
+            await InitializeDatabase().ConfigureAwait(false);
 
             var query = await QueryByTitle(title, 5).ConfigureAwait(false);
             return query.FirstOrDefault();
@@ -36,7 +36,7 @@ namespace SpectabisLib.Services
 
         public async Task<IEnumerable<GameMetadata>> QueryByTitle(string title, int count = 5)
         {
-            await IntializeDatabase().ConfigureAwait(false);
+            await InitializeDatabase().ConfigureAwait(false);
 
             var results = new List<GameMetadata>(count);
 
@@ -49,7 +49,7 @@ namespace SpectabisLib.Services
             return results.Distinct(new MetadataTitleComparer()).Take(count);
         }
 
-        public async Task IntializeDatabase()
+        public async Task InitializeDatabase()
         {
             if (_metadataDb == null)
             {

@@ -9,6 +9,6 @@ namespace SpectabisLib.Interfaces
         Task<GameMetadata> GetBySerial(string serial);
         Task<GameMetadata> GetNearestByTitle(string title);
         Task<IEnumerable<GameMetadata>> QueryByTitle(string title, int count = 5);
-        Task IntializeDatabase();
+        Task InitializeDatabase();
     }
 }

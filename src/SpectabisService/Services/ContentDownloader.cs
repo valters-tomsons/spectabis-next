@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using SpectabisService.Abstractions.Interfaces;
+using SpectabisService.Services.Interfaces;
 
 namespace SpectabisService.Services
 {
-    public class ContentDownloader
+    public class ContentDownloader : IContentDownloader
     {
         private readonly IHttpClient _client;
 

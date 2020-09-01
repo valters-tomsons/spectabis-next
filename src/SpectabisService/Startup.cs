@@ -8,6 +8,7 @@ using SpectabisService.Services;
 using Microsoft.Extensions.Configuration;
 using SpectabisService.Providers.Interfaces;
 using SpectabisService.Providers;
+using SpectabisService.Services.Interfaces;
 
 [assembly: FunctionsStartup(typeof(SpectabisService.Startup))]
 namespace SpectabisService
@@ -22,7 +23,8 @@ namespace SpectabisService
             services.AddSingleton<IHttpClient, HttpClientFacade>();
 
             services.AddTransient<IStorageProvider, AzureStorageProvider>();
-            services.AddTransient<PCSX2DatabaseProvider>();
+            services.AddTransient<IGameDatabaseProvider, CloudDatabaseProvider>();
+            services.AddTransient<IContentDownloader, ContentDownloader>();
 
             services.AddTransient<IGameArtClient, GiantBombClient>();
             services.AddTransient<ContentDownloader>();
