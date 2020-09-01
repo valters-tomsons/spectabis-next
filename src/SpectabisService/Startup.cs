@@ -1,12 +1,13 @@
 using System;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using GiantBomb.Api;
 using SpectabisLib.Interfaces;
 using SpectabisService.Abstractions;
 using SpectabisService.Abstractions.Interfaces;
 using SpectabisService.Services;
 using Microsoft.Extensions.Configuration;
+using SpectabisService.Providers.Interfaces;
+using SpectabisService.Providers;
 
 [assembly: FunctionsStartup(typeof(SpectabisService.Startup))]
 namespace SpectabisService
@@ -25,6 +26,8 @@ namespace SpectabisService
 
             services.AddTransient<IGameArtClient, GiantBombClient>();
             services.AddTransient<ContentDownloader>();
+
+            services.AddTransient<IGameArtProvider, GameArtProvider>();
         }
     }
 
