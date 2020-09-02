@@ -46,7 +46,7 @@ namespace ServiceClient.Services
         {
             if(_httpClient == null)
             {
-                throw new Exception("HttpClient not initialized");
+                throw new Exception("HttpClient not initialized!");
             }
 
             return _httpClient;
@@ -83,18 +83,13 @@ namespace ServiceClient.Services
                 return new RestResponse()
                 {
                     StatusCode = response.StatusCode,
-                        Body = responseBody,
-                        HttpException = null
+                    Body = responseBody,
+                    HttpException = null
                 };
             }
             catch (HttpRequestException e)
             {
-                return new RestResponse()
-                {
-                    StatusCode = null,
-                        Body = null,
-                        HttpException = e
-                };
+                return new RestResponse(e);
             }
         }
 
