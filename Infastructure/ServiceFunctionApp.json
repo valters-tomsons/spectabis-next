@@ -29,7 +29,7 @@
             "kind": "web",
             "properties": {
                 "Application_Type": "web",
-                "Request_Source": "IbizaWebAppExtensionCreate",
+                "Request_Source": "rest",
                 "RetentionInDays": 90,
                 "publicNetworkAccessForIngestion": "Enabled",
                 "publicNetworkAccessForQuery": "Enabled"
@@ -194,7 +194,6 @@
                 "httpLoggingEnabled": false,
                 "logsDirectorySizeLimit": 35,
                 "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$spectabis-api-eu",
                 "azureStorageAccounts": {},
                 "scmType": "VSTSRM",
                 "use32BitWorkerProcess": true,
