@@ -10,23 +10,27 @@ namespace ServiceTests
     public class GetGameBoxArtTest
     {
         private readonly IScenario Scenario;
-        private readonly IRestClient Client;
 
         public GetGameBoxArtTest()
         {
-            var baseAddress = new Uri("http://localhost:7071/api/", UriKind.Absolute);
+            var apiUrl = Environment.GetEnvironmentVariable("ServiceBaseUrl") ?? "http://localhost:7071/api/";
+            var apiKey = Environment.GetEnvironmentVariable("ServiceApiKey");
 
-            Client = new RestClient();
-            Client.SetSession("test", baseAddress);
-            var client = Client.GetClient();
+            var restClient = new RestClient();
+            var baseAddress = new Uri(apiUrl, UriKind.Absolute);
+            restClient.SetSession(apiKey, baseAddress);
 
+            var client = restClient.GetClient();
             Scenario = ScenarioConfiguration.Configure(options => options.Client = client);
         }
 
         [Fact]
-        public void When_requesting_game_art()
+        public void When_requesting_game_art_should_return_OK()
         {
+            // Act
             Scenario.When.Get("GetGameBoxArt", "serial", "SLUS21376");
+
+            // Assert
             Scenario.Then.Response.ShouldBe.Ok();
         }
     }
