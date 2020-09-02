@@ -42,6 +42,16 @@ namespace ServiceClient.Services
             return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
         }
 
+        public HttpClient GetClient()
+        {
+            if(_httpClient == null)
+            {
+                throw new Exception("HttpClient not initialized");
+            }
+
+            return _httpClient;
+        }
+
         private void InitializeHttpClient()
         {
             if (_httpClient == null)
@@ -51,6 +61,7 @@ namespace ServiceClient.Services
                     _httpClient = new HttpClient();
                     _httpClient.DefaultRequestHeaders.UserAgent.TryParseAdd(UserAgent);
                     _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-functions-key", _functionKey);
+                    _httpClient.BaseAddress = _functionBaseUrl;
                 }
             }
         }
