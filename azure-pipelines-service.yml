@@ -6,6 +6,7 @@ trigger:
     include:
     - src/SpectabisService
     - src/SpectabisLib
+    - Tests/ServiceTests
 
 pool:
   vmImage: 'ubuntu-latest'
