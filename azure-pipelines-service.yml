@@ -21,19 +21,36 @@ steps:
     packageType: 'sdk'
     version: '3.1.101'
 
-- script: dotnet publish src/SpectabisService -c $(CONFIGURATION) -r linux-x64 -o $(ARTIFACTSFOLDER)
+- script: dotnet publish src/SpectabisService -c $(CONFIGURATION) -r linux-x64 -o $(ServiceArtifact)
   displayName: 'build service'
+  
+- script: dotnet public Tests/ServiceTests -c $(CONFIGURATION) -r linux-x64 -o $(TestsArtifact)
+  displayName: 'Publish Tests'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(ARTIFACTSFOLDER)'
+    rootFolderOrFile: '$(ServiceArtifact)'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-service.zip'
+    replaceExistingArchive: true
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(TestsArtifact)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-tests.zip'
     replaceExistingArchive: true
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-service.zip'
     artifact: 'Spectabis-Service'
+    publishLocation: 'pipeline'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-tests.zip'
+    artifact: 'Service-Tests'
     publishLocation: 'pipeline'
