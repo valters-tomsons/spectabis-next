@@ -1,7 +1,6 @@
 using System;
 using Bard;
 using Bard.Configuration;
-using ServiceClient.Interfaces;
 using ServiceClient.Services;
 using Xunit;
 

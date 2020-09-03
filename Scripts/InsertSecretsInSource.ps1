@@ -4,8 +4,8 @@ param(
 		[string]$targetFile
 	)
 
-$tokens = "{{ServiceApiKey}}", "{{TelemetryKey}}"
-$tokenValues = "$env:SERVICE_API_KEY", "$env:TELEMETRY_KEY"
+$tokens = "{{ServiceApiKey}}", "{{TelemetryKey}}", "{{ServiceBaseUrl}}"
+$tokenValues = "$env:SERVICE_API_KEY", "$env:TELEMETRY_KEY", "$env:SERVICE_BASE_URL"
 
 # Insert service API keys
 for ($i = 0; $i -lt $tokens.Count; $i++) {
