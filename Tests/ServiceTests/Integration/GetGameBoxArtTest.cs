@@ -12,8 +12,8 @@ namespace ServiceTests
 
         public GetGameBoxArtTest()
         {
-            var apiUrl = Environment.GetEnvironmentVariable("ServiceBaseUrl") ?? "http://localhost:7071/api/";
-            var apiKey = Environment.GetEnvironmentVariable("ServiceApiKey");
+            var apiUrl = Environment.GetEnvironmentVariable("SERVICE_BASE_URL") ?? "http://localhost:7071/api/";
+            var apiKey = Environment.GetEnvironmentVariable("SERVICE_API_KEY");
 
             var restClient = new RestClient();
             var baseAddress = new Uri(apiUrl, UriKind.Absolute);
