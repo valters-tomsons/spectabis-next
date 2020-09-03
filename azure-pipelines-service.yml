@@ -22,10 +22,10 @@ steps:
     version: '3.1.101'
 
 - script: dotnet publish src/SpectabisService -c $(CONFIGURATION) -r linux-x64 -o $(ServiceArtifact)
-  displayName: 'build service'
+  displayName: 'Build Service Package'
   
-- script: dotnet public Tests/ServiceTests -c $(CONFIGURATION) -r linux-x64 -o $(TestsArtifact)
-  displayName: 'Publish Tests'
+- script: dotnet publish Tests/ServiceTests -c $(CONFIGURATION) -r linux-x64 -o $(TestsArtifact)
+  displayName: 'Build Tests'
 
 - task: ArchiveFiles@2
   inputs:
