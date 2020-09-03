@@ -38,6 +38,7 @@ steps:
   env:
     SERVICE_API_KEY: $(SERVICE_API_KEY)
     TELEMETRY_KEY: $(TELEMETRY_KEY)
+    SERVICE_BASE_URL: $(SERVICE_BASE_URL)
 
 - script: dotnet publish -c $CONFIGURATION -r linux-x64
   displayName: 'Build for linux-x64'
