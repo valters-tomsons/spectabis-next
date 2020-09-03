@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Avalonia.Threading;
 using ReactiveUI;
 using SpectabisLib.Interfaces;
 

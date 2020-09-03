@@ -1,5 +1,4 @@
 using System;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
