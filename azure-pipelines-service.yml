@@ -25,10 +25,11 @@ steps:
 - script: dotnet publish src/SpectabisService -c $(CONFIGURATION) -r linux-x64 -o $(ServiceArtifact)
   displayName: 'Build Service Package'
   
-- script: dotnet publish Tests/ServiceTests -c $(CONFIGURATION) -r linux-x64 -o $(TestsArtifact)
-  displayName: 'Build Tests'
+- script: dotnet publish Tests/Integration/ServiceTests -c $(CONFIGURATION) -r linux-x64 -o $(TestsArtifact)
+  displayName: 'Build integration tests'
 
 - task: ArchiveFiles@2
+  displayName: 'Archive service package'
   inputs:
     rootFolderOrFile: '$(ServiceArtifact)'
     includeRootFolder: false
@@ -37,6 +38,7 @@ steps:
     replaceExistingArchive: true
 
 - task: ArchiveFiles@2
+  displayName: 'Archive integration tests'
   inputs:
     rootFolderOrFile: '$(TestsArtifact)'
     includeRootFolder: false
@@ -45,12 +47,14 @@ steps:
     replaceExistingArchive: true
 
 - task: PublishPipelineArtifact@1
+  displayName: 'Publish service package artifact'
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-service.zip'
     artifact: 'Spectabis-Service'
     publishLocation: 'pipeline'
 
 - task: PublishPipelineArtifact@1
+  displayName: 'Publish integration tests artifact'
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-tests.zip'
     artifact: 'Service-Tests'
