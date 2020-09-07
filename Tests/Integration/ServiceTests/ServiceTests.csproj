@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -16,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SpectabisService\SpectabisService.csproj" />
-    <ProjectReference Include="..\..\src\SpectabisLib\SpectabisLib.csproj" />
+    <ProjectReference Include="..\..\..\src\SpectabisService\SpectabisService.csproj" />
+    <ProjectReference Include="..\..\..\src\SpectabisLib\SpectabisLib.csproj" />
   </ItemGroup>
 
 </Project>
