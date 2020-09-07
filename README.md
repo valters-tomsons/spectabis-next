@@ -64,7 +64,7 @@ Currently usable but not useful yet.
 * .NET Core 3.1
 * AutoFac 4.9.2
 * Avalonia UI 0.9.7
-* Avalo
+* Reactive UI
 
 ### Service
 
