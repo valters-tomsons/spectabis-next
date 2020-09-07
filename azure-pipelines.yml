@@ -5,7 +5,7 @@ trigger:
   paths:
     exclude:
     - src/SpectabisService
-    - Tests/ServiceTests
+    - Tests/Integration/ServiceTests
 
 pool:
   vmImage: 'ubuntu-latest'
