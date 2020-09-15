@@ -16,7 +16,7 @@ namespace SpectabisUI.Factories
         public IPage Create<T>()
         {
             var page = _containerScope.Resolve<T>();
-            Logging.WriteLine($"PageFactory: Creating new {page.GetType()}");
+            Logging.WriteLine($"Creating new {page.GetType()}");
             return page as IPage;
         }
     }

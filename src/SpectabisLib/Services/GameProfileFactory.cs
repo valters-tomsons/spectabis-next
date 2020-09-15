@@ -30,7 +30,7 @@ namespace SpectabisLib.Services
             if(metadata == null)
             {
                 var fileName = Path.GetFileName(gameFilePath);
-                Logging.WriteLine($"[GameProfileFactory] Could not parse '{fileName}', using file name as game title");
+                Logging.WriteLine($"Could not parse '{fileName}', using file name as game title");
 
                 var title = GetNameFromPath(gameFilePath);
 

@@ -42,12 +42,12 @@ namespace SpectabisLib.Services
 
             if (File.Exists(profileUri.LocalPath))
             {
-                Logging.WriteLine($"[ProfileFileSystem] Overwriting profile json '{profile.Id}'");
+                Logging.WriteLine($"Overwriting profile json '{profile.Id}'");
                 await OverwriteProfile(profileUri, profileJson).ConfigureAwait(false);
                 return;
             }
 
-            Logging.WriteLine($"[ProfileFileSystem] Creating profile json '{profile.Id}'");
+            Logging.WriteLine($"Creating profile json '{profile.Id}'");
             await WriteTextAsync(profileUri, profileJson).ConfigureAwait(false);
         }
 
@@ -56,7 +56,7 @@ namespace SpectabisLib.Services
             var profileContainerUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/inis/", UriKind.Absolute);
             Directory.CreateDirectory(profileContainerUri.LocalPath);
 
-            Logging.WriteLine($"[ProfileFileSystem] Writing default to profile container : `{profile.Id}`");
+            Logging.WriteLine($"Writing default to profile container : `{profile.Id}`");
 
             var globalConfigUri = GetGlobalConfigsUri();
             var globalConfigFiles = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly).Select(Path.GetFileName);
@@ -110,7 +110,7 @@ namespace SpectabisLib.Services
 
             if (!Directory.Exists(profileFolderUri.LocalPath))
             {
-                Logging.WriteLine($"[ProfileFileSystem] Profile '{gameId}' does not exist");
+                Logging.WriteLine($"Profile '{gameId}' does not exist");
                 return null;
             }
 
@@ -127,18 +127,18 @@ namespace SpectabisLib.Services
 
             if (!Directory.Exists(profileFolderUri.LocalPath))
             {
-                Logging.WriteLine($"[ProfileFileSystem] Profile folder '{gameId}' does not exist");
+                Logging.WriteLine($"Profile folder '{gameId}' does not exist");
                 return;
             }
 
             if (!File.Exists(profileUri.LocalPath))
             {
-                Logging.WriteLine($"[ProfileFileSystem] Profile json '{gameId}' does not exist");
+                Logging.WriteLine($"Profile json '{gameId}' does not exist");
                 return;
             }
 
             Directory.Delete(profileFolderUri.LocalPath, true);
-            Logging.WriteLine($"[ProfileFileSystem] Profile '{gameId}' deleted");
+            Logging.WriteLine($"Profile '{gameId}' deleted");
         }
 
         public bool IsProfileContainerValid(GameProfile profile)

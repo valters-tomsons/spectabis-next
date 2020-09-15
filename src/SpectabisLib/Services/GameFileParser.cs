@@ -24,7 +24,7 @@ namespace SpectabisLib.Services
 
             if(fileType == null)
             {
-                Logging.WriteLine($"[GameFileParser] parsing failed for unsupported file:'{gamePath}'");
+                Logging.WriteLine($"Parsing failed for unsupported file:'{gamePath}'");
                 return null;
             }
 

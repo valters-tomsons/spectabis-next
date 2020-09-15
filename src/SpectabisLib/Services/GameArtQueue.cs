@@ -43,7 +43,7 @@ namespace SpectabisLib.Services
 
             if (gameQueued || string.IsNullOrWhiteSpace(game.SerialNumber))
             {
-                Logging.WriteLine($"[QueueService] Not queuing '{game.Id}' because serial is null");
+                Logging.WriteLine($"Not queuing '{game.Id}' because serial is null");
                 return;
             }
 
@@ -80,18 +80,18 @@ namespace SpectabisLib.Services
         {
             if (_gameArtQueue.Count == 0)
             {
-                Logging.WriteLine("[QueueService] Queue is empty");
+                Logging.WriteLine("Queue is empty");
                 return;
             }
 
             var game = _gameArtQueue.Dequeue();
             _currentProcess = game;
-            Logging.WriteLine($"[QueueService] Dequeued '{game.Id}'");
+            Logging.WriteLine($"Dequeued '{game.Id}'");
 
-            Logging.WriteLine("[QueueService] Downloading boxart");
+            Logging.WriteLine("Downloading boxart");
             var boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
 
-            Logging.WriteLine("[QueueService] Writing boxart to file system");
+            Logging.WriteLine("Writing boxart to file system");
             await _profileFs.WriteGameBoxArtImage(game, boxBytes).ConfigureAwait(false);
 
             _finishedArt.Push(game);

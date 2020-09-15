@@ -80,7 +80,7 @@ namespace SpectabisLib.Services
         {
             if (_gameProcess != null)
             {
-                Logging.WriteLine($"[PCSX2-GameLauncher] Losing lease of existing process '{_gameProcess.Game.Title}' : '{_gameProcess.Process.Id}'");
+                Logging.WriteLine($"Losing lease of existing process '{_gameProcess.Game.Title}' : '{_gameProcess.Process.Id}'");
             }
 
             var process = new Process();

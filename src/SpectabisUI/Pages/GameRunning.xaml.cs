@@ -36,7 +36,7 @@ namespace SpectabisUI.Pages
             RegisterChildren();
 
             var gameProc = _gameLauncher.GetRunningGame();
-            Logging.WriteLine($"[GameRunning] Game running:{gameProc.Game.Title} with processId '{gameProc.Process.Id}'");
+            Logging.WriteLine($"Game running:{gameProc.Game.Title} with processId '{gameProc.Process.Id}'");
         }
 
         private void RegisterChildren()

@@ -24,7 +24,7 @@ namespace SpectabisNext.Services
                 return;
             }
 
-            Logging.WriteLine("[DiscordService] Starting DiscordService client");
+            Logging.WriteLine("Starting DiscordService client");
 
             client = new DiscordRpcClient("450325564956344320");
             client.Initialize();
@@ -53,7 +53,7 @@ namespace SpectabisNext.Services
                 InitializeDiscord();
             }
 
-            Logging.WriteLine($"[DiscordService] Updating status to: '{status}'");
+            Logging.WriteLine($"Updating status to: '{status}'");
 
             var presence = new RichPresence()
             {
