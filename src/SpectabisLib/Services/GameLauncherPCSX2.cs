@@ -80,7 +80,7 @@ namespace SpectabisLib.Services
         {
             if (_gameProcess != null)
             {
-                Console.WriteLine($"[PCSX2-GameLauncher] Losing lease of existing process '{_gameProcess.Game.Title}' : '{_gameProcess.Process.Id}'");
+                Logging.WriteLine($"[PCSX2-GameLauncher] Losing lease of existing process '{_gameProcess.Game.Title}' : '{_gameProcess.Process.Id}'");
             }
 
             var process = new Process();
@@ -102,7 +102,7 @@ namespace SpectabisLib.Services
         {
             if (!string.IsNullOrWhiteSpace(profile.EmulatorPath))
             {
-                Console.WriteLine($"Emulator path for '{profile.Title}' loaded from profile.json");
+                Logging.WriteLine($"Emulator path for '{profile.Title}' loaded from profile.json");
                 return profile.EmulatorPath;
             }
 
@@ -110,11 +110,11 @@ namespace SpectabisLib.Services
 
             if (!string.IsNullOrWhiteSpace(configValue))
             {
-                Console.WriteLine($"Emulator path for '{profile.Title}' loaded from directory.json");
+                Logging.WriteLine($"Emulator path for '{profile.Title}' loaded from directory.json");
                 return configValue;
             }
 
-            Console.WriteLine($"Emulator path for '{profile.Title}' loaded from default configuration : '{SystemDirectories.Default_PCSX2ExecutablePath}'");
+            Logging.WriteLine($"Emulator path for '{profile.Title}' loaded from default configuration : '{SystemDirectories.Default_PCSX2ExecutablePath}'");
             return SystemDirectories.Default_PCSX2ExecutablePath;
         }
     }

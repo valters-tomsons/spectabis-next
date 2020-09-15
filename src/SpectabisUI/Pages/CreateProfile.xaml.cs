@@ -14,6 +14,7 @@ using SpectabisLib.Models;
 using SpectabisUI.ViewModels;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Helpers;
 
 namespace SpectabisUI.Pages
 {
@@ -159,14 +160,14 @@ namespace SpectabisUI.Pages
 
             try
             {
-                Console.WriteLine(_viewModel.GameTitle);
+                Logging.WriteLine(_viewModel.GameTitle);
                 var query = await _gameDb.QueryByTitle(_viewModel.GameTitle).ConfigureAwait(true);
                 Dispatcher.UIThread.Post(() => SetTitleSuggestions(query));
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to query database by title `{_viewModel.GameTitle}`");
-                Console.WriteLine(ex.Message);
+                Logging.WriteLine($"Failed to query database by title `{_viewModel.GameTitle}`");
+                Logging.WriteLine(ex.Message);
             }
         }
 
@@ -208,7 +209,7 @@ namespace SpectabisUI.Pages
 
         ~CreateProfile()
         {
-            Console.WriteLine("Destroying CreateProfile page");
+            Logging.WriteLine("Destroying CreateProfile page");
         }
     }
 }

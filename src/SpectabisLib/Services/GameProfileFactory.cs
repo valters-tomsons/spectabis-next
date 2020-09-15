@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 
@@ -29,7 +30,7 @@ namespace SpectabisLib.Services
             if(metadata == null)
             {
                 var fileName = Path.GetFileName(gameFilePath);
-                System.Console.WriteLine($"[GameProfileFactory] Could not parse '{fileName}', using file name as game title");
+                Logging.WriteLine($"[GameProfileFactory] Could not parse '{fileName}', using file name as game title");
 
                 var title = GetNameFromPath(gameFilePath);
 

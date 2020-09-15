@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FileIntrinsics.Enums;
 using FileIntrinsics.Interfaces;
 using FileParsing.Parsers;
+using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 
 namespace SpectabisLib.Services
@@ -23,7 +24,7 @@ namespace SpectabisLib.Services
 
             if(fileType == null)
             {
-                Console.WriteLine($"[GameFileParser] parsing failed for unsupported file:'{gamePath}'");
+                Logging.WriteLine($"[GameFileParser] parsing failed for unsupported file:'{gamePath}'");
                 return null;
             }
 

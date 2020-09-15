@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using SpectabisNext.ComponentConfiguration;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Helpers;
 
 namespace SpectabisNext
 {
@@ -18,7 +19,7 @@ namespace SpectabisNext
             var spectabisApp = scope.Resolve<ISpectabis>();
 
             var spectabisVersion = spectabisApp.GetVersion();
-            System.Console.WriteLine($"Starting Spectabis '{spectabisVersion}'");
+            Logging.WriteLine($"Starting Spectabis '{spectabisVersion}'");
 
             spectabisApp.Start();
         }

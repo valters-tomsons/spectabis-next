@@ -45,7 +45,7 @@ namespace SpectabisNext.Services
                 File.Delete(configUri.LocalPath);
             }
 
-            Console.WriteLine($"[Configuration] Writing to file '{configUri.LocalPath}'");
+            Logging.WriteLine($"[Configuration] Writing to file '{configUri.LocalPath}'");
             await AsyncIOHelper.WriteTextToFile(configUri, configText).ConfigureAwait(false);
         }
 
@@ -68,7 +68,7 @@ namespace SpectabisNext.Services
             }
 
             var configTitle = new T().Title.ToLowerInvariant();
-            Console.WriteLine($"[ConfigLoader] Loading '{configTitle}.json'");
+            Logging.WriteLine($"[ConfigLoader] Loading '{configTitle}.json'");
 
             var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
             var configText = await AsyncIOHelper.ReadTextFromFile(configUri).ConfigureAwait(false);
@@ -77,7 +77,7 @@ namespace SpectabisNext.Services
 
         private T ReturnDefault<T>() where T : IJsonConfig, new()
         {
-            Console.WriteLine($"[ConfigLoader] Getting default config for '{typeof(T)}'");
+            Logging.WriteLine($"[ConfigLoader] Getting default config for '{typeof(T)}'");
             return new T();
         }
     }

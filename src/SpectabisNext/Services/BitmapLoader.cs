@@ -39,8 +39,8 @@ namespace SpectabisNext.Services
             }
             catch(Exception e)
             {
-                Console.WriteLine($"Failed to load boxart for '{game.Id}'");
-                Console.WriteLine(e.Message);
+                Logging.WriteLine($"Failed to load boxart for '{game.Id}'");
+                Logging.WriteLine(e.Message);
 
                 return DefaultBoxart;
             }
@@ -55,9 +55,9 @@ namespace SpectabisNext.Services
                 return new Bitmap(tempArtPath);
             }
 
-            Console.WriteLine(Path.GetFullPath(tempArtPath));
-            Console.WriteLine($"Cannot locate {tempArtPath}");
-            Console.WriteLine("Failed to load default boxart");
+            Logging.WriteLine(Path.GetFullPath(tempArtPath));
+            Logging.WriteLine($"Cannot locate {tempArtPath}");
+            Logging.WriteLine("Failed to load default boxart");
             return null;
         }
     }

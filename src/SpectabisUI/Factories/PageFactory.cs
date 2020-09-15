@@ -1,4 +1,5 @@
 using Autofac;
+using SpectabisLib.Helpers;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisUI.Factories
@@ -15,7 +16,7 @@ namespace SpectabisUI.Factories
         public IPage Create<T>()
         {
             var page = _containerScope.Resolve<T>();
-            System.Console.WriteLine($"PageFactory: Creating new {page.GetType()}");
+            Logging.WriteLine($"PageFactory: Creating new {page.GetType()}");
             return page as IPage;
         }
     }

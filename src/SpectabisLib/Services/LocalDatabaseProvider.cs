@@ -81,7 +81,7 @@ namespace SpectabisLib.Services
 
         private IEnumerable<GameMetadata> GetDatabase()
         {
-            Console.WriteLine($"GameDatabaseProvider: Reading PCSX2 game database from '{DatabaseUri}'");
+            Logging.WriteLine($"GameDatabaseProvider: Reading PCSX2 game database from '{DatabaseUri}'");
 
             var parserOptions = new CsvParserOptions(true, '\t');
             var csvMapper = new DatabaseModelMapping();

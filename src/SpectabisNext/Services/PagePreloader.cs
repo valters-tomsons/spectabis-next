@@ -1,5 +1,6 @@
 using SpectabisUI.Pages;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Helpers;
 
 namespace SpectabisNext.Services
 {
@@ -9,7 +10,7 @@ namespace SpectabisNext.Services
 
         public PagePreloader(IPageRepository pageRepository)
         {
-            System.Console.WriteLine("PagePreloader: " + GetHashCode());
+            Logging.WriteLine("PagePreloader: " + GetHashCode());
             _pageRepository = pageRepository;
         }
 
@@ -23,7 +24,7 @@ namespace SpectabisNext.Services
         private void LoadPage<T>()
         {
             var pageType = typeof(T);
-            System.Console.WriteLine($"Preloading page: {pageType}");
+            Logging.WriteLine($"Preloading page: {pageType}");
             _pageRepository.GetPage<T>();
         }
     }

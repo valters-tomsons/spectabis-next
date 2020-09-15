@@ -7,6 +7,7 @@ using SpectabisUI.Factories;
 using SpectabisUI.Events;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Helpers;
 
 namespace SpectabisNext.Services
 {
@@ -35,8 +36,8 @@ namespace SpectabisNext.Services
 
             if (container == null)
             {
-                Console.WriteLine("MainWindow not initialized properly");
-                Console.WriteLine("Content [Control] container is null");
+                Logging.WriteLine("MainWindow not initialized properly");
+                Logging.WriteLine("Content [Control] container is null");
                 return;
             }
 
@@ -68,7 +69,7 @@ namespace SpectabisNext.Services
 
             if (pageResult == null)
             {
-                Console.WriteLine($"Page '{typeof(T)}' not found!");
+                Logging.WriteLine($"Page '{typeof(T)}' not found!");
                 return;
             }
 
@@ -93,7 +94,7 @@ namespace SpectabisNext.Services
 
             foreach (var page in loadedPages)
             {
-                Console.WriteLine($"Generating navigation icon for {page.GetType()}");
+                Logging.WriteLine($"Generating navigation icon for {page.GetType()}");
                 var icon = _navItemFactory.Create(page, PageNavigationClicked);
                 NavigationItemBar.Children.Add(icon);
             }

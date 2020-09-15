@@ -219,7 +219,7 @@ namespace SpectabisUI.Pages
 
         private void LaunchConfiguration(GameTileView gameTile)
         {
-            Console.WriteLine($"[GameLibrary] Configuring {gameTile.Profile.Title}");
+            Logging.WriteLine($"[GameLibrary] Configuring {gameTile.Profile.Title}");
 
             _gameLauncher.StartConfiguration(gameTile.Profile);
             _navigationProvider.Navigate<GameRunning>();
@@ -227,7 +227,7 @@ namespace SpectabisUI.Pages
 
         private void LaunchTile(GameTileView gameTile)
         {
-            Console.WriteLine($"[GameLibrary] Launching {gameTile.Profile.Title}");
+            Logging.WriteLine($"[GameLibrary] Launching {gameTile.Profile.Title}");
 
             _gameLauncher.StartGame(gameTile.Profile);
             _discordService.SetGamePresence(gameTile.Profile);
@@ -237,7 +237,7 @@ namespace SpectabisUI.Pages
 
         private void RemoveGame(GameTileView gameTile)
         {
-            Console.WriteLine($"[GameLibrary] Removing {gameTile.Profile.Id}");
+            Logging.WriteLine($"[GameLibrary] Removing {gameTile.Profile.Id}");
 
             _gameRepo.DeleteProfile(gameTile.Profile);
             LoadedProfiles.Remove(gameTile.Profile);

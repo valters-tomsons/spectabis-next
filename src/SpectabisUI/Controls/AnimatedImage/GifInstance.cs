@@ -1,6 +1,7 @@
 using SpectabisUI.Controls.AnimatedImage.Decoding;
 using System;
 using System.IO;
+using SpectabisLib.Helpers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Animation;
@@ -109,7 +110,7 @@ namespace SpectabisUI.Controls.AnimatedImage
 
         public void Dispose()
         {
-            Console.WriteLine("Disposing of GifInstance");
+            Logging.WriteLine("Disposing of GifInstance");
             _isDisposed = true;
             AvaloniaLocator.Current.GetService<IRenderTimer>().Tick -= RenderTick;
             _bgWorker?.SendCommand(BgWorkerCommand.Dispose);

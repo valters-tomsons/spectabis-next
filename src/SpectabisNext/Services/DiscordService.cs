@@ -2,6 +2,7 @@ using System;
 using DiscordRPC;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
+using SpectabisLib.Helpers;
 
 namespace SpectabisNext.Services
 {
@@ -23,7 +24,7 @@ namespace SpectabisNext.Services
                 return;
             }
 
-            Console.WriteLine("[DiscordService] Starting DiscordService client");
+            Logging.WriteLine("[DiscordService] Starting DiscordService client");
 
             client = new DiscordRpcClient("450325564956344320");
             client.Initialize();
@@ -52,7 +53,7 @@ namespace SpectabisNext.Services
                 InitializeDiscord();
             }
 
-            Console.WriteLine($"[DiscordService] Updating status to: '{status}'");
+            Logging.WriteLine($"[DiscordService] Updating status to: '{status}'");
 
             var presence = new RichPresence()
             {
