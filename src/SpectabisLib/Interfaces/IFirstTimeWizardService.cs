@@ -6,6 +6,7 @@ namespace SpectabisLib.Interfaces
     {
         Task WriteInitialConfigs();
         bool IsRequired();
-        Task WriteFirstTimeWizardCompleted();
+        Task DisableFirstTimeWizard();
+        string GetTelemetryStatusMessage(bool toggle = false);
     }
 }

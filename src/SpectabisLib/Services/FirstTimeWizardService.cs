@@ -19,7 +19,7 @@ namespace SpectabisLib.Services
             await _configLoader.WriteDefaultsIfNotExist<SpectabisConfig>().ConfigureAwait(false);
         }
 
-        public async Task WriteFirstTimeWizardCompleted()
+        public async Task DisableFirstTimeWizard()
         {
             _configLoader.Spectabis.RunFirstTimeWizard = false;
             await _configLoader.WriteConfiguration(_configLoader.Spectabis).ConfigureAwait(false);
@@ -28,6 +28,26 @@ namespace SpectabisLib.Services
         public bool IsRequired()
         {
             return _configLoader.Spectabis.RunFirstTimeWizard;
+        }
+
+        public string GetTelemetryStatusMessage(bool toggle = false)
+        {
+            if(toggle)
+            {
+                _configLoader.Spectabis.EnableTelemetry = !_configLoader.Spectabis.EnableTelemetry;
+                _configLoader.WriteConfiguration(_configLoader.Spectabis);
+            }
+
+            var isEnabled = _configLoader.Spectabis.EnableTelemetry;
+
+            if(isEnabled)
+            {
+                return _configLoader.TextConfig.TelemetryEnabled;
+            }
+            else
+            {
+                return _configLoader.TextConfig.TelemetryOptedOut;
+            }
         }
     }
 }

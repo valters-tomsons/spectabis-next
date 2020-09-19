@@ -13,6 +13,7 @@ namespace SpectabisNext.Services
         public SpectabisConfig Spectabis { get; private set; }
         public UIConfig UserInterface { get; private set; }
         public DirectoryConfig Directories { get; private set; }
+        public TextConfig TextConfig { get; private set; }
 
         public ConfigurationLoader()
         {
@@ -25,6 +26,7 @@ namespace SpectabisNext.Services
             UserInterface = await ReadConfiguration<UIConfig>().ConfigureAwait(false);
             Spectabis = await ReadConfiguration<SpectabisConfig>().ConfigureAwait(false);
             Directories = await ReadConfiguration<DirectoryConfig>().ConfigureAwait(false);
+            TextConfig = await ReadConfiguration<TextConfig>().ConfigureAwait(false);
         }
 
         public bool ConfigurationExists<T>() where T : IJsonConfig, new()

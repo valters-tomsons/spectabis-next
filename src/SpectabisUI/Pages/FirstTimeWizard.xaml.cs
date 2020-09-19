@@ -21,9 +21,11 @@ namespace SpectabisUI.Pages
         private readonly IPageNavigationProvider _pageNavigator;
         private readonly IFirstTimeWizardService _wizardService;
         private readonly IFileBrowserFactory _fileBrowser;
+
         private Button BrowseExecutableButton;
         private Button BrowseConfigurationButton;
         private Button FinishButton;
+        private Button TelemetrySwitchButton;
 
         private readonly FirstTimeWizardViewModel _viewModel;
 
@@ -41,6 +43,8 @@ namespace SpectabisUI.Pages
 
             InitializeComponent();
             RegisterChildren();
+
+            _viewModel.TelemetryMessage = _wizardService.GetTelemetryStatusMessage(false);
         }
 
         public void InitializeComponent()
@@ -54,10 +58,17 @@ namespace SpectabisUI.Pages
             BrowseExecutableButton = this.FindControl<Button>(nameof(BrowseExecutableButton));
             BrowseConfigurationButton = this.FindControl<Button>(nameof(BrowseConfigurationButton));
             FinishButton = this.FindControl<Button>(nameof(FinishButton));
+            TelemetrySwitchButton = this.FindControl<Button>(nameof(TelemetrySwitchButton));
 
             BrowseExecutableButton.Click += BrowseExecutableClick;
             FinishButton.Click += FirstButtonClick;
             BrowseConfigurationButton.Click += BrowseConfigClick;
+            TelemetrySwitchButton.Click += TelemetrySwitchClick;
+        }
+
+        private void TelemetrySwitchClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.TelemetryMessage = _wizardService.GetTelemetryStatusMessage(true);
         }
 
         private void BrowseConfigClick(object sender, RoutedEventArgs e)
@@ -104,7 +115,7 @@ namespace SpectabisUI.Pages
         {
             _wizardService.WriteInitialConfigs();
             _pageNavigator.Navigate<GameLibrary>();
-            _wizardService.WriteFirstTimeWizardCompleted();
+            _wizardService.DisableFirstTimeWizard();
         }
     }
 }

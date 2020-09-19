@@ -8,6 +8,8 @@ namespace SpectabisLib.Interfaces
         SpectabisConfig Spectabis { get; }
         UIConfig UserInterface { get; }
         DirectoryConfig Directories { get; }
+        TextConfig TextConfig { get; }
+
         Task WriteConfiguration<T>(T obj) where T : IJsonConfig, new();
         Task<T> ReadConfiguration<T>() where T : IJsonConfig, new();
         bool ConfigurationExists<T>() where T : IJsonConfig, new();
