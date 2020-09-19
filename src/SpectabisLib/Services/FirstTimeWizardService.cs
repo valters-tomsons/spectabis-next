@@ -19,9 +19,15 @@ namespace SpectabisLib.Services
             await _configLoader.WriteDefaultsIfNotExist<SpectabisConfig>().ConfigureAwait(false);
         }
 
+        public async Task WriteFirstTimeWizardCompleted()
+        {
+            _configLoader.Spectabis.RunFirstTimeWizard = false;
+            await _configLoader.WriteConfiguration(_configLoader.Spectabis).ConfigureAwait(false);
+        }
+
         public bool IsRequired()
         {
-            return true;
+            return _configLoader.Spectabis.RunFirstTimeWizard;
         }
     }
 }

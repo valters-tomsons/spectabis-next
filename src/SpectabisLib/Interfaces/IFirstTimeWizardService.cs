@@ -6,5 +6,6 @@ namespace SpectabisLib.Interfaces
     {
         Task WriteInitialConfigs();
         bool IsRequired();
+        Task WriteFirstTimeWizardCompleted();
     }
 }

@@ -104,6 +104,7 @@ namespace SpectabisUI.Pages
         {
             _wizardService.WriteInitialConfigs();
             _pageNavigator.Navigate<GameLibrary>();
+            _wizardService.WriteFirstTimeWizardCompleted();
         }
     }
 }
