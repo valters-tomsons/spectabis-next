@@ -35,7 +35,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<SpectabisLib.Repositories.GameProfileRepository>().As<IProfileRepository>().SingleInstance();
             builder.RegisterType<GameLauncherPCSX2>().As<IGameLauncher>().SingleInstance();
             builder.RegisterType<ConfigurationLoader>().As<IConfigurationLoader>().SingleInstance();
-            builder.RegisterType<FirstTimeWizardService>().As<IFirstTimeWizardService>().SingleInstance();
+            builder.RegisterType<FirstTimeWizardController>().As<IFirstTimeWizardService>().SingleInstance();
             builder.RegisterType<LocalDatabaseProvider>().As<IGameDatabaseProvider>().SingleInstance();
             builder.RegisterType<GameArtQueue>().As<IArtServiceQueue>().SingleInstance();
             builder.RegisterType<Telemetry>().As<ITelemetry>().SingleInstance();

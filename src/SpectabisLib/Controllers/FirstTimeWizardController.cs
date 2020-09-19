@@ -4,11 +4,11 @@ using SpectabisLib.Interfaces;
 
 namespace SpectabisLib.Services
 {
-    public class FirstTimeWizardService : IFirstTimeWizardService
+    public class FirstTimeWizardController : IFirstTimeWizardService
     {
         private readonly IConfigurationLoader _configLoader;
 
-        public FirstTimeWizardService(IConfigurationLoader configLoader)
+        public FirstTimeWizardController(IConfigurationLoader configLoader)
         {
             _configLoader = configLoader;
         }
