@@ -66,7 +66,6 @@ namespace SpectabisUI.Views
         private void OnWindowClosed(object sender, EventArgs e)
         {
             _gameLauncher.StopGame();
-            _cancelRepo.CancelToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp);
         }
 
         private void OnIconPress(object sender, EventArgs e)

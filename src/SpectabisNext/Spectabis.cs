@@ -11,22 +11,17 @@ namespace SpectabisNext
     {
         private readonly IWindowConfiguration _windowConfiguration;
         private readonly MainWindow _mainWindow;
-        private readonly CancellationTokenRepository _cancelRepo;
 
-        public Spectabis(IWindowConfiguration windowConfiguration, MainWindow mainWindow, CancellationTokenRepository cancelRepo)
+        public Spectabis(IWindowConfiguration windowConfiguration, MainWindow mainWindow)
         {
             _windowConfiguration = windowConfiguration;
             _mainWindow = mainWindow;
-            _cancelRepo = cancelRepo;
         }
 
         public void Start()
         {
             var appInstance = _windowConfiguration.GetInstance();
             appInstance.Run(_mainWindow);
-
-            // _mainWindow.Show();
-            // appInstance.Run(_cancelRepo.GetToken(SpectabisLib.Enums.CancellationTokenKey.SpectabisApp));
         }
 
         public string GetVersion()
