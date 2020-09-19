@@ -19,6 +19,7 @@ namespace SpectabisUI.Views
         private readonly IGameLauncher _gameLauncher;
         private readonly IDiscordService _discordService;
         private readonly ITelemetry _telemetry;
+        private readonly IFirstTimeWizardService _firstTimeWizard;
 
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
@@ -29,13 +30,14 @@ namespace SpectabisUI.Views
         {
         }
 
-        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry)
+        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
             _gameLauncher = gameLauncher;
             _discordService = discordService;
             _telemetry = telemetry;
+            _firstTimeWizard = firstTimeWizard;
 
             Closed += OnWindowClosed;
 
@@ -111,7 +113,16 @@ namespace SpectabisUI.Views
 
         private void SetInitialPage()
         {
-            _navigationProvider.Navigate<FirstTimeWizard>();
+            var initialWizard = _firstTimeWizard.IsRequired();
+
+            if(initialWizard)
+            {
+                _navigationProvider.Navigate<FirstTimeWizard>();
+            }
+            else
+            {
+                _navigationProvider.Navigate<GameLibrary>();
+            }
         }
     }
 }

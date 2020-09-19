@@ -2,8 +2,9 @@ using System.Threading.Tasks;
 
 namespace SpectabisLib.Interfaces
 {
-    public interface IFirstTimeWizard
+    public interface IFirstTimeWizardService
     {
         Task WriteInitialConfigs();
+        bool IsRequired();
     }
 }

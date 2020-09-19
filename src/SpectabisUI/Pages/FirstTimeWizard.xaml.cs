@@ -19,7 +19,7 @@ namespace SpectabisUI.Pages
 
         private readonly IConfigurationLoader _configuration;
         private readonly IPageNavigationProvider _pageNavigator;
-        private readonly IFirstTimeWizard _wizardService;
+        private readonly IFirstTimeWizardService _wizardService;
         private readonly IFileBrowserFactory _fileBrowser;
         private Button BrowseExecutableButton;
         private Button BrowseConfigurationButton;
@@ -30,7 +30,7 @@ namespace SpectabisUI.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public FirstTimeWizard() { }
 
-        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator, IFirstTimeWizard wizardService, IFileBrowserFactory fileBrowser, FirstTimeWizardViewModel viewModel)
+        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator, IFirstTimeWizardService wizardService, IFileBrowserFactory fileBrowser, FirstTimeWizardViewModel viewModel)
         {
             _configuration = configuration;
             _pageNavigator = pageNavigator;
