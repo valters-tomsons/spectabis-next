@@ -7,7 +7,6 @@ using SpectabisLib.Helpers;
 using SpectabisUI.Controls.PageIcon;
 using SpectabisUI.Pages;
 using SpectabisUI.Interfaces;
-using SpectabisLib.Repositories;
 using SpectabisLib.Interfaces;
 using ServiceClient.Interfaces;
 
@@ -46,6 +45,7 @@ namespace SpectabisUI.Views
             }
 
             InitializeSpectabis();
+            SetInitialPage();
         }
 
         private void InitializeSpectabis()
@@ -61,10 +61,7 @@ namespace SpectabisUI.Views
             FillElementColors();
 
             ContentContainer.PropertyChanged += OnContentContainerPropertyChanged;
-
             _navigationProvider.GeneratePageIcons();
-
-            SetInitialPage();
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -88,9 +85,9 @@ namespace SpectabisUI.Views
 
         private void RegisterChildern()
         {
-            Titlebar = this.FindControl<Rectangle>("Titlebar");
-            TitlebarPanel = this.FindControl<StackPanel>("TitlebarPanel");
-            ContentContainer = this.FindControl<ContentControl>("ContentContainer");
+            Titlebar = this.FindControl<Rectangle>(nameof(Titlebar));
+            TitlebarPanel = this.FindControl<StackPanel>(nameof(TitlebarPanel));
+            ContentContainer = this.FindControl<ContentControl>(nameof(ContentContainer));
         }
 
         private void InitializeComponent()
