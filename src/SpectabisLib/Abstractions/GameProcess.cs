@@ -1,7 +1,8 @@
 using System;
 using System.Diagnostics;
+using SpectabisLib.Models;
 
-namespace SpectabisLib.Models
+namespace SpectabisLib.Abstractions
 {
     public class GameProcess
     {
@@ -10,11 +11,12 @@ namespace SpectabisLib.Models
 
         public GameProfile Game { get; }
         public Process Process { get; }
-
-        private readonly Stopwatch playTimer = new Stopwatch();
+        public Stopwatch Stopwatch { get; }
 
         public GameProcess(GameProfile game, Process process)
         {
+            Stopwatch = new Stopwatch();
+
             Game = game;
             Process = process;
         }
@@ -23,23 +25,23 @@ namespace SpectabisLib.Models
         {
             Process.Exited += OnGameProcessExited;
             Process.Start();
-            playTimer.Start();
+            Stopwatch.Start();
         }
 
         public TimeSpan Stop()
         {
-            playTimer.Stop();
+            Stopwatch.Stop();
             Process.Kill();
             OnGameStopped();
 
             Process.Exited -= OnGameProcessExited;
 
-            return GetSessionLength();
+            return GetElapsed();
         }
 
-        public TimeSpan GetSessionLength()
+        public TimeSpan GetElapsed()
         {
-            return playTimer.Elapsed;
+            return Stopwatch.Elapsed;
         }
 
         private void OnGameProcessExited(object sender, EventArgs e)

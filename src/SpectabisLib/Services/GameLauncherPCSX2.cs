@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using SpectabisLib.Abstractions;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
@@ -63,7 +64,7 @@ namespace SpectabisLib.Services
 
         private async Task UpdatePlaytime(GameProcess process)
         {
-            var session = process.GetSessionLength();
+            var session = process.GetElapsed();
             var profile = process.Game;
 
             profile.Playtime += session;

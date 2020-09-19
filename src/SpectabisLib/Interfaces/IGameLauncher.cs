@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using SpectabisLib.Models;
+using SpectabisLib.Abstractions;
 
 namespace SpectabisLib.Interfaces
 {
