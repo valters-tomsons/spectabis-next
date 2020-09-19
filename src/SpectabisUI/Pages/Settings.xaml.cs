@@ -1,15 +1,10 @@
-using System.Runtime.InteropServices;
-using System.Reflection;
 using System.Linq;
-using System.IO;
 using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using SpectabisUI.ViewModels;
 using SpectabisUI.Interfaces;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
-using System.Collections.Generic;
 using SpectabisLib.Interfaces;
 
 namespace SpectabisUI.Pages
@@ -27,14 +22,14 @@ namespace SpectabisUI.Pages
 
         private readonly SettingsViewModel _viewModel;
         private readonly IFileBrowserFactory _fileBrowser;
-        private readonly IConfigurationLoader _configuration;
+        private readonly ISettingsController _controller;
 
         [Obsolete("XAMLIL placeholder", true)]
         public Settings()
         {
         }
 
-        public Settings(SettingsViewModel viewModel, IFileBrowserFactory fileBrowser, IConfigurationLoader configuration)
+        public Settings(SettingsViewModel viewModel, IFileBrowserFactory fileBrowser, ISettingsController controller)
         {
             InitializeComponent();
             RegisterChildren();
@@ -42,8 +37,8 @@ namespace SpectabisUI.Pages
             _viewModel = viewModel;
             DataContext = _viewModel;
 
-            _configuration = configuration;
             _fileBrowser = fileBrowser;
+            _controller = controller;
         }
 
         public void InitializeComponent()
@@ -64,34 +59,19 @@ namespace SpectabisUI.Pages
         private async void AddScanClick(object sender, RoutedEventArgs e)
         {
             var target = await _fileBrowser.BeginGetDirectoryPath("Select directory to scan").ConfigureAwait(true);
+            var newDirs = await _controller.AppendScanDirectory(target).ConfigureAwait(true);
 
-            if(string.IsNullOrEmpty(target))
+            if(newDirs != null)
             {
-                return;
+                _viewModel.ScanDirectories = newDirs.ToList();
             }
-
-            if(!Directory.Exists(target))
-            {
-                return;
-            }
-
-            var newDirs = _viewModel.ScanDirectories.Append(target);
-
-            _configuration.Directories.GameScanDirectories = newDirs;
-            await _configuration.WriteConfiguration(_configuration.Directories).ConfigureAwait(true);
-
-            _viewModel.ScanDirectories = _configuration.Directories.GameScanDirectories.ToList();
         }
 
         private async void RemoveScanClick(object sender, RoutedEventArgs e)
         {
             var selected = DirectoryList.SelectedItem as string;
-            var updated = _viewModel.ScanDirectories.Where(x => x != selected);
-
-            _configuration.Directories.GameScanDirectories = updated;
-            await _configuration.WriteConfiguration(_configuration.Directories).ConfigureAwait(true);
-
-            _viewModel.ScanDirectories = _configuration.Directories.GameScanDirectories.ToList();
+            var newDirs = await _controller.RemoveScanDirectory(selected).ConfigureAwait(true);
+            _viewModel.ScanDirectories = newDirs.ToList();
         }
     }
 }
