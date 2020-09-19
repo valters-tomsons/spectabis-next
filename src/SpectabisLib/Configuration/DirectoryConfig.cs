@@ -5,13 +5,13 @@ using SpectabisLib.Interfaces;
 
 namespace SpectabisLib.Configuration
 {
-    public class DirectoryStruct : IJsonConfig
+    public class DirectoryConfig : IJsonConfig
     {
         private string _pcsx2Executable = SystemDirectories.Default_PCSX2ExecutablePath;
         private string _pcsx2ConfigurationPath = SystemDirectories.Default_PCSX2ConfigurationPath;
         private string _lastFileBrowserDirectory = SystemDirectories.HomeFolder;
 
-        public string Title { get; } = "Directory";
+        public string Title { get; } = nameof(DirectoryConfig).ConfigClassToFileName();
 
         public Uri PCSX2Executable
         {

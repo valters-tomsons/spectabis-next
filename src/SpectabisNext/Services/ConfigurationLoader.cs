@@ -11,8 +11,8 @@ namespace SpectabisNext.Services
     public class ConfigurationLoader : IConfigurationLoader
     {
         public SpectabisConfig Spectabis { get; private set; }
-        public UIConfiguration UserInterface { get; private set; }
-        public DirectoryStruct Directories { get; private set; }
+        public UIConfig UserInterface { get; private set; }
+        public DirectoryConfig Directories { get; private set; }
 
         public ConfigurationLoader()
         {
@@ -22,9 +22,9 @@ namespace SpectabisNext.Services
 
         public async Task UpdateConfiguration()
         {
-            UserInterface = await ReadConfiguration<UIConfiguration>().ConfigureAwait(false);
+            UserInterface = await ReadConfiguration<UIConfig>().ConfigureAwait(false);
             Spectabis = await ReadConfiguration<SpectabisConfig>().ConfigureAwait(false);
-            Directories = await ReadConfiguration<DirectoryStruct>().ConfigureAwait(false);
+            Directories = await ReadConfiguration<DirectoryConfig>().ConfigureAwait(false);
         }
 
         public bool ConfigurationExists<T>() where T : IJsonConfig, new()

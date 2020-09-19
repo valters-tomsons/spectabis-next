@@ -15,7 +15,7 @@ namespace SpectabisLib.Services
 
         public async Task WriteInitialConfigs()
         {
-            await _configLoader.WriteDefaultsIfNotExist<DirectoryStruct>().ConfigureAwait(false);
+            await _configLoader.WriteDefaultsIfNotExist<DirectoryConfig>().ConfigureAwait(false);
             await _configLoader.WriteDefaultsIfNotExist<SpectabisConfig>().ConfigureAwait(false);
         }
 

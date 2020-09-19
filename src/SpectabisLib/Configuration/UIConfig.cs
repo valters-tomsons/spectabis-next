@@ -1,11 +1,12 @@
 using Avalonia.Media;
+using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 
 namespace SpectabisLib.Configuration
 {
-    public class UIConfiguration : IJsonConfig
+    public class UIConfig : IJsonConfig
     {
-        public UIConfiguration()
+        public UIConfig()
         {
             Title = "Style";
 
@@ -25,7 +26,7 @@ namespace SpectabisLib.Configuration
         public LinearGradientBrush UIBackgroundGradient { get; set; }
         public LinearGradientBrush TitlebarGradient { get; set; }
 
-        public string Title { get; }
+        public string Title { get; } = nameof(UIConfig).ConfigClassToFileName();
 
         private LinearGradientBrush DefaultBackgroundGradient()
         {
