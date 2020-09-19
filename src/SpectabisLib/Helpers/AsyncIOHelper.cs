@@ -16,10 +16,8 @@ namespace SpectabisLib.Helpers
 
             var textBytes = encoding.GetBytes(text);
 
-            using(var stream = new FileStream(destination.LocalPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write, 4096, useAsync: true))
-            {
-                await stream.WriteAsync(textBytes, 0, textBytes.Length).ConfigureAwait(false);
-            }
+            using var stream = new FileStream(destination.LocalPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write, 4096, useAsync: true);
+            await stream.WriteAsync(textBytes, 0, textBytes.Length).ConfigureAwait(false);
         }
 
         public async static Task<string> ReadTextFromFile(Uri source, Encoding encoding = null)
@@ -42,10 +40,8 @@ namespace SpectabisLib.Helpers
 
         public async static Task WriteBytesToFile(Uri destination, byte[] buffer)
         {
-            using(var stream = new FileStream(destination.LocalPath, FileMode.CreateNew, FileAccess.Write, FileShare.Write))
-            {
-                await stream.WriteAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
-            }
+            using var stream = new FileStream(destination.LocalPath, FileMode.CreateNew, FileAccess.Write, FileShare.Write);
+            await stream.WriteAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
         }
     }
 }
