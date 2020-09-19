@@ -8,8 +8,6 @@ namespace SpectabisLib.Configuration
     {
         public UIConfig()
         {
-            Title = "Style";
-
             BoxArtWidth = 150;
             BoxArtHeight = 200;
             BoxArtSizeModifier = 1.2;
