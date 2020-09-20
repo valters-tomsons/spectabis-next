@@ -39,5 +39,13 @@ namespace SpectabisLib.Controllers
             await _configuration.WriteConfiguration(_configuration.Directories).ConfigureAwait(true);
             return _configuration.Directories.GameScanDirectories;
         }
+
+        public async Task UpdateOptions(bool telemetry, bool discord)
+        {
+            _configuration.Spectabis.EnableTelemetry = telemetry;
+            _configuration.Spectabis.EnableDiscordRichPresence = discord;
+
+            await _configuration.WriteConfiguration(_configuration.Spectabis).ConfigureAwait(false);
+        }
     }
 }

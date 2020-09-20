@@ -6,6 +6,8 @@ using SpectabisUI.ViewModels;
 using SpectabisUI.Interfaces;
 using Avalonia.Interactivity;
 using SpectabisLib.Interfaces;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace SpectabisUI.Pages
 {
@@ -39,6 +41,13 @@ namespace SpectabisUI.Pages
 
             _fileBrowser = fileBrowser;
             _controller = controller;
+
+            _viewModel.PropertyChanged += OnViewModelUpdated;
+        }
+
+        private async void OnViewModelUpdated(object sender, PropertyChangedEventArgs e)
+        {
+            await UpdateOptions().ConfigureAwait(true);
         }
 
         public void InitializeComponent()
@@ -72,6 +81,11 @@ namespace SpectabisUI.Pages
             var selected = DirectoryList.SelectedItem as string;
             var newDirs = await _controller.RemoveScanDirectory(selected).ConfigureAwait(true);
             _viewModel.ScanDirectories = newDirs.ToList();
+        }
+
+        private async Task UpdateOptions()
+        {
+            await _controller.UpdateOptions(_viewModel.Telemetry, _viewModel.Discord).ConfigureAwait(true);
         }
     }
 }
