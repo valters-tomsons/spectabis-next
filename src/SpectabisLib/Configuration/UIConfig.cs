@@ -24,7 +24,7 @@ namespace SpectabisLib.Configuration
         public LinearGradientBrush UIBackgroundGradient { get; set; }
         public LinearGradientBrush TitlebarGradient { get; set; }
 
-        public string Title { get; } = nameof(UIConfig).ConfigClassToFileName();
+        public string FileName => nameof(UIConfig).ConfigClassToFileName();
 
         private LinearGradientBrush DefaultBackgroundGradient()
         {

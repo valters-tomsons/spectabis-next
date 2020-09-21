@@ -1,7 +1,10 @@
+using Newtonsoft.Json;
+
 namespace SpectabisLib.Interfaces
 {
     public interface IJsonConfig
     {
-        string Title { get; }
+        [JsonIgnoreAttribute]
+        string FileName { get; }
     }
 }

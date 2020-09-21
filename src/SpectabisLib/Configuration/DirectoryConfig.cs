@@ -11,7 +11,7 @@ namespace SpectabisLib.Configuration
         private string _pcsx2ConfigurationPath = SystemDirectories.Default_PCSX2ConfigurationPath;
         private string _lastFileBrowserDirectory = SystemDirectories.HomeFolder;
 
-        public string Title { get; } = nameof(DirectoryConfig).ConfigClassToFileName();
+        public string FileName => nameof(DirectoryConfig).ConfigClassToFileName();
 
         public Uri PCSX2Executable
         {

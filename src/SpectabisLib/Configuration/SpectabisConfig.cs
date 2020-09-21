@@ -12,7 +12,7 @@ namespace SpectabisLib.Configuration
             EnableTelemetry = true;
         }
 
-        public string Title { get; } = nameof(SpectabisConfig).ConfigClassToFileName();
+        public string FileName => nameof(SpectabisConfig).ConfigClassToFileName();
         public bool RunFirstTimeWizard { get; set; }
         public bool EnableDiscordRichPresence { get; set; }
         public bool EnableTelemetry { get; set; }

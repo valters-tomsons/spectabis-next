@@ -31,14 +31,14 @@ namespace SpectabisNext.Services
 
         public bool ConfigurationExists<T>() where T : IJsonConfig, new()
         {
-            var configTitle = new T().Title.ToLowerInvariant();
+            var configTitle = new T().FileName.ToLowerInvariant();
             var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
             return File.Exists(configUri.LocalPath);
         }
 
         public async Task WriteConfiguration<T>(T obj) where T : IJsonConfig, new()
         {
-            var configTitle = new T().Title.ToLowerInvariant();
+            var configTitle = new T().FileName.ToLowerInvariant();
             var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
             var configText = JsonConvert.SerializeObject(obj, Formatting.Indented);
 
@@ -69,7 +69,7 @@ namespace SpectabisNext.Services
                 return ReturnDefault<T>();
             }
 
-            var configTitle = new T().Title.ToLowerInvariant();
+            var configTitle = new T().FileName.ToLowerInvariant();
             Logging.WriteLine($"Loading '{configTitle}.json'");
 
             var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
