@@ -64,7 +64,8 @@ namespace SpectabisNext.Services
         {
             if (!ConfigurationExists<T>())
             {
-                return ReturnDefault<T>();
+                Logging.WriteLine($"Getting default config for '{typeof(T)}'");
+                return new T();
             }
 
             var configUri = GetConfigUri<T>();
@@ -72,12 +73,6 @@ namespace SpectabisNext.Services
 
             var configText = await AsyncIOHelper.ReadTextFromFile(configUri).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<T>(configText);
-        }
-
-        private T ReturnDefault<T>() where T : IJsonConfig, new()
-        {
-            Logging.WriteLine($"Getting default config for '{typeof(T)}'");
-            return new T();
         }
 
         private Uri GetConfigUri<T>() where T : IJsonConfig, new()
