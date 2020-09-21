@@ -7,11 +7,11 @@ namespace SpectabisLib.Configuration
 {
     public class DirectoryConfig : IJsonConfig
     {
+        public string FileName => nameof(DirectoryConfig).ConfigClassToFileName();
+
         private string _pcsx2Executable = SystemDirectories.Default_PCSX2ExecutablePath;
         private string _pcsx2ConfigurationPath = SystemDirectories.Default_PCSX2ConfigurationPath;
         private string _lastFileBrowserDirectory = SystemDirectories.HomeFolder;
-
-        public string FileName => nameof(DirectoryConfig).ConfigClassToFileName();
 
         public Uri PCSX2Executable
         {

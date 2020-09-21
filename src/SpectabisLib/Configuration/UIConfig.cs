@@ -6,6 +6,8 @@ namespace SpectabisLib.Configuration
 {
     public class UIConfig : IJsonConfig
     {
+        public string FileName => nameof(UIConfig).ConfigClassToFileName();
+
         public UIConfig()
         {
             BoxArtWidth = 150;
@@ -23,8 +25,6 @@ namespace SpectabisLib.Configuration
         public double BoxArtGapSize { get; set; }
         public LinearGradientBrush UIBackgroundGradient { get; set; }
         public LinearGradientBrush TitlebarGradient { get; set; }
-
-        public string FileName => nameof(UIConfig).ConfigClassToFileName();
 
         private LinearGradientBrush DefaultBackgroundGradient()
         {

@@ -5,6 +5,8 @@ namespace SpectabisLib.Configuration
 {
     public class SpectabisConfig : IJsonConfig
     {
+        public string FileName => nameof(SpectabisConfig).ConfigClassToFileName();
+
         public SpectabisConfig()
         {
             RunFirstTimeWizard = true;
@@ -12,7 +14,6 @@ namespace SpectabisLib.Configuration
             EnableTelemetry = true;
         }
 
-        public string FileName => nameof(SpectabisConfig).ConfigClassToFileName();
         public bool RunFirstTimeWizard { get; set; }
         public bool EnableDiscordRichPresence { get; set; }
         public bool EnableTelemetry { get; set; }
