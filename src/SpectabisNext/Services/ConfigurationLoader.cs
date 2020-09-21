@@ -31,15 +31,13 @@ namespace SpectabisNext.Services
 
         public bool ConfigurationExists<T>() where T : IJsonConfig, new()
         {
-            var configTitle = new T().FileName.ToLowerInvariant();
-            var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
+            var configUri = GetConfigUri<T>();
             return File.Exists(configUri.LocalPath);
         }
 
         public async Task WriteConfiguration<T>(T obj) where T : IJsonConfig, new()
         {
-            var configTitle = new T().FileName.ToLowerInvariant();
-            var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
+            var configUri = GetConfigUri<T>();
             var configText = JsonConvert.SerializeObject(obj, Formatting.Indented);
 
             if (ConfigurationExists<T>())
@@ -69,10 +67,9 @@ namespace SpectabisNext.Services
                 return ReturnDefault<T>();
             }
 
-            var configTitle = new T().FileName.ToLowerInvariant();
-            Logging.WriteLine($"Loading '{configTitle}.json'");
+            var configUri = GetConfigUri<T>();
+            Logging.WriteLine($"Loading '{configUri.LocalPath}");
 
-            var configUri = new Uri($"{SystemDirectories.ConfigFolder}/{configTitle}.json", UriKind.Absolute);
             var configText = await AsyncIOHelper.ReadTextFromFile(configUri).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<T>(configText);
         }
@@ -81,6 +78,14 @@ namespace SpectabisNext.Services
         {
             Logging.WriteLine($"Getting default config for '{typeof(T)}'");
             return new T();
+        }
+
+        private Uri GetConfigUri<T>() where T : IJsonConfig, new()
+        {
+            var configFolder = SystemDirectories.ConfigFolder;
+            var title = new T().ConfigName.ToLowerInvariant();
+
+            return new Uri($"{configFolder}/{title}.json", UriKind.Absolute);
         }
     }
 }

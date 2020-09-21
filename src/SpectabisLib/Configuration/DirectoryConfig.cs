@@ -7,7 +7,7 @@ namespace SpectabisLib.Configuration
 {
     public class DirectoryConfig : IJsonConfig
     {
-        public string FileName => nameof(DirectoryConfig).ConfigClassToFileName();
+        public string ConfigName => nameof(DirectoryConfig).ConfigClassToFileName();
 
         private string _pcsx2Executable = SystemDirectories.Default_PCSX2ExecutablePath;
         private string _pcsx2ConfigurationPath = SystemDirectories.Default_PCSX2ConfigurationPath;

@@ -5,6 +5,6 @@ namespace SpectabisLib.Interfaces
     public interface IJsonConfig
     {
         [JsonIgnore]
-        string FileName { get; }
+        string ConfigName { get; }
     }
 }

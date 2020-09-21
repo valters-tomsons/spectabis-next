@@ -5,7 +5,7 @@ namespace SpectabisLib.Configuration
 {
     public class SpectabisConfig : IJsonConfig
     {
-        public string FileName => nameof(SpectabisConfig).ConfigClassToFileName();
+        public string ConfigName => nameof(SpectabisConfig).ConfigClassToFileName();
 
         public SpectabisConfig()
         {
