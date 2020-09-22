@@ -41,6 +41,9 @@ steps:
     TELEMETRY_KEY: $(TELEMETRY_KEY)
     SERVICE_BASE_URL: $(SERVICE_BASE_URL)
 
+- script: dotnet test Tests/Unit/*
+  displayName: 'Run unit tests'
+
 - script: dotnet publish -c $CONFIGURATION -r linux-x64
   displayName: 'Build for linux-x64'
 

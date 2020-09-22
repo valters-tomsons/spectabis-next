@@ -4,7 +4,7 @@ using Bard.Configuration;
 using ServiceClient.Services;
 using Xunit;
 
-namespace ServiceTests
+namespace Tests.Integration.ServiceTests
 {
     public class GetGameBoxArtTest
     {
@@ -24,6 +24,8 @@ namespace ServiceTests
             restClient.SetSession(apiKey, baseAddress);
 
             var client = restClient.GetClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+
             Scenario = ScenarioConfiguration.Configure(options => options.Client = client);
         }
 

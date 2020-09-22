@@ -10,10 +10,10 @@ namespace SpectabisNext.Services
 {
     public class ConfigurationLoader : IConfigurationLoader
     {
-        public SpectabisConfig Spectabis { get; private set; }
-        public UIConfig UserInterface { get; private set; }
-        public DirectoryConfig Directories { get; private set; }
-        public TextConfig TextConfig { get; private set; }
+        public SpectabisConfig Spectabis { get; set; }
+        public UIConfig UserInterface { get; set; }
+        public DirectoryConfig Directories { get; set; }
+        public TextConfig TextConfig { get; set; }
 
         public ConfigurationLoader()
         {

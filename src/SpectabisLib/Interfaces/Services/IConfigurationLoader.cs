@@ -5,10 +5,10 @@ namespace SpectabisLib.Interfaces
 {
     public interface IConfigurationLoader
     {
-        SpectabisConfig Spectabis { get; }
-        UIConfig UserInterface { get; }
-        DirectoryConfig Directories { get; }
-        TextConfig TextConfig { get; }
+        SpectabisConfig Spectabis { get; set; }
+        UIConfig UserInterface { get; set; }
+        DirectoryConfig Directories { get; set; }
+        TextConfig TextConfig { get; set; }
 
         Task WriteConfiguration<T>(T obj) where T : IJsonConfig, new();
         Task<T> ReadConfiguration<T>() where T : IJsonConfig, new();
