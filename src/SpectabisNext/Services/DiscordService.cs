@@ -3,6 +3,7 @@ using DiscordRPC;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisLib.Helpers;
+using SpectabisLib;
 
 namespace SpectabisNext.Services
 {
@@ -26,8 +27,9 @@ namespace SpectabisNext.Services
 
             Logging.WriteLine("Starting DiscordService client");
 
-            client = new DiscordRpcClient("450325564956344320");
+            client = new DiscordRpcClient(Constants.DiscordClientId);
             client.Initialize();
+
             SetMenuPresence();
         }
 
