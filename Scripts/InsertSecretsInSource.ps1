@@ -1,5 +1,7 @@
 #!/usr/bin/env pwsh
 
+# Used to tokenize sensitive variables in ServiceClient library to be used in desktop client
+
 param(
 		[string]$targetFile
 	)
