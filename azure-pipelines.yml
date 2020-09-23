@@ -6,6 +6,8 @@ trigger:
     exclude:
     - src/SpectabisService
     - Tests/Integration/ServiceTests
+    - docs
+    - Requests
 
 pool:
   vmImage: 'ubuntu-latest'
