@@ -13,7 +13,7 @@ Create `local.settings.json` in `src/SpectabisService/` with following, make sur
 ```json
 {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "ApiKey_GiantBomb": "yourkeyhere",
+    "ApiKey_GiantBomb": "yourkeyhere"
 }
 ```
 
