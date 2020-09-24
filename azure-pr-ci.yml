@@ -2,6 +2,10 @@ pr:
   branches:
     include:
     - '*'
+  paths:
+    exclude:
+    - 'docs'
+    - 'Requests'
 
 pool:
   vmImage: 'ubuntu-latest'
