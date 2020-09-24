@@ -8,6 +8,8 @@ pool:
 variables:
   buildConfiguration: '$(Configuration)'
 
+steps:
+
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
