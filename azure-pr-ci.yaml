@@ -1,0 +1,22 @@
+pr:
+  branches:
+    include:
+      - '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: '$(Configuration)'
+
+- task: UseDotNet@2
+  displayName: 'Install NET Core SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.101'
+
+- script: dotnet build
+  displayName: 'Build solution'
+
+- script: dotnet test Tests/Unit/*
+  displayName: 'Run unit tests'
