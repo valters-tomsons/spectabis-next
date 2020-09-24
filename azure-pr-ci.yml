@@ -4,8 +4,10 @@ pr:
     - '*'
   paths:
     exclude:
-    - 'docs'
-    - 'Requests'
+    - docs
+    - Requests
+    - azure-pipelines.yml
+    - azure-pipelines-service.yml
 
 pool:
   vmImage: 'ubuntu-latest'
