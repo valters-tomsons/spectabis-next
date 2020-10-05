@@ -12,7 +12,7 @@ namespace SpectabisLib.Configuration
         {
             BoxArtWidth = 150;
             BoxArtHeight = 200;
-            BoxArtSizeModifier = 1.2;
+            BoxArtSizeModifier = 1.25;
             BoxArtGapSize = 10;
 
             UIBackgroundGradient = DefaultBackgroundGradient();
