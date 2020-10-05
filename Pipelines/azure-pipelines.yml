@@ -10,8 +10,8 @@ trigger:
     - Tests/Integration/ServiceTests
     - docs
     - Requests
-    - azure-pipelines-service.yml
-    - azure-pr-ci.yml
+    - Pipelines/azure-pipelines-service.yml
+    - Pipelines/azure-pr-ci.yml
 
 pool:
   vmImage: 'ubuntu-latest'

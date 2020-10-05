@@ -6,8 +6,8 @@ pr:
     exclude:
     - docs
     - Requests
-    - azure-pipelines.yml
-    - azure-pipelines-service.yml
+    - Pipelines/azure-pipelines.yml
+    - Pipelines/azure-pipelines-service.yml
 
 pool:
   vmImage: 'ubuntu-latest'
