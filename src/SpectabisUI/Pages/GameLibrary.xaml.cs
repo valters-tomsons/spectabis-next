@@ -10,7 +10,6 @@ using Avalonia.Threading;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
-using SpectabisLib.Services;
 using SpectabisUI.Controls.GameTileView;
 using SpectabisUI.Factories;
 using SpectabisUI.Enums;
@@ -127,7 +126,8 @@ namespace SpectabisUI.Pages
 
             foreach (var item in newGames)
             {
-                var tile = await Dispatcher.UIThread.InvokeAsync(() => AddProfileTile(item)).ConfigureAwait(true);
+                var gameTile = _tileFactory.Create(item);
+                var tile = await Dispatcher.UIThread.InvokeAsync(() => AddProfileTile(gameTile)).ConfigureAwait(true);
                 var isQueued = _queueService.IsProcessing(item);
 
                 if(isQueued)
@@ -148,17 +148,17 @@ namespace SpectabisUI.Pages
 
             foreach (var gameProfile in games)
             {
-                AddProfileTile(gameProfile);
+                var gameTile = _tileFactory.Create(gameProfile);
+                AddProfileTile(gameTile);
             }
         }
 
-        private GameTileView AddProfileTile(GameProfile gameProfile)
+        private GameTileView AddProfileTile(GameTileView gameTile)
         {
-            var gameTile = _tileFactory.Create(gameProfile);
             gameTile.PointerReleased += OnGameTileClick;
 
             GamePanel.Children.Add(gameTile);
-            LoadedProfiles.Add(gameProfile);
+            LoadedProfiles.Add(gameTile.Profile);
 
             return gameTile;
         }
