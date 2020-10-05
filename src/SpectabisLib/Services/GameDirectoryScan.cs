@@ -10,11 +10,11 @@ namespace SpectabisLib.Services
     public class GameDirectoryScan : IDirectoryScan
     {
         private readonly IProfileRepository _gameRepo;
-        private readonly IConfigurationLoader _configuration;
+        private readonly IConfigurationManager _configuration;
 
         private IEnumerable<string> Extensions { get; }
 
-        public GameDirectoryScan(IConfigurationLoader config, IIntrinsicsProvider fileIntrinsics, IProfileRepository gameRepo)
+        public GameDirectoryScan(IConfigurationManager config, IIntrinsicsProvider fileIntrinsics, IProfileRepository gameRepo)
         {
             _gameRepo = gameRepo;
             _configuration = config;

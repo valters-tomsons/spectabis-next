@@ -8,14 +8,14 @@ using SpectabisLib.Interfaces;
 
 namespace SpectabisNext.Services
 {
-    public class ConfigurationLoader : IConfigurationLoader
+    public class ConfigurationManager : IConfigurationManager
     {
         public SpectabisConfig Spectabis { get; set; }
         public UIConfig UserInterface { get; set; }
         public DirectoryConfig Directories { get; set; }
         public TextConfig TextConfig { get; set; }
 
-        public ConfigurationLoader()
+        public ConfigurationManager()
         {
             var update = UpdateConfiguration();
             Task.WaitAll(update);

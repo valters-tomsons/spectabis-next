@@ -11,9 +11,9 @@ namespace SpectabisNext.Services
     {
         private static readonly ulong StartTime = (ulong) DateTimeOffset.Now.ToUnixTimeMilliseconds();
         private static DiscordRpcClient client;
-        private readonly IConfigurationLoader _configLoader;
+        private readonly IConfigurationManager _configLoader;
 
-        public DiscordService(IConfigurationLoader configLoader)
+        public DiscordService(IConfigurationManager configLoader)
         {
             _configLoader = configLoader;
         }

@@ -5,9 +5,9 @@ namespace SpectabisUI.ViewModels
 {
     public class FirstTimeWizardViewModel : ReactiveObject
     {
-        private readonly IConfigurationLoader _configuration;
+        private readonly IConfigurationManager _configuration;
 
-        public FirstTimeWizardViewModel(IConfigurationLoader configuration)
+        public FirstTimeWizardViewModel(IConfigurationManager configuration)
         {
             _configuration = configuration;
 

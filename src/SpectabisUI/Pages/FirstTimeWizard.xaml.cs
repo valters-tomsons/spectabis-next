@@ -17,7 +17,7 @@ namespace SpectabisUI.Pages
         public bool HideTitlebar => true;
         public bool ReloadOnNavigation => true;
 
-        private readonly IConfigurationLoader _configuration;
+        private readonly IConfigurationManager _configuration;
         private readonly IPageNavigationProvider _pageNavigator;
         private readonly IFirstTimeWizardService _wizardService;
         private readonly IFileBrowserFactory _fileBrowser;
@@ -32,7 +32,7 @@ namespace SpectabisUI.Pages
         [Obsolete("XAMLIL placeholder", true)]
         public FirstTimeWizard() { }
 
-        public FirstTimeWizard(IConfigurationLoader configuration, IPageNavigationProvider pageNavigator, IFirstTimeWizardService wizardService, IFileBrowserFactory fileBrowser, FirstTimeWizardViewModel viewModel)
+        public FirstTimeWizard(IConfigurationManager configuration, IPageNavigationProvider pageNavigator, IFirstTimeWizardService wizardService, IFileBrowserFactory fileBrowser, FirstTimeWizardViewModel viewModel)
         {
             _configuration = configuration;
             _pageNavigator = pageNavigator;

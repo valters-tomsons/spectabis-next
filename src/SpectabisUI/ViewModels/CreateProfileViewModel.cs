@@ -8,7 +8,7 @@ namespace SpectabisUI.ViewModels
     public class CreateProfileViewModel : ReactiveObject
     {
         private readonly IBitmapLoader _bitmapLoader;
-        private readonly IConfigurationLoader _configuration;
+        private readonly IConfigurationManager _configuration;
 
         private string serialNumber;
         private bool serialEnabled = true;
@@ -18,7 +18,7 @@ namespace SpectabisUI.ViewModels
         private string gameTitle;
         private string filePath;
 
-        public CreateProfileViewModel(IBitmapLoader bitmapLoader, IConfigurationLoader configuration)
+        public CreateProfileViewModel(IBitmapLoader bitmapLoader, IConfigurationManager configuration)
         {
             _configuration = configuration;
             _bitmapLoader = bitmapLoader;

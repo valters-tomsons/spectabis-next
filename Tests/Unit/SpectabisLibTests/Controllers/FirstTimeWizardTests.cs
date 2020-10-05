@@ -8,7 +8,7 @@ namespace Tests.Unit.SpectabisLibTests.Controllers
 {
     public class FirstTimeWizardTests
     {
-        private readonly Mock<IConfigurationLoader> _configLoader = new Mock<IConfigurationLoader>();
+        private readonly Mock<IConfigurationManager> _configLoader = new Mock<IConfigurationManager>();
 
         [Fact]
         public void GivenTelemetryDisabled_GetTelemetryCalledWithToggle_ReturnsTelemetryEnabledMessage()

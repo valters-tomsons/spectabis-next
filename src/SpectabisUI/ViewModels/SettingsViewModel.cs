@@ -8,12 +8,12 @@ namespace SpectabisUI.ViewModels
 {
     public class SettingsViewModel : ReactiveObject
     {
-        private readonly IConfigurationLoader _configuration;
+        private readonly IConfigurationManager _configuration;
         private IList<string> _directories;
 
         public SpectabisConfig Config => _configuration.Spectabis;
 
-        public SettingsViewModel(IConfigurationLoader configuration)
+        public SettingsViewModel(IConfigurationManager configuration)
         {
             _configuration = configuration;
             _directories = _configuration.Directories.GameScanDirectories.ToList();

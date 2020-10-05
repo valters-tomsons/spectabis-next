@@ -3,7 +3,7 @@ using SpectabisLib.Configuration;
 
 namespace SpectabisLib.Interfaces
 {
-    public interface IConfigurationLoader
+    public interface IConfigurationManager
     {
         SpectabisConfig Spectabis { get; set; }
         UIConfig UserInterface { get; set; }

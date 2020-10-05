@@ -9,9 +9,9 @@ namespace SpectabisLib.Controllers
 {
     public class SettingsController : ISettingsController
     {
-        private readonly IConfigurationLoader _configuration;
+        private readonly IConfigurationManager _configuration;
 
-        public SettingsController(IConfigurationLoader configuration)
+        public SettingsController(IConfigurationManager configuration)
         {
             _configuration = configuration;
         }

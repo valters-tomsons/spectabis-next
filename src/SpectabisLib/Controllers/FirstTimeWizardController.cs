@@ -6,9 +6,9 @@ namespace SpectabisLib.Controllers
 {
     public class FirstTimeWizardController : IFirstTimeWizardService
     {
-        private readonly IConfigurationLoader _configLoader;
+        private readonly IConfigurationManager _configLoader;
 
-        public FirstTimeWizardController(IConfigurationLoader configLoader)
+        public FirstTimeWizardController(IConfigurationManager configLoader)
         {
             _configLoader = configLoader;
         }

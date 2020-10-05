@@ -15,7 +15,7 @@ namespace SpectabisUI.Views
 {
     public class MainWindow : Window
     {
-        private readonly IConfigurationLoader _configuration;
+        private readonly IConfigurationManager _configuration;
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly IGameLauncher _gameLauncher;
         private readonly IDiscordService _discordService;
@@ -31,7 +31,7 @@ namespace SpectabisUI.Views
         {
         }
 
-        public MainWindow(IConfigurationLoader configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard)
+        public MainWindow(IConfigurationManager configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
