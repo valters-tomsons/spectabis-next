@@ -2,6 +2,7 @@ using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisUI.Controls.GameTileView;
 using SpectabisUI.Interfaces;
+using SpectabisUI.ViewModels;
 
 namespace SpectabisUI.Factories
 {
@@ -22,7 +23,12 @@ namespace SpectabisUI.Factories
             var tileGapSize = _configuration.UserInterface.BoxArtGapSize;
             var boxartBitmap = _bitmapLoader.GetBoxArt(game);
 
-            var tileView = new GameTileView(game)
+            var viewModel = new GameTileViewModel(game)
+            {
+                Boxart = boxartBitmap,
+            };
+
+            var tileView = new GameTileView(game, viewModel)
             {
                 Height = _configuration.UserInterface.BoxArtHeight * sizeModifier,
                 Width = _configuration.UserInterface.BoxArtWidth * sizeModifier,

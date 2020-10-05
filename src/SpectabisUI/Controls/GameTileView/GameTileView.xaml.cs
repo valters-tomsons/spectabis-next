@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
+using SpectabisUI.ViewModels;
 
 namespace SpectabisUI.Controls.GameTileView
 {
@@ -13,36 +14,29 @@ namespace SpectabisUI.Controls.GameTileView
     {
         public GameProfile Profile { get; set; }
         public Image BoxArt { get; set; }
-        private TextBlock BoxTitle { get; set; }
-        private Rectangle HoverOverlayRectangle { get; set; }
+
+        private GameTileViewModel ViewModel { get; }
 
         [Obsolete("XAMLIL placeholder", true)]
         public GameTileView() { }
 
-        public GameTileView(GameProfile game)
+        public GameTileView(GameProfile game, GameTileViewModel viewModel)
         {
+            ViewModel = viewModel;
+            DataContext = ViewModel;
+
+            Profile = game;
+
             InitializeComponent();
             ReferenceChildren();
-            InitializeState(game);
-            RegisterEvents();
-        }
 
-        public bool ShowHoverOverlay
-        {
-            get
-            {
-                return HoverOverlayRectangle.IsVisible;
-            }
-            set
-            {
-                HoverOverlayRectangle.IsVisible = value;
-                BoxTitle.IsVisible = value;
-            }
+            PointerEnter += OnMousePointerEnter;
+            PointerLeave += OnMousePointerLeave;
         }
 
         public void SetVisualTitle(string newTitle)
         {
-            BoxTitle.Text = newTitle;
+            ViewModel.Title = newTitle;
         }
 
         public void LoadBoxart(Bitmap source)
@@ -58,30 +52,16 @@ namespace SpectabisUI.Controls.GameTileView
         private void ReferenceChildren()
         {
             BoxArt = this.FindControl<Image>("BoxArtImage");
-            BoxTitle = this.FindControl<TextBlock>("BoxTitle");
-            HoverOverlayRectangle = this.FindControl<Rectangle>("HoverOverlay");
-        }
-
-        private void InitializeState(GameProfile game)
-        {
-            Profile = game;
-            SetVisualTitle(game.Title);
-        }
-
-        private void RegisterEvents()
-        {
-            this.PointerEnter += OnMousePointerEnter;
-            this.PointerLeave += OnMousePointerLeave;
         }
 
         private void OnMousePointerLeave(object sender, PointerEventArgs e)
         {
-            ShowHoverOverlay = false;
+            ViewModel.ShowActiveEffect = false;
         }
 
         private void OnMousePointerEnter(object sender, PointerEventArgs e)
         {
-            ShowHoverOverlay = true;
+            ViewModel.ShowActiveEffect = true;
         }
     }
 }

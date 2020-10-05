@@ -11,14 +11,13 @@
         />
 
         <Rectangle 
-            Name="HoverOverlay" 
             Opacity = "0.6" 
             Fill="Black"
-            IsVisible = "False"
+            IsVisible = "{Binding ShowActiveEffect}"
         />
 
         <TextBlock 
-            Name="BoxTitle" 
+            Text="{Binding Title}" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Bottom" 
             Margin="25,0,25,25"
@@ -26,7 +25,7 @@
             Foreground = "White"
             TextWrapping = "Wrap"
             TextAlignment = "Center"
-            IsVisible = "False"
+            IsVisible = "{Binding ShowActiveEffect}"
         />
 
     </Grid>
