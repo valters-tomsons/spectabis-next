@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using FileIntrinsics.Enums;
 using FileIntrinsics.Interfaces;
-using FileParsing.Parsers;
+using RomParsing.Parsers;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 

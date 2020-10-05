@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using DiscUtils.Iso9660;
 
-namespace FileParsing.Parsers
+namespace RomParsing.Parsers
 {
     public static class IsoParser
     {

@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FileParsing.Enums;
-using FileParsing.Utils;
+using RomParsing.Enums;
+using RomParsing.Utils;
 
-namespace FileParsing.Parsers
+namespace RomParsing.Parsers
 {
     public static class BinParser
     {

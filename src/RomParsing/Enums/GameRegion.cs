@@ -1,4 +1,4 @@
-namespace FileParsing.Enums
+namespace RomParsing.Enums
 {
     public enum GameRegion
     {
