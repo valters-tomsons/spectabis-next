@@ -24,9 +24,7 @@ namespace EmuConfig.Bases
 
         private void MapProperties(IDictionary<string, string> data)
         {
-            var props = GetType().GetProperties();
-
-            foreach(var prop in props)
+            foreach(var prop in GetType().GetProperties())
             {
                 var isKey = Attribute.IsDefined(prop, typeof(IniKeyAttribute));
 
@@ -55,7 +53,13 @@ namespace EmuConfig.Bases
                     continue;
                 }
 
-                prop.SetValue(prop, value);
+                if(isInt)
+                {
+                    this[prop.Name] = intValue;
+                }
+                else{
+                    this[prop.Name] = data[propKey];
+                }
             }
         }
     }
