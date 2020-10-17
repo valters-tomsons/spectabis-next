@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using EmuConfig.Attributes;
@@ -7,22 +8,59 @@ namespace EmuConfig.Bases
 {
     public class IniConfiguration : IConfigurable
     {
-        public object this[string iniKey]
+        public string this[string iniKey]
         {
-            get { return GetType().GetProperty(iniKey).GetValue(this, null); }
-            set { GetType().GetProperty(iniKey).SetValue(this, value, null); }
+            get => GetValueFromIniKey(iniKey);
+        }
+
+        public string[] GetConfigKeys()
+        {
+            var keyProperties = GetType().GetProperties().Where(x => Attribute.IsDefined(x, typeof(IniKeyAttribute)));
+            var attributes = keyProperties.Select(x => Attribute.GetCustomAttribute(x, typeof(IniKeyAttribute)) as IniKeyAttribute);
+            var keys = attributes.Select(x => x.GetKey());
+            return keys.ToArray();
         }
 
         private IDictionary<string, string> iniData;
-        public IDictionary<string, string> IniData { get => iniData; set => MapData(value); }
+        public IDictionary<string, string> IniData { get => iniData; set => FromIniData(value); }
 
-        private void MapData(IDictionary<string, string> data)
+        private string GetValueFromIniKey(string iniKey)
         {
-            iniData = data;
-            MapProperties(iniData);
+            var attributedProperties = GetType().GetProperties().Where(x => Attribute.IsDefined(x, typeof(IniKeyAttribute)));
+
+            foreach(var property in attributedProperties)
+            {
+                var member = Attribute.GetCustomAttribute(property, typeof(IniKeyAttribute)) as IniKeyAttribute;
+                var memberKey = member.GetKey();
+
+                if(memberKey != iniKey)
+                {
+                    continue;
+                }
+
+                var propertyName = property.Name;
+                var valueObject = GetValueByPropertyName(propertyName);
+
+                if(property.PropertyType.IsEnum)
+                {
+                    var enumObject = valueObject as Enum;
+                    var result = Convert.ToInt32(enumObject);
+                    return $"{result}";
+                }
+
+                return valueObject.ToString();
+            }
+
+            throw new InvalidOperationException("Ini configuration is empty");
         }
 
-        private void MapProperties(IDictionary<string, string> data)
+        private void FromIniData(IDictionary<string, string> data)
+        {
+            iniData = data;
+            MapPropertiesFromDictionary(iniData);
+        }
+
+        private void MapPropertiesFromDictionary(IDictionary<string, string> data)
         {
             foreach(var prop in GetType().GetProperties())
             {
@@ -43,24 +81,35 @@ namespace EmuConfig.Bases
                     continue;
                 }
 
-                var value = data[propKey];
+                var stringValue = data[propKey];
 
-                var isInt = int.TryParse(value, out int intValue);
+                var isInt = int.TryParse(stringValue, out int intValue);
                 var isEnum = prop.PropertyType.IsEnum;
                 if (isInt && isEnum)
                 {
-                    this[prop.Name] = Enum.ToObject(prop.PropertyType, intValue);
+                    var enumObject = Enum.ToObject(prop.PropertyType, intValue);
+                    SetValueByPropertyName(prop.Name, enumObject);
                     continue;
                 }
 
                 if(isInt)
                 {
-                    this[prop.Name] = intValue;
+                    SetValueByPropertyName(prop.Name, intValue);
                 }
                 else{
-                    this[prop.Name] = data[propKey];
+                    SetValueByPropertyName(prop.Name, data[propKey]);
                 }
             }
+        }
+
+        private void SetValueByPropertyName(string propertyName, object value)
+        {
+            GetType().GetProperty(propertyName).SetValue(this, value, null);
+        }
+
+        private object GetValueByPropertyName(string propertyName)
+        {
+            return GetType().GetProperty(propertyName).GetValue(this, null);
         }
     }
 }
