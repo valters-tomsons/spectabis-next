@@ -8,9 +8,9 @@ namespace ServiceClient.Helpers
     public static class ServiceCredentialsHelper
     {
         // Parameterized
-        public static readonly string ServiceApiKey = "{{ServiceApiKey}}";
-        public static readonly string TelemetryKey = "{{TelemetryKey}}";
-        public static string ServiceBaseUrl { get; private set; } = "{{ServiceBaseUrl}}";
+        public static readonly string ServiceApiKey = "{{SERVICE_API_KEY}}";
+        public static readonly string TelemetryKey = "{{TELEMETRY_KEY}}";
+        public static string ServiceBaseUrl { get; private set; } = "{{SERVICE_BASE_URL}}";
 
         private const string LocalSettings = "local.settings.json";
 

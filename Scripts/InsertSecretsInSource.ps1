@@ -1,17 +1,15 @@
 #!/usr/bin/env pwsh
 
-# Used to tokenize sensitive variables in ServiceClient library to be used in desktop client
-
 param(
 		[string]$targetFile
 	)
 
-$tokens = "{{ServiceApiKey}}", "{{TelemetryKey}}", "{{ServiceBaseUrl}}"
-$tokenValues = "$env:SERVICE_API_KEY", "$env:TELEMETRY_KEY", "$env:SERVICE_BASE_URL"
+$env = (Get-ChildItem env:)
+$targetContent = Get-Content -Path $targetFile
 
-# Insert service API keys
-for ($i = 0; $i -lt $tokens.Count; $i++) {
-	(Get-Content "$targetFile") | foreach-object { $_ -replace $tokens[$i], $tokenValues[$i] } | Set-Content $targetFile
+foreach($var in $env)
+{
+	$targetContent = $targetContent.Replace("{{$($var.Name)}}", $var.Value)
 }
 
-Write-Host "Processed: " $targetFile
+Write-Host "Finished processing $targetFile" -ForegroundColor Green
