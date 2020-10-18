@@ -5,7 +5,7 @@ using FileIntrinsics;
 using FileIntrinsics.Interfaces;
 using ServiceClient.Interfaces;
 using ServiceClient.Services;
-using SpectabisLib.Controllers;
+using SpectabisUI.Controllers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Services;
 using SpectabisNext.Repositories;

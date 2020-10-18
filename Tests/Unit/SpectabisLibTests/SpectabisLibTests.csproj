@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\SpectabisLib\SpectabisLib.csproj" />
+    <ProjectReference Include="..\..\..\src\SpectabisUI\SpectabisUI.csproj" />
   </ItemGroup>
 
 </Project>

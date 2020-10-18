@@ -1,7 +1,7 @@
 using Xunit;
 using Moq;
 using SpectabisLib.Interfaces;
-using SpectabisLib.Controllers;
+using SpectabisUI.Controllers;
 using SpectabisLib.Configuration;
 
 namespace Tests.Unit.SpectabisLibTests.Controllers
