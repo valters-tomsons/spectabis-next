@@ -130,15 +130,11 @@ namespace SpectabisUI.Pages
             return new Uri(sb.ToString(), UriKind.Absolute);
         }
 
-        private async void OnNavigation(object sender, NavigationArgs e)
+        private void OnNavigation(object sender, NavigationArgs e)
         {
             if (e.Page != this)
             {
                 _navigation.PageNavigationEvent -= OnNavigation;
-            }
-            else
-            {
-                await _gameDb.InitializeDatabase().ConfigureAwait(false);
             }
         }
 
