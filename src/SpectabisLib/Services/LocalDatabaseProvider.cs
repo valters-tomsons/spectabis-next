@@ -53,11 +53,13 @@ namespace SpectabisLib.Services
         {
             if (_metadataDb == null)
             {
+                Logging.WriteLine("Building game database");
                 _metadataDb = GetDatabase().ToList();
             }
 
             if(_gameTitleIndex == null)
             {
+                Logging.WriteLine("Building game index");
                 _gameTitleIndex = await CreateIndexFromMetadata(_metadataDb).ConfigureAwait(false);
             }
         }
