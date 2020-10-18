@@ -156,7 +156,6 @@ namespace SpectabisUI.Pages
 
             try
             {
-                Logging.WriteLine(_viewModel.GameTitle);
                 var query = await _gameDb.QueryByTitle(_viewModel.GameTitle).ConfigureAwait(true);
                 Dispatcher.UIThread.Post(() => SetTitleSuggestions(query));
             }
