@@ -1,11 +1,10 @@
-using System.Xml.Linq;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using SpectabisLib.Interfaces;
 
-namespace SpectabisLib.Controllers
+namespace SpectabisUI.Controllers
 {
     public class SettingsController : ISettingsController
     {

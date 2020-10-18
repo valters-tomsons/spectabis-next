@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using SpectabisLib.Configuration;
 using SpectabisLib.Interfaces;
 
-namespace SpectabisLib.Controllers
+namespace SpectabisUI.Controllers
 {
     public class FirstTimeWizardController : IFirstTimeWizardService
     {
