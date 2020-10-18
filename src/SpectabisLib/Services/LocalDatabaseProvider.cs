@@ -20,6 +20,11 @@ namespace SpectabisLib.Services
         private Index _gameTitleIndex;
         private readonly Uri DatabaseUri = new Uri($"{SystemDirectories.ResourcesPath}/{Constants.PCSX2DatabaseName}", UriKind.Relative);
 
+        public LocalDatabaseProvider()
+        {
+            _ = InitializeDatabase();
+        }
+
         public async Task<GameMetadata> GetBySerial(string serial)
         {
             await InitializeDatabase().ConfigureAwait(false);
