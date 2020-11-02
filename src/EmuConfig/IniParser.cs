@@ -1,12 +1,12 @@
-using System.Text;
-using System.IO;
 using System;
+using System.IO;
+using System.Text;
 using System.Linq;
 using EmuConfig.Interfaces;
 
-namespace EmuConfig.Abstractions
+namespace EmuConfig
 {
-    public class IniParser : IConfigParser
+    public class IniParser : IParserProvider
     {
         public T ReadConfig<T>(Uri iniPath) where T : IConfigurable, new()
         {
@@ -34,7 +34,6 @@ namespace EmuConfig.Abstractions
                     {
                         var resultLine = $"{key} = {config[key]}";
                         iniContent[i] = resultLine;
-                        Console.WriteLine(resultLine);
                     }
                 }
             }

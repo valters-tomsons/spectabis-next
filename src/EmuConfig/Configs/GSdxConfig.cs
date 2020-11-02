@@ -1,7 +1,6 @@
-using System;
 using EmuConfig.Enums;
 using EmuConfig.Attributes;
-using EmuConfig.Bases;
+using EmuConfig.Abstractions;
 
 namespace EmuConfig.Configs
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using EmuConfig.Attributes;
 using EmuConfig.Interfaces;
 
-namespace EmuConfig.Bases
+namespace EmuConfig.Abstractions
 {
     public class IniConfiguration : IConfigurable
     {
