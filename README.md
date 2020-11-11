@@ -40,6 +40,7 @@ Currently usable but not useful yet.
 
 ## Long-term goals (in no particular order)
 
+* Cloud save games
 * Library sorting (Playtime, Added, Alphabetical)
 * Separate plugin updates from Spectabis releases
 * "steam-like" library view
