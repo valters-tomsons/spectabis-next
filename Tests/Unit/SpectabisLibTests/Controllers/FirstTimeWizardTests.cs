@@ -14,9 +14,9 @@ namespace Tests.Unit.SpectabisLibTests.Controllers
         public void GivenTelemetryDisabled_GetTelemetryCalledWithToggle_ReturnsTelemetryEnabledMessage()
         {
             // Arrange
-            var Sconfig = new SpectabisConfig() { EnableTelemetry = false };
+            var _config = new SpectabisConfig() { EnableTelemetry = false };
 
-            _configLoader.SetupProperty(x => x.Spectabis, Sconfig);
+            _configLoader.SetupProperty(x => x.Spectabis, _config);
             _configLoader.SetupProperty(x => x.TextConfig, new TextConfig());
 
             _configLoader.Setup(x => x.WriteConfiguration(It.IsAny<SpectabisConfig>()));
@@ -35,9 +35,9 @@ namespace Tests.Unit.SpectabisLibTests.Controllers
         public void GivenTelemetryEnabled_GetTelemetryCalledWithToggle_ReturnsTelemetryDisabledMessage()
         {
             // Arrange
-            var Sconfig = new SpectabisConfig() { EnableTelemetry = true };
+            var _config = new SpectabisConfig() { EnableTelemetry = true };
 
-            _configLoader.SetupProperty(x => x.Spectabis, Sconfig);
+            _configLoader.SetupProperty(x => x.Spectabis, _config);
             _configLoader.SetupProperty(x => x.TextConfig, new TextConfig());
             _configLoader.Setup(x => x.WriteConfiguration(It.IsAny<SpectabisConfig>()));
 
@@ -55,9 +55,9 @@ namespace Tests.Unit.SpectabisLibTests.Controllers
         public void GivenTelemetryEnabled_GetTelemetryCalledWithoutToggle_ReturnsTelemetryEnabled()
         {
             // Arrange
-            var Sconfig = new SpectabisConfig() { EnableTelemetry = true };
+            var _config = new SpectabisConfig() { EnableTelemetry = true };
 
-            _configLoader.SetupProperty(x => x.Spectabis, Sconfig);
+            _configLoader.SetupProperty(x => x.Spectabis, _config);
             _configLoader.SetupProperty(x => x.TextConfig, new TextConfig());
             _configLoader.Setup(x => x.WriteConfiguration(It.IsAny<SpectabisConfig>()));
 
