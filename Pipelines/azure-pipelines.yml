@@ -28,7 +28,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      echo "##vso[task.setvariable variable=CommithHash]$(git log --pretty=format:'%h' -n 1)"
+      echo "##vso[task.setvariable variable=CommitHash]$(git log --pretty=format:'%h' -n 1)"
       mkdir $ARTIFACTSFOLDER
 
 - task: UseDotNet@2
@@ -47,7 +47,7 @@ steps:
     TELEMETRY_KEY: $(TELEMETRY_KEY)
     SERVICE_BASE_URL: $(SERVICE_BASE_URL)
 
-- script: dotnet test Tests/Unit/*
+- script: dotnet test Tests/Unit
   displayName: 'Run unit tests'
 
 - script: dotnet publish -c $CONFIGURATION -r linux-x64

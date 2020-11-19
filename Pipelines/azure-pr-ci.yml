@@ -27,5 +27,5 @@ steps:
 - script: dotnet build
   displayName: 'Build solution'
 
-- script: dotnet test Tests/Unit/*
+- script: dotnet test Tests/Unit
   displayName: 'Run unit tests'
