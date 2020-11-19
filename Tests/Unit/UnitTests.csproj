@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-
+    <RootNamespace>Spectabis.Tests.Unit</RootNamespace>
     <IsPackable>false</IsPackable>
+    
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\SpectabisLib\SpectabisLib.csproj" />
-    <ProjectReference Include="..\..\..\src\SpectabisUI\SpectabisUI.csproj" />
+    <ProjectReference Include="..\..\src\SpectabisLib\SpectabisLib.csproj" />
+    <ProjectReference Include="..\..\src\SpectabisUI\SpectabisUI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using SpectabisLib.Interfaces;
 using SpectabisUI.Controllers;
 using SpectabisLib.Configuration;
 
-namespace Tests.Unit.SpectabisLibTests.Controllers
+namespace Spectabis.Tests.Unit.Controllers
 {
     public class FirstTimeWizardTests
     {
