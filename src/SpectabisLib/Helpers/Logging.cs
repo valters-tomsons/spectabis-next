@@ -9,7 +9,7 @@ namespace SpectabisLib.Helpers
         public static void WriteLine(string message,
             [CallerFilePath] string callerPath = null)
         {
-            var callerName = callerPath.Split('/').Last().Replace(".cs", string.Empty);
+            var callerName = callerPath.Split('/').Last();
             Console.WriteLine($"[{callerName}] {message}");
         }
     }
