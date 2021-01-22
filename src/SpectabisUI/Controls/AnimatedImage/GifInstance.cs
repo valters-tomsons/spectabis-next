@@ -55,7 +55,7 @@ namespace SpectabisUI.Controls.AnimatedImage
             _gifDecoder = new GifDecoder(Stream);
             _bgWorker = new GifBackgroundWorker(_gifDecoder);
             var pixSize = new PixelSize(_gifDecoder.Header.Dimensions.Width, _gifDecoder.Header.Dimensions.Height);
-            _targetBitmap = new WriteableBitmap(pixSize, new Vector(96, 96), PixelFormat.Bgra8888);
+            _targetBitmap = new WriteableBitmap(pixSize, new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque);
 
             TargetControl.Source = _targetBitmap;
             _bgWorker.CurrentFrameChanged += FrameChanged;
