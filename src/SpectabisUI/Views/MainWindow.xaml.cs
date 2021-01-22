@@ -97,12 +97,6 @@ namespace SpectabisUI.Views
         {
             AvaloniaXamlLoader.Load(this);
             _discordService.InitializeDiscord();
-
-            if(Debugger.IsAttached)
-            {
-                Logging.WriteLine("Debugger detected, Avalonia Dev tools attached");
-                this.AttachDevTools();
-            }
         }
 
         private void OnContentContainerPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
