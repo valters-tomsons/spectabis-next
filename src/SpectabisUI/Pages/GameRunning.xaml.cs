@@ -4,7 +4,6 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
-using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisUI.Pages

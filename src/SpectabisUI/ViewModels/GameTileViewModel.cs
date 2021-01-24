@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using System;
 using Avalonia.Media.Imaging;
 using ReactiveUI;

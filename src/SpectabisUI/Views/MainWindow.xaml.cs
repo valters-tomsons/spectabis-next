@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System;
 using Avalonia;
 using Avalonia.Controls;
