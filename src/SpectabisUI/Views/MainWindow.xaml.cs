@@ -9,6 +9,7 @@ using SpectabisUI.Pages;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Interfaces;
 using ServiceClient.Interfaces;
+using System.Diagnostics;
 
 namespace SpectabisUI.Views
 {
@@ -64,6 +65,13 @@ namespace SpectabisUI.Views
 
             ContentContainer.PropertyChanged += OnContentContainerPropertyChanged;
             _navigationProvider.GeneratePageIcons();
+        }
+
+        [Conditional("DEBUG")]
+        private void AttachDevTools()
+        {
+            Logging.WriteLine("Attaching Avalonia dev tools");
+            AttachDevTools();
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
