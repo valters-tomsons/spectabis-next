@@ -154,7 +154,7 @@ namespace SpectabisLib.Services
         public async Task WriteGameBoxArtImage(GameProfile game, byte[] artBuffer)
         {
             var artFilePath = new Uri($"{SystemDirectories.ProfileFolder}/{game.Id}/{Constants.BoxArtFileName}", UriKind.Absolute);
-            await AsyncIOHelper.WriteBytesToFile(artFilePath, artBuffer).ConfigureAwait(false);
+            await File.WriteAllBytesAsync(artFilePath.LocalPath, artBuffer).ConfigureAwait(false);
         }
 
         private IEnumerable<Guid> GetAllProfileIds()

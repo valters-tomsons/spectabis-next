@@ -1,3 +1,4 @@
+using System.Text;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace SpectabisNext.Services
         public UIConfig UserInterface { get; set; }
         public DirectoryConfig Directories { get; set; }
         public TextConfig TextConfig { get; set; }
+
+        private readonly Encoding Encoding = Encoding.UTF8;
 
         public ConfigurationManager()
         {
@@ -45,8 +48,7 @@ namespace SpectabisNext.Services
                 File.Delete(configUri.LocalPath);
             }
 
-            Logging.WriteLine($"Writing to file '{configUri.LocalPath}'");
-            await AsyncIOHelper.WriteTextToFile(configUri, configText).ConfigureAwait(false);
+            await File.WriteAllTextAsync(configUri.LocalPath, configText, Encoding).ConfigureAwait(false);
         }
 
         public async Task WriteDefaultsIfNotExist<T>() where T : IJsonConfig, new()
@@ -71,7 +73,7 @@ namespace SpectabisNext.Services
             var configUri = GetConfigUri<T>();
             Logging.WriteLine($"Loading '{configUri.LocalPath}");
 
-            var configText = await AsyncIOHelper.ReadTextFromFile(configUri).ConfigureAwait(false);
+            var configText = await File.ReadAllTextAsync(configUri.LocalPath, Encoding).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<T>(configText);
         }
 
