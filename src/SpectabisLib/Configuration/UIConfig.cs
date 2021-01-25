@@ -15,7 +15,6 @@ namespace SpectabisLib.Configuration
             BoxArtSizeModifier = 1.25;
             BoxArtGapSize = 10;
 
-            UIBackgroundGradient = DefaultBackgroundGradient();
             TitlebarGradient = DefaultTitlebarGradient();
         }
 
@@ -23,34 +22,7 @@ namespace SpectabisLib.Configuration
         public double BoxArtHeight { get; set; }
         public double BoxArtSizeModifier { get; set; }
         public double BoxArtGapSize { get; set; }
-        public LinearGradientBrush UIBackgroundGradient { get; set; }
         public LinearGradientBrush TitlebarGradient { get; set; }
-
-        private LinearGradientBrush DefaultBackgroundGradient()
-        {
-            var gradient = new LinearGradientBrush()
-            {
-                StartPoint = new Avalonia.RelativePoint(0.5, 1, 0),
-                EndPoint = new Avalonia.RelativePoint(0.5, 0, 0),
-            };
-
-            var stop1 = new GradientStop()
-            {
-                Color = Color.Parse("#BDBDBD"),
-                Offset = 0
-            };
-
-            var stop2 = new GradientStop()
-            {
-                Color = Color.Parse("#F5F5F5"),
-                Offset = 0.56
-            };
-
-            gradient.GradientStops.Add(stop1);
-            gradient.GradientStops.Add(stop2);
-
-            return gradient;
-        }
 
         private LinearGradientBrush DefaultTitlebarGradient()
         {

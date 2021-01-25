@@ -81,7 +81,6 @@ namespace SpectabisUI.Views
 
         private void FillElementColors()
         {
-            Background = _configuration.UserInterface.UIBackgroundGradient;
             Titlebar.Fill = _configuration.UserInterface.TitlebarGradient;
         }
 
