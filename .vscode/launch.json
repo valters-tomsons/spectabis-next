@@ -16,6 +16,9 @@
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "justMyCode":false,
+            "logging": {
+                "moduleLoad": false
+            }
         },
         {
             "name": ".NET Core Attach",
