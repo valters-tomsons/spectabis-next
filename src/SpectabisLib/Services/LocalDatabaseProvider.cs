@@ -1,7 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
@@ -10,14 +11,13 @@ using TinyCsvParser;
 using TinyCsvParser.Mapping;
 using TinyCsvParser.TypeConverter;
 using Lunr;
-using System.Threading.Tasks;
 
 namespace SpectabisLib.Services
 {
     public class LocalDatabaseProvider : IGameDatabaseProvider
     {
         private IEnumerable<GameMetadata> _metadataDb;
-        private Index _gameTitleIndex;
+        private Lunr.Index _gameTitleIndex;
         private readonly Uri DatabaseUri = new Uri($"{SystemDirectories.ResourcesPath}/{Constants.PCSX2DatabaseName}", UriKind.Relative);
 
         public LocalDatabaseProvider()
@@ -69,9 +69,9 @@ namespace SpectabisLib.Services
             }
         }
 
-        private async Task<Index> CreateIndexFromMetadata(IEnumerable<GameMetadata> data)
+        private async Task<Lunr.Index> CreateIndexFromMetadata(IEnumerable<GameMetadata> data)
         {
-            return await Index.Build(async builder =>
+            return await Lunr.Index.Build(async builder =>
             {
                 builder.AddField("title");
 
