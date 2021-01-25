@@ -14,7 +14,8 @@
             "cwd": "${workspaceFolder}/src/SpectabisNext",
             "console": "internalConsole",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "justMyCode":false,
         },
         {
             "name": ".NET Core Attach",
