@@ -53,17 +53,14 @@ namespace SpectabisUI.Pages
             _bitmapLoader = bitmapLoader;
             _gifProvider = gifProvider;
             _dirScan = dirScan;
-
-            _navigationProvider.PageNavigationEvent += OnNavigation;
-
-            InitializeComponent();
-            RegisterChildren();
-
-            Dispatcher.UIThread.Post(Populate);
             _menuMapper = menuMapper;
             _discordService = discordService;
 
+            _navigationProvider.PageNavigationEvent += OnNavigation;
             _queueService.ItemFinished += OnGameArtDownloaded;
+
+            InitializeComponent();
+            RegisterChildren();
 
             _dirScan.ScanNewGames();
         }
