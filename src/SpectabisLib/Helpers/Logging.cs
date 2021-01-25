@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -9,7 +10,7 @@ namespace SpectabisLib.Helpers
         public static void WriteLine(string message,
             [CallerFilePath] string callerPath = null)
         {
-            var callerName = callerPath.Split('/').Last();
+            var callerName = callerPath.Split(Path.DirectorySeparatorChar).Last();
             Console.WriteLine($"[{callerName}] {message}");
         }
     }
