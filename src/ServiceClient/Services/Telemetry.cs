@@ -32,12 +32,15 @@ namespace ServiceClient.Services
             if(isEnabled)
             {
                 Console.WriteLine("[Telemetry] Tracking failed client operation");
-                var op = new EventTelemetry(operation.ToString());
+
+                var op = new EventTelemetry($"{operation} failed");
 
                 foreach(var prop in props)
                 {
                     op.Properties.TryAdd(prop.Key, prop.Value);
                 }
+
+                _client.TrackEvent(op);
             }
         }
 
@@ -51,7 +54,7 @@ namespace ServiceClient.Services
             }
         }
 
-        private void Flush()
+        public void Flush()
         {
             if(isEnabled)
             {
