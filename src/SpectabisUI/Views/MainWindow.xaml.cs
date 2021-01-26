@@ -44,7 +44,7 @@ namespace SpectabisUI.Views
 
             if(configurationLoader.Spectabis.EnableTelemetry)
             {
-                _telemetry.EnableTelemetry();
+                _telemetry.InitializeTelemetry();
             }
 
             InitializeSpectabis();

@@ -14,17 +14,14 @@ namespace ServiceClient.Services
         private TelemetryClient _client;
         private bool isEnabled;
 
-        public void EnableTelemetry()
+        public void InitializeTelemetry()
         {
             if(_client == null)
             {
                 _client = CreateClient();
             }
 
-            Console.WriteLine("[Telemetry] Telemetry Enabled");
-
             AttachExceptionHandlers();
-
             isEnabled = true;
         }
 
@@ -49,6 +46,7 @@ namespace ServiceClient.Services
 
         private void AttachExceptionHandlers()
         {
+            Console.WriteLine("[Telemetry] Attaching exception telemetry handlers");
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
