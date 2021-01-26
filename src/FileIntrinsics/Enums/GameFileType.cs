@@ -1,6 +1,6 @@
 namespace FileIntrinsics.Enums
 {
-    public enum FileType
+    public enum GameFileType
     {
         ISO9660,
         GZip,

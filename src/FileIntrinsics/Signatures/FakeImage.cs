@@ -10,7 +10,7 @@ namespace FileIntrinsics.Signatures
         private readonly static int[] _offsets = { 0x0 };
         private readonly static string[] _extensions = {"fake"};
 
-        public FileType File => FileType.Fake;
+        public GameFileType File => GameFileType.Fake;
 
         public byte[] ByteSignature => _signature;
 

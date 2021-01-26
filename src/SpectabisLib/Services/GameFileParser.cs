@@ -28,17 +28,17 @@ namespace SpectabisLib.Services
                 return null;
             }
 
-            if (fileType.File == FileType.ISO9660)
+            if (fileType.File == GameFileType.ISO9660)
             {
                 return IsoParser.ReadSerialFromIso(gamePath);
             }
 
-            if(fileType.File == FileType.CD_I)
+            if(fileType.File == GameFileType.CD_I)
             {
                 return await BinParser.ReadSerial(gamePath).ConfigureAwait(false);
             }
 
-            if(fileType.File == FileType.Fake)
+            if(fileType.File == GameFileType.Fake)
             {
                 var content = File.ReadAllLines(gamePath);
                 return content[1];
