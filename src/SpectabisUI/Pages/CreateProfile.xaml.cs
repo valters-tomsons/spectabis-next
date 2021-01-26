@@ -136,9 +136,6 @@ namespace SpectabisUI.Pages
             {
                 _navigation.PageNavigationEvent -= OnNavigation;
             }
-            else{
-                throw new NotImplementedException();
-            }
         }
 
         private async void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
