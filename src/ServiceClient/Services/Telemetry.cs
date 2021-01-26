@@ -6,10 +6,11 @@ using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using ServiceClient.Helpers;
+using Microsoft.ApplicationInsights.Channel;
 
 namespace ServiceClient.Services
 {
-    public class Telemetry : ITelemetry
+    public class Telemetry : Interfaces.ITelemetry
     {
         private TelemetryClient _client;
         private bool isEnabled;
@@ -78,7 +79,7 @@ namespace ServiceClient.Services
             var config = new TelemetryConfiguration
             {
                 InstrumentationKey = instrumentationKey,
-                TelemetryChannel = new Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.ServerTelemetryChannel
+                TelemetryChannel = new InMemoryChannel()
                 {
                     DeveloperMode = Debugger.IsAttached
                 }
