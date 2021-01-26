@@ -6,6 +6,8 @@ using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using ServiceClient.Helpers;
 using Microsoft.ApplicationInsights.Channel;
+using ServiceClient.Enums;
+using System.Collections.Generic;
 
 namespace ServiceClient.Services
 {
@@ -23,6 +25,20 @@ namespace ServiceClient.Services
 
             AttachExceptionHandlers();
             isEnabled = true;
+        }
+
+        public void TrackFailedClientOperation(ClientOperation operation, IDictionary<string, string> props)
+        {
+            if(isEnabled)
+            {
+                Console.WriteLine("[Telemetry] Tracking failed client operation");
+                var op = new EventTelemetry(operation.ToString());
+
+                foreach(var prop in props)
+                {
+                    op.Properties.TryAdd(prop.Key, prop.Value);
+                }
+            }
         }
 
         private void TrackException(Exception e)

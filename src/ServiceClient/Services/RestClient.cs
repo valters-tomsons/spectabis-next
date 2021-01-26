@@ -8,7 +8,7 @@ namespace ServiceClient.Services
 {
     public class RestClient : IRestClient
     {
-        private HttpClient _httpClient { get; set; }
+        private HttpClient httpClient { get; set; }
         private static readonly object ClientSemaphore = new object();
         private const string UserAgent = "SpectabisLib/(.NET Core)";
 
@@ -31,43 +31,49 @@ namespace ServiceClient.Services
 
         public async Task<byte[]> GetBytesAsync(Uri source, string query = null)
         {
-            if (_httpClient == null)
+            if (httpClient == null)
             {
                 throw new Exception("HttpClient not initialized!");
             }
 
             var requestMessage = CreateFunctionMessage(HttpMethod.Get, source, query);
-            var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            var response = await httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+
+            if(response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return null;
+            }
+
             return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
         }
 
         public HttpClient GetClient()
         {
-            if(_httpClient == null)
+            if(httpClient == null)
             {
                 throw new Exception("HttpClient not initialized!");
             }
 
-            return _httpClient;
+            return httpClient;
         }
 
         private void InitializeHttpClient()
         {
-            if (_httpClient == null)
+            if (httpClient == null)
             {
                 lock(ClientSemaphore)
                 {
-                    _httpClient = new HttpClient();
-                    _httpClient.DefaultRequestHeaders.UserAgent.TryParseAdd(UserAgent);
-                    _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-functions-key", _functionKey);
-                    _httpClient.BaseAddress = _functionBaseUrl;
+                    httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.UserAgent.TryParseAdd(UserAgent);
+                    httpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-functions-key", _functionKey);
+                    httpClient.BaseAddress = _functionBaseUrl;
                 }
             }
         }
 
         private async Task<RestResponse> CommonFunctionRequest(Uri endpoint, HttpMethod method, string query)
         {
-            if (_httpClient == null)
+            if (httpClient == null)
             {
                 throw new Exception("HttpClient not initialized!");
             }
@@ -76,7 +82,7 @@ namespace ServiceClient.Services
 
             try
             {
-                var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+                var response = await httpClient.SendAsync(requestMessage).ConfigureAwait(false);
                 var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 return new RestResponse()
