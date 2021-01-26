@@ -91,8 +91,15 @@ namespace SpectabisLib.Services
             Logging.WriteLine("Downloading boxart");
             var boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
 
-            Logging.WriteLine("Writing boxart to file system");
-            await _profileFs.WriteGameBoxArtImage(game, boxBytes).ConfigureAwait(false);
+            if (boxBytes != null)
+            {
+                Logging.WriteLine("Writing boxart to file system");
+                await _profileFs.WriteGameBoxArtImage(game, boxBytes).ConfigureAwait(false);
+            }
+            else
+            {
+                Logging.WriteLine("Boxart download failed");
+            }
 
             _finishedArt.Push(game);
             _currentProcess = null;
