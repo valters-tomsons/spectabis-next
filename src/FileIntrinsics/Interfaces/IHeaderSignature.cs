@@ -4,7 +4,7 @@ namespace FileIntrinsics.Interfaces
 {
     public interface IHeaderSignature
     {
-        FileType File { get; }
+        GameFileType File { get; }
         byte[] ByteSignature { get; }
         int[] Offsets { get; }
         string[] FileExtensions { get; }

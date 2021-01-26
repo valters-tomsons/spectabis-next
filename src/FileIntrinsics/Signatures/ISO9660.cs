@@ -21,6 +21,6 @@ namespace FileIntrinsics.Signatures
         public int[] Offsets => _offsets;
 
         public string[] FileExtensions => _extensions;
-        public FileType File => FileType.ISO9660;
+        public GameFileType File => GameFileType.ISO9660;
     }
 }

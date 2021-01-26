@@ -22,6 +22,6 @@ namespace FileIntrinsics.Signatures
 
         public string[] FileExtensions => _extensions;
 
-        public FileType File => FileType.CD_I;
+        public GameFileType File => GameFileType.CD_I;
     }
 }
