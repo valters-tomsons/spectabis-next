@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ServiceClient.Helpers;
 using ServiceClient.Interfaces;
@@ -11,18 +13,42 @@ namespace ServiceClient.Services
         private Uri GetArtEndpoint { get; } = new Uri("GetGameBoxArt", UriKind.Relative);
 
         private readonly IRestClient _restClient;
+        private readonly ITelemetry _telemetry;
 
-        public SpectabisClient(IRestClient restClient)
+        public SpectabisClient(IRestClient restClient, ITelemetry telemetry)
         {
             Console.WriteLine($"[ServiceClient] Creating client to service at '{ServiceBaseUrl}'");
 
             _restClient = restClient;
             _restClient.SetSession(ServiceCredentialsHelper.ServiceApiKey, ServiceBaseUrl);
+
+            _telemetry = telemetry;
         }
 
         public async Task<byte[]> DownloadBoxArt(string serial)
         {
-            return await _restClient.GetBytesAsync(GetArtEndpoint, $"serial={serial}").ConfigureAwait(false);
+            var result = await _restClient.GetBytesAsync(GetArtEndpoint, $"serial={serial}").ConfigureAwait(false);
+
+            if(result == null)
+            {
+                _telemetry.TrackFailedClientOperation(Enums.ClientOperation.BoxArtDownload, new Dictionary<string, string> { { nameof(serial), serial } });
+                return null;
+            }
+
+            if(!ValidatePng(result))
+            {
+                _telemetry.TrackFailedClientOperation(Enums.ClientOperation.BoxArtValidation, new Dictionary<string, string> { { nameof(serial), serial } });
+                return null;
+            }
+
+            return result;
+        }
+
+        private bool ValidatePng(byte[] imageBuffer)
+        {
+            var headerBytes = imageBuffer.Take(4).ToArray();
+            var header = System.Text.Encoding.ASCII.GetString(headerBytes);
+            return header.Contains("PNG");
         }
     }
 }
