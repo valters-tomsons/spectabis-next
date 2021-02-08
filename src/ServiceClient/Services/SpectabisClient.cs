@@ -35,7 +35,7 @@ namespace ServiceClient.Services
                 return null;
             }
 
-            if(!ValidatePng(result))
+            if(!ValidateImage(result))
             {
                 _telemetry.TrackFailedClientOperation(Enums.ClientOperation.BoxArtValidation, new Dictionary<string, string> { { nameof(serial), serial } });
                 return null;
@@ -44,11 +44,11 @@ namespace ServiceClient.Services
             return result;
         }
 
-        private bool ValidatePng(byte[] imageBuffer)
+        private bool ValidateImage(byte[] imageBuffer)
         {
-            var headerBytes = imageBuffer.Take(4).ToArray();
+            var headerBytes = imageBuffer.Take(16).ToArray();
             var header = System.Text.Encoding.ASCII.GetString(headerBytes);
-            return header.Contains("PNG");
+            return header.Contains("PNG") || header.Contains("JFIF");
         }
     }
 }
