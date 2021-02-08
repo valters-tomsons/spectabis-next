@@ -41,9 +41,9 @@ namespace SpectabisLib.Services
 
             foreach(var file in foundFiles)
             {
-                var match = loadedPaths.SingleOrDefault(x => x == file);
+                var alreadyLoaded = loadedPaths.Any(x => x == file);
 
-                if(match == null)
+                if(!alreadyLoaded)
                 {
                     newGames.Add(file);
                 }
