@@ -40,7 +40,7 @@ namespace SpectabisLib.Helpers
 
         public static string ConfigurationPathToArgument(Uri cfgContainerLocation)
         {
-            return $"--cfgpath{cfgContainerLocation.LocalPath}";
+            return $"--cfgpath={cfgContainerLocation.LocalPath}";
         }
 
         private static IEnumerable<string> GetSelectedOptionsList(EmulatorLaunchOptions launchOptions)
