@@ -7,11 +7,11 @@ using SpectabisService.Providers.Interfaces;
 
 namespace SpectabisService.Endpoints
 {
-    public class GetGameBoxArt
+    public class GetArtBySerial
     {
         private readonly IGameArtProvider _artProvider;
 
-        public GetGameBoxArt(IGameArtProvider artProvider)
+        public GetArtBySerial(IGameArtProvider artProvider)
         {
             _artProvider = artProvider;
         }
