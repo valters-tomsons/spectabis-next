@@ -12,7 +12,7 @@ namespace SpectabisNext
             var container = AutoFacConfiguration.Configure();
             StartSpectabis(container);
 
-            var telemetry = container.Resolve<ServiceClient.Interfaces.ITelemetry>();
+            var telemetry = container.Resolve<ServiceLib.Interfaces.ITelemetry>();
             telemetry.Flush();
         }
 

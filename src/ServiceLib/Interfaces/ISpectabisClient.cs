@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace ServiceClient.Interfaces
+namespace ServiceLib.Interfaces
 {
     public interface ISpectabisClient
     {

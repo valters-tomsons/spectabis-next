@@ -1,4 +1,4 @@
-namespace ServiceClient.Enums
+namespace ServiceLib.Enums
 {
     public enum ClientOperation
     {

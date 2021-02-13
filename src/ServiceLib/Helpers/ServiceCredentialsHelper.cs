@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json.Linq;
 
-namespace ServiceClient.Helpers
+namespace ServiceLib.Helpers
 {
     public static class ServiceCredentialsHelper
     {

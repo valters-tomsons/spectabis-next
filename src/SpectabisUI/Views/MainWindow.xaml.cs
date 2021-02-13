@@ -8,7 +8,7 @@ using SpectabisUI.Controls.PageIcon;
 using SpectabisUI.Pages;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Interfaces;
-using ServiceClient.Interfaces;
+using ServiceLib.Interfaces;
 using System.Diagnostics;
 
 namespace SpectabisUI.Views

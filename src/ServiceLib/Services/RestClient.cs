@@ -1,10 +1,10 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ServiceClient.Interfaces;
-using ServiceClient.Models;
+using ServiceLib.Interfaces;
+using ServiceLib.Models;
 
-namespace ServiceClient.Services
+namespace ServiceLib.Services
 {
     public class RestClient : IRestClient
     {

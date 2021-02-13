@@ -41,7 +41,7 @@ steps:
   displayName: 'Insert service secrets'
   inputs:
     filePath: 'Scripts/InsertSecretsInSource.ps1'
-    arguments: 'src/ServiceClient/Helpers/ServiceCredentialsHelper.cs'
+    arguments: 'src/ServiceLib/Helpers/ServiceCredentialsHelper.cs'
   env:
     SERVICE_API_KEY: $(SERVICE_API_KEY)
     TELEMETRY_KEY: $(TELEMETRY_KEY)

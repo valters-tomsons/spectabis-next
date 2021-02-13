@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceClient.Helpers;
-using ServiceClient.Interfaces;
+using ServiceLib.Helpers;
+using ServiceLib.Interfaces;
 
-namespace ServiceClient.Services
+namespace ServiceLib.Services
 {
     public class SpectabisClient : ISpectabisClient
     {
@@ -17,7 +17,7 @@ namespace ServiceClient.Services
 
         public SpectabisClient(IRestClient restClient, ITelemetry telemetry)
         {
-            Console.WriteLine($"[ServiceClient] Creating client to service at '{ServiceBaseUrl}'");
+            Console.WriteLine($"[ServiceLib] Creating client to service at '{ServiceBaseUrl}'");
 
             _restClient = restClient;
             _restClient.SetSession(ServiceCredentialsHelper.ServiceApiKey, ServiceBaseUrl);

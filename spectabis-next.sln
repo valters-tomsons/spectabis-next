@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomParsing", "src\RomParsin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectabisService", "src\SpectabisService\SpectabisService.csproj", "{0BAE8313-7F54-46A3-9EAC-3E3F19C3A36D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceClient", "src\ServiceClient\ServiceClient.csproj", "{024BF2EC-4079-45DA-991F-3D4466ACEC6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLib", "src\ServiceLib\ServiceLib.csproj", "{024BF2EC-4079-45DA-991F-3D4466ACEC6D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4BEF3C6A-17DE-4D60-8EF7-A69E7057FA04}"
 EndProject

@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http;
 
-namespace ServiceClient.Models
+namespace ServiceLib.Models
 {
     public class RestResponse
     {

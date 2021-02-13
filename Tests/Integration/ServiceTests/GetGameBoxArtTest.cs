@@ -1,7 +1,7 @@
 using System;
 using Bard;
 using Bard.Configuration;
-using ServiceClient.Services;
+using ServiceLib.Services;
 using Xunit;
 
 namespace Tests.Integration.ServiceTests

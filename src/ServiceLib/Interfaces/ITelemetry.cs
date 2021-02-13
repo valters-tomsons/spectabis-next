@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using ServiceClient.Enums;
+using ServiceLib.Enums;
 
-namespace ServiceClient.Interfaces
+namespace ServiceLib.Interfaces
 {
     public interface ITelemetry
     {

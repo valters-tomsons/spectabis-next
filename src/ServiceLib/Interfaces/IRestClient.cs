@@ -1,9 +1,9 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ServiceClient.Models;
+using ServiceLib.Models;
 
-namespace ServiceClient.Interfaces
+namespace ServiceLib.Interfaces
 {
     public interface IRestClient
     {

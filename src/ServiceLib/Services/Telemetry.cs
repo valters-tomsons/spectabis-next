@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
-using ServiceClient.Helpers;
+using ServiceLib.Helpers;
 using Microsoft.ApplicationInsights.Channel;
-using ServiceClient.Enums;
+using ServiceLib.Enums;
 using System.Collections.Generic;
 
-namespace ServiceClient.Services
+namespace ServiceLib.Services
 {
     public class Telemetry : Interfaces.ITelemetry
     {
