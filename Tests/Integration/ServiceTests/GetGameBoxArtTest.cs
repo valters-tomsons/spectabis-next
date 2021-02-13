@@ -10,7 +10,7 @@ namespace Tests.Integration.ServiceTests
     {
         private readonly IScenario Scenario;
 
-        private readonly string endpoint = "GetGameBoxArt";
+        private readonly string endpoint = ServiceLib.Constants.Endpoints.GetBySerial;
         private readonly string serialQuery = "serial";
         private readonly string validSerial = "SLUS21376";
 
