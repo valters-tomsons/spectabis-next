@@ -16,7 +16,7 @@ namespace SpectabisService.Endpoints
             _artProvider = artProvider;
         }
 
-        [FunctionName("GetGameBoxArt")]
+        [FunctionName(ServiceLib.Constants.Endpoints.GetBySerial)]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ServiceLib.Constants;
 using ServiceLib.Helpers;
 using ServiceLib.Interfaces;
 
@@ -10,7 +11,7 @@ namespace ServiceLib.Services
     public class SpectabisClient : ISpectabisClient
     {
         private Uri ServiceBaseUrl { get; } = new Uri(ServiceCredentialsHelper.ServiceBaseUrl, UriKind.Absolute);
-        private Uri GetArtEndpoint { get; } = new Uri("GetGameBoxArt", UriKind.Relative);
+        private Uri GetArtEndpoint { get; } = new Uri(Endpoints.GetBySerial, UriKind.Relative);
 
         private readonly IRestClient _restClient;
         private readonly ITelemetry _telemetry;

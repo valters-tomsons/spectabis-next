@@ -29,5 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectabisLib\SpectabisLib.csproj" />
+    <ProjectReference Include="..\ServiceLib\ServiceLib.csproj" />
   </ItemGroup>
 </Project>
