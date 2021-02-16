@@ -17,6 +17,12 @@ namespace SpectabisService.Services
         public async Task<byte[]> DownloadGameArt(Uri imageUri)
         {
             var imageResponse = await _client.GetAsync(imageUri).ConfigureAwait(false);
+
+            if(imageResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return null;
+            }
+
             return await imageResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
         }
     }
