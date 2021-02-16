@@ -21,15 +21,14 @@ namespace SpectabisService
             services.AddConfiguration();
 
             services.AddSingleton<IHttpClient, HttpClientFacade>();
+            services.AddSingleton<IGameArtClient, GiantBombClient>();
+            services.AddSingleton<IStorageProvider, AzureStorageProvider>();
 
-            services.AddTransient<IStorageProvider, AzureStorageProvider>();
-            services.AddTransient<IGameDatabaseProvider, CloudDatabaseProvider>();
-            services.AddTransient<IContentDownloader, ContentDownloader>();
-
-            services.AddTransient<IGameArtClient, GiantBombClient>();
-            services.AddTransient<ContentDownloader>();
+            services.AddScoped<IGameDatabaseProvider, CloudDatabaseProvider>();
+            services.AddScoped<IContentDownloader, ContentDownloader>();
 
             services.AddTransient<IGameArtProvider, GameArtProvider>();
+            services.AddTransient<ContentDownloader>();
         }
     }
 

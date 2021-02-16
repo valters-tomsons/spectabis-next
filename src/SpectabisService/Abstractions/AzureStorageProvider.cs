@@ -23,8 +23,6 @@ namespace SpectabisService.Abstractions
 
         public async Task<DateTimeOffset?> GetLastModified(string fileName)
         {
-            await InitializeStorage().ConfigureAwait(false);
-
             var blob = container.GetBlockBlobReference(fileName);
             var exists = await blob.ExistsAsync().ConfigureAwait(false);
 
@@ -40,8 +38,6 @@ namespace SpectabisService.Abstractions
 
         public async Task<byte[]> ReadBytesFromStorage(string fileName)
         {
-            await InitializeStorage().ConfigureAwait(false);
-
             var blob = container.GetBlockBlobReference(fileName);
             var exists = await blob.ExistsAsync().ConfigureAwait(false);
 
@@ -60,8 +56,6 @@ namespace SpectabisService.Abstractions
 
         public async Task WriteImageToStorage(string fileName, byte[] buffer)
         {
-            await InitializeStorage().ConfigureAwait(false);
-
             var blob = container.GetBlockBlobReference(fileName);
             blob.Properties.ContentType = "image/png";
             await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
@@ -69,14 +63,12 @@ namespace SpectabisService.Abstractions
 
         public async Task WriteDataToStorage(string fileName, byte[] buffer)
         {
-            await InitializeStorage().ConfigureAwait(false);
-
             var blob = container.GetBlockBlobReference(fileName);
             blob.Properties.ContentType = "application/octet-stream";
             await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
         }
 
-        private async Task InitializeStorage()
+        public async Task InitializeStorage()
         {
             if(client != null)
             {

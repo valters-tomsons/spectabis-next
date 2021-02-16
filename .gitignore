@@ -334,3 +334,6 @@ ASALocalRun/
 .mfractor/
 
 local.settings.json
+__azurite_*
+**/data.csv
+**/artDump

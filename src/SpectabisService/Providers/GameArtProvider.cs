@@ -30,6 +30,8 @@ namespace SpectabisService.Providers
                 return new BadRequestObjectResult("Missing serial in query");
             }
 
+            await _storage.InitializeStorage().ConfigureAwait(false);
+
             var normalizedSerial = serial.NormalizeSerial();
             var game = await _dbProvider.GetBySerial(normalizedSerial).ConfigureAwait(false);
 
@@ -46,10 +48,20 @@ namespace SpectabisService.Providers
             }
 
             var artUrl = await _artClient.GetBoxArtPS2(game.Title).ConfigureAwait(false);
+
+            if(artUrl == null)
+            {
+                return new UnprocessableEntityObjectResult("Failed to triangulate game from external providers");
+            }
+
             var result = await _downloader.DownloadGameArt(artUrl).ConfigureAwait(false);
 
-            await _storage.WriteImageToStorage(normalizedSerial, result).ConfigureAwait(false);
+            if(result == null)
+            {
+                return new NotFoundObjectResult("No boxart is available");
+            }
 
+            await _storage.WriteImageToStorage(normalizedSerial, result).ConfigureAwait(false);
             return new FileContentResult(result, "image/png");
         }
     }
