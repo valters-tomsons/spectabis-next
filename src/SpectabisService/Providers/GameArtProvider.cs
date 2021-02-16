@@ -30,6 +30,8 @@ namespace SpectabisService.Providers
                 return new BadRequestObjectResult("Missing serial in query");
             }
 
+            await _storage.InitializeStorage();
+
             var normalizedSerial = serial.NormalizeSerial();
             var game = await _dbProvider.GetBySerial(normalizedSerial).ConfigureAwait(false);
 
