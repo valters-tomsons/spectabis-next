@@ -76,7 +76,7 @@ namespace SpectabisService.Abstractions
             await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
         }
 
-        private async Task InitializeStorage()
+        public async Task InitializeStorage()
         {
             if(client != null)
             {
