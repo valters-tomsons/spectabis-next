@@ -20,6 +20,12 @@ namespace SpectabisService.Services
         public async Task<Uri> GetBoxArtPS2(string titleQuery)
         {
             var queryResult = await _client.SearchForGamesAsync(titleQuery).ConfigureAwait(false);
+
+            if(queryResult?.Any() != true)
+            {
+                return null;
+            }
+
             var result = queryResult.FirstOrDefault( x => x.Platforms.Any(y => y.Abbreviation == "PS2"));
 
             if(result == null)
