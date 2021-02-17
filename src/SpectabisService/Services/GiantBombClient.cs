@@ -26,7 +26,7 @@ namespace SpectabisService.Services
                 return null;
             }
 
-            var result = queryResult.FirstOrDefault( x => x.Platforms.Any(y => y.Abbreviation == "PS2"));
+            var result = queryResult.FirstOrDefault( x => x.Platforms?.Any(y => y.Abbreviation == "PS2") == true);
 
             if(result == null)
             {
