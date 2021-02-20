@@ -13,7 +13,7 @@ namespace SpectabisLib.Services
 {
     public class ProfileFileSystem
     {
-        public Uri GetProfileConfigLocation(GameProfile profile, ContainerConfigType containerType)
+        public Uri GetProfileContainerPath(GameProfile profile, ContainerConfigType containerType)
         {
             if (profile.Id == Guid.Empty)
             {
@@ -27,12 +27,7 @@ namespace SpectabisLib.Services
             return location;
         }
 
-        public Uri GetGlobalConfigsUri()
-        {
-            return new Uri(SystemDirectories.GlobalConfigsFolder, UriKind.Absolute);
-        }
-
-        public async Task WriteProfileAsync(GameProfile profile)
+        public async Task WriteConfiguration(GameProfile profile)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}", UriKind.Absolute);
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
@@ -51,7 +46,7 @@ namespace SpectabisLib.Services
             await WriteTextAsync(profileUri, profileJson).ConfigureAwait(false);
         }
 
-        public async Task CopyDefaultConfiguration(GameProfile profile)
+        public async Task WriteDefaultConfiguration(GameProfile profile)
         {
             var profileContainerUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/inis/", UriKind.Absolute);
             Directory.CreateDirectory(profileContainerUri.LocalPath);
@@ -196,6 +191,11 @@ namespace SpectabisLib.Services
         {
             File.Delete(filePath.LocalPath);
             await WriteTextAsync(filePath, text).ConfigureAwait(false);
+        }
+
+        private Uri GetGlobalConfigsUri()
+        {
+            return new Uri(SystemDirectories.GlobalConfigsFolder, UriKind.Absolute);
         }
     }
 }
