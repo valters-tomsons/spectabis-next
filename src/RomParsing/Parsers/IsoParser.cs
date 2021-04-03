@@ -15,20 +15,18 @@ namespace RomParsing.Parsers
 
         private static byte[] ReadSystemCnf(string gamePath)
         {
-            using(var stream = File.Open(gamePath, FileMode.Open))
+            using var stream = File.Open(gamePath, FileMode.Open);
+            var reader = new CDReader(stream, true);
+            var syscnfStream = reader.OpenFile("SYSTEM.CNF", FileMode.Open);
+
+            if (syscnfStream == null)
             {
-                var reader = new CDReader(stream, true);
-                var syscnfStream = reader.OpenFile("SYSTEM.CNF", FileMode.Open);
-
-                if (syscnfStream == null)
-                {
-                    Console.WriteLine($"[IsoParser] Failed to find SYSTEM.CNF in '{gamePath}'");
-                }
-
-                var cnfBuffer = new byte[syscnfStream.Length];
-                syscnfStream.Read(cnfBuffer, 0, cnfBuffer.Length);
-                return cnfBuffer;
+                Console.WriteLine($"[IsoParser] Failed to find SYSTEM.CNF in '{gamePath}'");
             }
+
+            var cnfBuffer = new byte[syscnfStream.Length];
+            syscnfStream.Read(cnfBuffer, 0, cnfBuffer.Length);
+            return cnfBuffer;
         }
 
         private static string FindSerialInSystemInfo(byte[] cnfContent)
