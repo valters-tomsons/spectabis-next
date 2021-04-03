@@ -32,7 +32,7 @@
     <PackageReference Include="Autofac" Version="4.9.2" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
-    <PackageReference Include="DiscordRichPresence" Version="1.0.150" />
+    <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
   </ItemGroup>
 
   <ItemGroup>

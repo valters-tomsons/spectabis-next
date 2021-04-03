@@ -28,7 +28,15 @@ namespace SpectabisNext.Services
             Logging.WriteLine("Starting DiscordService client");
 
             client = new DiscordRpcClient(Constants.DiscordClientId);
+
             client.Initialize();
+
+            if(client.CurrentUser == null)
+            {
+                Logging.WriteLine("Could not connect to Discord RPC");
+                client.Dispose();
+                return;
+            }
 
             SetMenuPresence();
         }
@@ -53,6 +61,12 @@ namespace SpectabisNext.Services
             if(client == null)
             {
                 InitializeDiscord();
+            }
+
+            if(client?.IsDisposed != false)
+            {
+                Logging.WriteLine($"Discord client not active, ignoring status '{status}'");
+                return;
             }
 
             Logging.WriteLine($"Updating status to: '{status}'");
