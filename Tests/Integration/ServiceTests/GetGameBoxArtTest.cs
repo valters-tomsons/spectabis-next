@@ -48,5 +48,15 @@ namespace Tests.Integration.ServiceTests
             // Assert
             Scenario.Then.Response.Headers.Should.Include.ContentType("image/png");
         }
+
+        [Fact]
+        public void When_requesting_game_art_should_return_image_content_nonzero()
+        {
+            // Act
+            Scenario.When.Get(endpoint, serialQuery, validSerial);
+
+            // Assert
+            Scenario.Then.Response.Headers.Should.Include.ContentLength("739028");
+        }
     }
 }
