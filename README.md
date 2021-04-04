@@ -59,9 +59,9 @@ Currently usable but not useful yet.
 
 ### Desktop
 
-* .NET Core 3.1
+* .NET 5.0
 * AutoFac 4.9.2
-* Avalonia UI 0.9.7
+* Avalonia UI 0.10
 * Reactive UI
 
 ### Service
