@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using FileIntrinsics.Interfaces;
 using FileIntrinsics.Models;
-using FileIntrinsics.Signatures;
 
 namespace FileIntrinsics
 {
     public class IntrinsicsProvider : IIntrinsicsProvider
     {
-        private readonly List<IHeaderSignature> _fileSignatures = new List<IHeaderSignature>();
+        private readonly IEnumerable<IHeaderSignature> _fileSignatures = new List<IHeaderSignature>();
 
         public IntrinsicsProvider()
         {
-            _fileSignatures.Add(new ISO9660());
-            _fileSignatures.Add(new GZip());
-            _fileSignatures.Add(new CueDescription());
-            _fileSignatures.Add(new CISOImage());
-            _fileSignatures.Add(new CD_I());
-            _fileSignatures.Add(new FakeImage());
+            _fileSignatures = EnumerateSupportedSignatures();
         }
 
         public async Task<IHeaderSignature> GetFileSignature(string filePath)
@@ -73,6 +68,14 @@ namespace FileIntrinsics
         public IEnumerable<string> GetKnownExtensions()
         {
             return _fileSignatures.SelectMany(x => x.FileExtensions);
+        }
+
+        private IEnumerable<IHeaderSignature> EnumerateSupportedSignatures()
+        {
+            var asm = Assembly.GetExecutingAssembly();
+            var types = asm.GetTypes().Where(x => x.Namespace == "FileIntrinsics.Signatures");
+
+            return types.Select(x => (IHeaderSignature) Activator.CreateInstance(x));
         }
     }
 }
