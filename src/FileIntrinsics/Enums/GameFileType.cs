@@ -7,6 +7,7 @@ namespace FileIntrinsics.Enums
         CueDescription,
         CISOImage,
         CD_I,
-        Fake
+        Fake,
+        CHD_CD
     }
 }
