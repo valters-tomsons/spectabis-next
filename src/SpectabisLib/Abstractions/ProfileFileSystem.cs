@@ -91,6 +91,22 @@ namespace SpectabisLib.Abstractions
             return location;
         }
 
+        /// <summary>
+        /// Returns `true` if provided profile container has any configuration files.
+        /// </summary>
+        public bool ValidateContainerContent(GameProfile profile, ContainerConfigType containerType)
+        {
+            if (profile.Id == Guid.Empty)
+            {
+                throw new Exception("Game guid is empty");
+            }
+
+            var containerUri = GetContainerUri(profile, containerType);
+
+            var files = Directory.EnumerateFiles(containerUri.LocalPath);
+            return files.Any();
+        }
+
         public void DeleteProfileFromDisk(Guid gameId)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);

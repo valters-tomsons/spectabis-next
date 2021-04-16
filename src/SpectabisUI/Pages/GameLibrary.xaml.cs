@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisUI.Controls.GameTileView;
@@ -15,6 +13,7 @@ using SpectabisUI.Factories;
 using SpectabisUI.Enums;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Interfaces.Controllers;
 
 namespace SpectabisUI.Pages
 {
@@ -25,12 +24,12 @@ namespace SpectabisUI.Pages
         public bool HideTitlebar => false;
         public bool ReloadOnNavigation => false;
 
+        private readonly IGameLibraryController _libraryController;
+
         private readonly IProfileRepository _gameRepo;
         private readonly GameTileFactory _tileFactory;
-        private readonly IGameLauncher _gameLauncher;
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly IContextMenuEnumMapper _menuMapper;
-        private readonly IDiscordService _discordService;
         private readonly IArtServiceQueue _queueService;
         private readonly IBitmapLoader _bitmapLoader;
         private readonly IGifProvider _gifProvider;
@@ -41,20 +40,21 @@ namespace SpectabisUI.Pages
         private WrapPanel GamePanel;
 
         [Obsolete("XAMLIL placeholder", true)]
-        public GameLibrary() { }
-
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IGameLauncher gameLauncher, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IDiscordService discordService, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider, IDirectoryScan dirScan)
+        public GameLibrary()
         {
+        }
+
+        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider, IDirectoryScan dirScan, IGameLibraryController libraryController)
+        {
+            _libraryController = libraryController;
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
-            _gameLauncher = gameLauncher;
             _gameRepo = gameRepo;
             _queueService = queueService;
             _bitmapLoader = bitmapLoader;
             _gifProvider = gifProvider;
             _dirScan = dirScan;
             _menuMapper = menuMapper;
-            _discordService = discordService;
 
             _navigationProvider.PageNavigationEvent += OnNavigation;
             _queueService.ItemFinished += OnGameArtDownloaded;
@@ -142,18 +142,6 @@ namespace SpectabisUI.Pages
         }
 
         // TODO: Replace profile management to viewmodel
-        private async void Populate()
-        {
-            var games = await _gameRepo.GetAll().ConfigureAwait(true);
-
-            foreach (var gameProfile in games)
-            {
-                var gameTile = _tileFactory.Create(gameProfile);
-                AddProfileTile(gameTile);
-            }
-        }
-
-        // TODO: Replace profile management to viewmodel
         private GameTileView AddProfileTile(GameTileView gameTile)
         {
             gameTile.PointerReleased += OnGameTileClick;
@@ -220,41 +208,27 @@ namespace SpectabisUI.Pages
 
         private void LaunchConfiguration(GameTileView gameTile)
         {
-            Logging.WriteLine($"Configuring {gameTile.Profile.Title}");
-
-            _gameLauncher.StartConfiguration(gameTile.Profile);
+            _libraryController.LaunchConfiguration(gameTile.Profile);
             _navigationProvider.Navigate<GameRunning>();
         }
 
         private void LaunchTile(GameTileView gameTile)
         {
-            Logging.WriteLine($"Launching {gameTile.Profile.Title}");
-
-            _gameLauncher.StartGame(gameTile.Profile);
-            _discordService.SetGamePresence(gameTile.Profile);
-
+            _libraryController.LaunchGame(gameTile.Profile);
             _navigationProvider.Navigate<GameRunning>();
         }
 
         private void RemoveGame(GameTileView gameTile)
         {
-            Logging.WriteLine($"Removing {gameTile.Profile.Id}");
+            _libraryController.DeleteGame(gameTile.Profile);
 
-            _gameRepo.DeleteProfile(gameTile.Profile);
             LoadedProfiles.Remove(gameTile.Profile);
-
             Dispatcher.UIThread.Post(() => GamePanel.Children.Remove(gameTile));
         }
 
         private void OpenWikiPage(GameTileView gameTile)
         {
-            var titleQuery = new StringBuilder(gameTile.Profile.Title);
-            titleQuery.Replace(" - ", ":+");
-            titleQuery.Replace(" ", "+");
-            titleQuery.Replace("++", ":+");
-
-            var wikiUrl = new Uri($"http://wiki.pcsx2.net/index.php?search={titleQuery}", UriKind.Absolute);
-            BrowserProvider.OpenWebBrowser(wikiUrl);
+            _libraryController.OpenWikiPage(gameTile.Profile);
         }
     }
 }

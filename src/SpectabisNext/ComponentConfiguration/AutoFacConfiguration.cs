@@ -12,6 +12,7 @@ using SpectabisNext.Repositories;
 using SpectabisNext.Services;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Abstractions;
+using SpectabisLib.Interfaces.Controllers;
 
 namespace SpectabisNext.ComponentConfiguration
 {
@@ -43,6 +44,7 @@ namespace SpectabisNext.ComponentConfiguration
 
             builder.RegisterType<FirstTimeWizardController>().As<IFirstTimeWizardService>().SingleInstance();
             builder.RegisterType<SettingsController>().As<ISettingsController>().SingleInstance();
+            builder.RegisterType<GameLibraryController>().As<IGameLibraryController>().SingleInstance();
 
             builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>();
             builder.RegisterType<ProfileFileSystem>();
