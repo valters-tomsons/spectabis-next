@@ -31,7 +31,7 @@ namespace SpectabisLib.Repositories
 
             await _fileSystem.WriteProfileToDisk(profile).ConfigureAwait(false);
 
-            if(!_fileSystem.ProfileContainerExists(profile))
+            if(!_fileSystem.ProfileExistsOnFileSystem(profile))
             {
                 await _fileSystem.WriteDefaultProfileToDisk(profile).ConfigureAwait(false);
             }

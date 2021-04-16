@@ -34,7 +34,6 @@ namespace SpectabisLib.Abstractions
 
             var globalConfigUri = GetGlobalConfigsUri();
             var globalConfigFiles = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly).Select(Path.GetFileName);
-            var globalConfigFiles2 = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly);
 
             foreach (var file in globalConfigFiles)
             {
@@ -113,7 +112,7 @@ namespace SpectabisLib.Abstractions
             Logging.WriteLine($"Profile '{gameId}' deleted");
         }
 
-        public bool ProfileContainerExists(GameProfile profile)
+        public bool ProfileExistsOnFileSystem(GameProfile profile)
         {
             var gameId = profile.Id;
 
