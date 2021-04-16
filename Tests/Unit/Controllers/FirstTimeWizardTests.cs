@@ -22,7 +22,7 @@ namespace Spectabis.Tests.Unit.Controllers
             _configLoader.Setup(x => x.WriteConfiguration(It.IsAny<SpectabisConfig>()));
 
             var expectedMessage = new TextConfig().TelemetryEnabled;
-            var controller = new FirstTimeWizardController(_configLoader.Object);
+            var controller = new FirstTimeWizardController(_configLoader.Object, null);
 
             // Act
             var actual = controller.GetTelemetryStatusMessage(true);
@@ -42,7 +42,7 @@ namespace Spectabis.Tests.Unit.Controllers
             _configLoader.Setup(x => x.WriteConfiguration(It.IsAny<SpectabisConfig>()));
 
             var expectedMessage = new TextConfig().TelemetryOptedOut;
-            var controller = new FirstTimeWizardController(_configLoader.Object);
+            var controller = new FirstTimeWizardController(_configLoader.Object, null);
 
             // Act
             var actual = controller.GetTelemetryStatusMessage(true);
@@ -62,7 +62,7 @@ namespace Spectabis.Tests.Unit.Controllers
             _configLoader.Setup(x => x.WriteConfiguration(It.IsAny<SpectabisConfig>()));
 
             var expectedMessage = new TextConfig().TelemetryEnabled;
-            var controller = new FirstTimeWizardController(_configLoader.Object);
+            var controller = new FirstTimeWizardController(_configLoader.Object, null);
 
             // Act
             var actual = controller.GetTelemetryStatusMessage(false);
@@ -79,7 +79,7 @@ namespace Spectabis.Tests.Unit.Controllers
             _configLoader.SetupProperty(x => x.TextConfig, new TextConfig());
             _configLoader.Setup(x => x.WriteConfiguration(It.IsAny<SpectabisConfig>()));
 
-            var controller = new FirstTimeWizardController(_configLoader.Object);
+            var controller = new FirstTimeWizardController(_configLoader.Object, null);
 
             // Act
             controller.GetTelemetryStatusMessage(true);
