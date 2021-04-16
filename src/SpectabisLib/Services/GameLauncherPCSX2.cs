@@ -23,7 +23,7 @@ namespace SpectabisLib.Services
 
         public async Task<GameProcess> StartGame(GameProfile game)
         {
-            _pfs.GetProfileContainerPath(game, ContainerConfigType.Inis);
+            _pfs.GetContainerUri(game, ContainerConfigType.Inis);
 
             var process = CreateEmulatorProcess(game);
             var gameProcess = new GameProcess(game, process);
@@ -70,13 +70,13 @@ namespace SpectabisLib.Services
             var profile = process.Game;
 
             profile.Playtime += session;
-            await _pfs.WriteConfiguration(profile).ConfigureAwait(false);
+            await _pfs.WriteProfileToDisk(profile).ConfigureAwait(false);
         }
 
         private async Task UpdateLastPlayed(GameProfile profile)
         {
             profile.LastPlayed = DateTimeOffset.Now;
-            await _pfs.WriteConfiguration(profile).ConfigureAwait(false);
+            await _pfs.WriteProfileToDisk(profile).ConfigureAwait(false);
         }
 
         private Process CreateEmulatorProcess(GameProfile gameProfile, bool launchGame = true)
@@ -89,7 +89,7 @@ namespace SpectabisLib.Services
             var process = new Process();
 
             var launchArguments = EmulatorOptionsParser.ConvertToLaunchArguments(gameProfile.LaunchOptions);
-            var cfgArgument = EmulatorOptionsParser.ConfigurationPathToArgument(_pfs.GetProfileContainerPath(gameProfile, ContainerConfigType.Inis));
+            var cfgArgument = EmulatorOptionsParser.ConfigurationPathToArgument(_pfs.GetContainerUri(gameProfile, ContainerConfigType.Inis));
             var romArgument = launchGame ? EmulatorOptionsParser.RomPathToArgument(gameProfile.FilePath) : string.Empty;
 
             var fullArguments = $"{launchArguments} {romArgument} {cfgArgument}";

@@ -13,21 +13,7 @@ namespace SpectabisLib.Abstractions
 {
     public class ProfileFileSystem
     {
-        public Uri GetProfileContainerPath(GameProfile profile, ContainerConfigType containerType)
-        {
-            if (profile.Id == Guid.Empty)
-            {
-                throw new Exception("Game guid is empty");
-            }
-
-            var containerDirectoryName = ContainerConfigTypeParser.GetTypeDirectoryName(containerType);
-            var location = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/{containerDirectoryName}/", UriKind.Absolute);
-
-            Directory.CreateDirectory(location.LocalPath);
-            return location;
-        }
-
-        public async Task WriteConfiguration(GameProfile profile)
+        public async Task WriteProfileToDisk(GameProfile profile)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}", UriKind.Absolute);
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
@@ -35,18 +21,11 @@ namespace SpectabisLib.Abstractions
 
             Directory.CreateDirectory(profileFolderUri.LocalPath);
 
-            if (File.Exists(profileUri.LocalPath))
-            {
-                Logging.WriteLine($"Overwriting profile json '{profile.Id}'");
-                await OverwriteProfile(profileUri, profileJson).ConfigureAwait(false);
-                return;
-            }
-
-            Logging.WriteLine($"Creating profile json '{profile.Id}'");
-            await WriteTextAsync(profileUri, profileJson).ConfigureAwait(false);
+            Logging.WriteLine($"Writing profile json '{profile.Id}'");
+            await WriteStringToFile(profileUri, profileJson).ConfigureAwait(false);
         }
 
-        public async Task WriteDefaultConfiguration(GameProfile profile)
+        public async Task WriteDefaultProfileToDisk(GameProfile profile)
         {
             var profileContainerUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/inis/", UriKind.Absolute);
             Directory.CreateDirectory(profileContainerUri.LocalPath);
@@ -68,21 +47,21 @@ namespace SpectabisLib.Abstractions
             }
         }
 
-        public async Task<IList<GameProfile>> ReadAllProfiles()
+        public async Task<IList<GameProfile>> GetAllProfilesFromDisk()
         {
-            var guids = GetAllProfileIds();
+            var guids = EnumerateDiskProfileIDs();
             var profiles = new List<GameProfile>();
 
             foreach (var item in guids)
             {
-                var game = await ReadProfileAsync(item).ConfigureAwait(false);
+                var game = await ReadProfileFromDisk(item).ConfigureAwait(false);
                 profiles.Add(game);
             }
 
             return profiles;
         }
 
-        public Uri GetBoxArtPath(GameProfile profile)
+        public Uri GetBoxArtUri(GameProfile profile)
         {
             if (string.IsNullOrWhiteSpace(profile.BoxArtPath))
             {
@@ -99,23 +78,21 @@ namespace SpectabisLib.Abstractions
             return new Uri(profile.BoxArtPath, UriKind.Absolute);
         }
 
-        public async Task<GameProfile> ReadProfileAsync(Guid gameId)
+        public Uri GetContainerUri(GameProfile profile, ContainerConfigType containerType)
         {
-            var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
-
-            if (!Directory.Exists(profileFolderUri.LocalPath))
+            if (profile.Id == Guid.Empty)
             {
-                Logging.WriteLine($"Profile '{gameId}' does not exist");
-                return null;
+                throw new Exception("Game guid is empty");
             }
 
-            var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
-            var profileJson = await ReadTextAsync(profileUri).ConfigureAwait(false);
+            var containerDirectoryName = ContainerConfigTypeParser.GetTypeDirectoryName(containerType);
+            var location = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/{containerDirectoryName}/", UriKind.Absolute);
 
-            return JsonConvert.DeserializeObject<GameProfile>(profileJson);
+            Directory.CreateDirectory(location.LocalPath);
+            return location;
         }
 
-        public void DeleteProfile(Guid gameId)
+        public void DeleteProfileFromDisk(Guid gameId)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
@@ -136,7 +113,7 @@ namespace SpectabisLib.Abstractions
             Logging.WriteLine($"Profile '{gameId}' deleted");
         }
 
-        public bool IsProfileContainerValid(GameProfile profile)
+        public bool ProfileContainerExists(GameProfile profile)
         {
             var gameId = profile.Id;
 
@@ -146,13 +123,13 @@ namespace SpectabisLib.Abstractions
             return Directory.Exists(inisFolderUri.LocalPath);
         }
 
-        public async Task WriteGameBoxArtImage(GameProfile game, byte[] artBuffer)
+        public async Task SaveBoxArtToDisk(GameProfile game, byte[] artBuffer)
         {
             var artFilePath = new Uri($"{SystemDirectories.ProfileFolder}/{game.Id}/{Constants.BoxArtFileName}", UriKind.Absolute);
             await File.WriteAllBytesAsync(artFilePath.LocalPath, artBuffer).ConfigureAwait(false);
         }
 
-        private IEnumerable<Guid> GetAllProfileIds()
+        private IEnumerable<Guid> EnumerateDiskProfileIDs()
         {
             var profilesFolderUri = new Uri(SystemDirectories.ProfileFolder, UriKind.Absolute);
             var directories = Directory.GetDirectories(profilesFolderUri.LocalPath).Select(Path.GetFileName);
@@ -171,7 +148,7 @@ namespace SpectabisLib.Abstractions
             return guids;
         }
 
-        private async Task<string> ReadTextAsync(Uri filePath)
+        private async Task<string> ReadFileAsString(Uri filePath)
         {
             using var stream = File.OpenRead(filePath.LocalPath);
             var content = new byte[stream.Length];
@@ -179,18 +156,34 @@ namespace SpectabisLib.Abstractions
             return Encoding.Unicode.GetString(content);
         }
 
-        private async Task WriteTextAsync(Uri filePath, string text)
+        private async Task<GameProfile> ReadProfileFromDisk(Guid gameId)
         {
+            var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
+
+            if (!Directory.Exists(profileFolderUri.LocalPath))
+            {
+                Logging.WriteLine($"Profile '{gameId}' does not exist");
+                return null;
+            }
+
+            var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
+            var profileJson = await ReadFileAsString(profileUri).ConfigureAwait(false);
+
+            return JsonConvert.DeserializeObject<GameProfile>(profileJson);
+        }
+
+        private async Task WriteStringToFile(Uri filePath, string text)
+        {
+            if(File.Exists(filePath.LocalPath))
+            {
+                Logging.WriteLine($"Deleting to overwrite'{filePath}'");
+                File.Delete(filePath.LocalPath);
+            }
+
             var encoded = Encoding.Unicode.GetBytes(text);
 
             using var stream = new FileStream(filePath.LocalPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true);
             await stream.WriteAsync(encoded, 0, encoded.Length).ConfigureAwait(false);
-        }
-
-        private async Task OverwriteProfile(Uri filePath, string text)
-        {
-            File.Delete(filePath.LocalPath);
-            await WriteTextAsync(filePath, text).ConfigureAwait(false);
         }
 
         private Uri GetGlobalConfigsUri()

@@ -95,7 +95,7 @@ namespace SpectabisLib.Services
             if (boxBytes != null)
             {
                 Logging.WriteLine("Writing boxart to file system");
-                await _profileFs.WriteGameBoxArtImage(game, boxBytes).ConfigureAwait(false);
+                await _profileFs.SaveBoxArtToDisk(game, boxBytes).ConfigureAwait(false);
             }
             else
             {

@@ -29,23 +29,23 @@ namespace SpectabisLib.Repositories
                 _games.Add(profile);
             }
 
-            await _fileSystem.WriteConfiguration(profile).ConfigureAwait(false);
+            await _fileSystem.WriteProfileToDisk(profile).ConfigureAwait(false);
 
-            if(!_fileSystem.IsProfileContainerValid(profile))
+            if(!_fileSystem.ProfileContainerExists(profile))
             {
-                await _fileSystem.WriteDefaultConfiguration(profile).ConfigureAwait(false);
+                await _fileSystem.WriteDefaultProfileToDisk(profile).ConfigureAwait(false);
             }
         }
 
         public async Task<IEnumerable<GameProfile>> GetAll()
         {
-            return _games ??= await _fileSystem.ReadAllProfiles().ConfigureAwait(false);
+            return _games ??= await _fileSystem.GetAllProfilesFromDisk().ConfigureAwait(false);
         }
 
         public void DeleteProfile(GameProfile profile)
         {
             _games.Remove(profile);
-            _fileSystem.DeleteProfile(profile.Id);
+            _fileSystem.DeleteProfileFromDisk(profile.Id);
         }
     }
 }
