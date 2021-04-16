@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Interfaces.Controllers
@@ -8,5 +10,6 @@ namespace SpectabisLib.Interfaces.Controllers
         void LaunchConfiguration(GameProfile game);
         void DeleteGame(GameProfile game);
         void OpenWikiPage(GameProfile game);
+        Task<IEnumerable<GameProfile>> GetNewGames(IList<GameProfile> currentProfiles);
     }
 }

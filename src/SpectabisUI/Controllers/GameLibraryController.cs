@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Interfaces.Controllers;
@@ -49,6 +52,15 @@ namespace SpectabisUI.Controllers
 
             var wikiUrl = new Uri($"http://wiki.pcsx2.net/index.php?search={titleQuery}", UriKind.Absolute);
             BrowserProvider.OpenWebBrowser(wikiUrl);
+        }
+
+        /// <summary>
+        /// Returns a list of new games which are not currently displayed in the library view.
+        /// </summary>
+        public async Task<IEnumerable<GameProfile>> GetNewGames(IList<GameProfile> currentProfiles)
+        {
+            var allGames = await _profileRepository.GetAll().ConfigureAwait(true);
+            return allGames.Except(currentProfiles);
         }
     }
 }

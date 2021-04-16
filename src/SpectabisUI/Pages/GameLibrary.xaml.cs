@@ -26,7 +26,6 @@ namespace SpectabisUI.Pages
 
         private readonly IGameLibraryController _libraryController;
 
-        private readonly IProfileRepository _gameRepo;
         private readonly GameTileFactory _tileFactory;
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly IContextMenuEnumMapper _menuMapper;
@@ -44,12 +43,11 @@ namespace SpectabisUI.Pages
         {
         }
 
-        public GameLibrary(IProfileRepository gameRepo, GameTileFactory tileFactory, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider, IDirectoryScan dirScan, IGameLibraryController libraryController)
+        public GameLibrary(GameTileFactory tileFactory, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider, IDirectoryScan dirScan, IGameLibraryController libraryController)
         {
             _libraryController = libraryController;
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
-            _gameRepo = gameRepo;
             _queueService = queueService;
             _bitmapLoader = bitmapLoader;
             _gifProvider = gifProvider;
@@ -120,8 +118,7 @@ namespace SpectabisUI.Pages
         // TODO: Replace profile management to viewmodel
         private async Task AddNewGames()
         {
-            var allGames = await _gameRepo.GetAll().ConfigureAwait(true);
-            var newGames = allGames.Except(LoadedProfiles);
+            var newGames = await _libraryController.GetNewGames(LoadedProfiles).ConfigureAwait(true);
 
             foreach (var item in newGames)
             {
