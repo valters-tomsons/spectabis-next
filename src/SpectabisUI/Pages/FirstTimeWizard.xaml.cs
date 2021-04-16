@@ -111,11 +111,13 @@ namespace SpectabisUI.Pages
             _viewModel.ExecutablePath= browserResult;
         }
 
-        private void FirstButtonClick(object sender, RoutedEventArgs e)
+        private async void FirstButtonClick(object sender, RoutedEventArgs e)
         {
-            _wizardService.WriteInitialConfigs();
+            await _wizardService.WriteInitialConfigs();
             _pageNavigator.Navigate<GameLibrary>();
-            _wizardService.DisableFirstTimeWizard();
+
+            await _wizardService.DisableFirstTimeWizard();
+            await _wizardService.SaveToGlobalConfiguration();
         }
     }
 }

@@ -32,12 +32,14 @@ namespace SpectabisLib.Abstractions
 
             Logging.WriteLine($"Writing default to profile container : `{profile.Id}`");
 
-            var globalConfigUri = GetGlobalConfigsUri();
-            var globalConfigFiles = Directory.EnumerateFiles(globalConfigUri.LocalPath, "*", SearchOption.TopDirectoryOnly).Select(Path.GetFileName);
+            var globalContainerPath = GetGlobalConfigsUri();
+            var sourcePath = new Uri(globalContainerPath, "inis/");
+
+            var globalConfigFiles = Directory.EnumerateFiles(sourcePath.LocalPath, "*", SearchOption.TopDirectoryOnly).Select(Path.GetFileName);
 
             foreach (var file in globalConfigFiles)
             {
-                var fileSource = new Uri(globalConfigUri, file);
+                var fileSource = new Uri(sourcePath, file);
                 var fileTarget = new Uri(profileContainerUri, file);
 
                 using FileStream SourceStream = File.Open(fileSource.LocalPath, FileMode.Open);
@@ -142,6 +144,33 @@ namespace SpectabisLib.Abstractions
         {
             var artFilePath = new Uri($"{SystemDirectories.ProfileFolder}/{game.Id}/{Constants.BoxArtFileName}", UriKind.Absolute);
             await File.WriteAllBytesAsync(artFilePath.LocalPath, artBuffer).ConfigureAwait(false);
+        }
+
+        public async Task CopyToGlobalContainer(Uri sourceDirectory, ContainerConfigType containerType)
+        {
+            if(!Directory.Exists(sourceDirectory.LocalPath))
+            {
+                Logging.WriteLine($"Source directory '{sourceDirectory.LocalPath}' does not exist, not copying to global container");
+                return;
+            }
+
+            var globalContainerPath = GetGlobalConfigsUri();
+            var targetContainerName = ContainerConfigTypeParser.GetTypeDirectoryName(containerType) + "/";
+            var targetPath = new Uri(globalContainerPath, targetContainerName);
+
+            var sourceFiles = Directory.EnumerateFiles(sourceDirectory.LocalPath, "*", SearchOption.TopDirectoryOnly).Select(Path.GetFileName);
+
+            Directory.CreateDirectory(targetPath.LocalPath);
+
+            foreach (var file in sourceFiles)
+            {
+                var fileSource = new Uri(sourceDirectory, file);
+                var fileTarget = new Uri(targetPath, file);
+
+                using FileStream SourceStream = File.Open(fileSource.LocalPath, FileMode.Open);
+                using FileStream DestinationStream = File.Create(fileTarget.LocalPath);
+                await SourceStream.CopyToAsync(DestinationStream).ConfigureAwait(false);
+            }
         }
 
         private IEnumerable<Guid> EnumerateDiskProfileIDs()

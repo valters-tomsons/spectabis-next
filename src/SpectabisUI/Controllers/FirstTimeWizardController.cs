@@ -1,5 +1,8 @@
+using System;
 using System.Threading.Tasks;
+using SpectabisLib.Abstractions;
 using SpectabisLib.Configuration;
+using SpectabisLib.Enums;
 using SpectabisLib.Interfaces;
 
 namespace SpectabisUI.Controllers
@@ -7,10 +10,12 @@ namespace SpectabisUI.Controllers
     public class FirstTimeWizardController : IFirstTimeWizardService
     {
         private readonly IConfigurationManager _configLoader;
+        private readonly ProfileFileSystem _fileSystem;
 
-        public FirstTimeWizardController(IConfigurationManager configLoader)
+        public FirstTimeWizardController(IConfigurationManager configLoader, ProfileFileSystem fileSystem)
         {
             _configLoader = configLoader;
+            _fileSystem = fileSystem;
         }
 
         public async Task WriteInitialConfigs()
@@ -48,6 +53,12 @@ namespace SpectabisUI.Controllers
             {
                 return _configLoader.TextConfig.TelemetryOptedOut;
             }
+        }
+
+        public async Task SaveToGlobalConfiguration()
+        {
+            var pcsx2InisFolder = new Uri(_configLoader.Directories.PCSX2ConfigurationPath, "inis/");
+            await _fileSystem.CopyToGlobalContainer(pcsx2InisFolder, ContainerConfigType.Inis).ConfigureAwait(false);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace SpectabisLib.Interfaces
         bool IsRequired();
         Task DisableFirstTimeWizard();
         string GetTelemetryStatusMessage(bool toggle = false);
+        Task SaveToGlobalConfiguration();
     }
 }
