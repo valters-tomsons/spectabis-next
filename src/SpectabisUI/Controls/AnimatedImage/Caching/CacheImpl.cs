@@ -1,31 +1,30 @@
 /// This source file is derived from https://github.com/launchdarkly/dotnet-cache/
 /// Under the terms of Apache 2.0 License.
-
 using System;
 using System.Collections.Generic;
-using System.Runtime;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SpectabisUI.Controls.AnimatedImage.Caching
 {
     /// <summary>
+    /// <para>
     /// A concurrent in-memory cache with optional read-through behavior, an optional TTL, and the
     /// ability to explicitly set values. Expired entries are purged by a background task.
-    /// 
+    /// </para>
+    /// <para>
     /// A cache hit, or a miss without read-through, requires only one read lock. A cache miss
     /// with read-through requires read and write locks on the cache, and then a write lock on the
     /// individual entry.
-    /// 
+    /// </para>
+    /// <para>
     /// Loading requests are coalesced, i.e. if multiple threads request the same key at the same
     /// time, only one will call the loader function and the others will wait on it.
-    ///
-    /// Null values are allowed.
+    /// </para>
+    /// <para>Null values are allowed.</para>
     /// </summary>
     internal sealed class CacheImpl<K, V> : ICache<K, V>
     {
-        internal static readonly TimeSpan DefaultPurgeInterval = TimeSpan.FromSeconds(30);
-
         private readonly Func<K, V> _loaderFn;
         private readonly TimeSpan? _expiration;
         private readonly TimeSpan? _purgeInterval;
@@ -52,7 +51,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
             _expiration = builder.Expiration;
             _purgeInterval = builder.PurgeInterval;
             _doSlidingExp = builder.DoSlidingExpiration ?? false;
-            
+
             if (_expiration.HasValue && _purgeInterval.HasValue)
             {
                 TimeSpan interval = _purgeInterval.Value;
@@ -68,7 +67,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
                 return true;
             }
 
-            return TryGetValue(key, out var ignoreValue);
+            return TryGetValue(key, out _);
         }
 
         public bool TryGetValue(K key, out V value)
@@ -88,7 +87,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
             if (entryExists)
             {
                 // Reset entry expiration when sliding expiration is enabled.
-                if (_doSlidingExp & _expiration.HasValue)
+                if (_doSlidingExp && _expiration.HasValue)
                     entry.expirationTime = DateTime.Now.Add(_expiration.Value);
 
                 if (entry.IsExpired())
@@ -129,7 +128,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
             if (_loaderFn == null)
             {
                 // This isn't a read-through cache, so it's just a miss.
-                value = default(V);
+                value = default;
                 return false;
             }
 
@@ -173,8 +172,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
 
         public V Get(K key)
         {
-            V value;
-            TryGetValue(key, out value);
+            TryGetValue(key, out V value);
             return value;
         }
 
@@ -213,9 +211,12 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
                 }
 
                 var node = new LinkedListNode<K>(key);
-                var entry = new CacheEntry<K, V>(expTime, node);
-                entry.value = new CacheValue<V>(value);
-                _entries[key] = entry;
+
+                _entries[key] = new CacheEntry<K, V>(expTime, node)
+                {
+                    value = new CacheValue<V>(value)
+                };
+
                 _keysInCreationOrder.AddLast(node);
                 PurgeExcessEntries();
             }
@@ -257,13 +258,8 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
             _disposed = true;
+            GC.SuppressFinalize(this);
         }
 
         private void PurgeExcessEntries()
@@ -307,7 +303,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         {
             while (!_disposed)
             {
-                await Task.Delay(interval);
+                await Task.Delay(interval).ConfigureAwait(false);
                 PurgeExpiredEntries();
             }
         }

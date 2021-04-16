@@ -9,6 +9,11 @@ namespace SpectabisNext
     {
         private static void Main(string[] args)
         {
+            if(args.Length > 0)
+            {
+                Logging.WriteLine("No CLI arguments are currently supported.");
+            }
+
             var container = AutoFacConfiguration.Configure();
             StartSpectabis(container);
 

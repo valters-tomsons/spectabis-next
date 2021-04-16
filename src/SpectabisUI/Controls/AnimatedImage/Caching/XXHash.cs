@@ -31,12 +31,10 @@ SOFTWARE. */
  * If you are using .NET4.5 (or higher) or sibling frameworks,  you can add conditional compilation
  * symbol "HIGHER_VERSIONS" to optimize static-short-methods.
  */
-
 using System;
 using System.Security.Cryptography;
 
 using System.Runtime.CompilerServices;
-
 
 namespace SpectabisUI.Controls.AnimatedImage.Caching
 {
@@ -45,7 +43,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
     /// <summary>
     /// Represents the class which provides a implementation of the xxHash32 algorithm.
     /// </summary>
-    ///<threadsafety static="true" instance="false"/>   
+    ///<threadsafety static="true" instance="false"/>
     internal sealed class XXHash32 : HashAlgorithm
     {
         private const uint PRIME32_1 = 2654435761U;
@@ -66,7 +64,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
 
         private uint _Hash32;
 
-
         private int _RemainingLength;
         private long _TotalLength = 0;
         private int _CurrentIndex;
@@ -76,7 +73,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         {
             if (BitConverter.IsLittleEndian)
             {
-
                 FuncGetLittleEndianUInt32 = new Func<byte[], int, uint>((x, i) =>
                 {
                     unsafe
@@ -106,32 +102,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="XXHash32"/> class by default seed(0).
-        /// </summary>
-        /// <returns></returns>
-        public new static XXHash32 Create() => new XXHash32();
-
-        /// <summary>
-        /// Creates an instance of the specified implementation of XXHash32 algorithm.
-        /// <para>This method always throws <see cref="NotSupportedException"/>. </para>
-        /// </summary>
-        /// <param name="algName">The hash algorithm implementation to use.</param>
-        /// <returns>This method always throws <see cref="NotSupportedException"/>. </returns>
-        /// <exception cref="NotSupportedException">This method is not be supported.</exception>
-        public new static XXHash32 Create(string algName) => throw new NotSupportedException("This method is not be supported.");
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="XXHash32"/> class by default seed(0).
-        /// </summary>
-        public XXHash32() => Initialize(0);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="XXHash32"/> class, and sets the <see cref="Seed"/> to the specified value.
-        /// </summary>
-        /// <param name="seed">Represent the seed to be used for xxHash32 computing.</param>
-        public XXHash32(uint seed) => Initialize(seed);
-
-        /// <summary>
         /// Gets the <see cref="uint"/> value of the computed hash code.
         /// </summary>
         /// <exception cref="InvalidOperationException">Hash computation has not yet completed.</exception>
@@ -146,7 +116,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
             get => _Seed32;
             set
             {
-
                 if (value != _Seed32)
                 {
                     if (State != 0) throw new InvalidOperationException("Hash computation has not yet completed.");
@@ -155,7 +124,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
                 }
             }
         }
-
 
         /// <summary>
         /// Initializes this instance for new hash computing.
@@ -167,8 +135,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
             _ACC32_3 = _Seed32 + 0;
             _ACC32_4 = _Seed32 - PRIME32_1;
         }
-
-
 
         /// <summary>
         /// Routes data written to the object into the hash algorithm for computing the hash.
@@ -213,7 +179,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         {
             if (_TotalLength >= 16)
             {
-
                 _Hash32 = RotateLeft32_1(_ACC32_1) + RotateLeft32_7(_ACC32_2) + RotateLeft32_12(_ACC32_3) + RotateLeft32_18(_ACC32_4);
             }
             else
@@ -225,8 +190,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
 
             while (_RemainingLength >= 4)
             {
-                _Hash32 = RotateLeft32_17(_Hash32 + FuncGetLittleEndianUInt32(_CurrentArray, _CurrentIndex) * PRIME32_3) * PRIME32_4;
- 
+                _Hash32 = RotateLeft32_17(_Hash32 + (FuncGetLittleEndianUInt32(_CurrentArray, _CurrentIndex) * PRIME32_3)) * PRIME32_4;
                 _CurrentIndex += 4;
                 _RemainingLength -= 4;
             }
@@ -236,9 +200,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
                 {
                     while (_RemainingLength-- >= 1)
                     {
-
-                        _Hash32 = RotateLeft32_11(_Hash32 + arrayPtr[_CurrentIndex++] * PRIME32_5) * PRIME32_1;
-
+                        _Hash32 = RotateLeft32_11(_Hash32 + (arrayPtr[_CurrentIndex++] * PRIME32_5)) * PRIME32_1;
                     }
                 }
             }
@@ -268,14 +230,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         private static uint RotateLeft32_17(uint value) => (value << 17) | (value >> 15);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static uint RotateLeft32_18(uint value) => (value << 18) | (value >> 14); //_ACC32_4
-
-        private void Initialize(uint seed)
-        {
-            HashSizeValue = 32;
-            _Seed32 = seed;
-            Initialize();
-        }
-
     }
 
     /// <summary>
@@ -306,8 +260,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         private long _TotalLength;
         private int _CurrentIndex;
         private byte[] _CurrentArray;
-
-
 
         static XXHash64()
         {
@@ -368,26 +320,15 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         public new static XXHash64 Create() => new XXHash64();
 
         /// <summary>
-        /// Creates an instance of the specified implementation of XXHash64 algorithm.
-        /// <para>This method always throws <see cref="NotSupportedException"/>. </para>
-        /// </summary>
-        /// <param name="algName">The hash algorithm implementation to use.</param>
-        /// <returns>This method always throws <see cref="NotSupportedException"/>. </returns>
-        /// <exception cref="NotSupportedException">This method is not be supported.</exception>
-        public new static XXHash64 Create(string algName) => throw new NotSupportedException("This method is not be supported.");
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="XXHash64"/> class by default seed(0).
         /// </summary>
         public XXHash64() => Initialize(0);
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XXHash64"/> class, and sets the <see cref="Seed"/> to the specified value.
         /// </summary>
         /// <param name="seed">Represent the seed to be used for xxHash64 computing.</param>
         public XXHash64(uint seed) => Initialize(seed);
-
 
         /// <summary>
         /// Gets the <see cref="ulong"/> value of the computed hash code.
@@ -412,7 +353,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
                 }
             }
         }
-
 
         /// <summary>
         /// Initializes this instance for new hash computing.
@@ -467,9 +407,8 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         {
             if (_TotalLength >= 32)
             {
-
                 _Hash64 = RotateLeft64_1(_ACC64_1) + RotateLeft64_7(_ACC64_2) + RotateLeft64_12(_ACC64_3) + RotateLeft64_18(_ACC64_4);
- 
+
                 _Hash64 = MergeRound64(_Hash64, _ACC64_1);
                 _Hash64 = MergeRound64(_Hash64, _ACC64_2);
                 _Hash64 = MergeRound64(_Hash64, _ACC64_3);
@@ -484,15 +423,14 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
 
             while (_RemainingLength >= 8)
             {
-                _Hash64 = RotateLeft64_27(_Hash64 ^ Round64(0, FuncGetLittleEndianUInt64(_CurrentArray, _CurrentIndex))) * PRIME64_1 + PRIME64_4;
+                _Hash64 = (RotateLeft64_27(_Hash64 ^ Round64(0, FuncGetLittleEndianUInt64(_CurrentArray, _CurrentIndex))) * PRIME64_1) + PRIME64_4;
                 _CurrentIndex += 8;
                 _RemainingLength -= 8;
             }
 
             while (_RemainingLength >= 4)
             {
-
-                _Hash64 = RotateLeft64_23(_Hash64 ^ (FuncGetLittleEndianUInt32(_CurrentArray, _CurrentIndex) * PRIME64_1)) * PRIME64_2 + PRIME64_3;
+                _Hash64 = (RotateLeft64_23(_Hash64 ^ (FuncGetLittleEndianUInt32(_CurrentArray, _CurrentIndex) * PRIME64_1)) * PRIME64_2) + PRIME64_3;
 
                 _CurrentIndex += 4;
                 _RemainingLength -= 4;
@@ -504,9 +442,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
                 {
                     while (_RemainingLength-- >= 1)
                     {
-
                         _Hash64 = RotateLeft64_11(_Hash64 ^ (arrayPtr[_CurrentIndex++] * PRIME64_5)) * PRIME64_1;
- 
                     }
                 }
             }
@@ -519,9 +455,8 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
             return BitConverter.GetBytes(FuncGetFinalHashUInt64(_Hash64));
         }
 
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static ulong MergeRound64(ulong input, ulong value) => (input ^ Round64(0, value)) * PRIME64_1 + PRIME64_4;
+        private static ulong MergeRound64(ulong input, ulong value) => ((input ^ Round64(0, value)) * PRIME64_1) + PRIME64_4;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static ulong Round64(ulong input, ulong value) => RotateLeft64_31(input + (value * PRIME64_2)) * PRIME64_1;
@@ -543,17 +478,12 @@ namespace SpectabisUI.Controls.AnimatedImage.Caching
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static ulong RotateLeft64_31(ulong value) => (value << 31) | (value >> 33);
 
-
-
         private void Initialize(ulong seed)
         {
             HashSizeValue = 64;
             _Seed64 = seed;
             Initialize();
         }
-
-
     }
-
 }
 

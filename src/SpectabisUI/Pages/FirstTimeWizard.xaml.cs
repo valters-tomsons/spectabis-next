@@ -113,11 +113,11 @@ namespace SpectabisUI.Pages
 
         private async void FirstButtonClick(object sender, RoutedEventArgs e)
         {
-            await _wizardService.WriteInitialConfigs();
+            await _wizardService.WriteInitialConfigs().ConfigureAwait(true);
             _pageNavigator.Navigate<GameLibrary>();
 
-            await _wizardService.DisableFirstTimeWizard();
-            await _wizardService.SaveToGlobalConfiguration();
+            await _wizardService.DisableFirstTimeWizard().ConfigureAwait(true);
+            await _wizardService.SaveToGlobalConfiguration().ConfigureAwait(true);
         }
     }
 }

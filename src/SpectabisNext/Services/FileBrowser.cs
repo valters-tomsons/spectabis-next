@@ -55,7 +55,7 @@ namespace SpectabisNext.Services
             return fileResult[0];
         }
 
-        private string ResolveDirectoryFromPath(string path)
+        private static string ResolveDirectoryFromPath(string path)
         {
             if(string.IsNullOrEmpty(path))
             {

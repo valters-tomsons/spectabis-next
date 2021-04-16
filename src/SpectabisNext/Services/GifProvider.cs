@@ -32,10 +32,9 @@ namespace SpectabisNext.Services
             instance.Dispose();
         }
 
-        private GifInstance CreateGifInstance(Image targetControl)
+        private static GifInstance CreateGifInstance(Image targetControl)
         {
-            var instance = new GifInstance() { TargetControl = targetControl };
-            return instance;
+            return new GifInstance() { TargetControl = targetControl };
         }
     }
 }

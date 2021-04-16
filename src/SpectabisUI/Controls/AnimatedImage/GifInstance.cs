@@ -65,7 +65,7 @@ namespace SpectabisUI.Controls.AnimatedImage
 
         private void RenderTick(TimeSpan time)
         {
-            if (_isDisposed | !_hasNewFrame) return;
+            if (_isDisposed || !_hasNewFrame) return;
             lock (_globalUIThreadUpdateLock)
             {
                 lock (_bitmapSync)

@@ -19,10 +19,10 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
 
         public static bool operator ==(GifRect a, GifRect b)
         {
-            return ((a.X == b.X) &&
+            return (a.X == b.X) &&
                     (a.Y == b.Y) &&
                     (a.Width == b.Width) &&
-                    (a.Height == b.Height));
+                    (a.Height == b.Height);
         }
         public static bool operator !=(GifRect a, GifRect b)
         {
@@ -30,16 +30,16 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
         }
 
         public override bool Equals(object obj)
-        {            
+        {
             if (obj == null || GetType() != obj.GetType())
                 return false;
 
             return this == (GifRect)obj;
         }
-        
+
         public override int GetHashCode()
         {
-            return X.GetHashCode() ^ Y.GetHashCode() | Width.GetHashCode() ^ Height.GetHashCode();
+            return (X.GetHashCode() ^ Y.GetHashCode()) | (Width.GetHashCode() ^ Height.GetHashCode());
         }
     }
 }

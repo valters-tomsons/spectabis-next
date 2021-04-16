@@ -35,9 +35,9 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
         private static readonly TimeSpan FrameDelayDefault = TimeSpan.FromMilliseconds(100);
         private static readonly GifColor TransparentColor = new GifColor(0, 0, 0, 0);
         private static readonly XXHash64 Hasher = new XXHash64();
-        private static readonly int MaxTempBuf = 768;
-        private static readonly int MaxStackSize = 4096;
-        private static readonly int MaxBits = 4097;
+        private const int MaxTempBuf = 768;
+        private const int MaxStackSize = 4096;
+        private const int MaxBits = 4097;
 
         private readonly Stream _fileStream;
         private readonly object _lockObj;
@@ -122,7 +122,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int PixCoord(int x, int y) => x + (y * _gifDimensions.Width);
 
-        static readonly (int Start, int Step)[] Pass =
+        private static readonly (int Start, int Step)[] Pass =
         {
             (0, 8),
             (4, 8),
@@ -134,12 +134,12 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
         {
             for (int i = 0; i < 4; i++)
             {
-                var curPass = Pass[i];
-                var y = curPass.Start;
+                var (Start, Step) = Pass[i];
+                var y = Start;
                 while (y < height)
                 {
                     RowAction(y);
-                    y += curPass.Step;
+                    y += Step;
                 }
             }
         };
@@ -150,7 +150,6 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
                 RowAction(i);
         };
 
-
         internal void ClearImage()
         {
             ClearArea(_gifDimensions);
@@ -160,7 +159,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
         {
             lock (_lockObj)
             {
-                if (fIndex < 0 | fIndex >= Frames.Count)
+                if (fIndex < 0 || fIndex >= Frames.Count)
                     return;
 
                 if (fIndex == 0)
@@ -174,7 +173,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
 
                 DecompressFrameToIndexBuffer(curFrame, _indexBuf, tmpB);
 
-                if (_hasFrameBackups & curFrame.ShouldBackup)
+                if (_hasFrameBackups && curFrame.ShouldBackup)
                     Buffer.BlockCopy(_indexBuf, 0, _prevFrameIndexBuf, 0, curFrame.Dimensions.TotalPixels);
 
                 DrawFrame(curFrame, _indexBuf);
@@ -218,9 +217,9 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
                 {
                     var indexColor = _frameIndexSpan.Span[indexOffset + i];
 
-                    if (targetOffset >= len | indexColor >= activeColorTable.Length | activeColorTable == null) return;
+                    if (targetOffset >= len || indexColor >= activeColorTable.Length || activeColorTable == null) return;
 
-                    if (!(hT & indexColor == tC))
+                    if (!(hT && indexColor == tC))
                         _bitmapBackBuffer[targetOffset] = activeColorTable[indexColor];
 
                     targetOffset++;
@@ -281,7 +280,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
 
             // Decode GIF pixel stream.
             int bits, first, top, pixelIndex, blockPos;
-            var datum = bits = first = top = pixelIndex = blockPos = 0;
+            var datum = bits = first = top = pixelIndex = 0;
 
             while (pixelIndex < totalPixels)
             {
@@ -382,7 +381,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
             while (pixelIndex < totalPixels)
                 indexSpan[pixelIndex++] = 0; // clear missing pixels
 
-            void ThrowException() => throw new LzwDecompressionException();
+            static void ThrowException() => throw new LzwDecompressionException();
         }
 
         /// <summary>
@@ -390,14 +389,18 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
         /// </summary>
         public void WriteBackBufToFb(IntPtr targetPointer)
         {
-            if (_hasNewFrame & _bitmapBackBuffer != null)
+            if (_hasNewFrame && _bitmapBackBuffer != null)
+            {
                 lock (_lockObj)
+                {
                     unsafe
                     {
                         fixed (void* src = &_bitmapBackBuffer[0])
                             Buffer.MemoryCopy(src, targetPointer.ToPointer(), (uint)_backBufferBytes, (uint)_backBufferBytes);
                         _hasNewFrame = false;
                     }
+                }
+            }
         }
 
         /// <summary>
@@ -409,21 +412,21 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
             var tmpB = ArrayPool<byte>.Shared.Rent(MaxTempBuf);
             var tempBuf = tmpB.AsSpan();
 
-
             str.Read(tmpB, 0, 6);
 
             if (!tempBuf.Slice(0, 3).SequenceEqual(G87AMagic.Slice(0, 3).Span))
                 throw new InvalidGifStreamException("Not a GIF stream.");
 
-            if (!(tempBuf.Slice(0, 6).SequenceEqual(G87AMagic.Span) | tempBuf.Slice(0, 6).SequenceEqual(G89AMagic.Span)))
+            if (!(tempBuf.Slice(0, 6).SequenceEqual(G87AMagic.Span) || tempBuf.Slice(0, 6).SequenceEqual(G89AMagic.Span)))
+            {
                 throw new InvalidGifStreamException("Unsupported GIF Version: " +
                                                     Encoding.ASCII.GetString(tempBuf.Slice(0, 6).ToArray()));
+            }
 
             ProcessScreenDescriptor(tmpB);
 
             if (_gctUsed)
                 _globalColorTable = ProcessColorTable(ref str, tmpB, _gctSize);
-
 
             _gifHeader = new GifHeader()
             {
@@ -438,11 +441,9 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
             ArrayPool<byte>.Shared.Return(tmpB);
         }
 
-        static MemoryStream memoryStream = new MemoryStream();
-
         /// <summary>
         /// Parses colors from file stream to target color table.
-        /// </summary> 
+        /// </summary>
         private static ulong ProcessColorTable(ref Stream stream, byte[] rawBufSpan, int nColors)
         {
             var nBytes = 3 * nColors;
@@ -473,7 +474,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
         }
 
         /// <summary>
-        /// Parses screen and other GIF descriptors. 
+        /// Parses screen and other GIF descriptors.
         /// </summary>
         private void ProcessScreenDescriptor(byte[] tempBuf)
         {
@@ -536,7 +537,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
                 }
 
                 // Break the loop when the stream is not valid anymore.
-                if (str.Position >= str.Length & terminate == false)
+                if (str.Position >= str.Length && !terminate)
                     throw new InvalidProgramException("Reach the end of the filestream without trailer block.");
             } while (!terminate);
 
@@ -574,7 +575,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
             currentFrame.LZWMinCodeSize = str.ReadByteS(tempBuf);
             currentFrame.LZWStreamPosition = str.Position;
 
-            curFrame += 1;
+            curFrame++;
             Frames.Add(new GifFrame());
         }
 
@@ -613,7 +614,7 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
 
                 case ExtensionType.APPLICATION:
                     var blockLen = str.ReadBlock(tempBuf);
-                    var blockSpan = tempBuf.AsSpan(0, blockLen);
+                    _ = tempBuf.AsSpan(0, blockLen);
                     var blockHeader = tempBuf.AsSpan(0, NetscapeMagic.Length);
 
                     if (blockHeader.SequenceEqual(NetscapeMagic.Span))
@@ -623,12 +624,13 @@ namespace SpectabisUI.Controls.AnimatedImage.Decoding
                         while (count > 0)
                             count = str.ReadBlock(tempBuf);
 
-                        var _iterationCount = SpanToShort(tempBuf.AsSpan(1));
-
-                        _gifHeader.Iterations = _iterationCount;
+                        _gifHeader.Iterations = SpanToShort(tempBuf.AsSpan(1));
                     }
                     else
+                    {
                         str.SkipBlocks(tempBuf);
+                    }
+
                     break;
 
                 default:

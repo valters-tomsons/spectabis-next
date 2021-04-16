@@ -13,7 +13,6 @@ namespace SpectabisUI.Controls.PageIcon
         public IPage Destination { get; private set; }
         public event EventHandler InvokedCallback;
 
-        private Image DisplayImage { get; set; }
         private TextBlock DisplayText { get; set; }
         private Rectangle HoverOverlayRectangle { get; set; }
 
@@ -24,10 +23,6 @@ namespace SpectabisUI.Controls.PageIcon
         {
             Initialize(destination);
             SetIconString(destination.PageTitle);
-        }
-
-        public PageIcon(IPage destination, string stringDisplay)
-        {
         }
 
         private void Initialize(IPage destination)
@@ -52,16 +47,15 @@ namespace SpectabisUI.Controls.PageIcon
 
         private void RegisterChildren()
         {
-            DisplayImage = this.FindControl<Image>("DisplayImage");
             DisplayText = this.FindControl<TextBlock>("DisplayText");
             HoverOverlayRectangle = this.FindControl<Rectangle>("HoverOverlay");
         }
 
         private void RegisterEvents()
         {
-            this.PointerReleased += OnPointerReleased;
-            this.PointerEnter += OnMousePointerEnter;
-            this.PointerLeave += OnMousePointerLeave;
+            PointerReleased += OnPointerReleased;
+            PointerEnter += OnMousePointerEnter;
+            PointerLeave += OnMousePointerLeave;
         }
 
         private void OnPointerReleased(object sender, PointerReleasedEventArgs args)

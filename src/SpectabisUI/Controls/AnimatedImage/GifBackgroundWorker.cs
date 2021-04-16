@@ -13,7 +13,7 @@ namespace SpectabisUI.Controls.AnimatedImage
         private static readonly Stopwatch _timer = Stopwatch.StartNew();
         private readonly GifDecoder _gifDecoder;
 
-        private Task _bgThread;
+        private readonly Task _bgThread;
         private BgWorkerState _state;
         private readonly object _lockObj;
         private readonly Queue<BgWorkerCommand> _cmdQueue;
@@ -70,7 +70,7 @@ namespace SpectabisUI.Controls.AnimatedImage
             int lowerBound = 0;
 
             // Skip already rendered frames if the seek position is above the previous frame index.
-            if (isManual & value > _currentIndex)
+            if (isManual && value > _currentIndex)
             {
                 // Only render the new seeked frame if the delta
                 // seek position is just 1 frame.
@@ -88,7 +88,7 @@ namespace SpectabisUI.Controls.AnimatedImage
                 var targetFrame = _gifDecoder.Frames[fI];
 
                 // Ignore frames with restore disposal method except the current one.
-                if (fI != value & targetFrame.FrameDisposalMethod == FrameDisposal.Restore)
+                if (fI != value && targetFrame.FrameDisposalMethod == FrameDisposal.Restore)
                     continue;
 
                 _gifDecoder.RenderFrame(fI);
@@ -196,7 +196,7 @@ namespace SpectabisUI.Controls.AnimatedImage
 
             lock (_lockObj)
             {
-                if (_cmdQueue.Count <= 0) return;
+                if (_cmdQueue.Count == 0) return;
                 cmd = _cmdQueue.Dequeue();
             }
 
@@ -238,15 +238,9 @@ namespace SpectabisUI.Controls.AnimatedImage
             _gifDecoder.Dispose();
         }
 
-        private void ShowFirstFrame()
-        {
-            if (_shouldStop) return;
-            _gifDecoder.RenderFrame(0);
-        }
-
         private void WaitAndRenderNext()
         {
-            if (!IterationCount.LoopForever & _iterationCount > IterationCount.Count)
+            if (!IterationCount.LoopForever && _iterationCount > IterationCount.Count)
             {
                 _state = BgWorkerState.Complete;
                 return;
@@ -268,7 +262,7 @@ namespace SpectabisUI.Controls.AnimatedImage
             if (delta > targetDelay) return;
             Thread.Sleep(targetDelay - delta);
 
-            if (!IterationCount.LoopForever & _currentIndex == 0)
+            if (!IterationCount.LoopForever && _currentIndex == 0)
                 _iterationCount++;
         }
 

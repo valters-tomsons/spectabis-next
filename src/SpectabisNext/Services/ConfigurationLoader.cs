@@ -77,7 +77,7 @@ namespace SpectabisNext.Services
             return JsonConvert.DeserializeObject<T>(configText);
         }
 
-        private Uri GetConfigUri<T>() where T : IJsonConfig, new()
+        private static Uri GetConfigUri<T>() where T : IJsonConfig, new()
         {
             var configFolder = SystemDirectories.ConfigFolder;
             var title = new T().ConfigName.ToLowerInvariant();

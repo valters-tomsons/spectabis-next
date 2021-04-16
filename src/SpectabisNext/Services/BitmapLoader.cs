@@ -46,7 +46,7 @@ namespace SpectabisNext.Services
             }
         }
 
-        private Bitmap LoadDefaultBoxart()
+        private static Bitmap LoadDefaultBoxart()
         {
             var tempArtPath = $"{SystemDirectories.ResourcesPath}/Images/placeholderBoxart.jpg";
 

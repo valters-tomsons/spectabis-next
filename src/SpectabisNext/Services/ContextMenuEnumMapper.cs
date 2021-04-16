@@ -24,7 +24,7 @@ namespace SpectabisNext.Services
             return _items.Select(x => x.Value);
         }
 
-        private Dictionary<GameContextMenuItem, string> InitializeDictionary()
+        private static Dictionary<GameContextMenuItem, string> InitializeDictionary()
         {
             return new Dictionary<GameContextMenuItem, string>()
             {
