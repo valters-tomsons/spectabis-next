@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -34,7 +33,6 @@ namespace SpectabisUI.Pages
         private readonly IGifProvider _gifProvider;
         private readonly IDirectoryScan _dirScan;
 
-        // TODO: Replace profile management to viewmodel
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
         private WrapPanel GamePanel;
 
@@ -75,7 +73,6 @@ namespace SpectabisUI.Pages
             _gifProvider.DisponseSpinner(game);
         }
 
-        // TODO: Replace profile management to viewmodel
         private GameTileView GetGameTileControl(GameProfile game)
         {
             var tileControls = GamePanel.Children;
@@ -115,7 +112,6 @@ namespace SpectabisUI.Pages
             }
         }
 
-        // TODO: Replace profile management to viewmodel
         private async Task AddNewGames()
         {
             var newGames = await _libraryController.GetNewGames(LoadedProfiles).ConfigureAwait(true);
@@ -138,7 +134,6 @@ namespace SpectabisUI.Pages
             GamePanel = this.FindControl<WrapPanel>(nameof(GamePanel));
         }
 
-        // TODO: Replace profile management to viewmodel
         private GameTileView AddProfileTile(GameTileView gameTile)
         {
             gameTile.PointerReleased += OnGameTileClick;
