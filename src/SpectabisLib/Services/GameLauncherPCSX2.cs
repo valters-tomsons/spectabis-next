@@ -23,6 +23,8 @@ namespace SpectabisLib.Services
 
         public async Task<GameProcess> StartGame(GameProfile game)
         {
+            _pfs.GetProfileContainerPath(game, ContainerConfigType.Inis);
+
             var process = CreateEmulatorProcess(game);
             var gameProcess = new GameProcess(game, process);
 

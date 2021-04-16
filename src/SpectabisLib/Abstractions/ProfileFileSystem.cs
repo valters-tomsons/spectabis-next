@@ -9,7 +9,7 @@ using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Models;
 
-namespace SpectabisLib.Services
+namespace SpectabisLib.Abstractions
 {
     public class ProfileFileSystem
     {

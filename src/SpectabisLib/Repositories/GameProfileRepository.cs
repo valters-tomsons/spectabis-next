@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SpectabisLib.Abstractions;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
-using SpectabisLib.Services;
 
 namespace SpectabisLib.Repositories
 {

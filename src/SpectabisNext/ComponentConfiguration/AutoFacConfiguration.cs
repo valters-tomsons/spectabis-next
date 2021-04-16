@@ -11,6 +11,7 @@ using SpectabisLib.Services;
 using SpectabisNext.Repositories;
 using SpectabisNext.Services;
 using SpectabisUI.Interfaces;
+using SpectabisLib.Abstractions;
 
 namespace SpectabisNext.ComponentConfiguration
 {
