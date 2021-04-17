@@ -37,7 +37,7 @@ steps:
   displayName: 'Install Dotnet SDK'
   inputs:
     packageType: 'sdk'
-    version: '5.0.*'
+    version: '5.0.x'
 
 - task: PowerShell@2
   displayName: 'Insert service secrets'
