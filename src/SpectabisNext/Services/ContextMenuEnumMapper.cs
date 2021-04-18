@@ -31,7 +31,8 @@ namespace SpectabisNext.Services
                 { GameContextMenuItem.Launch, "Launch" },
                 { GameContextMenuItem.Configure, "Configure"},
                 { GameContextMenuItem.Remove, "Delete"},
-                { GameContextMenuItem.OpenWiki, "Open in Wiki"}
+                { GameContextMenuItem.OpenWiki, "Open in Wiki"},
+                { GameContextMenuItem.Settings, "Game Settings"}
             };
         }
     }

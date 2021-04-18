@@ -172,6 +172,11 @@ namespace SpectabisUI.Pages
                 OpenWikiPage(tile);
             }
 
+            if(selectd == GameContextMenuItem.Settings)
+            {
+                GameSettings(tile);
+            }
+
             // TODO: Should share one global context menu when Avalonia supports it
             obj.Close();
             obj.PointerReleased -= OnGameContextMenuClick;
@@ -208,6 +213,11 @@ namespace SpectabisUI.Pages
         {
             _libraryController.LaunchGame(gameTile.Profile);
             _navigationProvider.Navigate<GameRunning>();
+        }
+
+        private void GameSettings(GameTileView gameTile)
+        {
+
         }
 
         private void RemoveGame(GameTileView gameTile)

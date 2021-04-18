@@ -3,10 +3,16 @@
     x:Class="SpectabisUI.Pages.GameLibrary"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
-    <Grid Margin="10" Name="LibraryControlGrid">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <Grid ColumnDefinitions="*,Auto" Margin="10" Name="LibraryControlGrid">
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <WrapPanel Name="GamePanel"/>
         </ScrollViewer>
-    </Grid>
 
+        <Grid Grid.Column="1">
+            <ContentControl Name="SettingsContainer" />
+            <Rectangle Fill="Black" Width="100" Height="300"/>
+        </Grid>
+
+    </Grid>
 </UserControl>
