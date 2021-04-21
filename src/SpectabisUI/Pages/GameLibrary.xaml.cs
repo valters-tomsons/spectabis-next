@@ -38,6 +38,8 @@ namespace SpectabisUI.Pages
         private WrapPanel GamePanel;
         private ContentControl SettingsContainer;
 
+        private IDictionary<GameContextMenuItem, Action<GameTileView>> contextActionTable;
+
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary()
         {
@@ -66,6 +68,7 @@ namespace SpectabisUI.Pages
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            BuildContextMenuTable();
         }
 
         private void OnGameArtDownloaded(object sender, EventArgs e)
@@ -77,9 +80,7 @@ namespace SpectabisUI.Pages
 
         private GameTileView GetGameTileControl(GameProfile game)
         {
-            var tileControls = GamePanel.Children;
-
-            foreach (var item in tileControls)
+            foreach (var item in GamePanel.Children)
             {
                 if (item.GetType() != typeof(GameTileView))
                 {
@@ -152,33 +153,8 @@ namespace SpectabisUI.Pages
             var obj = (ContextMenu) sender;
             var tile = (GameTileView) obj.Parent.Parent;
 
-            // TODO: Please fix this mess someday
-            var selectd = (GameContextMenuItem) obj.SelectedIndex;
-
-            if (selectd == GameContextMenuItem.Launch)
-            {
-                LaunchTile(tile);
-            }
-
-            if (selectd == GameContextMenuItem.Configure)
-            {
-                LaunchConfiguration(tile);
-            }
-
-            if (selectd == GameContextMenuItem.Remove)
-            {
-                RemoveGame(tile);
-            }
-
-            if (selectd == GameContextMenuItem.OpenWiki)
-            {
-                OpenWikiPage(tile);
-            }
-
-            if(selectd == GameContextMenuItem.Settings)
-            {
-                GameSettings(tile);
-            }
+            var selectedItem = (GameContextMenuItem) obj.SelectedIndex;
+            contextActionTable[selectedItem](tile);
 
             // TODO: Should share one global context menu when Avalonia supports it
             obj.Close();
@@ -235,6 +211,18 @@ namespace SpectabisUI.Pages
         private void OpenWikiPage(GameTileView gameTile)
         {
             _libraryController.OpenWikiPage(gameTile.Profile);
+        }
+
+        private void BuildContextMenuTable()
+        {
+            contextActionTable = new Dictionary<GameContextMenuItem, Action<GameTileView>>()
+            {
+                {GameContextMenuItem.Launch, LaunchTile},
+                {GameContextMenuItem.Configure, LaunchConfiguration},
+                {GameContextMenuItem.OpenWiki, OpenWikiPage},
+                {GameContextMenuItem.Remove, RemoveGame},
+                {GameContextMenuItem.Settings, GameSettings},
+            };
         }
     }
 }
