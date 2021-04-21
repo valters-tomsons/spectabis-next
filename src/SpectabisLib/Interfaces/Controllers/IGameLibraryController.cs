@@ -11,5 +11,6 @@ namespace SpectabisLib.Interfaces.Controllers
         void DeleteGame(GameProfile game);
         void OpenWikiPage(GameProfile game);
         Task<IEnumerable<GameProfile>> GetNewGames(IList<GameProfile> currentProfiles);
+        object GetConfigureGamePage(GameProfile profile);
     }
 }

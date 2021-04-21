@@ -4,8 +4,8 @@
     x:Class="SpectabisUI.Pages.GameSettings"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
-    <Grid Margin="10">
-        <TextBlock>Settings</TextBlock>
+    <Grid Margin="50">
+        <TextBlock Text="{Binding Title}"></TextBlock>
     </Grid>
 
 </UserControl>

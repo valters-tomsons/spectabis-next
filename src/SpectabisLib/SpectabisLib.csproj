@@ -9,6 +9,7 @@
     <ProjectReference Include="..\FileIntrinsics\FileIntrinsics.csproj" />
     <ProjectReference Include="..\RomParsing\RomParsing.csproj" />
     <ProjectReference Include="..\ServiceLib\ServiceLib.csproj" />
+    <ProjectReference Include="..\EmuConfig\EmuConfig.csproj" />
   </ItemGroup>
 
   <ItemGroup>

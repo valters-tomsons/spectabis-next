@@ -1,6 +1,11 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using SpectabisLib.Helpers;
+using SpectabisLib.Interfaces.Services;
+using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
+using SpectabisUI.ViewModels;
 
 namespace SpectabisUI.Pages
 {
@@ -9,17 +14,35 @@ namespace SpectabisUI.Pages
         public string PageTitle => "PCSX2";
         public bool ShowInTitlebar => false;
         public bool HideTitlebar => false;
-        public bool ReloadOnNavigation => true;
+        public bool ReloadOnNavigation => false;
 
-        // [Obsolete("XAMLIL placeholder", true)]
+        private readonly IGameConfigurationService _gameConfig;
+        private readonly GameSettingsViewModel _viewModel;
+
+        [Obsolete("XAMLIL placeholder", true)]
         public GameSettings()
         {
+        }
+
+        public GameSettings(IGameConfigurationService gameConfig, GameSettingsViewModel viewModel)
+        {
+            _gameConfig = gameConfig;
+            _viewModel = viewModel;
+
             InitializeComponent();
         }
 
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            DataContext = _viewModel;
+        }
+
+        public void ConfigureProfile(GameProfile profile)
+        {
+            Logging.WriteLine($"Called {profile.Id} from library {this.GetHashCode()}");
+            _viewModel.Title = profile.Title;
+            // _gameConfig.Test();
         }
     }
 }

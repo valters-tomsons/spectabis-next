@@ -7,6 +7,8 @@ using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Interfaces.Controllers;
 using SpectabisLib.Models;
+using SpectabisUI.Interfaces;
+using SpectabisUI.Pages;
 
 namespace SpectabisUI.Controllers
 {
@@ -15,12 +17,14 @@ namespace SpectabisUI.Controllers
         private readonly IGameLauncher _gameLauncher;
         private readonly IDiscordService _discordService;
         private readonly IProfileRepository _profileRepository;
+        private readonly IPageRepository _pageRepository;
 
-        public GameLibraryController(IGameLauncher gameLauncher, IDiscordService discordService, IProfileRepository profileRepository)
+        public GameLibraryController(IGameLauncher gameLauncher, IDiscordService discordService, IProfileRepository profileRepository, IPageRepository pageRepository)
         {
             _gameLauncher = gameLauncher;
             _discordService = discordService;
             _profileRepository = profileRepository;
+            _pageRepository = pageRepository;
         }
 
         public void LaunchGame(GameProfile game)
@@ -61,6 +65,13 @@ namespace SpectabisUI.Controllers
         {
             var allGames = await _profileRepository.GetAll().ConfigureAwait(true);
             return allGames.Except(currentProfiles);
+        }
+
+        public object GetConfigureGamePage(GameProfile profile)
+        {
+            var configurePage = (GameSettings) _pageRepository.GetPage<GameSettings>();
+            configurePage.ConfigureProfile(profile);
+            return configurePage;
         }
     }
 }

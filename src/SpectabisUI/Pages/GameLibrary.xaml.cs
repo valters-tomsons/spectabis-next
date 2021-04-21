@@ -34,7 +34,9 @@ namespace SpectabisUI.Pages
         private readonly IDirectoryScan _dirScan;
 
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
+
         private WrapPanel GamePanel;
+        private ContentControl SettingsContainer;
 
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary()
@@ -132,6 +134,7 @@ namespace SpectabisUI.Pages
         private void RegisterChildren()
         {
             GamePanel = this.FindControl<WrapPanel>(nameof(GamePanel));
+            SettingsContainer = this.FindControl<ContentControl>(nameof(SettingsContainer));
         }
 
         private GameTileView AddProfileTile(GameTileView gameTile)
@@ -217,7 +220,8 @@ namespace SpectabisUI.Pages
 
         private void GameSettings(GameTileView gameTile)
         {
-
+            var configPage = (GameSettings) _libraryController.GetConfigureGamePage(gameTile.Profile);
+            Dispatcher.UIThread.Post(() => SettingsContainer.Content = configPage);
         }
 
         private void RemoveGame(GameTileView gameTile)

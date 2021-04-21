@@ -13,6 +13,7 @@ using SpectabisNext.Services;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Abstractions;
 using SpectabisLib.Interfaces.Controllers;
+using SpectabisLib.Interfaces.Services;
 
 namespace SpectabisNext.ComponentConfiguration
 {
@@ -50,6 +51,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<ProfileFileSystem>();
             builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
             builder.RegisterType<GameFileParser>().As<IGameFileParser>();
+            builder.RegisterType<GameConfigurationService>().As<IGameConfigurationService>();
         }
 
         private static void RegisterSpectabis(ContainerBuilder builder)
