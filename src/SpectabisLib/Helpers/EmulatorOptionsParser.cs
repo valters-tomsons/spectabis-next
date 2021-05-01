@@ -50,7 +50,7 @@ namespace SpectabisLib.Helpers
 
             foreach (var option in enumNames)
             {
-                Enum.TryParse(option, out EmulatorLaunchOptions parsedEnum);
+                Enum.TryParse(option, true, out EmulatorLaunchOptions parsedEnum);
                 if((launchOptions & parsedEnum) != 0)
                 {
                     selectedOptions.Add(option);
