@@ -14,6 +14,8 @@ using SpectabisUI.Interfaces;
 using SpectabisLib.Abstractions;
 using SpectabisLib.Interfaces.Controllers;
 using SpectabisLib.Interfaces.Services;
+using EmuConfig.Interfaces;
+using EmuConfig;
 
 namespace SpectabisNext.ComponentConfiguration
 {
@@ -30,6 +32,8 @@ namespace SpectabisNext.ComponentConfiguration
             RegisterSpectabisLib(builder);
             RegisterSpectabis(builder);
             RegisterSpectabisUI(builder);
+
+            builder.RegisterType<IniParser>().As<IParserProvider>();
 
             return builder.Build();
         }

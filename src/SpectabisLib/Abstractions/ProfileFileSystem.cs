@@ -132,12 +132,8 @@ namespace SpectabisLib.Abstractions
 
         public bool ProfileExistsOnFileSystem(GameProfile profile)
         {
-            var gameId = profile.Id;
-
-            var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
-            var inisFolderUri = new Uri(profileFolderUri, "inis");
-
-            return Directory.Exists(inisFolderUri.LocalPath);
+            var containerUri = GetContainerUri(profile, ContainerConfigType.Inis);
+            return Directory.Exists(containerUri.LocalPath);
         }
 
         public async Task SaveBoxArtToDisk(GameProfile game, byte[] artBuffer)

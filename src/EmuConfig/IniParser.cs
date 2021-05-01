@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Linq;
 using EmuConfig.Interfaces;
+using System.Threading.Tasks;
 
 namespace EmuConfig
 {
@@ -11,18 +12,18 @@ namespace EmuConfig
         public T ReadConfig<T>(Uri iniPath) where T : IConfigurable, new()
         {
             var parser = new IniFileParser.IniFileParser();
-            var data = parser.ReadFile(iniPath.OriginalString);
+            var data = parser.ReadFile(iniPath.OriginalString, Encoding.ASCII);
 
             var dict = data.Global.ToDictionary(x => x.KeyName, y => y.Value);
 
             return new T() { IniData = dict };
         }
 
-        public void WriteConfig<T>(Uri iniPath, T config) where T : IConfigurable
+        public async Task WriteConfig<T>(Uri iniPath, T config) where T : IConfigurable
         {
             var keys = config.GetConfigKeys();
 
-            var iniContent = File.ReadAllLines(iniPath.LocalPath);
+            var iniContent = await File.ReadAllLinesAsync(iniPath.LocalPath).ConfigureAwait(false);
 
             for(int i = 0; i < iniContent.Length; i++)
             {
@@ -32,13 +33,13 @@ namespace EmuConfig
                 {
                     if(content.StartsWith(key))
                     {
-                        var resultLine = $"{key} = {config[key]}";
-                        iniContent[i] = resultLine;
+                        iniContent[i] = $"{key} = {config[key]}";
                     }
                 }
             }
 
-            File.WriteAllLines(iniPath.LocalPath, iniContent, Encoding.ASCII);
+            File.Delete(iniPath.LocalPath);
+            await File.WriteAllLinesAsync(iniPath.LocalPath, iniContent, Encoding.ASCII).ConfigureAwait(false);
         }
     }
 }

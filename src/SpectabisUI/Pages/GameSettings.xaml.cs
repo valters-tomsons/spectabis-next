@@ -2,6 +2,8 @@ using System;
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using EmuConfig.Configs;
+using EmuConfig.Enums;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
@@ -22,6 +24,8 @@ namespace SpectabisUI.Pages
         private readonly IGameConfigurationService _gameConfig;
         private readonly GameSettingsViewModel _viewModel;
         private readonly IProfileRepository _profileRepo;
+
+        private ProfileConfiguration _currentConfig;
 
         [Obsolete("XAMLIL placeholder", true)]
         public GameSettings()
@@ -47,9 +51,12 @@ namespace SpectabisUI.Pages
         {
             _viewModel.PropertyChanged -= OnViewModelUpdated;
 
+            _currentConfig = _gameConfig.Get(profile.Id);
+
             _viewModel.Id = profile.Id;
             _viewModel.Title = profile.Title;
             _viewModel.Fullscreen = (profile.LaunchOptions & EmulatorLaunchOptions.Fullscreen) != 0;
+            _viewModel.Resolution = _currentConfig.GSdxConfig.UpscaleFactor.ToString();
 
             _viewModel.PropertyChanged += OnViewModelUpdated;
         }
@@ -69,6 +76,9 @@ namespace SpectabisUI.Pages
                 profile.LaunchOptions |= EmulatorLaunchOptions.Windowed;
             }
 
+            _currentConfig.GSdxConfig.UpscaleFactor = Enum.Parse<UpscaleFactor>(_viewModel.Resolution, true);
+
+            await _gameConfig.UpdateConfiguration(_viewModel.Id, _currentConfig.GSdxConfig);
             await _profileRepo.UpsertProfile(profile).ConfigureAwait(false);
         }
     }
