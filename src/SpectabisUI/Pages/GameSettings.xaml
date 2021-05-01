@@ -4,8 +4,8 @@
     x:Class="SpectabisUI.Pages.GameSettings"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
-    <Grid Margin="50">
-        <TextBlock FontSize="50" Text="{Binding Title}"></TextBlock>
+    <Grid Margin="50" HorizontalAlignment="Center">
+        <TextBlock HorizontalAlignment="Center" FontSize="35" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Title}"></TextBlock>
     </Grid>
 
 </UserControl>
