@@ -13,6 +13,7 @@ using SpectabisUI.Enums;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Interfaces.Controllers;
+using Avalonia.Controls.Shapes;
 
 namespace SpectabisUI.Pages
 {
@@ -37,6 +38,7 @@ namespace SpectabisUI.Pages
 
         private WrapPanel GamePanel;
         private ContentControl SettingsContainer;
+        private Rectangle SettingsOverlay;
 
         private IDictionary<GameContextMenuItem, Action<GameTileView>> contextActionTable;
 
@@ -136,6 +138,7 @@ namespace SpectabisUI.Pages
         {
             GamePanel = this.FindControl<WrapPanel>(nameof(GamePanel));
             SettingsContainer = this.FindControl<ContentControl>(nameof(SettingsContainer));
+            SettingsOverlay = this.FindControl<Rectangle>(nameof(SettingsOverlay));
         }
 
         private GameTileView AddProfileTile(GameTileView gameTile)
@@ -198,8 +201,19 @@ namespace SpectabisUI.Pages
         {
             var configPage = (GameSettings) _libraryController.GetConfigureGamePage(gameTile.Profile);
 
+            SettingsOverlay.PointerReleased += OnSettingsOverlayClick;
+
             Dispatcher.UIThread.Post(() => SettingsContainer.Content = configPage);
             Dispatcher.UIThread.Post(() => SettingsContainer.Width = _libraryController.SettingsViewWidth);
+            Dispatcher.UIThread.Post(() => SettingsOverlay.IsVisible = true);
+        }
+
+        private void OnSettingsOverlayClick(object sender, PointerReleasedEventArgs e)
+        {
+            SettingsOverlay.PointerReleased -= OnSettingsOverlayClick;
+
+            Dispatcher.UIThread.Post(() => SettingsOverlay.IsVisible = false);
+            Dispatcher.UIThread.Post(() => SettingsContainer.Width = 0);
         }
 
         private void RemoveGame(GameTileView gameTile)

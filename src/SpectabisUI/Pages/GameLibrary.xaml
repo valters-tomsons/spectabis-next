@@ -5,9 +5,12 @@
 
     <Grid ColumnDefinitions="*,Auto" Margin="10" Name="LibraryControlGrid">
 
+
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <WrapPanel Name="GamePanel"/>
         </ScrollViewer>
+
+        <Rectangle Name="SettingsOverlay" Grid.Column="0" IsVisible="False" Fill="Black" Opacity="0.8"></Rectangle>
 
         <Grid Grid.Column="1">
             <ContentControl Name="SettingsContainer" Width="0"/>
