@@ -71,6 +71,12 @@ namespace SpectabisUI.Controllers
             return allGames.Except(currentProfiles);
         }
 
+        /// <summary>
+        /// Returns a ready GameSettings view for requested profile 
+        /// </summary>
+        ///<returns **Type="SpectabisUI.Pages.GameSettings"**>
+        /// Returns instance of GameSettings view
+        ///</returns>
         public object GetConfigureGamePage(GameProfile profile)
         {
             var configurePage = (GameSettings) _pageRepository.GetPage<GameSettings>();
