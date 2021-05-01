@@ -1,7 +1,6 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces.Services;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
@@ -38,11 +37,9 @@ namespace SpectabisUI.Pages
             DataContext = _viewModel;
         }
 
-        public void ConfigureProfile(GameProfile profile)
+        public void SetCurrentProfile(GameProfile profile)
         {
-            Logging.WriteLine($"Called {profile.Id} from library {this.GetHashCode()}");
             _viewModel.Title = profile.Title;
-            // _gameConfig.Test();
         }
     }
 }

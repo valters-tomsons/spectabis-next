@@ -70,7 +70,7 @@ namespace SpectabisUI.Controllers
         public object GetConfigureGamePage(GameProfile profile)
         {
             var configurePage = (GameSettings) _pageRepository.GetPage<GameSettings>();
-            configurePage.ConfigureProfile(profile);
+            configurePage.SetCurrentProfile(profile);
             return configurePage;
         }
     }
