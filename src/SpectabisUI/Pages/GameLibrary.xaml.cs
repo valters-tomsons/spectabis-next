@@ -13,6 +13,7 @@ using SpectabisUI.Enums;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Interfaces.Controllers;
+using Avalonia.Controls.Shapes;
 
 namespace SpectabisUI.Pages
 {
@@ -34,7 +35,12 @@ namespace SpectabisUI.Pages
         private readonly IDirectoryScan _dirScan;
 
         private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
+
         private WrapPanel GamePanel;
+        private ContentControl SettingsContainer;
+        private Rectangle SettingsOverlay;
+
+        private IDictionary<GameContextMenuItem, Action<GameTileView>> contextActionTable;
 
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary()
@@ -64,6 +70,7 @@ namespace SpectabisUI.Pages
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            BuildContextMenuTable();
         }
 
         private void OnGameArtDownloaded(object sender, EventArgs e)
@@ -75,9 +82,7 @@ namespace SpectabisUI.Pages
 
         private GameTileView GetGameTileControl(GameProfile game)
         {
-            var tileControls = GamePanel.Children;
-
-            foreach (var item in tileControls)
+            foreach (var item in GamePanel.Children)
             {
                 if (item.GetType() != typeof(GameTileView))
                 {
@@ -132,6 +137,8 @@ namespace SpectabisUI.Pages
         private void RegisterChildren()
         {
             GamePanel = this.FindControl<WrapPanel>(nameof(GamePanel));
+            SettingsContainer = this.FindControl<ContentControl>(nameof(SettingsContainer));
+            SettingsOverlay = this.FindControl<Rectangle>(nameof(SettingsOverlay));
         }
 
         private GameTileView AddProfileTile(GameTileView gameTile)
@@ -149,28 +156,8 @@ namespace SpectabisUI.Pages
             var obj = (ContextMenu) sender;
             var tile = (GameTileView) obj.Parent.Parent;
 
-            // TODO: Please fix this mess someday
-            var selectd = (GameContextMenuItem) obj.SelectedIndex;
-
-            if (selectd == GameContextMenuItem.Launch)
-            {
-                LaunchTile(tile);
-            }
-
-            if (selectd == GameContextMenuItem.Configure)
-            {
-                LaunchConfiguration(tile);
-            }
-
-            if (selectd == GameContextMenuItem.Remove)
-            {
-                RemoveGame(tile);
-            }
-
-            if (selectd == GameContextMenuItem.OpenWiki)
-            {
-                OpenWikiPage(tile);
-            }
+            var selectedItem = (GameContextMenuItem) obj.SelectedIndex;
+            contextActionTable[selectedItem](tile);
 
             // TODO: Should share one global context menu when Avalonia supports it
             obj.Close();
@@ -210,6 +197,25 @@ namespace SpectabisUI.Pages
             _navigationProvider.Navigate<GameRunning>();
         }
 
+        private void GameSettings(GameTileView gameTile)
+        {
+            var configPage = (GameSettings) _libraryController.GetConfigureGamePage(gameTile.Profile);
+
+            SettingsOverlay.PointerReleased += OnSettingsOverlayClick;
+
+            Dispatcher.UIThread.Post(() => SettingsContainer.Content = configPage);
+            Dispatcher.UIThread.Post(() => SettingsContainer.Width = _libraryController.SettingsViewWidth);
+            Dispatcher.UIThread.Post(() => SettingsOverlay.IsVisible = true);
+        }
+
+        private void OnSettingsOverlayClick(object sender, PointerReleasedEventArgs e)
+        {
+            SettingsOverlay.PointerReleased -= OnSettingsOverlayClick;
+
+            Dispatcher.UIThread.Post(() => SettingsOverlay.IsVisible = false);
+            Dispatcher.UIThread.Post(() => SettingsContainer.Width = 0);
+        }
+
         private void RemoveGame(GameTileView gameTile)
         {
             _libraryController.DeleteGame(gameTile.Profile);
@@ -221,6 +227,18 @@ namespace SpectabisUI.Pages
         private void OpenWikiPage(GameTileView gameTile)
         {
             _libraryController.OpenWikiPage(gameTile.Profile);
+        }
+
+        private void BuildContextMenuTable()
+        {
+            contextActionTable = new Dictionary<GameContextMenuItem, Action<GameTileView>>()
+            {
+                {GameContextMenuItem.Launch, LaunchTile},
+                {GameContextMenuItem.Configure, LaunchConfiguration},
+                {GameContextMenuItem.OpenWiki, OpenWikiPage},
+                {GameContextMenuItem.Remove, RemoveGame},
+                {GameContextMenuItem.Settings, GameSettings},
+            };
         }
     }
 }

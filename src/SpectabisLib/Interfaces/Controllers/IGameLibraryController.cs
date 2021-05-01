@@ -6,10 +6,12 @@ namespace SpectabisLib.Interfaces.Controllers
 {
     public interface IGameLibraryController
     {
+        double SettingsViewWidth { get; }
         void LaunchGame(GameProfile game);
         void LaunchConfiguration(GameProfile game);
         void DeleteGame(GameProfile game);
         void OpenWikiPage(GameProfile game);
         Task<IEnumerable<GameProfile>> GetNewGames(IList<GameProfile> currentProfiles);
+        object GetConfigureGamePage(GameProfile profile);
     }
 }

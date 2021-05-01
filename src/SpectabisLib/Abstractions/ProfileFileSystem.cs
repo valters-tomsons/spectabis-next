@@ -197,7 +197,7 @@ namespace SpectabisLib.Abstractions
             using var stream = File.OpenRead(filePath.LocalPath);
             var content = new byte[stream.Length];
             await stream.ReadAsync(content, 0, (int)stream.Length).ConfigureAwait(false);
-            return Encoding.Unicode.GetString(content);
+            return Encoding.UTF8.GetString(content);
         }
 
         private async Task<GameProfile> ReadProfileFromDisk(Guid gameId)
@@ -224,7 +224,7 @@ namespace SpectabisLib.Abstractions
                 File.Delete(filePath.LocalPath);
             }
 
-            var encoded = Encoding.Unicode.GetBytes(text);
+            var encoded = Encoding.UTF8.GetBytes(text);
 
             using var stream = new FileStream(filePath.LocalPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true);
             await stream.WriteAsync(encoded, 0, encoded.Length).ConfigureAwait(false);

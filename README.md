@@ -55,26 +55,45 @@ Currently usable but not useful yet.
 * Incorporate - <https://github.com/Zombeaver/PCSX2-Configs>
 * Unit tests
 
-## Open Source Technologies
+## Desktop Client Development
 
-### Desktop
+Documentation for API Service [here](./docs/run-service-locally.md).
 
-* .NET 5.0
-* AutoFac 4.9.2
-* Avalonia UI 0.10
-* Reactive UI
+### Pre-requisites
 
-### Service
+* .NET 5.0 SDK
+* .NET Core 3.1 SDK
 
-* .NET Core 3.1
-* Azure Functions v3
 
-### Attributions
+### Run
+
+```
+cd src/SpectabisNext
+dotnet run
+```
+
+### Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md)
+
+### Thanks to
+
+## Third-Party Dependencies
+
+* AutoFac
+* AvaloniaUI
+* ReactiveUI
+* Azure Functions
+* LunrCore
+* IniFileParserStandard
+* DiscUtils
+* TinyCsvParser
+* Newtonsoft.Json
+* Newtonsoft.Json.Bson
+* DiscordRichPresence
+
+## Attributions
 
 * Graphics design by [Piksro](https://www.instagram.com/piksro/)
 * Game art delivered by [GiantBomb API](https://www.giantbomb.com/api/)
 * AvaloniaGif by [Jumar Macato](src/SpectabisUI/Controls/AnimatedImage/README.md)
-
-## Contributing
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md)

@@ -7,6 +7,8 @@ using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Interfaces.Controllers;
 using SpectabisLib.Models;
+using SpectabisUI.Interfaces;
+using SpectabisUI.Pages;
 
 namespace SpectabisUI.Controllers
 {
@@ -15,12 +17,18 @@ namespace SpectabisUI.Controllers
         private readonly IGameLauncher _gameLauncher;
         private readonly IDiscordService _discordService;
         private readonly IProfileRepository _profileRepository;
+        private readonly IPageRepository _pageRepository;
 
-        public GameLibraryController(IGameLauncher gameLauncher, IDiscordService discordService, IProfileRepository profileRepository)
+        public double SettingsViewWidth { get; }
+
+        public GameLibraryController(IGameLauncher gameLauncher, IDiscordService discordService, IProfileRepository profileRepository, IPageRepository pageRepository, IConfigurationManager config)
         {
             _gameLauncher = gameLauncher;
             _discordService = discordService;
             _profileRepository = profileRepository;
+            _pageRepository = pageRepository;
+
+            SettingsViewWidth = config.UserInterface.GameViewWidth;
         }
 
         public void LaunchGame(GameProfile game)
@@ -61,6 +69,19 @@ namespace SpectabisUI.Controllers
         {
             var allGames = await _profileRepository.GetAll().ConfigureAwait(true);
             return allGames.Except(currentProfiles);
+        }
+
+        /// <summary>
+        /// Returns a ready GameSettings view for requested profile 
+        /// </summary>
+        ///<returns **Type="SpectabisUI.Pages.GameSettings"**>
+        /// Returns instance of GameSettings view
+        ///</returns>
+        public object GetConfigureGamePage(GameProfile profile)
+        {
+            var configurePage = (GameSettings) _pageRepository.GetPage<GameSettings>();
+            configurePage.InitializeProfile(profile);
+            return configurePage;
         }
     }
 }
