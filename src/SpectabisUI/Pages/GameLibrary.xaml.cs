@@ -197,7 +197,9 @@ namespace SpectabisUI.Pages
         private void GameSettings(GameTileView gameTile)
         {
             var configPage = (GameSettings) _libraryController.GetConfigureGamePage(gameTile.Profile);
+
             Dispatcher.UIThread.Post(() => SettingsContainer.Content = configPage);
+            Dispatcher.UIThread.Post(() => SettingsContainer.Width = _libraryController.SettingsViewWidth);
         }
 
         private void RemoveGame(GameTileView gameTile)

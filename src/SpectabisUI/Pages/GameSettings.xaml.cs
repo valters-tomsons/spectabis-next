@@ -37,7 +37,7 @@ namespace SpectabisUI.Pages
             DataContext = _viewModel;
         }
 
-        public void SetCurrentProfile(GameProfile profile)
+        public void ShowSettingsView(GameProfile profile)
         {
             _viewModel.Title = profile.Title;
         }

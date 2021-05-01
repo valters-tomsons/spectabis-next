@@ -14,6 +14,7 @@ namespace SpectabisLib.Configuration
             BoxArtHeight = 200;
             BoxArtSizeModifier = 1.25;
             BoxArtGapSize = 10;
+            GameViewWidth = 400;
 
             TitlebarGradient = DefaultTitlebarGradient();
         }
@@ -23,6 +24,7 @@ namespace SpectabisLib.Configuration
         public double BoxArtSizeModifier { get; set; }
         public double BoxArtGapSize { get; set; }
         public LinearGradientBrush TitlebarGradient { get; set; }
+        public double GameViewWidth { get; set; }
 
         private LinearGradientBrush DefaultTitlebarGradient()
         {
