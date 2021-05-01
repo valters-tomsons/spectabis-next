@@ -14,7 +14,7 @@ namespace SpectabisLib.Configuration
             BoxArtHeight = 200;
             BoxArtSizeModifier = 1.25;
             BoxArtGapSize = 10;
-            GameViewWidth = 400;
+            GameViewWidth = 600;
 
             TitlebarGradient = DefaultTitlebarGradient();
         }
