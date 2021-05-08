@@ -5,6 +5,7 @@ using ServiceLib.Interfaces;
 using SpectabisLib.Abstractions;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Interfaces.Services;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Services
@@ -17,15 +18,17 @@ namespace SpectabisLib.Services
 
         private readonly ISpectabisClient _client;
         private readonly ProfileFileSystem _profileFs;
+        private readonly ILocalCachingService _localCache;
 
         private GameProfile _currentProcess;
 
         public event EventHandler<EventArgs> ItemFinished;
 
-        public GameArtQueue(ISpectabisClient client, ProfileFileSystem profileFs)
+        public GameArtQueue(ISpectabisClient client, ProfileFileSystem profileFs, ILocalCachingService localCache)
         {
             _client = client;
             _profileFs = profileFs;
+            _localCache = localCache;
 
             _gameArtQueue = new Queue<GameProfile>();
             _finishedArt = new Stack<GameProfile>();
@@ -89,8 +92,15 @@ namespace SpectabisLib.Services
             _currentProcess = game;
             Logging.WriteLine($"Dequeued '{game.Id}'");
 
-            Logging.WriteLine("Downloading boxart");
-            var boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
+            var boxBytes = await _localCache.GetCachedArt(game.SerialNumber).ConfigureAwait(false);
+
+            if(boxBytes == null)
+            {
+                Logging.WriteLine("Downloading boxart");
+
+                boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
+                await _localCache.WriteArtToCache(game.SerialNumber, boxBytes).ConfigureAwait(false);
+            }
 
             if (boxBytes != null)
             {
