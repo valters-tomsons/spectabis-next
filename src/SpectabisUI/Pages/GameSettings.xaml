@@ -11,7 +11,7 @@
 
              <StackPanel Margin="10" Spacing="5">
                  <CheckBox Content="Fullscreen" ToolTip.Tip="Start game in a fullscreen window" IsChecked="{Binding Fullscreen}"/>
-                 <StackPanel Orientation="Horizontal" ToolTip.Tip="Approximate game rendering resolution">
+                 <StackPanel IsVisible="{Binding ShowSettings}" Orientation="Horizontal" ToolTip.Tip="Approximate game rendering resolution">
                     <ComboBox Items="{Binding Resolutions}" SelectedItem="{Binding Resolution}"></ComboBox>
                     <TextBlock Margin="3" VerticalAlignment="Center" Text="Resolution"></TextBlock>
                  </StackPanel>

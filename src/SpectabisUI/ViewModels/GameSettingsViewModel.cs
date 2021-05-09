@@ -7,6 +7,7 @@ namespace SpectabisUI.ViewModels
 {
     public class GameSettingsViewModel : ReactiveObject
     {
+        private bool showsettings;
         private Guid guid;
         private string title;
         private bool fullscreen;
@@ -17,6 +18,7 @@ namespace SpectabisUI.ViewModels
         public bool Fullscreen { get => fullscreen; set => this.RaiseAndSetIfChanged(ref fullscreen, value); }
         public string Resolution { get => resolution; set => this.RaiseAndSetIfChanged(ref resolution, value); }
 
+        public bool ShowSettings { get => showsettings; set => this.RaiseAndSetIfChanged(ref showsettings, value); }
         public IEnumerable<string> Resolutions { get => Enum.GetNames(typeof(UpscaleFactor)); }
     }
 }

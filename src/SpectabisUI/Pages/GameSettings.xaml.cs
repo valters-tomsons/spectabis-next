@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using EmuConfig.Configs;
 using EmuConfig.Enums;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
@@ -51,18 +50,37 @@ namespace SpectabisUI.Pages
         {
             _viewModel.PropertyChanged -= OnViewModelUpdated;
 
-            _currentConfig = _gameConfig.Get(profile.Id);
+            try
+            {
+                _currentConfig = _gameConfig.Get(profile.Id);
 
-            _viewModel.Id = profile.Id;
-            _viewModel.Title = profile.Title;
-            _viewModel.Fullscreen = (profile.LaunchOptions & EmulatorLaunchOptions.Fullscreen) != 0;
-            _viewModel.Resolution = _currentConfig.GSdxConfig.UpscaleFactor.ToString();
+                _viewModel.ShowSettings = true;
 
-            _viewModel.PropertyChanged += OnViewModelUpdated;
+                _viewModel.Resolution = _currentConfig.GSdxConfig.UpscaleFactor.ToString();
+            }
+            catch(Exception e)
+            {
+                _viewModel.ShowSettings = false;
+
+                Logging.WriteLine("Failed to read profile configuration");
+                Logging.WriteLine(e.Message);
+            }
+            finally{
+                _viewModel.Id = profile.Id;
+                _viewModel.Title = profile.Title;
+                _viewModel.Fullscreen = (profile.LaunchOptions & EmulatorLaunchOptions.Fullscreen) != 0;
+
+                _viewModel.PropertyChanged += OnViewModelUpdated;
+            }
         }
 
         private async void OnViewModelUpdated(object sender, PropertyChangedEventArgs e)
         {
+            if(!_viewModel.ShowSettings)
+            {
+                return;
+            }
+
             var profile = _profileRepo.Get(_viewModel.Id);
 
             if(_viewModel.Fullscreen)
@@ -78,7 +96,7 @@ namespace SpectabisUI.Pages
 
             _currentConfig.GSdxConfig.UpscaleFactor = Enum.Parse<UpscaleFactor>(_viewModel.Resolution, true);
 
-            await _gameConfig.UpdateConfiguration(_viewModel.Id, _currentConfig.GSdxConfig);
+            await _gameConfig.UpdateConfiguration(_viewModel.Id, _currentConfig.GSdxConfig).ConfigureAwait(false);
             await _profileRepo.UpsertProfile(profile).ConfigureAwait(false);
         }
     }
