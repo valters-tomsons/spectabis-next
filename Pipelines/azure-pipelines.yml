@@ -83,20 +83,20 @@ steps:
       tar -cvzf $ARTIFACTSFOLDER/spectabis-osx-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/osx-x64/publish
       tar -cvzf $ARTIFACTSFOLDER/spectabis-win-$(Build.SourceVersion).tar.gz src/SpectabisNext/bin/$CONFIGURATION/$SDKRELEASEFOLDER/win-x64/publish
 
-- task: PublishPipelineArtifact@1
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-linux-$(Build.SourceVersion).tar.gz'
-    artifact: 'Spectabis-Linux'
-    publishLocation: 'pipeline'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-linux-$(Build.SourceVersion).tar.gz'
+    ArtifactName: 'Spectabis-Linux'
+    publishLocation: 'Container'
 
-- task: PublishPipelineArtifact@1
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-osx-$(Build.SourceVersion).tar.gz'
-    artifact: 'Spectabis-OSX'
-    publishLocation: 'pipeline'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-win-$(Build.SourceVersion).tar.gz'
+    ArtifactName: 'Spectabis-Windows'
+    publishLocation: 'Container'
 
-- task: PublishPipelineArtifact@1
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-win-$(Build.SourceVersion).tar.gz'
-    artifact: 'Spectabis-Windows'
-    publishLocation: 'pipeline'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/$(ArtifactsFolder)/spectabis-osx-$(Build.SourceVersion).tar.gz'
+    ArtifactName: 'Spectabis-OSX'
+    publishLocation: 'Container'
