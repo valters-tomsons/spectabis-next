@@ -27,9 +27,11 @@ namespace SpectabisNext.Services
 
         public void DisponseSpinner(GameProfile game)
         {
-            var instance = _instances[game];
-            _instances.Remove(game);
-            instance.Dispose();
+            if(_instances.TryGetValue(game, out var instance))
+            {
+                _instances.Remove(game);
+                instance.Dispose();
+            }
         }
 
         private static GifInstance CreateGifInstance(Image targetControl)
