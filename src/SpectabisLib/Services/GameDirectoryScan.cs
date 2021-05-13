@@ -4,6 +4,8 @@ using SpectabisLib.Interfaces;
 using FileIntrinsics.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
+using SpectabisLib.Helpers;
+using System;
 
 namespace SpectabisLib.Services
 {
@@ -58,8 +60,16 @@ namespace SpectabisLib.Services
 
             foreach (var dir in directories)
             {
-                var dirFiles = Directory.EnumerateFiles(dir, string.Empty, SearchOption.AllDirectories);
-                files.AddRange(dirFiles);
+                try
+                {
+                    var dirFiles = Directory.EnumerateFiles(dir, string.Empty, SearchOption.AllDirectories);
+                    files.AddRange(dirFiles);
+                }
+                catch(Exception e)
+                {
+                    Logging.WriteLine($"Exception when trying to enumerate directory `{dir}`");
+                    Logging.WriteLine($"Exception: {e.Message}");
+                }
             }
 
             var matches = new List<string>();
