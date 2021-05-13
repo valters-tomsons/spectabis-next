@@ -105,8 +105,12 @@ namespace SpectabisUI.Pages
         private void RefreshGameTileArt(GameProfile game)
         {
             var tile = GetGameTileControl(game);
-            var bitmap = _bitmapLoader.GetBoxArt(game);
-            tile.LoadBoxart(bitmap);
+
+            if(tile != null)
+            {
+                var bitmap = _bitmapLoader.GetBoxArt(game);
+                tile.LoadBoxart(bitmap);
+            }
         }
 
         private void OnNavigation(object sender, NavigationArgs e)

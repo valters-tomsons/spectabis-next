@@ -138,6 +138,12 @@ namespace SpectabisLib.Abstractions
 
         public async Task SaveBoxArtToDisk(GameProfile game, byte[] artBuffer)
         {
+            if(!Directory.Exists($"{SystemDirectories.ProfileFolder}/{game.Id}"))
+            {
+                Logging.WriteLine("Profile does not exist anymore, discarding game art...");
+                return;
+            }
+
             var artFilePath = new Uri($"{SystemDirectories.ProfileFolder}/{game.Id}/{Constants.BoxArtFileName}", UriKind.Absolute);
             await File.WriteAllBytesAsync(artFilePath.LocalPath, artBuffer).ConfigureAwait(false);
         }
