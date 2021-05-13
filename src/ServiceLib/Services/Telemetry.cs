@@ -46,7 +46,7 @@ namespace ServiceLib.Services
 
         private void TrackException(Exception e)
         {
-            if(e != null && isEnabled)
+            if(e != null && isEnabled && !Debugger.IsAttached)
             {
                 var ex = new ExceptionTelemetry(e);
                 _client.TrackException(ex);
