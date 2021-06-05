@@ -27,7 +27,8 @@ namespace ServiceLib.Helpers
                 TelemetryKey = settings.TelemetryKey;
                 ServiceBaseUrl = settings.ServiceBaseUrl;
             }
-            else{
+            else
+            {
                 DebugDefaults();
             }
         }
