@@ -4,19 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FileIntrinsics.Enums;
 using RomParsing.Enums;
 using RomParsing.Utils;
 
 namespace RomParsing.Parsers
 {
-    public static class BinParser
+    public class BinParser : IParser
     {
         private const int RootFileDescriptorOffset = 0xC800;
         private const int RootFileDescriptorEndOffset = 0xCFFF;
         private static readonly byte[] DescriptionPrefix = { 0x24, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x0D };
         private static readonly List<string> _gameRegions = Enum.GetNames(typeof(GameRegion)).ToList();
 
-        public static async Task<string> ReadSerial(string gamePath)
+        public GameFileType FileType => GameFileType.CD_I;
+
+        public async Task<string> ReadSerial(string gamePath)
         {
             var readBuffer = new byte[RootFileDescriptorEndOffset];
 

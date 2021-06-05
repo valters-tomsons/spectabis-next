@@ -1,8 +1,9 @@
-using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FileIntrinsics.Enums;
 using FileIntrinsics.Interfaces;
+using RomParsing;
 using RomParsing.Parsers;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
@@ -12,39 +13,36 @@ namespace SpectabisLib.Services
     public class GameFileParser : IGameFileParser
     {
         private readonly IIntrinsicsProvider _intrinsics;
+        private readonly IDictionary<GameFileType, IParser> _parsers;
 
-        public GameFileParser(IIntrinsicsProvider intrinsics)
+        public GameFileParser(IIntrinsicsProvider intrinsics, IEnumerable<IParser> parsers)
         {
             _intrinsics = intrinsics;
+
+            // Map parsers to dictionary based on IParser.FileType
+            _parsers = new Dictionary<GameFileType, IParser>(parsers.Select(x => new KeyValuePair<GameFileType, IParser>(x.FileType, x)));
         }
 
         public async Task<string> GetGameSerial(string gamePath)
         {
             var fileType = await _intrinsics.GetFileSignature(gamePath).ConfigureAwait(false);
 
-            if(fileType == null)
+            if(fileType == null || !_parsers.ContainsKey(fileType.File))
             {
                 Logging.WriteLine($"Parsing failed for unsupported file:'{gamePath}'");
                 return null;
             }
 
-            if (fileType.File == GameFileType.ISO9660)
-            {
-                return IsoParser.ReadSerialFromIso(gamePath);
-            }
+            return await _parsers[fileType.File].ReadSerial(gamePath).ConfigureAwait(false);
+        }
 
-            if(fileType.File == GameFileType.CD_I)
-            {
-                return await BinParser.ReadSerial(gamePath).ConfigureAwait(false);
-            }
-
-            if(fileType.File == GameFileType.Fake)
-            {
-                var content = File.ReadAllLines(gamePath);
-                return content[1];
-            }
-
-            return null;
+        private static IDictionary<GameFileType, IParser> InitializeParsers()
+        {
+            return new Dictionary<GameFileType, IParser>(){
+                {GameFileType.ISO9660, new IsoParser()},
+                {GameFileType.CD_I, new BinParser()},
+                {GameFileType.Fake, new FakeParser()}
+            };
         }
     }
 }

@@ -16,6 +16,8 @@ using SpectabisLib.Interfaces.Controllers;
 using SpectabisLib.Interfaces.Services;
 using EmuConfig.Interfaces;
 using EmuConfig;
+using RomParsing.Parsers;
+using RomParsing;
 
 namespace SpectabisNext.ComponentConfiguration
 {
@@ -30,6 +32,8 @@ namespace SpectabisNext.ComponentConfiguration
 
             RegisterLibs(builder);
             RegisterSpectabisLib(builder);
+            RegisterRomParsers(builder);
+
             RegisterSpectabis(builder);
             RegisterSpectabisUI(builder);
 
@@ -50,11 +54,11 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<FirstTimeWizardController>().As<IFirstTimeWizardService>().SingleInstance();
             builder.RegisterType<SettingsController>().As<ISettingsController>().SingleInstance();
             builder.RegisterType<GameLibraryController>().As<IGameLibraryController>().SingleInstance();
+            builder.RegisterType<GameFileParser>().As<IGameFileParser>().SingleInstance();
 
             builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>();
             builder.RegisterType<ProfileFileSystem>();
             builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
-            builder.RegisterType<GameFileParser>().As<IGameFileParser>();
             builder.RegisterType<GameConfigurationService>().As<IGameConfigurationService>();
             builder.RegisterType<LocalCachingService>().As<ILocalCachingService>();
         }
@@ -87,6 +91,13 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<IntrinsicsProvider>().As<IIntrinsicsProvider>();
             builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<SpectabisClient>().As<ISpectabisClient>();
+        }
+
+        private static void RegisterRomParsers(ContainerBuilder builder)
+        {
+            builder.RegisterType<IsoParser>().As<IParser>();
+            builder.RegisterType<BinParser>().As<IParser>();
+            builder.RegisterType<FakeParser>().As<IParser>();
         }
 
         private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)

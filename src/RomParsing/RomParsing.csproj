@@ -9,4 +9,8 @@
     <PackageReference Include="DiscUtils.FileSystems" Version="0.15.1-ci0009" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FileIntrinsics\FileIntrinsics.csproj" />
+  </ItemGroup>
+
 </Project>

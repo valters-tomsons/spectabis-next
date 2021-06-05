@@ -1,16 +1,20 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using DiscUtils.Iso9660;
+using FileIntrinsics.Enums;
 
 namespace RomParsing.Parsers
 {
-    public static class IsoParser
+    public class IsoParser : IParser
     {
-        public static string ReadSerialFromIso(string gamePath)
+        public GameFileType FileType => GameFileType.ISO9660;
+
+        public async Task<string> ReadSerial(string gamePath)
         {
             var systemInfo = ReadSystemCnf(gamePath);
-            return FindSerialInSystemInfo(systemInfo);
+            return await Task.FromResult(FindSerialInSystemInfo(systemInfo)).ConfigureAwait(false);
         }
 
         private static byte[] ReadSystemCnf(string gamePath)
