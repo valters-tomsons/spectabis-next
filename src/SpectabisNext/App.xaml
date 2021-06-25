@@ -1,7 +1,13 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="SpectabisNext.App">
-<Application.Styles>
-  <FluentTheme Mode="Light"/>
-</Application.Styles>
+             x:Class="SpectabisNext.App"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles">
+  <Application.Resources>
+    <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Amber"/>
+  </Application.Resources>
+  <Application.Styles>
+    <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+    <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
+    <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
+  </Application.Styles>
 </Application>
