@@ -56,7 +56,7 @@ namespace SpectabisUI.Views
             InitializeFileSystem.Initialize();
 
             InitializeComponent();
-            RegisterChildern();
+            RegisterChildren();
 
             _navigationProvider.ReferenceContainer(ContentContainer);
             _navigationProvider.ReferenceNavigationControls(TitlebarPanel, OnIconPress);
@@ -92,7 +92,7 @@ namespace SpectabisUI.Views
             Titlebar.Fill = _configuration.UserInterface.TitlebarGradient;
         }
 
-        private void RegisterChildern()
+        private void RegisterChildren()
         {
             Titlebar = this.FindControl<Rectangle>(nameof(Titlebar));
             TitlebarPanel = this.FindControl<StackPanel>(nameof(TitlebarPanel));
