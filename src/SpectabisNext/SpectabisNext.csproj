@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac" Version="5.1.4" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.4" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.4" />
     <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
