@@ -13,18 +13,18 @@
 
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <StackPanel>
-                <TextBlock FontFamily="Roboto:Light">Game Title</TextBlock>
+                <TextBlock>Game Title</TextBlock>
                 <TextBox x:Name="TitleTextBox" Text="{Binding GameTitle}"/>
                 <ListBox x:Name="TitleSuggestionsBox" IsVisible="False"/>
             </StackPanel>
 
             <StackPanel>
-                <TextBlock FontFamily="Roboto:Light">Serial Number</TextBlock>
+                <TextBlock >Serial Number</TextBlock>
                 <TextBox Text="{Binding SerialNumber}" IsEnabled="{Binding SerialEnabled}"/>
             </StackPanel>
 
             <StackPanel>
-                <TextBlock FontFamily="Roboto:Light">File Path</TextBlock>
+                <TextBlock >File Path</TextBlock>
                 <TextBox Text="{Binding FilePath}" IsEnabled="False"/>
             </StackPanel>
 
