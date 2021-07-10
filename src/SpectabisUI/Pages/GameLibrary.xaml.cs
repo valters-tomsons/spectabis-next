@@ -201,9 +201,9 @@ namespace SpectabisUI.Pages
             _navigationProvider.Navigate<GameRunning>();
         }
 
-        private void GameSettings(GameTileView gameTile)
+        private async void GameSettings (GameTileView gameTile)
         {
-            var configPage = (GameSettings) _libraryController.GetConfigureGamePage(gameTile.Profile);
+            var configPage = (GameSettings) await _libraryController.GetConfigureGamePage(gameTile.Profile).ConfigureAwait(false);
 
             SettingsOverlay.PointerReleased += OnSettingsOverlayClick;
 

@@ -23,9 +23,9 @@ namespace SpectabisLib.Services
             _fileSystem = fileSystem;
         }
 
-        public ProfileConfiguration Get(Guid gameId)
+        public async Task<ProfileConfiguration> Get(Guid gameId)
         {
-            var profile = _profileRepo.Get(gameId);
+            var profile = await _profileRepo.Get(gameId).ConfigureAwait(false);
 
             var containerUri = _fileSystem.GetContainerUri(profile, Enums.ContainerConfigType.Inis);
             containerUri = new Uri(containerUri, "GSdx.ini");
@@ -36,7 +36,7 @@ namespace SpectabisLib.Services
 
         public async Task UpdateConfiguration<T>(Guid gameId, T config) where T : IConfigurable
         {
-            var profile = _profileRepo.Get(gameId);
+            var profile = await _profileRepo.Get(gameId).ConfigureAwait(false);
 
             var containerUri = _fileSystem.GetContainerUri(profile, Enums.ContainerConfigType.Inis);
             containerUri = new Uri(containerUri, "GSdx.ini");
