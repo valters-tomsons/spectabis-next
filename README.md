@@ -4,11 +4,11 @@
 
 Spectabis is a free and open-source graphical frontend for [`PCSX2`](https://pcsx2.net/). Its purpose is to add additional features which make using the PlayStation 2 (PS2) emulator easier and faster. This allows you to use PCSX2 with per-game configuration and many additional features and benefits. This source code is available to everyone under the standard [MIT license](LICENSE).
 
-Currently usable but not useful yet.
+Currently usable and a little useful yet.
 
 > *Please Note:* If you're building the desktop client from source, you will **not** be able to connect to the service and online functionality will not work. You can host the service locally though.
 
-![Screenshot](https://i.imgur.com/RcbMegH.png)
+![Screenshot](https://i.imgur.com/IGSp3YO.png)
 
 > Games are not included and must be copied from physical media you own
 
