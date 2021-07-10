@@ -67,7 +67,7 @@ namespace SpectabisUI.Controllers
         /// </summary>
         public async Task<IEnumerable<GameProfile>> GetNewGames(IList<GameProfile> currentProfiles)
         {
-            var allGames = await _profileRepository.GetAll().ConfigureAwait(true);
+            var allGames = await _profileRepository.ReadFromDisk().ConfigureAwait(true);
             return allGames.Except(currentProfiles);
         }
 
@@ -77,10 +77,10 @@ namespace SpectabisUI.Controllers
         ///<returns **Type="SpectabisUI.Pages.GameSettings"**>
         /// Returns instance of GameSettings view
         ///</returns>
-        public object GetConfigureGamePage(GameProfile profile)
+        public async Task<object> GetConfigureGamePage(GameProfile profile)
         {
             var configurePage = (GameSettings) _pageRepository.GetPage<GameSettings>();
-            configurePage.InitializeProfile(profile);
+            await configurePage.InitializeProfile(profile).ConfigureAwait(false);
             return configurePage;
         }
     }

@@ -33,7 +33,7 @@ namespace SpectabisLib.Services
                 return new List<string>();
             }
 
-            var allGamesTask = _gameRepo.GetAll();
+            var allGamesTask = _gameRepo.ReadFromDisk();
             var foundFiles = FindGameFiles(_directories, Extensions);
 
             var loadedGames = await allGamesTask.ConfigureAwait(false);

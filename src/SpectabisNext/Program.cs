@@ -2,28 +2,34 @@
 using SpectabisNext.ComponentConfiguration;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Helpers;
+using SpectabisLib.Interfaces.Services;
+using System.Threading.Tasks;
 
 namespace SpectabisNext
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private async static Task Main(string[] args)
         {
-            if(args.Length > 0)
-            {
-                Logging.WriteLine("No CLI arguments are currently supported.");
-            }
-
             var container = AutoFacConfiguration.Configure();
-            StartSpectabis(container);
+            await StartSpectabis(container, args).ConfigureAwait(false);
 
             var telemetry = container.Resolve<ServiceLib.Interfaces.ITelemetry>();
             telemetry.Flush();
         }
 
-        private static void StartSpectabis(IContainer container)
+        private async static Task StartSpectabis(IContainer container, string[] arguments)
         {
             using var scope = container.BeginLifetimeScope();
+
+            if (arguments?.Length > 0)
+            {
+                var cli = scope.Resolve<ICommandLineService>();
+                var skipApp = await cli.ExecuteArguments(arguments).ConfigureAwait(false);
+
+                if(skipApp) return;
+            }
+
             var spectabisApp = scope.Resolve<ISpectabis>();
 
             var spectabisVersion = spectabisApp.GetVersion();

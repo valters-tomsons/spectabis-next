@@ -1,3 +1,4 @@
+using System.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace SpectabisLib.Repositories
     {
         private IList<GameProfile> _games;
         private readonly IProfileFileSystem _fileSystem;
+
+        private static readonly SemaphoreSlim _filesystemSemaphore = new SemaphoreSlim(1);
 
         public GameProfileRepository(IProfileFileSystem pfs)
         {
@@ -38,19 +41,22 @@ namespace SpectabisLib.Repositories
             }
         }
 
-        public GameProfile Get(Guid id)
+        public async Task<GameProfile> Get(Guid id)
         {
-            if(_games.Count == 0)
+            if(_games == null || _games.Count == 0)
             {
-                throw new Exception("Games can only be queried when initialized from filesystem.");
+                await ReadFromDisk().ConfigureAwait(false);
             }
 
             return _games.SingleOrDefault(x => x.Id.Equals(id));
         }
 
-        public async Task<IEnumerable<GameProfile>> GetAll()
+        public async Task<IEnumerable<GameProfile>> ReadFromDisk()
         {
-            return _games ??= await _fileSystem.GetAllProfilesFromDisk().ConfigureAwait(false);
+            await _filesystemSemaphore.WaitAsync().ConfigureAwait(false);
+            _games ??= await _fileSystem.GetAllProfilesFromDisk().ConfigureAwait(false);
+            _filesystemSemaphore.Release();
+            return _games;
         }
 
         public void DeleteProfile(GameProfile profile)

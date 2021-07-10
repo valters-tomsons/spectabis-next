@@ -8,8 +8,8 @@ namespace SpectabisLib.Interfaces
     public interface IProfileRepository
     {
         Task UpsertProfile(GameProfile profile);
-        Task<IEnumerable<GameProfile>> GetAll();
+        Task<IEnumerable<GameProfile>> ReadFromDisk();
         void DeleteProfile(GameProfile profile);
-        GameProfile Get(Guid id);
+        Task<GameProfile> Get(Guid id);
     }
 }

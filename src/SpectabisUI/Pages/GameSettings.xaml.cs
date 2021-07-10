@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using EmuConfig.Enums;
@@ -46,16 +47,14 @@ namespace SpectabisUI.Pages
             DataContext = _viewModel;
         }
 
-        public void InitializeProfile(GameProfile profile)
+        public async Task InitializeProfile(GameProfile profile)
         {
             _viewModel.PropertyChanged -= OnViewModelUpdated;
 
             try
             {
-                _currentConfig = _gameConfig.Get(profile.Id);
-
+                _currentConfig = await _gameConfig.Get(profile.Id).ConfigureAwait(false);
                 _viewModel.ShowSettings = true;
-
                 _viewModel.Resolution = _currentConfig.GSdxConfig.UpscaleFactor.ToString();
             }
             catch(Exception e)
@@ -81,7 +80,7 @@ namespace SpectabisUI.Pages
                 return;
             }
 
-            var profile = _profileRepo.Get(_viewModel.Id);
+            var profile = await _profileRepo.Get(_viewModel.Id).ConfigureAwait(false);
 
             if(_viewModel.Fullscreen)
             {
