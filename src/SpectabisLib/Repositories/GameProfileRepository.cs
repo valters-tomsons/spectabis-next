@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SpectabisLib.Abstractions;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Repositories
@@ -11,9 +11,9 @@ namespace SpectabisLib.Repositories
     public class GameProfileRepository : IProfileRepository
     {
         private IList<GameProfile> _games;
-        private readonly ProfileFileSystem _fileSystem;
+        private readonly IProfileFileSystem _fileSystem;
 
-        public GameProfileRepository(ProfileFileSystem pfs)
+        public GameProfileRepository(IProfileFileSystem pfs)
         {
             _fileSystem = pfs;
         }

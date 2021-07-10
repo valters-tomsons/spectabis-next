@@ -13,10 +13,10 @@ namespace SpectabisLib.Services
     public class GameLauncherPCSX2 : IGameLauncher
     {
         private IGameProcess _gameProcess;
-        private readonly ProfileFileSystem _pfs;
+        private readonly IProfileFileSystem _pfs;
         private readonly IConfigurationManager _configLoader;
 
-        public GameLauncherPCSX2(ProfileFileSystem pfs, IConfigurationManager configLoader)
+        public GameLauncherPCSX2(IProfileFileSystem pfs, IConfigurationManager configLoader)
         {
             _pfs = pfs;
             _configLoader = configLoader;
@@ -99,6 +99,7 @@ namespace SpectabisLib.Services
 
             process.StartInfo.FileName = GetEmulatorPath(gameProfile);
             process.StartInfo.Arguments = fullArguments;
+            process.StartInfo.RedirectStandardOutput = true;
             process.EnableRaisingEvents = true;
 
             return process;

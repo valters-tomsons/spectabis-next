@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ServiceLib.Interfaces;
-using SpectabisLib.Abstractions;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Interfaces.Services;
 using SpectabisLib.Models;
 
@@ -17,14 +17,14 @@ namespace SpectabisLib.Services
         private readonly Stack<GameProfile> _finishedArt;
 
         private readonly ISpectabisClient _client;
-        private readonly ProfileFileSystem _profileFs;
+        private readonly IProfileFileSystem _profileFs;
         private readonly ILocalCachingService _localCache;
 
         private GameProfile _currentProcess;
 
         public event EventHandler<EventArgs> ItemFinished;
 
-        public GameArtQueue(ISpectabisClient client, ProfileFileSystem profileFs, ILocalCachingService localCache)
+        public GameArtQueue(ISpectabisClient client, IProfileFileSystem profileFs, ILocalCachingService localCache)
         {
             _client = client;
             _profileFs = profileFs;

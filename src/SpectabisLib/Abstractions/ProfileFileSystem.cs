@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
+using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Abstractions
 {
-    public class ProfileFileSystem
+    public class ProfileFileSystem : IProfileFileSystem
     {
         public async Task WriteProfileToDisk(GameProfile profile)
         {
@@ -138,7 +139,7 @@ namespace SpectabisLib.Abstractions
 
         public async Task SaveBoxArtToDisk(GameProfile game, byte[] artBuffer)
         {
-            if(!Directory.Exists($"{SystemDirectories.ProfileFolder}/{game.Id}"))
+            if (!Directory.Exists($"{SystemDirectories.ProfileFolder}/{game.Id}"))
             {
                 Logging.WriteLine("Profile does not exist anymore, discarding game art...");
                 return;
@@ -150,7 +151,7 @@ namespace SpectabisLib.Abstractions
 
         public async Task CopyToGlobalContainer(Uri sourceDirectory, ContainerConfigType containerType)
         {
-            if(!Directory.Exists(sourceDirectory.LocalPath))
+            if (!Directory.Exists(sourceDirectory.LocalPath))
             {
                 Logging.WriteLine($"Source directory '{sourceDirectory.LocalPath}' does not exist, not copying to global container");
                 return;
@@ -220,7 +221,7 @@ namespace SpectabisLib.Abstractions
 
         private async Task WriteStringToFile(Uri filePath, string text)
         {
-            if(File.Exists(filePath.LocalPath))
+            if (File.Exists(filePath.LocalPath))
             {
                 Logging.WriteLine($"Deleting to overwrite'{filePath}'");
                 File.Delete(filePath.LocalPath);
