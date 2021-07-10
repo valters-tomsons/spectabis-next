@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Interfaces.Services;
 
@@ -24,14 +25,17 @@ namespace SpectabisLib.Services
                 return false;
             }
 
-            if(arguments[0] == "--run")
+            if(arguments[0] == "--run" || arguments[0] == "-r" || arguments[0] == "-profile")
             {
-                _ = await _gameRepository.GetAll().ConfigureAwait(false);
-                var game = _gameRepository.Get(new Guid(arguments[1]));
+                var game = await _gameRepository.Get(new Guid(arguments[1])).ConfigureAwait(false);
 
                 await _gameLauncher.StartGame(game).ConfigureAwait(false);
                 await WaitForExit().ConfigureAwait(false);
                 return true;
+            }
+            else
+            {
+                Logging.WriteLine("Unknown command line argument!");
             }
 
             return false;

@@ -14,7 +14,7 @@ namespace SpectabisLib.Repositories
         private IList<GameProfile> _games;
         private readonly IProfileFileSystem _fileSystem;
 
-        private static readonly SemaphoreSlim _filesystemSemaphore;
+        private static readonly SemaphoreSlim _filesystemSemaphore = new SemaphoreSlim(1);
 
         public GameProfileRepository(IProfileFileSystem pfs)
         {
