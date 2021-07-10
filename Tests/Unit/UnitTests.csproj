@@ -22,4 +22,9 @@
     <ProjectReference Include="..\..\src\SpectabisUI\SpectabisUI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+      <None Include="TestData/PCSX2Stub" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+      <None Include="TestData/game.fake" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+
 </Project>
