@@ -18,6 +18,9 @@ namespace SpectabisLib.Services
             _gameRepository = gameRepository;
         }
 
+        /// <summary>
+        /// Executes commandline arguments, then returns `true` if graphical interface should not be started
+        /// </summary>
         public async Task<bool> ExecuteArguments(string[] arguments)
         {
             if(arguments is null)
