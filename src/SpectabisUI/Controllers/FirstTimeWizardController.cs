@@ -1,18 +1,18 @@
 using System;
 using System.Threading.Tasks;
-using SpectabisLib.Abstractions;
 using SpectabisLib.Configuration;
 using SpectabisLib.Enums;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Interfaces.Abstractions;
 
 namespace SpectabisUI.Controllers
 {
     public class FirstTimeWizardController : IFirstTimeWizardService
     {
         private readonly IConfigurationManager _configLoader;
-        private readonly ProfileFileSystem _fileSystem;
+        private readonly IProfileFileSystem _fileSystem;
 
-        public FirstTimeWizardController(IConfigurationManager configLoader, ProfileFileSystem fileSystem)
+        public FirstTimeWizardController(IConfigurationManager configLoader, IProfileFileSystem fileSystem)
         {
             _configLoader = configLoader;
             _fileSystem = fileSystem;

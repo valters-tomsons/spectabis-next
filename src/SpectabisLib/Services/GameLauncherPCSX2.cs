@@ -5,23 +5,24 @@ using SpectabisLib.Abstractions;
 using SpectabisLib.Enums;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Services
 {
     public class GameLauncherPCSX2 : IGameLauncher
     {
-        private GameProcess _gameProcess;
-        private readonly ProfileFileSystem _pfs;
+        private IGameProcess _gameProcess;
+        private readonly IProfileFileSystem _pfs;
         private readonly IConfigurationManager _configLoader;
 
-        public GameLauncherPCSX2(ProfileFileSystem pfs, IConfigurationManager configLoader)
+        public GameLauncherPCSX2(IProfileFileSystem pfs, IConfigurationManager configLoader)
         {
             _pfs = pfs;
             _configLoader = configLoader;
         }
 
-        public async Task<GameProcess> StartGame(GameProfile game)
+        public async Task<IGameProcess> StartGame(GameProfile game)
         {
             _pfs.GetContainerUri(game, ContainerConfigType.Inis);
 
@@ -36,7 +37,7 @@ namespace SpectabisLib.Services
             return gameProcess;
         }
 
-        public GameProcess StartConfiguration(GameProfile game)
+        public IGameProcess StartConfiguration(GameProfile game)
         {
             var process = CreateEmulatorProcess(game, false);
             var gameProcess = new GameProcess(game, process);
@@ -47,7 +48,7 @@ namespace SpectabisLib.Services
             return gameProcess;
         }
 
-        public GameProcess GetRunningGame()
+        public IGameProcess GetRunningGame()
         {
             return _gameProcess;
         }
@@ -64,12 +65,12 @@ namespace SpectabisLib.Services
             _gameProcess = null;
         }
 
-        private async Task UpdatePlaytime(GameProcess process)
+        private async Task UpdatePlaytime(IGameProcess process)
         {
-            var session = process.GetElapsed();
-            var profile = process.Game;
+            var sessionTime = process.GetElapsed();
+            var profile = process.GetGame();
 
-            profile.Playtime += session;
+            profile.Playtime += sessionTime;
             await _pfs.WriteProfileToDisk(profile).ConfigureAwait(false);
         }
 
@@ -83,7 +84,9 @@ namespace SpectabisLib.Services
         {
             if (_gameProcess != null)
             {
-                Logging.WriteLine($"Losing lease of existing process '{_gameProcess.Game.Title}' : '{_gameProcess.Process.Id}'");
+                var oldGame = _gameProcess.GetGame();
+                var oldProcess = _gameProcess.GetProcess();
+                Logging.WriteLine($"Losing lease of existing process '{oldGame.Title}' : '{oldProcess.Id}'");
             }
 
             var process = new Process();
@@ -96,6 +99,7 @@ namespace SpectabisLib.Services
 
             process.StartInfo.FileName = GetEmulatorPath(gameProfile);
             process.StartInfo.Arguments = fullArguments;
+            process.StartInfo.RedirectStandardOutput = true;
             process.EnableRaisingEvents = true;
 
             return process;

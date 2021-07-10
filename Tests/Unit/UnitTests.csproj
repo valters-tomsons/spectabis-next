@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.17.0" />
+    <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Moq" Version="4.14.5" />
     <PackageReference Include="xunit" Version="2.4.0" />
@@ -18,6 +20,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\SpectabisLib\SpectabisLib.csproj" />
     <ProjectReference Include="..\..\src\SpectabisUI\SpectabisUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+      <None Include="TestData/PCSX2Stub" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+      <None Include="TestData/game.fake" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
 </Project>

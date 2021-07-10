@@ -1,14 +1,15 @@
 using System.Threading.Tasks;
 using SpectabisLib.Models;
 using SpectabisLib.Abstractions;
+using SpectabisLib.Interfaces.Abstractions;
 
 namespace SpectabisLib.Interfaces
 {
     public interface IGameLauncher
     {
-        Task<GameProcess> StartGame(GameProfile game);
-        GameProcess StartConfiguration(GameProfile game);
+        Task<IGameProcess> StartGame(GameProfile game);
+        IGameProcess StartConfiguration(GameProfile game);
         Task StopGame();
-        GameProcess GetRunningGame();
+        IGameProcess GetRunningGame();
     }
 }

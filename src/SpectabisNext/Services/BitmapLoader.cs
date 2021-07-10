@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using Avalonia.Media.Imaging;
-using SpectabisLib.Abstractions;
 using SpectabisLib.Helpers;
+using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
 
@@ -11,9 +11,9 @@ namespace SpectabisNext.Services
     public class BitmapLoader : IBitmapLoader
     {
         public Bitmap DefaultBoxart { get; }
-        private readonly ProfileFileSystem _profileFs;
+        private readonly IProfileFileSystem _profileFs;
 
-        public BitmapLoader(ProfileFileSystem profileFs)
+        public BitmapLoader(IProfileFileSystem profileFs)
         {
             _profileFs = profileFs;
             DefaultBoxart = LoadDefaultBoxart();

@@ -18,6 +18,7 @@ using EmuConfig.Interfaces;
 using EmuConfig;
 using RomParsing.Parsers;
 using RomParsing;
+using SpectabisLib.Interfaces.Abstractions;
 
 namespace SpectabisNext.ComponentConfiguration
 {
@@ -57,7 +58,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<GameFileParser>().As<IGameFileParser>().SingleInstance();
 
             builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>();
-            builder.RegisterType<ProfileFileSystem>();
+            builder.RegisterType<ProfileFileSystem>().As<IProfileFileSystem>();
             builder.RegisterType<GameProfileFactory>().As<IProfileFactory>();
             builder.RegisterType<GameConfigurationService>().As<IGameConfigurationService>();
             builder.RegisterType<LocalCachingService>().As<ILocalCachingService>();

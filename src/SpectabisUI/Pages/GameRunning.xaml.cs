@@ -2,7 +2,6 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisUI.Interfaces;
 
@@ -33,9 +32,6 @@ namespace SpectabisUI.Pages
 
             InitializeComponent();
             RegisterChildren();
-
-            var gameProc = _gameLauncher.GetRunningGame();
-            Logging.WriteLine($"Game running:{gameProc.Game.Title} with processId '{gameProc.Process.Id}'");
         }
 
         private void RegisterChildren()

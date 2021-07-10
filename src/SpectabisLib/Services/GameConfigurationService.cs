@@ -2,9 +2,9 @@ using System;
 using System.Threading.Tasks;
 using EmuConfig.Configs;
 using EmuConfig.Interfaces;
-using SpectabisLib.Abstractions;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Interfaces.Services;
 using SpectabisLib.Models;
 
@@ -14,9 +14,9 @@ namespace SpectabisLib.Services
     {
         private readonly IProfileRepository _profileRepo;
         private readonly IParserProvider _iniParser;
-        private readonly ProfileFileSystem _fileSystem;
+        private readonly IProfileFileSystem _fileSystem;
 
-        public GameConfigurationService(IProfileRepository profileRepo, ProfileFileSystem fileSystem, IParserProvider iniParser)
+        public GameConfigurationService(IProfileRepository profileRepo, IProfileFileSystem fileSystem, IParserProvider iniParser)
         {
             _profileRepo = profileRepo;
             _iniParser = iniParser;

@@ -1,21 +1,21 @@
 using System;
 using System.Diagnostics;
+using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Models;
 
 namespace SpectabisLib.Abstractions
 {
-    public class GameProcess
+    public class GameProcess : IGameProcess
     {
-        public delegate void GameStoppedEventHandler(object sender, EventArgs args);
         public event EventHandler<EventArgs> GameStopped;
 
-        public GameProfile Game { get; }
-        public Process Process { get; }
-        public Stopwatch Stopwatch { get; }
+        private GameProfile Game { get; }
+        private Process Process { get; }
+        private Stopwatch Watch { get; }
 
         public GameProcess(GameProfile game, Process process)
         {
-            Stopwatch = new Stopwatch();
+            Watch = new Stopwatch();
 
             Game = game;
             Process = process;
@@ -25,23 +25,31 @@ namespace SpectabisLib.Abstractions
         {
             Process.Exited += OnGameProcessExited;
             Process.Start();
-            Stopwatch.Start();
+            Watch.Start();
         }
 
-        public TimeSpan Stop()
+        public void Stop()
         {
-            Stopwatch.Stop();
+            Watch.Stop();
             Process.Kill();
             OnGameStopped();
 
             Process.Exited -= OnGameProcessExited;
-
-            return GetElapsed();
         }
 
         public TimeSpan GetElapsed()
         {
-            return Stopwatch.Elapsed;
+            return Watch.Elapsed;
+        }
+
+        public GameProfile GetGame()
+        {
+            return Game;
+        }
+
+        public Process GetProcess()
+        {
+            return Process;
         }
 
         private void OnGameProcessExited(object sender, EventArgs e)
