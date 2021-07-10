@@ -11,7 +11,7 @@ namespace Unit.Helpers
                 RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD) ||
                 RuntimeInformation.IsOSPlatform(OSPlatform.OSX)))
             {
-                Skip = "Test requires a POSIX compliant shell at '/bin/sh'";
+                Skip = "Test works only on POSIX compliant systems";
             }
         }
     }
