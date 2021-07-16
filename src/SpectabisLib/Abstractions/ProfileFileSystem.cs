@@ -14,7 +14,7 @@ namespace SpectabisLib.Abstractions
 {
     public class ProfileFileSystem : IProfileFileSystem
     {
-        public async Task WriteProfileToDisk(GameProfile profile)
+        public async Task CreateOnFileSystem(GameProfile profile)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}", UriKind.Absolute);
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
@@ -26,7 +26,7 @@ namespace SpectabisLib.Abstractions
             await WriteStringToFile(profileUri, profileJson).ConfigureAwait(false);
         }
 
-        public async Task WriteDefaultProfileToDisk(GameProfile profile)
+        public async Task WriteDefaultConfiguration(GameProfile profile)
         {
             var profileContainerUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/inis/", UriKind.Absolute);
             Directory.CreateDirectory(profileContainerUri.LocalPath);
@@ -49,7 +49,7 @@ namespace SpectabisLib.Abstractions
             }
         }
 
-        public async Task<IList<GameProfile>> GetAllProfilesFromDisk()
+        public async Task<IList<GameProfile>> LoadFromFileSystem()
         {
             var guids = EnumerateDiskProfileIDs();
             var profiles = new List<GameProfile>();
@@ -63,7 +63,7 @@ namespace SpectabisLib.Abstractions
             return profiles;
         }
 
-        public Uri GetBoxArtUri(GameProfile profile)
+        public Uri GameProfileArtUri(GameProfile profile)
         {
             if (string.IsNullOrWhiteSpace(profile.BoxArtPath))
             {
@@ -80,7 +80,7 @@ namespace SpectabisLib.Abstractions
             return new Uri(profile.BoxArtPath, UriKind.Absolute);
         }
 
-        public Uri GetContainerUri(GameProfile profile, ContainerConfigType containerType)
+        public Uri GetProfileContainerUriByType(GameProfile profile, ContainerConfigType containerType)
         {
             if (profile.Id == Guid.Empty)
             {
@@ -97,20 +97,20 @@ namespace SpectabisLib.Abstractions
         /// <summary>
         /// Returns `true` if provided profile container has any configuration files.
         /// </summary>
-        public bool ValidateContainerContent(GameProfile profile, ContainerConfigType containerType)
+        public bool ProfileContainerHasAnyFiles(GameProfile profile, ContainerConfigType containerType)
         {
             if (profile.Id == Guid.Empty)
             {
                 throw new Exception("Game guid is empty");
             }
 
-            var containerUri = GetContainerUri(profile, containerType);
+            var containerUri = GetProfileContainerUriByType(profile, containerType);
 
             var files = Directory.EnumerateFiles(containerUri.LocalPath);
             return files.Any();
         }
 
-        public void DeleteProfileFromDisk(Guid gameId)
+        public void DeleteFromFileSystem(Guid gameId)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
             var profileUri = new Uri($"{profileFolderUri.LocalPath}/profile.json", UriKind.Absolute);
@@ -131,13 +131,7 @@ namespace SpectabisLib.Abstractions
             Logging.WriteLine($"Profile '{gameId}' deleted");
         }
 
-        public bool ProfileExistsOnFileSystem(GameProfile profile)
-        {
-            var containerUri = GetContainerUri(profile, ContainerConfigType.Inis);
-            return Directory.Exists(containerUri.LocalPath);
-        }
-
-        public async Task SaveBoxArtToDisk(GameProfile game, byte[] artBuffer)
+        public async Task WriteProfileArtToFileSystem(GameProfile game, byte[] artBuffer)
         {
             if (!Directory.Exists($"{SystemDirectories.ProfileFolder}/{game.Id}"))
             {
@@ -149,7 +143,7 @@ namespace SpectabisLib.Abstractions
             await File.WriteAllBytesAsync(artFilePath.LocalPath, artBuffer).ConfigureAwait(false);
         }
 
-        public async Task CopyToGlobalContainer(Uri sourceDirectory, ContainerConfigType containerType)
+        public async Task CopyDirectoryToGlobalProfile(Uri sourceDirectory, ContainerConfigType containerType)
         {
             if (!Directory.Exists(sourceDirectory.LocalPath))
             {

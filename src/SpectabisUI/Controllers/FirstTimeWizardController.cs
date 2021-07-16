@@ -58,7 +58,7 @@ namespace SpectabisUI.Controllers
         public async Task SaveToGlobalConfiguration()
         {
             var pcsx2InisFolder = new Uri(_configLoader.Directories.PCSX2ConfigurationPath, "inis/");
-            await _fileSystem.CopyToGlobalContainer(pcsx2InisFolder, ContainerConfigType.Inis).ConfigureAwait(false);
+            await _fileSystem.CopyDirectoryToGlobalProfile(pcsx2InisFolder, ContainerConfigType.Inis).ConfigureAwait(false);
         }
     }
 }

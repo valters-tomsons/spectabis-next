@@ -8,15 +8,14 @@ namespace SpectabisLib.Interfaces.Abstractions
 {
     public interface IProfileFileSystem
     {
-        Task CopyToGlobalContainer(Uri sourceDirectory, ContainerConfigType containerType);
-        void DeleteProfileFromDisk(Guid gameId);
-        Task<IList<GameProfile>> GetAllProfilesFromDisk();
-        Uri GetBoxArtUri(GameProfile profile);
-        Uri GetContainerUri(GameProfile profile, ContainerConfigType containerType);
-        bool ProfileExistsOnFileSystem(GameProfile profile);
-        Task SaveBoxArtToDisk(GameProfile game, byte[] artBuffer);
-        bool ValidateContainerContent(GameProfile profile, ContainerConfigType containerType);
-        Task WriteDefaultProfileToDisk(GameProfile profile);
-        Task WriteProfileToDisk(GameProfile profile);
+        Task CopyDirectoryToGlobalProfile(Uri sourceDirectory, ContainerConfigType containerType);
+        void DeleteFromFileSystem(Guid gameId);
+        Task<IList<GameProfile>> LoadFromFileSystem();
+        Uri GameProfileArtUri(GameProfile profile);
+        Uri GetProfileContainerUriByType(GameProfile profile, ContainerConfigType containerType);
+        Task WriteProfileArtToFileSystem(GameProfile game, byte[] artBuffer);
+        bool ProfileContainerHasAnyFiles(GameProfile profile, ContainerConfigType containerType);
+        Task WriteDefaultConfiguration(GameProfile profile);
+        Task CreateOnFileSystem(GameProfile profile);
     }
 }

@@ -33,8 +33,8 @@ namespace SpectabisLib.Repositories
                 _games.Add(profile);
             }
 
-            await _fileSystem.WriteProfileToDisk(profile).ConfigureAwait(false);
-            await _fileSystem.WriteDefaultProfileToDisk(profile).ConfigureAwait(false);
+            await _fileSystem.CreateOnFileSystem(profile).ConfigureAwait(false);
+            await _fileSystem.WriteDefaultConfiguration(profile).ConfigureAwait(false);
         }
 
         public async Task<GameProfile> Get(Guid id)
@@ -50,7 +50,7 @@ namespace SpectabisLib.Repositories
         public async Task<IEnumerable<GameProfile>> ReadFromDisk()
         {
             await _filesystemSemaphore.WaitAsync().ConfigureAwait(false);
-            _games ??= await _fileSystem.GetAllProfilesFromDisk().ConfigureAwait(false);
+            _games ??= await _fileSystem.LoadFromFileSystem().ConfigureAwait(false);
             _filesystemSemaphore.Release();
             return _games;
         }
@@ -58,7 +58,7 @@ namespace SpectabisLib.Repositories
         public void DeleteProfile(GameProfile profile)
         {
             _games.Remove(profile);
-            _fileSystem.DeleteProfileFromDisk(profile.Id);
+            _fileSystem.DeleteFromFileSystem(profile.Id);
         }
     }
 }

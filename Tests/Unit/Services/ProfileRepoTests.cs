@@ -41,34 +41,34 @@ namespace Unit.Services
 
             await _service.UpsertProfile(profile);
 
-            Mock.Get(_fileSystemMock).Verify(x => x.WriteProfileToDisk(profile), Times.Once);
-            Mock.Get(_fileSystemMock).Verify(x => x.WriteDefaultProfileToDisk(profile), Times.Once);
+            Mock.Get(_fileSystemMock).Verify(x => x.CreateOnFileSystem(profile), Times.Once);
+            Mock.Get(_fileSystemMock).Verify(x => x.WriteDefaultConfiguration(profile), Times.Once);
         }
 
         [Fact]
         public async Task GivenNoGamesInCache_GetByIdCalled_ReturnedFromFileSystem()
         {
             var profile = new GameProfile() { Id = Guid.NewGuid() };
-            Mock.Get(_fileSystemMock).Setup(x => x.GetAllProfilesFromDisk()).ReturnsAsync(new List<GameProfile> { profile });
+            Mock.Get(_fileSystemMock).Setup(x => x.LoadFromFileSystem()).ReturnsAsync(new List<GameProfile> { profile });
 
             var actual = await _service.Get(profile.Id);
 
             Assert.Equal(profile, actual);
-            Mock.Get(_fileSystemMock).Verify(x => x.GetAllProfilesFromDisk(), Times.Once);
+            Mock.Get(_fileSystemMock).Verify(x => x.LoadFromFileSystem(), Times.Once);
         }
 
         [Fact]
         public async Task GivenCache_GetByIdCalledTwice_FileSystemCalledOnlyOnce()
         {
             var profile = new GameProfile() { Id = Guid.NewGuid() };
-            Mock.Get(_fileSystemMock).Setup(x => x.GetAllProfilesFromDisk()).ReturnsAsync(new List<GameProfile> { profile });
+            Mock.Get(_fileSystemMock).Setup(x => x.LoadFromFileSystem()).ReturnsAsync(new List<GameProfile> { profile });
 
             var actual1 = await _service.Get(profile.Id);
             var actual2 = await _service.Get(profile.Id);
 
             Assert.Equal(profile, actual1);
             Assert.Equal(profile, actual2);
-            Mock.Get(_fileSystemMock).Verify(x => x.GetAllProfilesFromDisk(), Times.Once);
+            Mock.Get(_fileSystemMock).Verify(x => x.LoadFromFileSystem(), Times.Once);
         }
     }
 }

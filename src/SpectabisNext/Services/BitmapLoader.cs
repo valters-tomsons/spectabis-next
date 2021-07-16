@@ -26,7 +26,7 @@ namespace SpectabisNext.Services
                 return new Bitmap(game.BoxArtPath);
             }
 
-            var boxArtPath = _profileFs.GetBoxArtUri(game);
+            var boxArtPath = _profileFs.GameProfileArtUri(game);
 
             if (boxArtPath == null || !File.Exists(boxArtPath.LocalPath))
             {

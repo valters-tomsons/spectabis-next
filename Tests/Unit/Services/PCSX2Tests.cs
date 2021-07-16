@@ -29,7 +29,7 @@ namespace Unit.Services
         [UnixOnlyFact]
         public async Task GivenProfileValid_StartGameCalled_ReferencesCorrectFilesAndConfigArgument()
         {
-            Mock.Get(_pfsMock).Setup(x => x.GetContainerUri(It.IsAny<GameProfile>(), ContainerConfigType.Inis)).Returns(new Uri("/"));
+            Mock.Get(_pfsMock).Setup(x => x.GetProfileContainerUriByType(It.IsAny<GameProfile>(), ContainerConfigType.Inis)).Returns(new Uri("/"));
 
             var game = new GameProfile()
             {
