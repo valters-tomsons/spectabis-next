@@ -30,7 +30,7 @@ namespace Tests.Integration.ServiceTests
         }
 
         [Fact]
-        public void When_requesting_game_art_should_return_OK()
+        public void GivenValidSerial_GetBySerial_ReturnsOk()
         {
             // Act
             Scenario.When.Get(endpoint, serialQuery, validSerial);
@@ -40,7 +40,7 @@ namespace Tests.Integration.ServiceTests
         }
 
         [Fact]
-        public void When_requesting_game_art_should_return_image_content()
+        public void GivenValidSerial_GetBySerial_ResultContentTypeAsExpected()
         {
             // Act
             Scenario.When.Get(endpoint, serialQuery, validSerial);
@@ -50,7 +50,7 @@ namespace Tests.Integration.ServiceTests
         }
 
         [Fact]
-        public void When_requesting_game_art_should_return_image_content_nonzero()
+        public void GivenKnownImageSize_GetBySerial_ResultContentLengthAsExpected()
         {
             // Act
             Scenario.When.Get(endpoint, serialQuery, validSerial);
