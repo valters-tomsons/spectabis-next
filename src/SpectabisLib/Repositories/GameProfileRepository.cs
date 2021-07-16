@@ -28,7 +28,7 @@ namespace SpectabisLib.Repositories
                 profile.Id = Guid.NewGuid();
             }
 
-            if(!_games.Contains(profile))
+            if(_games?.Contains(profile) == false)
             {
                 _games.Add(profile);
             }
