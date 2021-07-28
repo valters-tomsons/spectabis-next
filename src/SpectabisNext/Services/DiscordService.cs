@@ -41,18 +41,19 @@ namespace SpectabisNext.Services
 
             _client = new DiscordRpcClient(Constants.DiscordClientId);
 
-            _client.Initialize();
+            var initialized = _client.Initialize();
 
-            if(_client.CurrentUser == null)
+            if(!initialized)
             {
                 Logging.WriteLine("Could not connect to Discord RPC");
+
                 _client.Dispose();
                 clientSemaphore.Release();
+
                 return;
             }
 
             clientSemaphore.Release();
-
             SetMenuPresence();
         }
 
