@@ -5,8 +5,6 @@ namespace SpectabisLib.Helpers
 {
     public static class SystemDirectories
     {
-        public static string ResourcesPath { get; } = "Resources";
-
         public static string Default_PCSX2ConfigurationPath { get; private set; }
         public static string Default_PCSX2ExecutablePath { get; private set; }
 

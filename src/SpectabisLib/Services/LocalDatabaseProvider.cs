@@ -18,7 +18,7 @@ namespace SpectabisLib.Services
     {
         private IEnumerable<GameMetadata> _metadataDb;
         private Lunr.Index _gameTitleIndex;
-        private readonly Uri DatabaseUri = new Uri($"{SystemDirectories.ResourcesPath}/{Constants.PCSX2DatabaseName}", UriKind.Relative);
+        private readonly Uri DatabaseUri = new Uri($"{Constants.ResourcesFolder}/{Constants.PCSX2DatabaseName}", UriKind.Relative);
 
         public LocalDatabaseProvider()
         {

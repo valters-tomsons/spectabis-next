@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using SpectabisUI.Controls.AnimatedImage;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
-using SpectabisLib.Helpers;
+using SpectabisLib;
 
 namespace SpectabisNext.Services
 {
@@ -18,7 +18,7 @@ namespace SpectabisNext.Services
 
         public void StartSpinner(GameProfile game, Image tile)
         {
-            var spinner = $"{SystemDirectories.ResourcesPath}/Images/spinner.gif";
+            var spinner = $"{Constants.ResourcesFolder}/Images/spinner.gif";
 
             var instance = CreateGifInstance(tile);
             _instances.Add(game, instance);

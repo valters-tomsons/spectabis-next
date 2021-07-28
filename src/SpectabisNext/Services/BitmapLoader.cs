@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Avalonia.Media.Imaging;
+using SpectabisLib;
 using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Models;
@@ -63,7 +64,7 @@ namespace SpectabisNext.Services
 
         private static Bitmap LoadDefaultBoxart()
         {
-            var tempArtPath = $"{SystemDirectories.ResourcesPath}/Images/placeholderBoxart.jpg";
+            var tempArtPath = $"{Constants.ResourcesFolder}/Images/placeholderBoxart.jpg";
 
             if (File.Exists(tempArtPath))
             {
