@@ -15,7 +15,7 @@ namespace SpectabisNext.Services
         private readonly IConfigurationManager _configLoader;
         private static DiscordRpcClient _client;
 
-        private static SemaphoreSlim clientSemaphone = new SemaphoreSlim(1);
+        private static readonly SemaphoreSlim clientSemaphore = new SemaphoreSlim(1);
 
         public DiscordService(IConfigurationManager configLoader)
         {
@@ -29,11 +29,11 @@ namespace SpectabisNext.Services
                 return;
             }
 
-            clientSemaphone.Wait();
+            clientSemaphore.Wait();
 
             if(_client != null)
             {
-                clientSemaphone.Release();
+                clientSemaphore.Release();
                 return;
             }
 
@@ -43,7 +43,7 @@ namespace SpectabisNext.Services
 
             _client.Initialize();
 
-            clientSemaphone.Release();
+            clientSemaphore.Release();
 
             if(_client.CurrentUser == null)
             {
