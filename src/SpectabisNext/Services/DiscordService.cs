@@ -15,7 +15,7 @@ namespace SpectabisNext.Services
         private readonly IConfigurationManager _configLoader;
         private static DiscordRpcClient _client;
 
-        private static readonly SemaphoreSlim clientSemaphore = new SemaphoreSlim(1);
+        private static readonly SemaphoreSlim clientSemaphore = new(1);
 
         public DiscordService(IConfigurationManager configLoader)
         {
