@@ -19,11 +19,13 @@ using EmuConfig;
 using RomParsing.Parsers;
 using RomParsing;
 using SpectabisLib.Interfaces.Abstractions;
+using System.Runtime.InteropServices;
 
 namespace SpectabisNext.ComponentConfiguration
 {
     public static class AutoFacConfiguration
     {
+        [ComVisible(false)]
         public static IContainer Configure()
         {
             var builder = new ContainerBuilder();
