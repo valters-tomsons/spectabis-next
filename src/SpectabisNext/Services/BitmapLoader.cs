@@ -21,9 +21,24 @@ namespace SpectabisNext.Services
 
         public Bitmap GetBoxArt(GameProfile game)
         {
+            if(game is null)
+            {
+                return null;
+            }
+
             if (!string.IsNullOrWhiteSpace(game.BoxArtPath))
             {
-                return new Bitmap(game.BoxArtPath);
+                try
+                {
+                    return new Bitmap(game.BoxArtPath);
+                }
+                catch (Exception e)
+                {
+                    Logging.WriteLine($"Failed to load boxart for '{game.Id}' at '{game.BoxArtPath}'");
+                    Logging.WriteLine(e.Message);
+
+                    return DefaultBoxart;
+                }
             }
 
             var boxArtPath = _profileFs.GameProfileArtUri(game);

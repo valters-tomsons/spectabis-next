@@ -48,7 +48,10 @@ namespace SpectabisNext.Services
 
         public void SetGamePresence(GameProfile game)
         {
-            SetStatus(game.Title);
+            if(game != null)
+            {
+                SetStatus(game.Title);
+            }
         }
 
         private void SetStatus(string status)
