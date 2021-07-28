@@ -43,14 +43,15 @@ namespace SpectabisNext.Services
 
             _client.Initialize();
 
-            clientSemaphore.Release();
-
             if(_client.CurrentUser == null)
             {
                 Logging.WriteLine("Could not connect to Discord RPC");
                 _client.Dispose();
+                clientSemaphore.Release();
                 return;
             }
+
+            clientSemaphore.Release();
 
             SetMenuPresence();
         }
