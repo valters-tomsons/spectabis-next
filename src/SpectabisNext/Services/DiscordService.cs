@@ -1,3 +1,4 @@
+using System.Threading;
 using System;
 using DiscordRPC;
 using SpectabisLib.Interfaces;
@@ -10,8 +11,11 @@ namespace SpectabisNext.Services
     public class DiscordService : IDiscordService
     {
         private static readonly ulong StartTime = (ulong) DateTimeOffset.Now.ToUnixTimeMilliseconds();
-        private static DiscordRpcClient client;
+
         private readonly IConfigurationManager _configLoader;
+        private static DiscordRpcClient _client;
+
+        private static SemaphoreSlim clientSemaphone = new SemaphoreSlim(1);
 
         public DiscordService(IConfigurationManager configLoader)
         {
@@ -25,16 +29,26 @@ namespace SpectabisNext.Services
                 return;
             }
 
+            clientSemaphone.Wait();
+
+            if(_client != null)
+            {
+                clientSemaphone.Release();
+                return;
+            }
+
             Logging.WriteLine("Starting DiscordService client");
 
-            client = new DiscordRpcClient(Constants.DiscordClientId);
+            _client = new DiscordRpcClient(Constants.DiscordClientId);
 
-            client.Initialize();
+            _client.Initialize();
 
-            if(client.CurrentUser == null)
+            clientSemaphone.Release();
+
+            if(_client.CurrentUser == null)
             {
                 Logging.WriteLine("Could not connect to Discord RPC");
-                client.Dispose();
+                _client.Dispose();
                 return;
             }
 
@@ -61,12 +75,12 @@ namespace SpectabisNext.Services
                 return;
             }
 
-            if(client == null)
+            if(_client == null)
             {
                 InitializeDiscord();
             }
 
-            if(client?.IsDisposed != false)
+            if(_client?.IsDisposed != false)
             {
                 Logging.WriteLine($"Discord client not active, ignoring status '{status}'");
                 return;
@@ -87,12 +101,12 @@ namespace SpectabisNext.Services
                 }
             };
 
-            client.SetPresence(presence);
+            _client.SetPresence(presence);
         }
 
         ~DiscordService()
         {
-            client.Dispose();
+            _client.Dispose();
         }
     }
 }
