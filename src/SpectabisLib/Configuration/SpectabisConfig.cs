@@ -10,7 +10,7 @@ namespace SpectabisLib.Configuration
         public SpectabisConfig()
         {
             RunFirstTimeWizard = true;
-            EnableDiscordRichPresence = true;
+            EnableDiscordRichPresence = false;
             EnableTelemetry = true;
         }
 
