@@ -18,7 +18,6 @@ namespace SpectabisUI.Views
         private readonly IConfigurationManager _configuration;
         private readonly IPageNavigationProvider _navigationProvider;
         private readonly IGameLauncher _gameLauncher;
-        private readonly IDiscordService _discordService;
         private readonly ITelemetry _telemetry;
         private readonly IFirstTimeWizardService _firstTimeWizard;
 
@@ -31,12 +30,11 @@ namespace SpectabisUI.Views
         {
         }
 
-        public MainWindow(IConfigurationManager configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, IDiscordService discordService, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard)
+        public MainWindow(IConfigurationManager configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
             _gameLauncher = gameLauncher;
-            _discordService = discordService;
             _telemetry = telemetry;
             _firstTimeWizard = firstTimeWizard;
 
@@ -102,7 +100,6 @@ namespace SpectabisUI.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            _discordService.InitializeDiscord();
         }
 
         private void OnContentContainerPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
