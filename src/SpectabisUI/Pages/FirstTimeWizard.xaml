@@ -2,25 +2,27 @@
     xmlns="https://github.com/avaloniaui" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     x:Class="SpectabisUI.Pages.FirstTimeWizard"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     >
 
     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="50">
         <StackPanel>
-                <TextBlock  FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Executable Path</TextBlock>
-                <Button Name="BrowseExecutableButton">Browse for File</Button>
-                <TextBlock  FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding ExecutablePath}" />
+                <TextBlock FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Executable Path</TextBlock>
+                <TextBlock FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding ExecutablePath, StringFormat='Current: {0}'}" />
+                <Button Margin="10" Name="BrowseExecutableButton">Browse for File</Button>
         </StackPanel>
 
         <StackPanel>
-                <TextBlock  FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Configuration Folder</TextBlock>
-                <Button Name="BrowseConfigurationButton">Browse for Directory</Button>
-                <TextBlock  FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding ConfigurationPath}" />
+                <TextBlock FontSize="24" TextAlignment="Center" Foreground="White">Select PCSX2 Configuration Folder</TextBlock>
+                <TextBlock FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding ConfigurationPath, StringFormat='Current: {0}'}" />
+                <Button Margin="10" Name="BrowseConfigurationButton">Browse for Directory</Button>
         </StackPanel>
 
         <StackPanel>
-                <TextBlock  FontSize="24" TextAlignment="Center" Foreground="White">Telemetry</TextBlock>
-                <Button Name="TelemetrySwitchButton">Toggle</Button>
-                <TextBlock  FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding TelemetryMessage}" />
+                <TextBlock FontSize="24" TextAlignment="Center" Foreground="White">Telemetry</TextBlock>
+                <TextBlock TextWrapping="Wrap">Telemetry data can include exception stack traces, game serial numbers, Spectabis version, OS version, computer domain name and country of origin.</TextBlock>
+                <Button Margin="10" Name="TelemetrySwitchButton">Toggle</Button>
+                <TextBlock FontSize="16" Foreground="White" HorizontalAlignment="Center" Text="{Binding TelemetryMessage}"/>
         </StackPanel>
 
         <StackPanel>
