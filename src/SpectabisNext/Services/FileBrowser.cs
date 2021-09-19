@@ -41,9 +41,14 @@ namespace SpectabisNext.Services
             };
 
             var suggestedDirectory = ResolveDirectoryFromPath(path);
-            if(suggestedDirectory != null)
+            if(suggestedDirectory != null && Directory.Exists(suggestedDirectory))
             {
                 dialog.Directory = suggestedDirectory;
+            }
+            else
+            {
+                Logging.WriteLine("SuggestedPath not available, defaulting to home");
+                dialog.Directory = SystemDirectories.HomeFolder;
             }
 
             var fileResult = await dialog.ShowAsync(new Window()).ConfigureAwait(true);
