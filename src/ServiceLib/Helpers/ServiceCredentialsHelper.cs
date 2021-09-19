@@ -1,7 +1,8 @@
 using System.Diagnostics;
 using System;
 using System.IO;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using ServiceLib.Models;
 
 namespace ServiceLib.Helpers
 {
@@ -21,7 +22,7 @@ namespace ServiceLib.Helpers
                 Console.WriteLine($"Reading settings from '{LocalSettings}'");
 
                 var settingsData = File.ReadAllText(LocalSettings);
-                dynamic settings = JToken.Parse(settingsData);
+                var settings = JsonConvert.DeserializeObject<LocalCredentials>(settingsData);
 
                 ServiceApiKey = settings.ServiceApiKey;
                 TelemetryKey = settings.TelemetryKey;
