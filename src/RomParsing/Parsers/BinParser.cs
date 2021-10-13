@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FileIntrinsics.Enums;
 using RomParsing.Enums;
-using RomParsing.Utils;
+using Common.Utils;
 
 namespace RomParsing.Parsers
 {

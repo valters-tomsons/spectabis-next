@@ -1,4 +1,4 @@
-namespace RomParsing.Utils
+namespace Common.Utils
 {
     public static class ByteSearch
     {

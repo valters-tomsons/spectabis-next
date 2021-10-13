@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\FileIntrinsics\FileIntrinsics.csproj" />
   </ItemGroup>
 
