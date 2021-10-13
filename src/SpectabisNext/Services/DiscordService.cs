@@ -1,8 +1,8 @@
 using System;
 using System.Threading;
 using DiscordRPC;
+using Common.Helpers;
 using SpectabisLib;
-using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 

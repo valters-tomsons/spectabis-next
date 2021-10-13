@@ -1,7 +1,7 @@
 using SpectabisUI.Controls.AnimatedImage.Decoding;
 using System;
 using System.IO;
-using SpectabisLib.Helpers;
+using Common.Helpers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Animation;

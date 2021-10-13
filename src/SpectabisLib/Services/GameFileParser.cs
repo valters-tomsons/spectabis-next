@@ -5,7 +5,7 @@ using FileIntrinsics.Enums;
 using FileIntrinsics.Interfaces;
 using RomParsing;
 using RomParsing.Parsers;
-using SpectabisLib.Helpers;
+using Common.Helpers;
 using SpectabisLib.Interfaces;
 
 namespace SpectabisLib.Services

@@ -3,11 +3,11 @@ using System.Linq;
 using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Threading;
+using Common.Helpers;
 using SpectabisUI.Factories;
 using SpectabisUI.Events;
 using SpectabisUI.Exceptions;
 using SpectabisUI.Interfaces;
-using SpectabisLib.Helpers;
 
 namespace SpectabisNext.Services
 {

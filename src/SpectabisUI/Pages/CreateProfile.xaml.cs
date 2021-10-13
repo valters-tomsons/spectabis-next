@@ -9,12 +9,12 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using Common.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Models;
 using SpectabisUI.ViewModels;
 using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
-using SpectabisLib.Helpers;
 
 namespace SpectabisUI.Pages
 {

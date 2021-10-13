@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ServiceLib.Interfaces;
-using SpectabisLib.Helpers;
+using Common.Helpers;
 using SpectabisLib.Interfaces;
 using SpectabisLib.Interfaces.Abstractions;
 using SpectabisLib.Interfaces.Services;

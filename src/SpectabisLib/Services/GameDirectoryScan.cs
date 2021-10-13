@@ -4,7 +4,7 @@ using SpectabisLib.Interfaces;
 using FileIntrinsics.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
-using SpectabisLib.Helpers;
+using Common.Helpers;
 using System;
 
 namespace SpectabisLib.Services

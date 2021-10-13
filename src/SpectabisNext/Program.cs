@@ -1,7 +1,7 @@
-﻿using Autofac;
+using Autofac;
 using SpectabisNext.ComponentConfiguration;
 using SpectabisUI.Interfaces;
-using SpectabisLib.Helpers;
+using Common.Helpers;
 using SpectabisLib.Interfaces.Services;
 using System.Threading.Tasks;
 

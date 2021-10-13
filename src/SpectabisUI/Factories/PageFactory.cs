@@ -1,5 +1,5 @@
 using Autofac;
-using SpectabisLib.Helpers;
+using Common.Helpers;
 using SpectabisUI.Interfaces;
 
 namespace SpectabisUI.Factories

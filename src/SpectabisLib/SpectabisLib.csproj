@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\FileIntrinsics\FileIntrinsics.csproj" />
     <ProjectReference Include="..\RomParsing\RomParsing.csproj" />
     <ProjectReference Include="..\ServiceLib\ServiceLib.csproj" />

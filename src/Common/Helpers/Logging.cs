@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace SpectabisLib.Helpers
+namespace Common.Helpers
 {
     public static class Logging
     {
