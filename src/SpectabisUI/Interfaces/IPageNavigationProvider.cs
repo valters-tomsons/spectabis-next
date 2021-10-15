@@ -8,8 +8,8 @@ namespace SpectabisUI.Interfaces
     {
         void Navigate<T>() where T : IPage;
         void NavigatePage(IPage page);
-        void ReferenceContainer(ContentControl ContentContainer);
-        void ReferenceNavigationControls(StackPanel NavigationBar, EventHandler NavigationItemClickEvent);
+        void Internals_ReferenceContainer(ContentControl ContentContainer);
+        void Internals_ReferenceNavigationControls(StackPanel NavigationBar, EventHandler NavigationItemClickEvent);
         void GeneratePageIcons();
         event EventHandler<NavigationArgs> PageNavigationEvent;
     }

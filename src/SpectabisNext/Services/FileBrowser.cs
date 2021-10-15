@@ -9,6 +9,8 @@ namespace SpectabisNext.Services
 {
     public class FileBrowser : IFileBrowserFactory
     {
+        private Window _rootWindow;
+
         public async Task<string> BeginGetDirectoryPath(string title, string path = null)
         {
             var dialog = new OpenFolderDialog()
@@ -52,13 +54,24 @@ namespace SpectabisNext.Services
                 dialog.Directory = SystemDirectories.HomeFolder;
             }
 
-            var fileResult = await dialog.ShowAsync(new Window()).ConfigureAwait(true);
+            if(_rootWindow is null)
+            {
+                Logging.WriteLine("RootWindow not specified, failed to open file dialog");
+                return null;
+            }
+
+            var fileResult = await dialog.ShowAsync(_rootWindow).ConfigureAwait(true);
             if (fileResult == null || string.IsNullOrWhiteSpace(fileResult[0]))
             {
                 return null;
             }
 
             return fileResult[0];
+        }
+
+        public void Internals_SetRootWindow(Window window)
+        {
+            _rootWindow = window;
         }
 
         private static string ResolveDirectoryFromPath(string path)

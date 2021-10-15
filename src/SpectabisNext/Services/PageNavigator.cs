@@ -30,7 +30,7 @@ namespace SpectabisNext.Services
             _pageRepository = pageRepository;
         }
 
-        public void ReferenceContainer(ContentControl container)
+        public void Internals_ReferenceContainer(ContentControl container)
         {
             PreloadPages();
 
@@ -44,7 +44,7 @@ namespace SpectabisNext.Services
             PageContentContainer = container;
         }
 
-        public void ReferenceNavigationControls(StackPanel navigationBar, EventHandler itemClickEvent)
+        public void Internals_ReferenceNavigationControls(StackPanel navigationBar, EventHandler itemClickEvent)
         {
             NavigationItemBar = navigationBar;
             PageNavigationClicked = itemClickEvent;

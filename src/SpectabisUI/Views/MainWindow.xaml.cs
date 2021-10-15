@@ -21,6 +21,7 @@ namespace SpectabisUI.Views
         private readonly IGameLauncher _gameLauncher;
         private readonly ITelemetry _telemetry;
         private readonly IFirstTimeWizardService _firstTimeWizard;
+        private readonly IFileBrowserFactory _fileBrowser;
 
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
@@ -31,13 +32,14 @@ namespace SpectabisUI.Views
         {
         }
 
-        public MainWindow(IConfigurationManager configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard)
+        public MainWindow(IConfigurationManager configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard, IFileBrowserFactory fileBrowser)
         {
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
             _gameLauncher = gameLauncher;
             _telemetry = telemetry;
             _firstTimeWizard = firstTimeWizard;
+            _fileBrowser = fileBrowser;
 
             Closed += OnWindowClosed;
 
@@ -57,8 +59,11 @@ namespace SpectabisUI.Views
             InitializeComponent();
             RegisterChildren();
 
-            _navigationProvider.ReferenceContainer(ContentContainer);
-            _navigationProvider.ReferenceNavigationControls(TitlebarPanel, OnIconPress);
+            // Ugly hacks and workarounds go here
+            _navigationProvider.Internals_ReferenceContainer(ContentContainer);
+            _navigationProvider.Internals_ReferenceNavigationControls(TitlebarPanel, OnIconPress);
+            _fileBrowser.Internals_SetRootWindow(this);
+            // ---
 
             FillElementColors();
 
