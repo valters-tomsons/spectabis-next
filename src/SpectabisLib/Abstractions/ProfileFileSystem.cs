@@ -29,7 +29,7 @@ namespace SpectabisLib.Abstractions
 
         public async Task WriteDefaultConfiguration(GameProfile profile)
         {
-            var profileContainerUri = new Uri($"{SystemDirectories.ProfileFolder}/{profile.Id}/container/inis/", UriKind.Absolute);
+            var profileContainerUri = GetProfileContainerUriByType(profile, ContainerConfigType.Inis);
             Directory.CreateDirectory(profileContainerUri.LocalPath);
 
             Logging.WriteLine($"Writing default to profile container : `{profile.Id}`");
