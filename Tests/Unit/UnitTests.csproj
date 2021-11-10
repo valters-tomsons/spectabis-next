@@ -4,7 +4,7 @@
     <RootNamespace>Spectabis.Tests.Unit</RootNamespace>
     <IsPackable>false</IsPackable>
     
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

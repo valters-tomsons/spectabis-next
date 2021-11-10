@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>SpectabisUI</RootNamespace>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
