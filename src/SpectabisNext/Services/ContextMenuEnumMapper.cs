@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SpectabisUI.Enums;
@@ -26,13 +27,18 @@ namespace SpectabisNext.Services
 
         private static Dictionary<GameContextMenuItem, string> InitializeDictionary()
         {
-            return new Dictionary<GameContextMenuItem, string>()
+            return Enum.GetValues<GameContextMenuItem>().ToDictionary(x => x, x => GetItemDisplayName(x));
+        }
+
+        private static string GetItemDisplayName(GameContextMenuItem item)
+        {
+            return item switch
             {
-                { GameContextMenuItem.Launch, "Launch" },
-                { GameContextMenuItem.Configure, "Configure"},
-                { GameContextMenuItem.Remove, "Delete"},
-                { GameContextMenuItem.OpenWiki, "Open in Wiki"},
-                { GameContextMenuItem.Settings, "Game Settings"}
+                GameContextMenuItem.Launch => "Launch",
+                GameContextMenuItem.Remove => "Remove",
+                GameContextMenuItem.OpenWiki => "Open Wiki",
+                GameContextMenuItem.Settings => "Settings",
+                _ => $"{item}",
             };
         }
     }

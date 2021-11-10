@@ -3,9 +3,8 @@ namespace SpectabisUI.Enums
     public enum GameContextMenuItem
     {
         Launch,
-        Configure,
-        Remove,
+        Settings,
         OpenWiki,
-        Settings
+        Remove
     }
 }

@@ -189,12 +189,6 @@ namespace SpectabisUI.Pages
             }
         }
 
-        private void LaunchConfiguration(GameTileView gameTile)
-        {
-            _libraryController.LaunchConfiguration(gameTile.Profile);
-            _navigationProvider.Navigate<GameRunning>();
-        }
-
         private void LaunchTile(GameTileView gameTile)
         {
             _libraryController.LaunchGame(gameTile.Profile);
@@ -238,7 +232,6 @@ namespace SpectabisUI.Pages
             contextActionTable = new Dictionary<GameContextMenuItem, Action<GameTileView>>()
             {
                 {GameContextMenuItem.Launch, LaunchTile},
-                {GameContextMenuItem.Configure, LaunchConfiguration},
                 {GameContextMenuItem.OpenWiki, OpenWikiPage},
                 {GameContextMenuItem.Remove, RemoveGame},
                 {GameContextMenuItem.Settings, GameSettings},
