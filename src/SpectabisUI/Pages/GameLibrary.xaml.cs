@@ -34,7 +34,7 @@ namespace SpectabisUI.Pages
         private readonly IGifProvider _gifProvider;
         private readonly IDirectoryScan _dirScan;
 
-        private readonly List<GameProfile> LoadedProfiles = new List<GameProfile>();
+        private readonly List<GameProfile> LoadedProfiles = new();
 
         private WrapPanel GamePanel;
         private ContentControl SettingsContainer;
@@ -185,6 +185,7 @@ namespace SpectabisUI.Pages
                 // TODO: Should share one global context menu when Avalonia supports it
                 var contextMenu = new ContextMenu() { Items = menuItems };
                 contextMenu.PointerReleased += OnGameContextMenuClick;
+                contextMenu.VerticalOffset = -100;
                 contextMenu.Open(clickedTile);
             }
         }
