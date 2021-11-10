@@ -2,18 +2,43 @@
 <UserControl
     xmlns="https://github.com/avaloniaui" 
     x:Class="SpectabisUI.Pages.GameSettings"
+    xmlns:Avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
     <Grid Margin="50" HorizontalAlignment="Center">
 
         <StackPanel>
-             <TextBlock HorizontalAlignment="Center" FontSize="35" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Title}"></TextBlock>
+             <TextBlock 
+                HorizontalAlignment="Center" 
+                FontSize="35" 
+                TextWrapping="Wrap" 
+                TextAlignment="Center" 
+                Text="{Binding Title}" />
+
+            <StackPanel Margin="0,25,0,25" Orientation="Horizontal">
+                <Avalonia:MaterialIcon 
+                   Kind="ApplicationCog"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="32"
+                   Height="32"
+                   Foreground="Orange" />
+                
+                <TextBlock 
+                    Margin="15,0,0,0"
+                    Foreground="Orange" 
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Advanced options can be accessed through PCSX2 configuration" />
+            </StackPanel>
+
+            <Button Margin="0,0,0,15" Command="{Binding LaunchPCSX2}">Configure in PCSX2</Button>
 
              <StackPanel Margin="10" Spacing="5">
                  <CheckBox Content="Fullscreen" ToolTip.Tip="Start game in a fullscreen window" IsChecked="{Binding Fullscreen}"/>
                  <StackPanel IsVisible="{Binding ShowSettings}" Orientation="Horizontal" ToolTip.Tip="Approximate game rendering resolution">
+                    <TextBlock Margin="3" VerticalAlignment="Center" Text="Resolution:"></TextBlock>
                     <ComboBox Items="{Binding Resolutions}" SelectedItem="{Binding Resolution}"></ComboBox>
-                    <TextBlock Margin="3" VerticalAlignment="Center" Text="Resolution"></TextBlock>
                  </StackPanel>
              </StackPanel>
         </StackPanel>

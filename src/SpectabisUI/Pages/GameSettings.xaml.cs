@@ -7,6 +7,7 @@ using Common.Helpers;
 using EmuConfig.Enums;
 using SpectabisLib.Enums;
 using SpectabisLib.Interfaces;
+using SpectabisLib.Interfaces.Controllers;
 using SpectabisLib.Interfaces.Services;
 using SpectabisLib.Models;
 using SpectabisUI.Interfaces;
@@ -24,6 +25,8 @@ namespace SpectabisUI.Pages
         private readonly IGameConfigurationService _gameConfig;
         private readonly GameSettingsViewModel _viewModel;
         private readonly IProfileRepository _profileRepo;
+        private readonly IGameLibraryController _libraryController;
+        private readonly IPageNavigationProvider _navigationProvider;
 
         private ProfileConfiguration _currentConfig;
 
@@ -32,19 +35,31 @@ namespace SpectabisUI.Pages
         {
         }
 
-        public GameSettings(IGameConfigurationService gameConfig, GameSettingsViewModel viewModel, IProfileRepository profileRepo)
+        public GameSettings(IGameConfigurationService gameConfig, GameSettingsViewModel viewModel, IProfileRepository profileRepo, IGameLibraryController libraryController, IPageNavigationProvider navigationProvider)
         {
             _gameConfig = gameConfig;
             _viewModel = viewModel;
             _profileRepo = profileRepo;
+            _libraryController = libraryController;
+
+            _viewModel.LaunchPCSX2.Subscribe(async _ => await LaunchPCSX2_Click().ConfigureAwait(true));
 
             InitializeComponent();
+            _navigationProvider = navigationProvider;
         }
 
         public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
             DataContext = _viewModel;
+        }
+
+        public async Task LaunchPCSX2_Click()
+        {
+            var game = await _profileRepo.Get(_viewModel.Id).ConfigureAwait(true);
+            _libraryController.LaunchConfiguration(game);
+
+            _navigationProvider.Navigate<GameRunning>();
         }
 
         public async Task InitializeProfile(GameProfile profile)
