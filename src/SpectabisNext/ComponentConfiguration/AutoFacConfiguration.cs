@@ -58,6 +58,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<SettingsController>().As<ISettingsController>().SingleInstance();
             builder.RegisterType<GameLibraryController>().As<IGameLibraryController>().SingleInstance();
             builder.RegisterType<GameFileParser>().As<IGameFileParser>().SingleInstance();
+            builder.RegisterType<GameSettingsController>().As<IGameSettingsController>().SingleInstance();
 
             builder.RegisterType<GameDirectoryScan>().As<IDirectoryScan>();
             builder.RegisterType<ProfileFileSystem>().As<IProfileFileSystem>();
@@ -84,10 +85,10 @@ namespace SpectabisNext.ComponentConfiguration
         {
             var uiLib = Assembly.Load(nameof(SpectabisUI));
 
-            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Views), uiLib);
-            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Pages), uiLib);
-            builder.RegisterNamespaceTypes(nameof(SpectabisUI.Factories), uiLib);
-            builder.RegisterNamespaceTypes(nameof(SpectabisUI.ViewModels), uiLib);
+            builder.RegisterConcreteTypesFromNamespace(nameof(SpectabisUI.Views), uiLib);
+            builder.RegisterConcreteTypesFromNamespace(nameof(SpectabisUI.Pages), uiLib);
+            builder.RegisterConcreteTypesFromNamespace(nameof(SpectabisUI.Factories), uiLib);
+            builder.RegisterConcreteTypesFromNamespace(nameof(SpectabisUI.ViewModels), uiLib);
         }
 
         private static void RegisterLibs(ContainerBuilder builder)
@@ -104,14 +105,14 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<FakeParser>().As<IParser>();
         }
 
-        private static ContainerBuilder RegisterNamespaceTypes(this ContainerBuilder builder, string targetNamespace, Assembly assembly = null)
+        private static ContainerBuilder RegisterConcreteTypesFromNamespace(this ContainerBuilder builder, string scanNamespace, Assembly assembly = null)
         {
             if(assembly == null)
             {
                 assembly = Assembly.GetExecutingAssembly();
             }
 
-            var namespaceTypes = assembly.GetTypes().Where(x => x.Namespace.Contains(targetNamespace)).ToArray();
+            var namespaceTypes = assembly.GetTypes().Where(x => x.Namespace.Contains(scanNamespace)).ToArray();
             builder.RegisterTypes(namespaceTypes);
             return builder;
         }

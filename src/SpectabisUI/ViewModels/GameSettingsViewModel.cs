@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Reactive;
 using EmuConfig.Enums;
 using ReactiveUI;
+using SpectabisLib.Interfaces.Controllers;
 
 namespace SpectabisUI.ViewModels
 {
     public class GameSettingsViewModel : ReactiveObject
     {
-        public GameSettingsViewModel()
+        public GameSettingsViewModel(IGameSettingsController _controller)
         {
-            LaunchPCSX2 = ReactiveCommand.Create(() => { });
+            LaunchPCSX2 = ReactiveCommand.CreateFromTask(async () => await _controller.LaunchConfiguration(Id));
         }
 
         private bool showsettings;
@@ -25,7 +26,7 @@ namespace SpectabisUI.ViewModels
         public string Resolution { get => resolution; set => this.RaiseAndSetIfChanged(ref resolution, value); }
 
         public bool ShowSettings { get => showsettings; set => this.RaiseAndSetIfChanged(ref showsettings, value); }
-        public IEnumerable<string> Resolutions { get => Enum.GetNames(typeof(UpscaleFactor)); }
+        public static IEnumerable<string> Resolutions { get => Enum.GetNames(typeof(UpscaleFactor)); }
 
         public ReactiveCommand<Unit, Unit> LaunchPCSX2 { get; }
     }

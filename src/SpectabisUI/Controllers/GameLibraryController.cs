@@ -73,7 +73,7 @@ namespace SpectabisUI.Controllers
         }
 
         /// <summary>
-        /// Returns a ready GameSettings view for requested profile 
+        /// Returns a ready GameSettings view for requested profile
         /// </summary>
         ///<returns **Type="SpectabisUI.Pages.GameSettings"**>
         /// Returns instance of GameSettings view
