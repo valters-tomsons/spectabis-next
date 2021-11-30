@@ -4,6 +4,6 @@ namespace SpectabisLib.Interfaces
 {
     public interface IGameFileParser
     {
-        Task<string> GetGameSerial(string filePath);
+        Task<string?> GetGameSerial(string filePath);
     }
 }

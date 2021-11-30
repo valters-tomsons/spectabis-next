@@ -7,7 +7,7 @@ namespace SpectabisLib.Abstractions
 {
     public class GameProcess : IGameProcess
     {
-        public event EventHandler<EventArgs> GameStopped;
+        public event EventHandler<EventArgs>? GameStopped;
 
         private GameProfile Game { get; }
         private Process Process { get; }

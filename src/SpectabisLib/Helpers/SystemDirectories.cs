@@ -5,14 +5,14 @@ namespace SpectabisLib.Helpers
 {
     public static class SystemDirectories
     {
-        public static string Default_PCSX2ConfigurationPath { get; private set; }
-        public static string Default_PCSX2ExecutablePath { get; private set; }
+        public static string Default_PCSX2ConfigurationPath { get; private set; } = string.Empty;
+        public static string Default_PCSX2ExecutablePath { get; private set; } = string.Empty;
 
-        public static string ConfigFolder { get; private set; }
-        public static string ProfileFolder { get; private set; }
-        public static string HomeFolder { get; private set; }
-        public static string GlobalConfigsFolder { get; private set; }
-        public static string LocalArtCacheFolder { get; private set; }
+        public static string ConfigFolder { get; private set; } = string.Empty;
+        public static string ProfileFolder { get; private set; } = string.Empty;
+        public static string HomeFolder { get; private set; } = string.Empty;
+        public static string GlobalConfigsFolder { get; private set; } = string.Empty;
+        public static string LocalArtCacheFolder { get; private set; } = string.Empty;
 
         static SystemDirectories()
         {

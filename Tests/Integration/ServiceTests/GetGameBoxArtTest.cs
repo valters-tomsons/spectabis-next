@@ -14,8 +14,6 @@ namespace Tests.Integration.ServiceTests
         private readonly string serialQuery = "serial";
         private readonly string validSerial = "SLUS21376";
 
-        private readonly string whitespaceSerial = "     ";
-
         public GetGameBoxArtTest()
         {
             var apiUrl = Environment.GetEnvironmentVariable("SERVICE_BASE_URL") ?? "http://localhost:7071/api/";

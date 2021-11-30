@@ -13,7 +13,7 @@ namespace SpectabisLib.Services
 {
     public class GameLauncherPCSX2 : IGameLauncher
     {
-        private IGameProcess _gameProcess;
+        private IGameProcess? _gameProcess;
         private readonly IProfileFileSystem _pfs;
         private readonly IConfigurationManager _configLoader;
 
@@ -49,7 +49,7 @@ namespace SpectabisLib.Services
             return gameProcess;
         }
 
-        public IGameProcess GetRunningGame()
+        public IGameProcess? GetRunningGame()
         {
             return _gameProcess;
         }

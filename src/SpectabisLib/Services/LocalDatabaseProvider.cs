@@ -16,8 +16,8 @@ namespace SpectabisLib.Services
 {
     public class LocalDatabaseProvider : IGameDatabaseProvider
     {
-        private IEnumerable<GameMetadata> _metadataDb;
-        private Lunr.Index _gameTitleIndex;
+        private IEnumerable<GameMetadata> _metadataDb = Enumerable.Empty<GameMetadata>();
+        private Lunr.Index? _gameTitleIndex;
         private readonly Uri DatabaseUri = new Uri($"{Constants.ResourcesFolder}/{Constants.PCSX2DatabaseName}", UriKind.Relative);
 
         public LocalDatabaseProvider()
@@ -25,7 +25,7 @@ namespace SpectabisLib.Services
             _ = InitializeDatabase();
         }
 
-        public async Task<GameMetadata> GetBySerial(string serial)
+        public async Task<GameMetadata?> GetBySerial(string serial)
         {
             await InitializeDatabase().ConfigureAwait(false);
             return _metadataDb.FirstOrDefault(x => x.Serial == serial);
@@ -44,11 +44,21 @@ namespace SpectabisLib.Services
             await InitializeDatabase().ConfigureAwait(false);
 
             var results = new List<GameMetadata>(count);
+            var lunrResult = _gameTitleIndex?.Search(title);
 
-            await foreach (var item in _gameTitleIndex.Search(title))
+            if(lunrResult is null)
+            {
+                return Enumerable.Empty<GameMetadata>();
+            }
+
+            await foreach (var item in lunrResult)
             {
                 var result = await GetBySerial(item.DocumentReference).ConfigureAwait(false);
-                results.Add(result);
+
+                if(result != null)
+                {
+                    results.Add(result);
+                }
             }
 
             return results.Distinct(new MetadataTitleComparer()).Take(count);

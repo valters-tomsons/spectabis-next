@@ -58,13 +58,17 @@ namespace SpectabisLib.Abstractions
             foreach (var item in guids)
             {
                 var game = await ReadProfileFromDisk(item).ConfigureAwait(false);
-                profiles.Add(game);
+
+                if(game != null)
+                {
+                    profiles.Add(game);
+                }
             }
 
             return profiles;
         }
 
-        public Uri GameProfileArtUri(GameProfile profile)
+        public Uri? GameProfileArtUri(GameProfile profile)
         {
             if (string.IsNullOrWhiteSpace(profile.BoxArtPath))
             {
@@ -198,7 +202,7 @@ namespace SpectabisLib.Abstractions
             return Encoding.UTF8.GetString(content);
         }
 
-        private async Task<GameProfile> ReadProfileFromDisk(Guid gameId)
+        private async Task<GameProfile?> ReadProfileFromDisk(Guid gameId)
         {
             var profileFolderUri = new Uri($"{SystemDirectories.ProfileFolder}/{gameId}", UriKind.Absolute);
 

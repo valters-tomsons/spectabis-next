@@ -17,7 +17,7 @@ namespace SpectabisLib.Services
             EnsureCachingFolderExists();
         }
 
-        public async Task<byte[]> GetCachedArt(string gameSerial)
+        public async Task<byte[]?> GetCachedArt(string gameSerial)
         {
             var artCacheFilePath = new Uri(_artCachePath, $"{gameSerial}.png");
 

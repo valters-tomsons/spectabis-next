@@ -12,7 +12,7 @@ namespace SpectabisLib.Services
 {
     public class GameArtQueue : IArtServiceQueue
     {
-        private BackgroundWorker _gameArtThread;
+        private BackgroundWorker? _gameArtThread;
         private readonly Queue<GameProfile> _gameArtQueue;
         private readonly Stack<GameProfile> _finishedArt;
 
@@ -20,9 +20,9 @@ namespace SpectabisLib.Services
         private readonly IProfileFileSystem _profileFs;
         private readonly ILocalCachingService _localCache;
 
-        private GameProfile _currentProcess;
+        private GameProfile? _currentProcess;
 
-        public event EventHandler<EventArgs> ItemFinished;
+        public event EventHandler<EventArgs>? ItemFinished;
 
         public GameArtQueue(ISpectabisClient client, IProfileFileSystem profileFs, ILocalCachingService localCache)
         {
@@ -38,7 +38,7 @@ namespace SpectabisLib.Services
 
         public void StartProcessing()
         {
-            _gameArtThread.RunWorkerAsync();
+            _gameArtThread?.RunWorkerAsync();
         }
 
         public void QueueForBoxArt(GameProfile game)

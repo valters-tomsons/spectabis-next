@@ -6,7 +6,7 @@ namespace SpectabisLib.Interfaces.Abstractions
 {
     public interface IGameProcess
     {
-        event EventHandler<EventArgs> GameStopped;
+        event EventHandler<EventArgs>? GameStopped;
 
         TimeSpan GetElapsed();
         GameProfile GetGame();

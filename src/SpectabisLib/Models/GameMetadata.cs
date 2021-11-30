@@ -4,9 +4,9 @@ namespace SpectabisLib.Models
 {
     public class GameMetadata
     {
-        public string Serial { get; set; }
-        public GameCompatibility Compatibility { get; set; }
-        public string Title { get; set; }
-        public string Region { get; set; }
+        public string Serial { get; set; } = string.Empty;
+        public GameCompatibility Compatibility { get; set; } = GameCompatibility.Unknown;
+        public string Title { get; set; } = string.Empty;
+        public string Region { get; set; } = string.Empty;
     }
 }

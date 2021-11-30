@@ -17,7 +17,7 @@ namespace SpectabisLib.Services
             _dbProvider = dbProvider;
         }
 
-        async Task<GameProfile> IProfileFactory.CreateFromPath(string gameFilePath)
+        async Task<GameProfile?> IProfileFactory.CreateFromPath(string gameFilePath)
         {
             if(!File.Exists(gameFilePath))
             {
@@ -25,9 +25,15 @@ namespace SpectabisLib.Services
             }
 
             var gameSerial = await _gameParser.GetGameSerial(gameFilePath).ConfigureAwait(false);
+
+            if(string.IsNullOrWhiteSpace(gameSerial))
+            {
+                return null;
+            }
+
             var metadata = await _dbProvider.GetBySerial(gameSerial).ConfigureAwait(false);
 
-            if(metadata == null)
+            if(metadata is null)
             {
                 var fileName = Path.GetFileName(gameFilePath);
                 Logging.WriteLine($"Could not parse '{fileName}', using file name as game title");

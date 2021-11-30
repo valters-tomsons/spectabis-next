@@ -5,6 +5,6 @@ namespace SpectabisLib.Interfaces
 {
     public interface IProfileFactory
     {
-        Task<GameProfile> CreateFromPath(string gameFilePath);
+        Task<GameProfile?> CreateFromPath(string gameFilePath);
     }
 }

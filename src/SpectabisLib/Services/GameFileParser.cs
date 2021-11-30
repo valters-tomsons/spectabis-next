@@ -23,7 +23,7 @@ namespace SpectabisLib.Services
             _parsers = new Dictionary<GameFileType, IParser>(parsers.Select(x => new KeyValuePair<GameFileType, IParser>(x.FileType, x)));
         }
 
-        public async Task<string> GetGameSerial(string gamePath)
+        public async Task<string?> GetGameSerial(string gamePath)
         {
             var fileType = await _intrinsics.GetFileSignature(gamePath).ConfigureAwait(false);
 
@@ -34,15 +34,6 @@ namespace SpectabisLib.Services
             }
 
             return await _parsers[fileType.File].ReadSerial(gamePath).ConfigureAwait(false);
-        }
-
-        private static IDictionary<GameFileType, IParser> InitializeParsers()
-        {
-            return new Dictionary<GameFileType, IParser>(){
-                {GameFileType.ISO9660, new IsoParser()},
-                {GameFileType.CD_I, new BinParser()},
-                {GameFileType.Fake, new FakeParser()}
-            };
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SpectabisLib.Repositories
 {
     public class GameProfileRepository : IProfileRepository
     {
-        private IList<GameProfile> _games;
+        private IList<GameProfile> Games { get; set; } = Array.Empty<GameProfile>();
         private readonly IProfileFileSystem _fileSystem;
 
         private static readonly SemaphoreSlim _filesystemSemaphore = new SemaphoreSlim(1);
@@ -28,9 +28,9 @@ namespace SpectabisLib.Repositories
                 profile.Id = Guid.NewGuid();
             }
 
-            if(_games?.Contains(profile) == false)
+            if(Games?.Contains(profile) == false)
             {
-                _games.Add(profile);
+                Games.Add(profile);
             }
 
             await _fileSystem.CreateOnFileSystem(profile).ConfigureAwait(false);
@@ -39,25 +39,25 @@ namespace SpectabisLib.Repositories
 
         public async Task<GameProfile> Get(Guid id)
         {
-            if(_games == null || _games.Count == 0)
+            if(Games == null || Games.Count == 0)
             {
                 await ReadFromDisk().ConfigureAwait(false);
             }
 
-            return _games.SingleOrDefault(x => x.Id.Equals(id));
+            return Games.SingleOrDefault(x => x.Id.Equals(id));
         }
 
         public async Task<IEnumerable<GameProfile>> ReadFromDisk()
         {
             await _filesystemSemaphore.WaitAsync().ConfigureAwait(false);
-            _games ??= await _fileSystem.LoadFromFileSystem().ConfigureAwait(false);
+            Games ??= await _fileSystem.LoadFromFileSystem().ConfigureAwait(false);
             _filesystemSemaphore.Release();
-            return _games;
+            return Games;
         }
 
         public void DeleteProfile(GameProfile profile)
         {
-            _games.Remove(profile);
+            Games.Remove(profile);
             _fileSystem.DeleteFromFileSystem(profile.Id);
         }
     }

@@ -7,6 +7,7 @@ namespace SpectabisLib.Enums
         Menus = 3,
         Ingame = 4,
         Playable = 5,
-        Perfect = 6
+        Perfect = 6,
+        Unknown = int.MaxValue
     }
 }

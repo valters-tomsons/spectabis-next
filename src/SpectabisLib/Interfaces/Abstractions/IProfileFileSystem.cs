@@ -11,7 +11,7 @@ namespace SpectabisLib.Interfaces.Abstractions
         Task CopyDirectoryToGlobalProfile(Uri sourceDirectory, ContainerConfigType containerType);
         void DeleteFromFileSystem(Guid gameId);
         Task<IList<GameProfile>> LoadFromFileSystem();
-        Uri GameProfileArtUri(GameProfile profile);
+        Uri? GameProfileArtUri(GameProfile profile);
         Uri GetProfileContainerUriByType(GameProfile profile, ContainerConfigType containerType);
         Task WriteProfileArtToFileSystem(GameProfile game, byte[] artBuffer);
         bool ProfileContainerHasAnyFiles(GameProfile profile, ContainerConfigType containerType);
