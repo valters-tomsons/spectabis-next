@@ -25,6 +25,7 @@ namespace SpectabisService.Services
         private readonly Uri _databaseUri;
 
         private const string DatabaseFileName = "PCSX2_GAMES";
+        private readonly TimeSpan DatabaseRefreshInterval = TimeSpan.FromDays(5);
 
         public CloudDatabaseProvider(IHttpClient httpClient, IConfigurationRoot config, IStorageProvider storageProvider)
         {
@@ -35,7 +36,7 @@ namespace SpectabisService.Services
             _storageProvider = storageProvider;
         }
 
-        public async Task<GameMetadata> GetBySerial(string serial)
+        public async Task<GameMetadata?> GetBySerial(string serial)
         {
             var db = await GetDatabase().ConfigureAwait(false);
             return db.FirstOrDefault(x => x.Serial.Equals(serial));
@@ -68,7 +69,12 @@ namespace SpectabisService.Services
                 await UpdateStorageDatabase().ConfigureAwait(false);
             }
 
-            var redownload = DateTimeOffset.Now - lastModified.Value > TimeSpan.FromDays(5);
+            if(!lastModified.HasValue)
+            {
+                lastModified = DateTimeOffset.Now.Subtract(DatabaseRefreshInterval);
+            }
+
+            var redownload = DateTimeOffset.Now - lastModified.Value > DatabaseRefreshInterval;
 
             if (redownload || await fromStorage == null)
             {
@@ -116,7 +122,7 @@ namespace SpectabisService.Services
 
             if(buffer == null)
             {
-                return null;
+                return Enumerable.Empty<GameMetadata>();
             }
 
             var memoryStream = new MemoryStream(buffer);
@@ -124,6 +130,12 @@ namespace SpectabisService.Services
             var serializer = new JsonSerializer();
 
             var deserialized = serializer.Deserialize<MetadataStorageFile>(reader);
+
+            if(deserialized is null)
+            {
+                return Enumerable.Empty<GameMetadata>();
+            }
+
             return deserialized.Metadata;
         }
     }

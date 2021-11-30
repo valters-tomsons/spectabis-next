@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>SpectabisLib</RootNamespace>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -17,7 +17,7 @@ namespace SpectabisService.Services
             _client = new GiantBombRestClient(apiKey);
         }
 
-        public async Task<Uri> GetBoxArtPS2(string titleQuery)
+        public async Task<Uri?> GetBoxArtPS2(string titleQuery)
         {
             var queryResult = await _client.SearchForGamesAsync(titleQuery).ConfigureAwait(false);
 

@@ -5,6 +5,6 @@ namespace SpectabisService.Services.Interfaces
 {
     public interface IContentDownloader
     {
-        Task<byte[]> DownloadGameArt(Uri imageUri);
+        Task<byte[]?> DownloadGameArt(Uri imageUri);
     }
 }

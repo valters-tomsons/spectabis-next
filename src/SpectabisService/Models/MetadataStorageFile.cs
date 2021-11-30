@@ -10,10 +10,6 @@ namespace SpectabisService.Models
             Metadata = data;
         }
 
-        public MetadataStorageFile()
-        {
-        }
-
         public IEnumerable<GameMetadata> Metadata { get; set; }
     }
 }

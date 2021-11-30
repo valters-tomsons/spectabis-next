@@ -3,6 +3,7 @@
     <RootNamespace>SpectabisService</RootNamespace>
     <TargetFramework>net6.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="GiantBomb.Api" Version="2.6.0" />
