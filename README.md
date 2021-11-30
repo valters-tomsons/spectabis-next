@@ -62,8 +62,6 @@ Documentation for API Service [here](./docs/run-service-locally.md).
 ### Pre-requisites
 
 * .NET 5.0 SDK
-* .NET Core 3.1 SDK
-
 
 ### Run
 
