@@ -22,7 +22,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '3.1.101'
+    version: '6.0.x'
 
 - script: dotnet publish src/SpectabisService -c $(CONFIGURATION) -r linux-x64 -o $(ServiceArtifact)
   displayName: 'Build Service Package'
