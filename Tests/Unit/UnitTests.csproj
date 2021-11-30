@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>Spectabis.Tests.Unit</RootNamespace>
     <IsPackable>false</IsPackable>
-    
+    <Nullable>enable</Nullable>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
