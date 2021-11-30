@@ -14,6 +14,8 @@ namespace Tests.Integration.ServiceTests
         private readonly string serialQuery = "serial";
         private readonly string validSerial = "SLUS21376";
 
+        private readonly string whitespaceSerial = "     ";
+
         public GetGameBoxArtTest()
         {
             var apiUrl = Environment.GetEnvironmentVariable("SERVICE_BASE_URL") ?? "http://localhost:7071/api/";
@@ -57,6 +59,28 @@ namespace Tests.Integration.ServiceTests
 
             // Assert
             Scenario.Then.Response.Headers.Should.Include.ContentLength("739028");
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("  ")]
+        public void GivenEmptySerial_GetBySerial_BadRequestResult(string serial)
+        {
+            // Act
+            Scenario.When.Get(endpoint, serialQuery, serial);
+
+            // Assert
+            Scenario.Then.Response.ShouldBe.BadRequest.WithMessage("Missing serial in query");
+        }
+
+        [Fact]
+        public void GivenInvalidSerial_GetBySerial_NotFoundResult()
+        {
+            // Act
+            Scenario.When.Get(endpoint, serialQuery, "DEADBEEF");
+
+            // Assert
+            Scenario.Then.Response.ShouldBe.NotFound();
         }
     }
 }

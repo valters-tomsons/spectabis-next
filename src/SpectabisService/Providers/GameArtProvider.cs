@@ -37,7 +37,7 @@ namespace SpectabisService.Providers
 
             if (game == null)
             {
-                return new BadRequestObjectResult("Unknown game");
+                return new NotFoundResult();
             }
 
             var cached = await _storage.ReadBytesFromStorage(normalizedSerial).ConfigureAwait(false);
