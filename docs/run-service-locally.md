@@ -2,7 +2,7 @@
 
 ## Required
 
-* .NET Core 3.1 SDK
+* .NET Core 6.0 SDK
 * [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=windows%2Ccsharp%2Cbash#v2)
 * [GiantBomb API Key](https://www.giantbomb.com/api/)
 

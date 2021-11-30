@@ -25,7 +25,7 @@ namespace SpectabisService.Providers
 
         public async Task<IActionResult> GetArtWithSerial(string serial)
         {
-            if (serial.Length < 1)
+            if (string.IsNullOrWhiteSpace(serial) || serial.Length < 1)
             {
                 return new BadRequestObjectResult("Missing serial in query");
             }
@@ -37,7 +37,7 @@ namespace SpectabisService.Providers
 
             if (game == null)
             {
-                return new BadRequestObjectResult("Unknown game");
+                return new NotFoundResult();
             }
 
             var cached = await _storage.ReadBytesFromStorage(normalizedSerial).ConfigureAwait(false);

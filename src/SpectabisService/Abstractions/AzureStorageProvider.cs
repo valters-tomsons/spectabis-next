@@ -11,9 +11,9 @@ namespace SpectabisService.Abstractions
     {
         private const string ContainerName = "service-cache";
 
-        private readonly CloudStorageAccount storageAccount;
-        private CloudBlobClient client;
-        private CloudBlobContainer container;
+        private readonly CloudStorageAccount? storageAccount;
+        private CloudBlobClient? client;
+        private CloudBlobContainer? container;
 
         public AzureStorageProvider(IConfigurationRoot config)
         {
@@ -23,6 +23,11 @@ namespace SpectabisService.Abstractions
 
         public async Task<DateTimeOffset?> GetLastModified(string fileName)
         {
+            if(container is null)
+            {
+                return null;
+            }
+
             var blob = container.GetBlockBlobReference(fileName);
             var exists = await blob.ExistsAsync().ConfigureAwait(false);
 
@@ -36,8 +41,13 @@ namespace SpectabisService.Abstractions
             return blob.Properties.LastModified;
         }
 
-        public async Task<byte[]> ReadBytesFromStorage(string fileName)
+        public async Task<byte[]?> ReadBytesFromStorage(string fileName)
         {
+            if(container is null)
+            {
+                return null;
+            }
+
             var blob = container.GetBlockBlobReference(fileName);
             var exists = await blob.ExistsAsync().ConfigureAwait(false);
 
@@ -56,16 +66,24 @@ namespace SpectabisService.Abstractions
 
         public async Task WriteImageToStorage(string fileName, byte[] buffer)
         {
-            var blob = container.GetBlockBlobReference(fileName);
-            blob.Properties.ContentType = "image/png";
-            await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+            var blob = container?.GetBlockBlobReference(fileName);
+
+            if(blob != null)
+            {
+                blob.Properties.ContentType = "image/png";
+                await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+            }
         }
 
         public async Task WriteDataToStorage(string fileName, byte[] buffer)
         {
-            var blob = container.GetBlockBlobReference(fileName);
-            blob.Properties.ContentType = "application/octet-stream";
-            await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+            var blob = container?.GetBlockBlobReference(fileName);
+
+            if(blob != null)
+            {
+                blob.Properties.ContentType = "application/octet-stream";
+                await blob.UploadFromByteArrayAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+            }
         }
 
         public async Task InitializeStorage()
@@ -75,9 +93,13 @@ namespace SpectabisService.Abstractions
                 return;
             }
 
-            client = storageAccount.CreateCloudBlobClient();
-            container = client.GetContainerReference(ContainerName);
-            await container.CreateIfNotExistsAsync().ConfigureAwait(false);
+            client = storageAccount?.CreateCloudBlobClient();
+            container = client?.GetContainerReference(ContainerName);
+
+            if(container != null)
+            {
+                await container.CreateIfNotExistsAsync();
+            }
         }
     }
 }
