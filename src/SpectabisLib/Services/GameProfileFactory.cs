@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Common.Helpers;
@@ -25,10 +26,9 @@ namespace SpectabisLib.Services
             }
 
             var gameSerial = await _gameParser.GetGameSerial(gameFilePath).ConfigureAwait(false);
-
-            if(string.IsNullOrWhiteSpace(gameSerial))
+            if(gameSerial is null)
             {
-                return null;
+                throw new KeyNotFoundException(gameSerial);
             }
 
             var metadata = await _dbProvider.GetBySerial(gameSerial).ConfigureAwait(false);

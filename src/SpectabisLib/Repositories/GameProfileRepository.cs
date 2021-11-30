@@ -11,7 +11,7 @@ namespace SpectabisLib.Repositories
 {
     public class GameProfileRepository : IProfileRepository
     {
-        private IList<GameProfile> Games { get; set; } = Array.Empty<GameProfile>();
+        private IList<GameProfile>? Games { get; set; }
         private readonly IProfileFileSystem _fileSystem;
 
         private static readonly SemaphoreSlim _filesystemSemaphore = new SemaphoreSlim(1);
@@ -57,7 +57,7 @@ namespace SpectabisLib.Repositories
 
         public void DeleteProfile(GameProfile profile)
         {
-            Games.Remove(profile);
+            Games?.Remove(profile);
             _fileSystem.DeleteFromFileSystem(profile.Id);
         }
     }
