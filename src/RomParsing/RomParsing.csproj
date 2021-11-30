@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>RomParsing</RootNamespace>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

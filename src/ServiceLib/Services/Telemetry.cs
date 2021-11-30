@@ -13,7 +13,7 @@ namespace ServiceLib.Services
 {
     public class Telemetry : Interfaces.ITelemetry
     {
-        private TelemetryClient _client;
+        private TelemetryClient? _client;
         private bool isEnabled;
 
         public void InitializeTelemetry()
@@ -40,7 +40,7 @@ namespace ServiceLib.Services
                     op.Properties.TryAdd(prop.Key, prop.Value);
                 }
 
-                _client.TrackEvent(op);
+                _client?.TrackEvent(op);
             }
         }
 
@@ -49,7 +49,7 @@ namespace ServiceLib.Services
             if(e != null && isEnabled && !Debugger.IsAttached)
             {
                 var ex = new ExceptionTelemetry(e);
-                _client.TrackException(ex);
+                _client?.TrackException(ex);
                 Flush();
             }
         }
@@ -59,7 +59,7 @@ namespace ServiceLib.Services
             if(isEnabled)
             {
                 Console.WriteLine("[Telemetry] Flusing telemetry data from memory");
-                _client.Flush();
+                _client?.Flush();
             }
         }
 
@@ -80,9 +80,8 @@ namespace ServiceLib.Services
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            if(isEnabled)
+            if (isEnabled && e.ExceptionObject is Exception ex)
             {
-                var ex = e.ExceptionObject as Exception;
                 TrackException(ex);
             }
         }

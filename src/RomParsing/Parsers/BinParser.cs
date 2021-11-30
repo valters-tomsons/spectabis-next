@@ -19,7 +19,7 @@ namespace RomParsing.Parsers
 
         public GameFileType FileType => GameFileType.CD_I;
 
-        public async Task<string> ReadSerial(string gamePath)
+        public async Task<string?> ReadSerial(string gamePath)
         {
             var readBuffer = new byte[RootFileDescriptorEndOffset];
 
@@ -34,10 +34,10 @@ namespace RomParsing.Parsers
             Array.Copy(readBuffer, RootFileDescriptorOffset, indexBuffer, 0, indexBufferSize);
 
             var serial = FindSerial(indexBuffer);
-            return serial.Replace("_", string.Empty);
+            return serial?.Replace("_", string.Empty);
         }
 
-        private static string FindSerial(byte[] fileDescriptionBuffer)
+        private static string? FindSerial(byte[] fileDescriptionBuffer)
         {
             const bool searching = true;
             var searchIndex = 0;

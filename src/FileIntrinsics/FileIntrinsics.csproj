@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>FileIntrinsics</RootNamespace>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 </Project>

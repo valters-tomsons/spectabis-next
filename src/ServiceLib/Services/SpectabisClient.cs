@@ -26,7 +26,7 @@ namespace ServiceLib.Services
             _telemetry = telemetry;
         }
 
-        public async Task<byte[]> DownloadBoxArt(string serial)
+        public async Task<byte[]?> DownloadBoxArt(string serial)
         {
             var result = await _restClient.GetBytesAsync(GetArtEndpoint, $"serial={serial}").ConfigureAwait(false);
 

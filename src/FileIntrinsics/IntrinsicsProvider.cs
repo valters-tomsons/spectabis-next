@@ -18,7 +18,7 @@ namespace FileIntrinsics
             _fileSignatures = EnumerateSupportedSignatures();
         }
 
-        public async Task<IHeaderSignature> GetFileSignature(string filePath)
+        public async Task<IHeaderSignature?> GetFileSignature(string filePath)
         {
             foreach (var sig in _fileSignatures)
             {
@@ -39,7 +39,7 @@ namespace FileIntrinsics
             return signatureOffset != null;
         }
 
-        public async Task<OffsetReading> GetSignatureOffset(string filePath, IHeaderSignature signature)
+        public async Task<OffsetReading?> GetSignatureOffset(string filePath, IHeaderSignature signature)
         {
             var signatureSize = signature.ByteSignature.Length;
             var bufferSize = signature.Offsets.Max() + signatureSize;

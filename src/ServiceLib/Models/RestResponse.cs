@@ -9,7 +9,7 @@ namespace ServiceLib.Models
         public RestResponse(HttpRequestException ex) { HttpException = ex; }
 
         public HttpStatusCode? StatusCode { get; set; }
-        public string Body { get; set; }
-        public HttpRequestException HttpException { get; set; }
+        public string? Body { get; set; }
+        public HttpRequestException? HttpException { get; set; }
     }
 }

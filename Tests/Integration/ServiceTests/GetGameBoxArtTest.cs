@@ -21,7 +21,7 @@ namespace Tests.Integration.ServiceTests
 
             var restClient = new RestClient();
             var baseAddress = new Uri(apiUrl, UriKind.Absolute);
-            restClient.SetSession(apiKey, baseAddress);
+            restClient.SetSession(apiKey!, baseAddress);
 
             var client = restClient.GetClient();
             client.Timeout = TimeSpan.FromSeconds(5);

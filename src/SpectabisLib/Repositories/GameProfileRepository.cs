@@ -34,7 +34,6 @@ namespace SpectabisLib.Repositories
             }
 
             await _fileSystem.CreateOnFileSystem(profile).ConfigureAwait(false);
-            await _fileSystem.WriteDefaultConfiguration(profile).ConfigureAwait(false);
         }
 
         public async Task<GameProfile> Get(Guid id)

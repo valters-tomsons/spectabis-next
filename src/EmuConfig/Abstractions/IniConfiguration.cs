@@ -17,11 +17,11 @@ namespace EmuConfig.Abstractions
         {
             var keyProperties = GetType().GetProperties().Where(x => Attribute.IsDefined(x, typeof(IniKeyAttribute)));
             var attributes = keyProperties.Select(x => Attribute.GetCustomAttribute(x, typeof(IniKeyAttribute)) as IniKeyAttribute);
-            var keys = attributes.Select(x => x.GetKey());
-            return keys.ToArray();
+            var keys = attributes.Select(x => x?.GetKey()).Where(x => !string.IsNullOrWhiteSpace(x));
+            return keys.ToArray()!;
         }
 
-        private IDictionary<string, string> iniData;
+        private IDictionary<string, string> iniData = new Dictionary<string, string>();
         public IDictionary<string, string> IniData { get => iniData; set => FromIniData(value); }
 
         private string GetValueFromIniKey(string iniKey)
@@ -31,9 +31,8 @@ namespace EmuConfig.Abstractions
             foreach(var property in attributedProperties)
             {
                 var member = Attribute.GetCustomAttribute(property, typeof(IniKeyAttribute)) as IniKeyAttribute;
-                var memberKey = member.GetKey();
 
-                if(memberKey != iniKey)
+                if(member?.GetKey() != iniKey)
                 {
                     continue;
                 }
@@ -72,11 +71,9 @@ namespace EmuConfig.Abstractions
                 }
 
                 var member = Attribute.GetCustomAttribute(prop, typeof(IniKeyAttribute)) as IniKeyAttribute;
-                var propKey = member.GetKey();
+                var propKey = member?.GetKey();
 
-                var dataMatch = data.ContainsKey(propKey);
-
-                if(!dataMatch)
+                if(propKey is null || !data.ContainsKey(propKey))
                 {
                     continue;
                 }

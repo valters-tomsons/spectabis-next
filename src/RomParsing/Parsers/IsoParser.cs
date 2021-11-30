@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscUtils.Iso9660;
 using FileIntrinsics.Enums;
+using Common.Helpers;
 
 namespace RomParsing.Parsers
 {
@@ -11,10 +12,11 @@ namespace RomParsing.Parsers
     {
         public GameFileType FileType => GameFileType.ISO9660;
 
-        public async Task<string> ReadSerial(string gamePath)
+        public async Task<string?> ReadSerial(string gamePath)
         {
             var systemInfo = ReadSystemCnf(gamePath);
-            return await Task.FromResult(FindSerialInSystemInfo(systemInfo)).ConfigureAwait(false);
+            var result = FindSerialInSystemInfo(systemInfo);
+            return await Task.FromResult(result).ConfigureAwait(false);
         }
 
         private static byte[] ReadSystemCnf(string gamePath)
@@ -23,9 +25,10 @@ namespace RomParsing.Parsers
             var reader = new CDReader(stream, true);
             var syscnfStream = reader.OpenFile("SYSTEM.CNF", FileMode.Open);
 
-            if (syscnfStream == null)
+            if (syscnfStream == null || syscnfStream.Length == 0)
             {
-                Console.WriteLine($"[IsoParser] Failed to find SYSTEM.CNF in '{gamePath}'");
+                Logging.WriteLine($"Failed to find SYSTEM.CNF in '{gamePath}'");
+                return Array.Empty<byte>();
             }
 
             var cnfBuffer = new byte[syscnfStream.Length];

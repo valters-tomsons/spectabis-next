@@ -6,9 +6,9 @@ namespace FileIntrinsics.Interfaces
 {
     public interface IIntrinsicsProvider
     {
-        Task<OffsetReading> GetSignatureOffset(string filePath, IHeaderSignature signature);
+        Task<OffsetReading?> GetSignatureOffset(string filePath, IHeaderSignature signature);
         Task<bool> SignatureFound(string filePath, IHeaderSignature signature);
-        Task<IHeaderSignature> GetFileSignature(string filePath);
+        Task<IHeaderSignature?> GetFileSignature(string filePath);
         IEnumerable<string> GetKnownExtensions();
     }
 }

@@ -43,7 +43,7 @@ namespace SpectabisService.Services
         }
 
         #pragma warning disable CS1998
-        public async Task<GameMetadata> GetNearestByTitle(string title)
+        public async Task<GameMetadata?> GetNearestByTitle(string title)
         {
             throw new NotSupportedException();
         }

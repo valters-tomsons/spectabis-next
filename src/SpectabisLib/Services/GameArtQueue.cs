@@ -99,7 +99,12 @@ namespace SpectabisLib.Services
                 Logging.WriteLine("Downloading boxart");
 
                 boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
-                await _localCache.WriteArtToCache(game.SerialNumber, boxBytes).ConfigureAwait(false);
+
+                if (boxBytes != null)
+                {
+                    Logging.WriteLine($"Saving '{game.SerialNumber}' boxart to local cache");
+                    await _localCache.WriteArtToCache(game.SerialNumber, boxBytes).ConfigureAwait(false);
+                }
             }
 
             if (boxBytes != null)

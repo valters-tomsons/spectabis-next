@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Common.Helpers;
@@ -28,36 +27,40 @@ namespace SpectabisLib.Services
             var gameSerial = await _gameParser.GetGameSerial(gameFilePath).ConfigureAwait(false);
             if(gameSerial is null)
             {
-                throw new KeyNotFoundException(gameSerial);
+                return CreateProfileFromGameFilePath(gameFilePath);
             }
 
             var metadata = await _dbProvider.GetBySerial(gameSerial).ConfigureAwait(false);
-
             if(metadata is null)
             {
-                var fileName = Path.GetFileName(gameFilePath);
+                return CreateProfileFromGameFilePath(gameFilePath);
+            }
+
+            return CreateProfileFromMetadata(gameFilePath, metadata);
+        }
+
+        private GameProfile CreateProfileFromGameFilePath(string gamePath)
+        {
+                var fileName = Path.GetFileName(gamePath);
                 Logging.WriteLine($"Could not parse '{fileName}', using file name as game title");
 
-                var title = GetNameFromPath(gameFilePath);
+                var title = Path.GetFileNameWithoutExtension(gamePath);
 
                 return new GameProfile()
                 {
-                    FilePath = gameFilePath,
+                    FilePath = gamePath,
                     Title = title
                 };
-            }
-
-            return new GameProfile()
-            {
-                SerialNumber = gameSerial,
-                FilePath = gameFilePath,
-                Title = metadata.Title
-            };
         }
 
-        private string GetNameFromPath(string path)
+        private GameProfile CreateProfileFromMetadata(string gamePath, GameMetadata metadata)
         {
-            return Path.GetFileNameWithoutExtension(path);
+            return new GameProfile()
+            {
+                FilePath = gamePath,
+                SerialNumber = metadata.Serial,
+                Title = metadata.Title
+            };
         }
     }
 }

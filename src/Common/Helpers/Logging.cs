@@ -8,9 +8,9 @@ namespace Common.Helpers
     public static class Logging
     {
         public static void WriteLine(string message,
-            [CallerFilePath] string callerPath = null)
+            [CallerFilePath] string? callerPath = null)
         {
-            var callerName = callerPath.Split(Path.DirectorySeparatorChar).Last();
+            var callerName = callerPath?.Split(Path.DirectorySeparatorChar).Last();
             Console.WriteLine($"[{callerName}] {message}");
         }
     }

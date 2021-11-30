@@ -4,6 +4,6 @@ namespace ServiceLib.Interfaces
 {
     public interface ISpectabisClient
     {
-        Task<byte[]> DownloadBoxArt(string serial);
+        Task<byte[]?> DownloadBoxArt(string serial);
     }
 }

@@ -5,7 +5,7 @@ namespace RomParsing
 {
     public interface IParser
     {
-        Task<string> ReadSerial(string filePath);
+        Task<string?> ReadSerial(string filePath);
         GameFileType FileType { get; }
     }
 }

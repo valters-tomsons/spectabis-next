@@ -8,12 +8,12 @@ namespace ServiceLib.Services
 {
     public class RestClient : IRestClient
     {
-        private HttpClient HttpClient { get; set; }
+        private HttpClient? HttpClient { get; set; }
         private static readonly object ClientSemaphore = new object();
         private const string UserAgent = "SpectabisLib/(.NET Core)";
 
-        private string _functionKey;
-        private Uri _functionBaseUrl;
+        private string? _functionKey;
+        private Uri? _functionBaseUrl;
 
         public RestClient() { }
 
@@ -24,16 +24,21 @@ namespace ServiceLib.Services
             InitializeHttpClient();
         }
 
-        public async Task<RestResponse> GetFunctionRequest(Uri endpoint, string query = null)
+        public async Task<RestResponse> GetFunctionRequest(Uri endpoint, string? query = null)
         {
             return await CommonFunctionRequest(endpoint, HttpMethod.Get, query).ConfigureAwait(false);
         }
 
-        public async Task<byte[]> GetBytesAsync(Uri source, string query = null)
+        public async Task<byte[]?> GetBytesAsync(Uri source, string? query = null)
         {
             if (HttpClient == null)
             {
                 throw new Exception("HttpClient not initialized!");
+            }
+
+            if(string.IsNullOrWhiteSpace(query))
+            {
+                return null;
             }
 
             var requestMessage = CreateFunctionMessage(HttpMethod.Get, source, query);
@@ -71,7 +76,7 @@ namespace ServiceLib.Services
             }
         }
 
-        private async Task<RestResponse> CommonFunctionRequest(Uri endpoint, HttpMethod method, string query)
+        private async Task<RestResponse> CommonFunctionRequest(Uri endpoint, HttpMethod method, string? query)
         {
             if (HttpClient == null)
             {
@@ -98,7 +103,7 @@ namespace ServiceLib.Services
             }
         }
 
-        private HttpRequestMessage CreateFunctionMessage(HttpMethod httpMethod, Uri requestUri, string query)
+        private HttpRequestMessage CreateFunctionMessage(HttpMethod httpMethod, Uri requestUri, string? query)
         {
             var uriBuilder = new UriBuilder(_functionBaseUrl)
             {
