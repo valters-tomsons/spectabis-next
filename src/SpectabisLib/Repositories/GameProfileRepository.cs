@@ -26,6 +26,7 @@ namespace SpectabisLib.Repositories
             if(profile.Id == Guid.Empty)
             {
                 profile.Id = Guid.NewGuid();
+                await _fileSystem.WriteDefaultConfiguration(profile);
             }
 
             if(Games?.Contains(profile) == false)
