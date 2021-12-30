@@ -12,6 +12,7 @@ services:
     environment:
       - AzureWebJobsStorage=UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite
       - ApiKey_GiantBomb=${ApiKey_GiantBomb}
+      - DatabaseUri_PCSX2=https://forums.pcsx2.net/data/data.csv
     ports:
       - "7071:7071"
     depends_on:
