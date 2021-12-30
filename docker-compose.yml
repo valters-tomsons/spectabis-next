@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  azurite:
+    container_name: azurite
+    image: mcr.microsoft.com/azure-storage/azurite
+    command: "azurite-blob --blobHost 0.0.0.0 --blobPort 10000"
+  spectabis-service:
+    container_name: spectabis-service
+    image: mcr.microsoft.com/azure-functions/dotnet:4-dotnet6-core-tools
+    environment:
+      - AzureWebJobsStorage=UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite
+      - ApiKey_GiantBomb=${ApiKey_GiantBomb}
+    ports:
+      - "7071"
+    volumes:
+      - ./:/src
+    depends_on:
+      - azurite
+    working_dir: /src/src/SpectabisService/
+    command: "func start --csharp"
+  spectabis-tests:
+    container_name: spectabis-tests
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    environment:
+      - IS_DOCKER=1
+    volumes:
+      - ./:/src
+    working_dir: /src
+    depends_on:
+      - spectabis-service
+    command: "dotnet test /src/Tests/Integration/ServiceTests/"
