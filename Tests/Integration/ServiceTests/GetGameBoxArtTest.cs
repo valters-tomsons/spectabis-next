@@ -4,7 +4,7 @@ using Bard.Configuration;
 using ServiceLib.Services;
 using Xunit;
 
-namespace Tests.Integration.ServiceTests
+namespace Integration.Services
 {
     public class GetGameBoxArtTest
     {
