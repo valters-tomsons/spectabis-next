@@ -16,7 +16,7 @@ namespace Integration.Services
 
         public GetGameBoxArtTest()
         {
-            var apiUrl = GetApiUrl();
+            var apiUrl = Environment.GetEnvironmentVariable("SERVICE_BASE_URL") ?? "http://spectabis-service:7071/api/";
             var apiKey = Environment.GetEnvironmentVariable("SERVICE_API_KEY");
 
             var restClient = new RestClient();
@@ -79,16 +79,6 @@ namespace Integration.Services
 
             // Assert
             Scenario.Then.Response.ShouldBe.NotFound();
-        }
-
-        private static string GetApiUrl()
-        {
-			if (Environment.GetEnvironmentVariable("IS_DOCKER") is not null)
-            {
-                return "http://spectabis-service:7071/api/";
-            }
-
-            return Environment.GetEnvironmentVariable("SERVICE_BASE_URL") ?? "http://spectabis-service:7071/api/";
         }
     }
 }
