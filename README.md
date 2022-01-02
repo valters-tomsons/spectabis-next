@@ -57,40 +57,13 @@ Currently usable and a little useful yet.
 
 ## Desktop Client Development
 
-Documentation for API Service [here](./docs/run-service-locally.md).
-
-### Pre-requisites
-
-* .NET 5.0 SDK
-
-### Run
-
-```
-cd src/SpectabisNext
-dotnet run
-```
+How to setup online service locally [here](./docs/run-service-locally.md).
 
 ### Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
-### Thanks to
-
-## Third-Party Dependencies
-
-* AutoFac
-* AvaloniaUI
-* ReactiveUI
-* Azure Functions
-* LunrCore
-* IniFileParserStandard
-* DiscUtils
-* TinyCsvParser
-* Newtonsoft.Json
-* Newtonsoft.Json.Bson
-* DiscordRichPresence
-
-## Attributions
+### Special Thanks
 
 * Graphics design by [Piksro](https://www.instagram.com/piksro/)
 * Game art delivered by [GiantBomb API](https://www.giantbomb.com/api/)

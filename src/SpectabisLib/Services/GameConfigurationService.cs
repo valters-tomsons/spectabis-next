@@ -12,6 +12,8 @@ namespace SpectabisLib.Services
 {
     public class GameConfigurationService : IGameConfigurationService
     {
+        private const string GSConfigFileName = "GS.ini";
+
         private readonly IProfileRepository _profileRepo;
         private readonly IParserProvider _iniParser;
         private readonly IProfileFileSystem _fileSystem;
@@ -28,7 +30,7 @@ namespace SpectabisLib.Services
             var profile = await _profileRepo.Get(gameId).ConfigureAwait(false);
 
             var containerUri = _fileSystem.GetProfileContainerUriByType(profile, Enums.ContainerConfigType.Inis);
-            containerUri = new Uri(containerUri, "GSdx.ini");
+            containerUri = new Uri(containerUri, GSConfigFileName);
 
             var gsConfig = _iniParser.ReadConfig<GSdxConfig>(containerUri);
             return new ProfileConfiguration() { GSdxConfig = gsConfig };
@@ -39,7 +41,7 @@ namespace SpectabisLib.Services
             var profile = await _profileRepo.Get(gameId).ConfigureAwait(false);
 
             var containerUri = _fileSystem.GetProfileContainerUriByType(profile, Enums.ContainerConfigType.Inis);
-            containerUri = new Uri(containerUri, "GSdx.ini");
+            containerUri = new Uri(containerUri, GSConfigFileName);
 
             Logging.WriteLine($"Writing `{gameId}` configuration to `{containerUri.LocalPath}`");
             await _iniParser.WriteConfig(containerUri, config).ConfigureAwait(false);
