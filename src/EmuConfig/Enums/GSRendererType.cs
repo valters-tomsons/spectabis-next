@@ -13,6 +13,8 @@ namespace EmuConfig.Enums
         OGL_HW = 12,
         OGL_SW = 13,
 
+        Vulkan = 14,
+
         DX1011_OpenCL = 15,
         OGL_OpenCL = 17,
     }
