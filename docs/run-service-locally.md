@@ -9,14 +9,16 @@
 
 ## Setting Up
 
-Create `local.settings.json` in `src/SpectabisService/` with following, make sure to replace GiantBomb API key with your own.
+Create `local.settings.json` in `src/SpectabisService/` with contents of code block below. **Make sure** to replace `<giantbomb-key>` with a valid GiantBomb API key. 
 
 ```json
 {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "ApiKey_GiantBomb": "yourkeyhere"
+    "ApiKey_GiantBomb": "<giantbomb-key>"
 }
 ```
+
+Alternatively, provide them as environment variables.
 
 ## Running
 

@@ -6,27 +6,27 @@ services:
     command: "azurite-blob --blobHost 0.0.0.0 --blobPort 10000"
   spectabis-service:
     container_name: spectabis-service
+    depends_on:
+      - azurite
     build:
       context: .
-      dockerfile: ./docker/SpectabisService/Dockerfile
+      dockerfile: .docker/SpectabisService/Dockerfile
     environment:
       - AzureWebJobsStorage=UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite
       - ApiKey_GiantBomb=${ApiKey_GiantBomb}
       - DatabaseUri_PCSX2=https://forums.pcsx2.net/data/data.csv
     ports:
       - "7071:7071"
-    depends_on:
-      - azurite
     working_dir: /out/SpectabisService
     command: func start --csharp --no-build
   spectabis-tests:
     container_name: spectabis-tests
+    depends_on:
+      - spectabis-service
     build:
       context: .
       dockerfile: ./docker/SpectabisService/Dockerfile
     environment:
       - SERVICE_BASE_URL=http://spectabis-service:7071/api/
-    depends_on:
-      - spectabis-service
     working_dir: /out/ServiceTests
     command: "dotnet test ServiceTests.dll"
