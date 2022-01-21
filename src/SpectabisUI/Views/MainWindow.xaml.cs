@@ -11,6 +11,7 @@ using SpectabisLib.Helpers;
 using SpectabisLib.Interfaces;
 using ServiceLib.Interfaces;
 using System.Diagnostics;
+using SpectabisUISpectabisUI.ViewModels;
 
 namespace SpectabisUI.Views
 {
@@ -22,6 +23,7 @@ namespace SpectabisUI.Views
         private readonly ITelemetry _telemetry;
         private readonly IFirstTimeWizardService _firstTimeWizard;
         private readonly IFileBrowserFactory _fileBrowser;
+        private readonly MainWindowViewModel _viewModel;
 
         private Rectangle Titlebar;
         private StackPanel TitlebarPanel;
@@ -29,17 +31,20 @@ namespace SpectabisUI.Views
 
         [Obsolete("XAMLIL placeholder", true)]
         public MainWindow()
-        {
-        }
+		{
+		}
 
-        public MainWindow(IConfigurationManager configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard, IFileBrowserFactory fileBrowser)
-        {
+        public MainWindow(IConfigurationManager configurationLoader, IPageNavigationProvider navigationProvider, IGameLauncher gameLauncher, ITelemetry telemetry, IFirstTimeWizardService firstTimeWizard, IFileBrowserFactory fileBrowser, MainWindowViewModel viewModel)
+		{
             _configuration = configurationLoader;
             _navigationProvider = navigationProvider;
             _gameLauncher = gameLauncher;
             _telemetry = telemetry;
             _firstTimeWizard = firstTimeWizard;
             _fileBrowser = fileBrowser;
+
+			_viewModel = viewModel;
+            DataContext = _viewModel;
 
             Closed += OnWindowClosed;
 
@@ -50,7 +55,7 @@ namespace SpectabisUI.Views
 
             InitializeSpectabis();
             SetInitialPage();
-        }
+		}
 
         private void InitializeSpectabis()
         {

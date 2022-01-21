@@ -8,15 +8,18 @@
     x:Class="SpectabisUI.Views.MainWindow"
     >
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid>
+        <Grid RowDefinitions="Auto,*">
+            <Grid Name="TitlebarContainer" Grid.Row="0">
+                <Rectangle Name="Titlebar" Height="50"/>
+                <StackPanel Name="TitlebarPanel" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0,15,0"/>
+            </Grid>
 
-        <Grid Name="TitlebarContainer" Grid.Row="0">
-            <Rectangle Name="Titlebar" Height="50"/>
-            <StackPanel Name="TitlebarPanel" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0,15,0"/>
+            <ContentControl Grid.Row="1" Name="ContentContainer" />
         </Grid>
 
-        <ContentControl Grid.Row="1" Name="ContentContainer" />
-
+        <Grid IsVisible="{Binding ModalVisible}">
+            <ContentControl Content="{Binding Dialog}"/>
+        </Grid>
     </Grid>
-
 </Window>

@@ -1,0 +1,10 @@
+<UserControl
+    x:Class="SpectabisUI.Views.ModalDialog"
+    xmlns="https://github.com/avaloniaui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+
+    <StackPanel>
+        <TextBlock Text="{Binding BodyText}"/>
+    </StackPanel>
+
+</UserControl>

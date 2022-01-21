@@ -14,6 +14,7 @@ using SpectabisUI.Events;
 using SpectabisUI.Interfaces;
 using SpectabisLib.Interfaces.Controllers;
 using Avalonia.Controls.Shapes;
+using SpectabisLibSpectabisLib.Interfaces.Services;
 
 namespace SpectabisUI.Pages
 {
@@ -33,6 +34,7 @@ namespace SpectabisUI.Pages
         private readonly IBitmapLoader _bitmapLoader;
         private readonly IGifProvider _gifProvider;
         private readonly IDirectoryScan _dirScan;
+        private readonly IModalService _modalService;
 
         private readonly List<GameProfile> LoadedProfiles = new();
 
@@ -44,11 +46,11 @@ namespace SpectabisUI.Pages
 
         [Obsolete("XAMLIL placeholder", true)]
         public GameLibrary()
-        {
-        }
+		{
+		}
 
-        public GameLibrary(GameTileFactory tileFactory, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider, IDirectoryScan dirScan, IGameLibraryController libraryController)
-        {
+        public GameLibrary(GameTileFactory tileFactory, IPageNavigationProvider navigationProvider, IContextMenuEnumMapper menuMapper, IArtServiceQueue queueService, IBitmapLoader bitmapLoader, IGifProvider gifProvider, IDirectoryScan dirScan, IGameLibraryController libraryController, IModalService modalService)
+		{
             _libraryController = libraryController;
             _navigationProvider = navigationProvider;
             _tileFactory = tileFactory;
@@ -57,6 +59,7 @@ namespace SpectabisUI.Pages
             _gifProvider = gifProvider;
             _dirScan = dirScan;
             _menuMapper = menuMapper;
+			_modalService = modalService;
 
             _navigationProvider.PageNavigationEvent += OnNavigation;
             _queueService.ItemFinished += OnGameArtDownloaded;
@@ -65,7 +68,7 @@ namespace SpectabisUI.Pages
             RegisterChildren();
 
             _dirScan.ScanNewGames();
-        }
+		}
 
         public void InitializeComponent()
         {
@@ -118,6 +121,7 @@ namespace SpectabisUI.Pages
             if (e.Page == this)
             {
                 Dispatcher.UIThread.InvokeAsync(AddNewGames);
+                _modalService.DisplayModal("hi!");
             }
         }
 

@@ -20,6 +20,8 @@ using RomParsing.Parsers;
 using RomParsing;
 using SpectabisLib.Interfaces.Abstractions;
 using System.Runtime.InteropServices;
+using SpectabisNextSpectabisNext.Services;
+using SpectabisLibSpectabisLib.Interfaces.Services;
 
 namespace SpectabisNext.ComponentConfiguration
 {
@@ -53,6 +55,7 @@ namespace SpectabisNext.ComponentConfiguration
             builder.RegisterType<LocalDatabaseProvider>().As<IGameDatabaseProvider>().SingleInstance();
             builder.RegisterType<GameArtQueue>().As<IArtServiceQueue>().SingleInstance();
             builder.RegisterType<Telemetry>().As<ITelemetry>().SingleInstance();
+            builder.RegisterType<ModalService>().As<IModalService>().SingleInstance();
 
             builder.RegisterType<FirstTimeWizardController>().As<IFirstTimeWizardService>().SingleInstance();
             builder.RegisterType<SettingsController>().As<ISettingsController>().SingleInstance();
