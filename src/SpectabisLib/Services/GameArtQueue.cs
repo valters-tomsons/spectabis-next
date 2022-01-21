@@ -97,7 +97,6 @@ namespace SpectabisLib.Services
             if(boxBytes == null)
             {
                 Logging.WriteLine("Downloading boxart");
-
                 boxBytes = await _client.DownloadBoxArt(game.SerialNumber).ConfigureAwait(false);
 
                 if (boxBytes != null)
