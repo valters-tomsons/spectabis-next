@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DiscUtils.FileSystems" Version="0.15.1-ci0009" />
+    <PackageReference Include="DiscUtils.FileSystems" Version="0.16.13" />
   </ItemGroup>
 
   <ItemGroup>
