@@ -8,7 +8,7 @@ namespace ServiceLib.Helpers
 {
     public static class ServiceCredentialsHelper
     {
-        // Parameterized
+        // Parameterized in CI
         public static readonly string ServiceApiKey = "{{SERVICE_API_KEY}}";
         public static readonly string TelemetryKey = "{{TELEMETRY_KEY}}";
         public static string ServiceBaseUrl { get; private set; } = "{{SERVICE_BASE_URL}}";
@@ -17,16 +17,16 @@ namespace ServiceLib.Helpers
 
         static ServiceCredentialsHelper()
         {
-            if(File.Exists(LocalSettings))
+            if (File.Exists(LocalSettings))
             {
                 Console.WriteLine($"Reading settings from '{LocalSettings}'");
 
                 var settingsData = File.ReadAllText(LocalSettings);
                 var settings = JsonConvert.DeserializeObject<LocalCredentials>(settingsData);
 
-                ServiceApiKey = settings.ServiceApiKey;
-                TelemetryKey = settings.TelemetryKey;
-                ServiceBaseUrl = settings.ServiceBaseUrl;
+                ServiceApiKey = settings?.ServiceApiKey ?? string.Empty;
+                TelemetryKey = settings?.TelemetryKey ?? string.Empty;
+                ServiceBaseUrl = settings?.ServiceBaseUrl ?? string.Empty;
             }
             else
             {
