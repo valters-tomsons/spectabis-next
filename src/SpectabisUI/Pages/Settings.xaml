@@ -11,7 +11,7 @@
                 <ListBox Name="DirectoryList" Margin="50,10,50,0" Grid.Row="1" Items="{Binding ScanDirectories}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="White" CornerRadius="4" Padding="4">
+                            <Border Background="Gray" CornerRadius="4" Padding="4">
                                 <TextBlock Text="{Binding}"/>
                             </Border>
                         </DataTemplate>

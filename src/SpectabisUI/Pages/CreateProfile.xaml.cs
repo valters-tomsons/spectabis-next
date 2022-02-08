@@ -122,7 +122,7 @@ namespace SpectabisUI.Pages
             }
         }
 
-        private Uri GetFileDirectory(string filePath)
+        private static Uri GetFileDirectory(string filePath)
         {
             var sb = new StringBuilder(filePath);
             var indexOfLast = filePath.LastIndexOf(Path.DirectorySeparatorChar);
