@@ -20,12 +20,12 @@ namespace SpectabisNext.Services
             };
 
             var suggestedDirectory = ResolveDirectoryFromPath(path);
-            if(suggestedDirectory != null)
+            if (suggestedDirectory != null)
             {
                 dialog.Directory = suggestedDirectory;
             }
 
-            var fileResult = await dialog.ShowAsync(new Window()).ConfigureAwait(true);
+            var fileResult = await dialog.ShowAsync(_rootWindow).ConfigureAwait(true);
             if (string.IsNullOrWhiteSpace(fileResult))
             {
                 return null;
@@ -44,7 +44,7 @@ namespace SpectabisNext.Services
             };
 
             var suggestedDirectory = ResolveDirectoryFromPath(path);
-            if(suggestedDirectory != null && Directory.Exists(suggestedDirectory))
+            if (suggestedDirectory != null && Directory.Exists(suggestedDirectory))
             {
                 dialog.Directory = suggestedDirectory;
             }
@@ -54,7 +54,7 @@ namespace SpectabisNext.Services
                 dialog.Directory = SystemDirectories.HomeFolder;
             }
 
-            if(_rootWindow is null)
+            if (_rootWindow is null)
             {
                 Logging.WriteLine("RootWindow not specified, failed to open file dialog");
                 return null;
@@ -76,17 +76,17 @@ namespace SpectabisNext.Services
 
         private static string ResolveDirectoryFromPath(string path)
         {
-            if(string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
                 return null;
             }
 
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 var fileName = Path.GetFileName(path);
                 return path.Replace(fileName, string.Empty);
             }
-            else if(Directory.Exists(path))
+            else if (Directory.Exists(path))
             {
                 return path;
             }
