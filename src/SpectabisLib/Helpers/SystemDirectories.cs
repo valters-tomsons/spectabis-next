@@ -42,7 +42,7 @@ namespace SpectabisLib.Helpers
             ConfigFolder = $"{homePath}/.config/spectabis/";
             ProfileFolder = $"{ConfigFolder}/profiles/";
             Default_PCSX2ConfigurationPath = $"{homePath}/.config/PCSX2/";
-            Default_PCSX2ExecutablePath = "/usr/bin/PCSX2";
+            Default_PCSX2ExecutablePath = "/usr/bin/pcsx2";
             GlobalConfigsFolder = $"{ConfigFolder}/global/";
 
             LocalArtCacheFolder = $"{homePath}/.cache/spectabis/boxart/";
